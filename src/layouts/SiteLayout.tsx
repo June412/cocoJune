@@ -64,7 +64,11 @@ export default function SiteLayout({ children, route }: PropsWithChildren<{ rout
             ))}
           </nav>
           {secondaryLinks.length > 0 && (
-            <nav className="secondary-nav" aria-label={t('Categories', '分类')}>
+            <nav
+              key={route.startsWith('/projects') ? 'projects' : 'gallery'}
+              className="secondary-nav"
+              aria-label={t('Categories', '分类')}
+            >
               {secondaryLinks.map((link) => (
                 <a
                   key={link.href}
@@ -100,7 +104,9 @@ export default function SiteLayout({ children, route }: PropsWithChildren<{ rout
         </div>
       </header>
       <main id="main-content" tabIndex={-1}>
-        {children}
+        <div key={route} className="page-transition">
+          {children}
+        </div>
       </main>
       <footer className="site-footer">© Junyan He</footer>
     </div>

@@ -6,6 +6,11 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   --muted: #767676;
+  --interactive: #6f6f6f;
+  --selected: #000;
+  --motion-fast: 160ms;
+  --motion-page: 220ms;
+  --motion-ease: cubic-bezier(0.2, 0.7, 0.25, 1);
 }
 *,
 *::before,
@@ -39,12 +44,11 @@ a {
 }
 a,
 button {
+  color: var(--interactive);
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
   outline-offset: 5px;
-}
-a:hover {
-  color: var(--muted);
+  transition: color var(--motion-fast) var(--motion-ease);
 }
 :focus-visible {
   outline: 1px solid #555;
@@ -113,9 +117,7 @@ img {
 }
 .main-nav a[aria-current='page'],
 .secondary-nav a[aria-current='page'] {
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 4px;
+  color: var(--selected);
 }
 .sidebar-navigation {
   display: grid;
@@ -125,9 +127,7 @@ img {
 }
 .secondary-nav {
   color: var(--muted);
-}
-.secondary-nav a[aria-current='page'] {
-  color: #242424;
+  animation: content-enter var(--motion-fast) var(--motion-ease) backwards;
 }
 .language-switch {
   display: flex;
@@ -138,10 +138,9 @@ img {
 }
 .language-switch button {
   padding: 4px 0;
-  color: var(--muted);
 }
 .language-switch button[aria-pressed='true'] {
-  color: #242424;
+  color: var(--selected);
 }
 .language-switch > span {
   color: #aaa;
@@ -155,6 +154,14 @@ img {
   min-height: 100svh;
   padding: 48px 0 80px;
   outline: none;
+}
+.page-transition {
+  width: 100%;
+  animation: content-enter var(--motion-page) var(--motion-ease) backwards;
+}
+.is-home .page-transition {
+  display: flex;
+  flex: 1;
 }
 .site-footer {
   position: fixed;
@@ -250,10 +257,6 @@ img {
   font-size: 10px;
   color: var(--muted);
   margin-top: 5px;
-}
-.project-entry:hover h3 {
-  text-decoration: underline;
-  text-underline-offset: 4px;
 }
 .back-link {
   display: inline-block;
@@ -459,6 +462,10 @@ img {
 .lightbox::backdrop {
   background: white;
 }
+.lightbox[open],
+.lightbox[open]::backdrop {
+  animation: viewer-enter var(--motion-fast) ease-out backwards;
+}
 .lightbox-close {
   position: absolute;
   right: 20px;
@@ -521,6 +528,47 @@ img {
 }
 .not-found h1 {
   margin-block: 20px;
+}
+/* Feedback changes only color: type weight and layout stay still. */
+.site-name[aria-current='page'],
+a:focus-visible,
+button:focus-visible,
+a:active,
+button:active {
+  color: var(--selected);
+}
+a:active,
+button:active {
+  transition-duration: 0s;
+}
+@media (hover: hover) and (pointer: fine) {
+  a:hover,
+  button:hover {
+    color: var(--selected);
+  }
+}
+@media (min-width: 701px) {
+  html {
+    scrollbar-gutter: stable;
+  }
+}
+@keyframes content-enter {
+  from {
+    opacity: 0.65;
+    transform: translateY(3px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes viewer-enter {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 @media (max-width: 1000px) {
   .site-sidebar {

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import SiteLayout from './layouts/SiteLayout'
 import HomePage from './pages/HomePage'
 import { ProjectPage, ProjectsPage } from './pages/WorkPages'
@@ -20,7 +20,7 @@ function initialLanguage(): Language {
 export default function App() {
   const [route, setRoute] = useState(getRoute)
   const [language, setLanguage] = useState<Language>(initialLanguage)
-  const firstRender = useRef(true)
+  const previousRoute = useRef(route)
   useEffect(() => {
     const onHashChange = () => setRoute(getRoute())
     window.addEventListener('hashchange', onHashChange)
@@ -55,11 +55,9 @@ export default function App() {
   useEffect(() => {
     document.title = pageTitle === 'cocoJune' ? 'cocoJune — Junyan He' : `${pageTitle} — cocoJune`
   }, [pageTitle])
-  useEffect(() => {
-    if (firstRender.current) {
-      firstRender.current = false
-      return
-    }
+  useLayoutEffect(() => {
+    if (previousRoute.current === route) return
+    previousRoute.current = route
     window.scrollTo({ top: 0, behavior: 'instant' })
     document.getElementById('main-content')?.focus({ preventScroll: true })
   }, [route])
