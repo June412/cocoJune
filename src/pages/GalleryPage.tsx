@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { copy, galleryItems, type GalleryItem } from '../data/content'
 import { useSite } from '../lib/SiteContext'
-import { CloseIcon, Flower } from '../components/Icons'
+import { CloseIcon } from '../components/Icons'
 
 export default function GalleryPage() {
   const { language, t } = useSite()
@@ -22,11 +22,8 @@ export default function GalleryPage() {
   return (
     <div className="wrapper page-content gallery-page">
       <div className="page-heading">
-        <h1>
-          {t('Gallery', '画廊')}
-          <em>.</em>
-        </h1>
-        <p>{t('Drawings, photographs & little observations.', '画画、拍照，和一点日常观察。')}</p>
+        <h1>{t('Gallery', '画廊')}</h1>
+        <p>{t('Drawings & photographs', '绘画与摄影')}</p>
       </div>
       {galleryItems.length ? (
         <div className="gallery-grid">
@@ -48,11 +45,7 @@ export default function GalleryPage() {
         </div>
       ) : (
         <div className="gallery-empty">
-          <div className="gallery-empty-mark">
-            <Flower />
-            <span className="handwritten-note">a small collection</span>
-          </div>
-          <p>{t('Drawings and photographs, coming soon.', '画和照片，正在慢慢整理。')}</p>
+          <p>{t('Works to be added.', '作品待整理。')}</p>
         </div>
       )}
       <dialog

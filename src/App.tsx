@@ -38,22 +38,25 @@ export default function App() {
     ? projects.find((item) => route === `/projects/${item.id}`)
     : undefined
   const pageNames: Record<string, string> = {
-    '/': 'Junyan He',
-    '/projects': 'Projects',
-    '/research': 'Research',
-    '/gallery': 'Gallery',
-    '/about': 'About',
+    '/': language === 'en' ? 'Home' : '首页',
+    '/projects': language === 'en' ? 'Works' : '项目',
+    '/research': language === 'en' ? 'Research' : '研究',
+    '/gallery': language === 'en' ? 'Gallery' : '画廊',
+    '/about': language === 'en' ? 'About' : '关于',
   }
-  const pageTitle = project?.title ?? pageNames[route] ?? 'Page not found'
+  const pageTitle =
+    project?.title ?? pageNames[route] ?? (language === 'en' ? 'Page not found' : '页面不存在')
   useEffect(() => {
     document.title = `${pageTitle} — cocoJune`
+  }, [pageTitle])
+  useEffect(() => {
     if (firstRender.current) {
       firstRender.current = false
       return
     }
     window.scrollTo({ top: 0, behavior: 'instant' })
     document.getElementById('main-content')?.focus({ preventScroll: true })
-  }, [route, pageTitle])
+  }, [route])
   let page
   if (project) page = <ProjectPage key={project.id} project={project} />
   else if (route === '/') page = <HomePage />
@@ -64,12 +67,10 @@ export default function App() {
   else
     page = (
       <div className="wrapper page-content not-found">
-        <p className="eyebrow">
-          404 / {language === 'en' ? 'A LITTLE OFF THE PATH' : '走到了另一个地方'}
-        </p>
-        <h1>{language === 'en' ? 'Nothing here, just yet.' : '这里暂时没有内容。'}</h1>
+        <p className="eyebrow">404 / {language === 'en' ? 'Page not found' : '页面不存在'}</p>
+        <h1>{language === 'en' ? 'This page does not exist.' : '此页面不存在。'}</h1>
         <a className="text-link" href="#/">
-          {language === 'en' ? 'Back to the collection' : '返回首页'} ↗
+          {language === 'en' ? 'Back to home' : '返回首页'} ↗
         </a>
       </div>
     )

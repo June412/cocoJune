@@ -15,7 +15,7 @@ export type Project = {
   number: string
   title: string
   category: 'games' | 'tools' | 'research'
-  discipline: string
+  discipline: Localized
   period: string
   ongoing: boolean
   role: Localized
@@ -32,7 +32,7 @@ export const projects: Project[] = [
     number: '01',
     title: 'TinyRoomies',
     category: 'games',
-    discipline: 'Mixed reality · Game design',
+    discipline: { en: 'Mixed reality · Game design', zh: '混合现实 · 游戏设计' },
     period: '07.2026 — Present',
     ongoing: true,
     role: { en: 'Game designer, 3D artist & developer', zh: '游戏设计 / 3D 美术 / 开发' },
@@ -66,7 +66,7 @@ export const projects: Project[] = [
     number: '02',
     title: 'Textile Toolkit',
     category: 'tools',
-    discipline: 'Technical art · Tools',
+    discipline: { en: 'Technical art · Tools', zh: '技术美术 · 工具' },
     period: '03.2026 — Present',
     ongoing: true,
     role: { en: 'Technical artist & graphics programmer', zh: '技术美术 / 图形程序开发' },
@@ -99,7 +99,7 @@ export const projects: Project[] = [
     number: '03',
     title: 'Alice',
     category: 'games',
-    discipline: 'Game design · Textile interactions',
+    discipline: { en: 'Game design · Textile interactions', zh: '游戏设计 · 织物交互' },
     period: '06.2026 — Present',
     ongoing: true,
     role: { en: 'Game designer, 3D artist & developer', zh: '游戏设计 / 3D 美术 / 开发' },
@@ -132,7 +132,7 @@ export const projects: Project[] = [
     number: '04',
     title: 'Between Sips',
     category: 'games',
-    discipline: '2D game · Hand-painted worlds',
+    discipline: { en: '2D game · Hand-painted worlds', zh: '2D 游戏 · 手绘场景' },
     period: '01.2026 — Present',
     ongoing: true,
     role: { en: 'Game designer, artist & developer', zh: '游戏设计 / 美术 / 开发' },
@@ -165,7 +165,7 @@ export const projects: Project[] = [
     number: '05',
     title: 'Perspective Freeze',
     category: 'research',
-    discipline: 'VR · Interaction research',
+    discipline: { en: 'VR · Interaction research', zh: '虚拟现实 · 交互研究' },
     period: '09.2026 — Present',
     ongoing: true,
     role: { en: 'Final-year project · Design & prototyping', zh: '毕业设计 / 交互设计与原型开发' },
@@ -202,7 +202,7 @@ export const projects: Project[] = [
     number: '06',
     title: 'Volumetric X-ray',
     category: 'tools',
-    discipline: 'Graphics · Compute shaders',
+    discipline: { en: 'Graphics · Compute shaders', zh: '图形 · 计算着色器' },
     period: '08.2026 — 10.2026',
     ongoing: false,
     role: { en: 'Graphics development', zh: '图形开发' },
@@ -236,7 +236,7 @@ export const projects: Project[] = [
     number: '07',
     title: 'HoldLight',
     category: 'research',
-    discipline: 'Accessibility · Human–computer interaction',
+    discipline: { en: 'Accessibility · Human–computer interaction', zh: '无障碍 · 人机交互' },
     period: '02.2026 — 03.2026',
     ongoing: false,
     role: { en: 'UI design & front-end development', zh: 'UI 设计 / 前端开发' },

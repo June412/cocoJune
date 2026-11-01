@@ -1,24 +1,16 @@
 import { cvUrl, email, github } from '../data/content'
 import { useSite } from '../lib/SiteContext'
-import { Flower } from '../components/Icons'
 
 export default function AboutPage() {
   const { t } = useSite()
   return (
     <div className="wrapper page-content about-page">
       <div className="page-heading">
-        <h1>
-          {t('About', '关于我')}
-          <em>.</em>
-        </h1>
+        <h1>{t('About', '关于我')}</h1>
       </div>
       <div className="about-layout">
-        <div className="about-margin" aria-hidden="true">
-          <Flower />
-          <span>hello there.</span>
-        </div>
         <div className="about-biography">
-          <h2>{t('I’m Junyan He.', '你好，我是 Junyan He。')}</h2>
+          <h2>Junyan He</h2>
           <p>
             {t(
               'I study Information and Computing Science at Xi’an Jiaotong-Liverpool University. My interests meet in game design, technical art, and interaction research.',

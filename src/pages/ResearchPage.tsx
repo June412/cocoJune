@@ -11,10 +11,7 @@ export default function ResearchPage() {
         ← {t('Work', '项目')}
       </a>
       <div className="page-heading">
-        <h1>
-          {t('Research', '研究')}
-          <em>.</em>
-        </h1>
+        <h1>{t('Research', '研究')}</h1>
       </div>
       <section className="research-experiences" aria-labelledby="experience-title">
         <div className="section-heading">
@@ -37,7 +34,7 @@ export default function ResearchPage() {
         <div className="research-row">
           <span className="eyebrow">08.2025 — 04.2026</span>
           <div>
-            <h3>Robotic Grasp Detection</h3>
+            <h3>{t('Robotic Grasp Detection', '机器人抓取检测')}</h3>
             <p>
               {t(
                 'Supported RGB data collection, experimental calibration, parameter tuning, and debugging for real-time robotic grasp detection.',

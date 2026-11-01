@@ -1,16 +1,13 @@
-import type { Project } from '../data/content'
-import ProjectArtwork from './ProjectArtwork'
+import { copy, type Project } from '../data/content'
+import { useSite } from '../lib/SiteContext'
 
 export default function ProjectCard({ project }: { project: Project }) {
+  const { language } = useSite()
   return (
-    <a className="project-card" href={`#/projects/${project.id}`}>
-      <div className="project-card-image">
-        <ProjectArtwork id={project.id} />
-      </div>
-      <div className="project-card-caption">
-        <h2>{project.title}</h2>
-        <span>{project.discipline}</span>
-      </div>
+    <a className="project-entry" href={`#/projects/${project.id}`}>
+      <h2>{project.title}</h2>
+      <span>{copy(project.discipline, language)}</span>
+      <time dateTime="2026">2026</time>
     </a>
   )
 }

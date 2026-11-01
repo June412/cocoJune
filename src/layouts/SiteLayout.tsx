@@ -1,17 +1,16 @@
 import type { PropsWithChildren } from 'react'
-import { cvUrl, email, github } from '../data/content'
 import { useSite } from '../lib/SiteContext'
 
 export default function SiteLayout({ children, route }: PropsWithChildren<{ route: string }>) {
   const { language, setLanguage, t } = useSite()
-  const isHome = route === '/'
   const links = [
-    ['/projects', t('Work', '项目')],
+    ['/', t('Home', '首页')],
+    ['/projects', t('Works', '项目')],
     ['/gallery', t('Gallery', '画廊')],
     ['/about', t('About', '关于')],
   ]
   return (
-    <div className={`site-shell${isHome ? ' is-home' : ''}`}>
+    <div className={`site-shell${route === '/' ? ' is-home' : ''}`}>
       <a
         className="skip-link"
         href="#main-content"
@@ -22,59 +21,49 @@ export default function SiteLayout({ children, route }: PropsWithChildren<{ rout
       >
         {t('Skip to content', '跳到正文')}
       </a>
-      <header className="site-header wrapper">
-        <a
-          className={isHome ? 'home-signature' : 'wordmark'}
-          href="#/"
-          aria-label={t('cocoJune — home', 'cocoJune — 首页')}
-        >
-          {isHome ? (
-            'JUNYAN HE'
-          ) : (
-            <>
-              coco<em>June</em>.
-            </>
-          )}
+      <header className="site-sidebar">
+        <a className="site-name" href="#/" aria-label={t('cocoJune — home', 'cocoJune — 首页')}>
+          cocoJune
         </a>
-        <div className="header-right">
-          {!isHome && (
-            <nav className="main-nav" aria-label={t('Main navigation', '主导航')}>
-              {links.map(([href, label]) => {
-                const active =
-                  route.startsWith(href) || (href === '/projects' && route === '/research')
-                return (
-                  <a key={href} aria-current={active ? 'page' : undefined} href={`#${href}`}>
-                    {label}
-                  </a>
-                )
-              })}
-            </nav>
-          )}
+        <nav className="main-nav" aria-label={t('Main navigation', '主导航')}>
+          {links.map(([href, label]) => {
+            const active =
+              href === '/'
+                ? route === '/'
+                : route.startsWith(href) || (href === '/projects' && route === '/research')
+            return (
+              <a key={href} href={`#${href}`} aria-current={active ? 'page' : undefined}>
+                {label}
+              </a>
+            )
+          })}
+        </nav>
+        <div className="language-switch" role="group" aria-label={t('Language', '语言')}>
           <button
-            className="language-switch"
             type="button"
-            onClick={() => setLanguage(language === 'en' ? 'zh' : 'en')}
-            aria-label={t('Switch to Chinese', 'Switch to English')}
+            lang="en"
+            aria-label="English"
+            aria-pressed={language === 'en'}
+            onClick={() => setLanguage('en')}
           >
-            {language === 'en' ? '中文' : 'EN'}
+            EN
+          </button>
+          <span aria-hidden="true">/</span>
+          <button
+            type="button"
+            lang="zh-CN"
+            aria-label="中文"
+            aria-pressed={language === 'zh'}
+            onClick={() => setLanguage('zh')}
+          >
+            中文
           </button>
         </div>
       </header>
       <main id="main-content" tabIndex={-1}>
         {children}
       </main>
-      <footer className="site-footer wrapper">
-        <span>© {new Date().getFullYear()} Junyan He</span>
-        <div>
-          <a href={`mailto:${email}`}>{t('Email', '邮箱')} ↗</a>
-          <a href={github} target="_blank" rel="noreferrer">
-            GitHub ↗
-          </a>
-          <a href={cvUrl} download="Junyan_He_CV.pdf">
-            CV ↓
-          </a>
-        </div>
-      </footer>
+      <footer className="site-footer">© {new Date().getFullYear()} Junyan He</footer>
     </div>
   )
 }

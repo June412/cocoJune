@@ -1,7 +1,6 @@
 import { copy, projects, type Project } from '../data/content'
 import { useSite } from '../lib/SiteContext'
 import ProjectCard from '../components/ProjectCard'
-import ProjectArtwork from '../components/ProjectArtwork'
 import { Arrow } from '../components/Icons'
 
 export function ProjectsPage() {
@@ -10,27 +9,17 @@ export function ProjectsPage() {
     <div className="wrapper page-content">
       <div className="page-heading collection-heading">
         <div>
-          <h1>
-            {t('Work', '项目')}
-            <em>.</em>
-          </h1>
-          <p>{t('Games, graphics & interactions.', '游戏、图形与交互。')}</p>
+          <h1>{t('Works', '项目')}</h1>
         </div>
         <a className="text-link" href="#/research">
           {t('Research & publications', '研究与论文')} ↗
         </a>
       </div>
-      <div className="projects-grid">
+      <div className="project-index">
         {projects.map((project) => (
           <ProjectCard key={project.id} project={project} />
         ))}
       </div>
-      <p className="collection-note">
-        {t(
-          'Concept covers for now. Project captures to come.',
-          '封面暂为项目概念插图，实际截图待补充。',
-        )}
-      </p>
     </div>
   )
 }
@@ -45,39 +34,27 @@ export function ProjectPage({ project }: { project: Project }) {
         ← {t('All projects', '全部项目')}
       </a>
       <div className="project-detail-heading">
-        <p className="eyebrow">{project.discipline}</p>
+        <p className="eyebrow">{copy(project.discipline, language)}</p>
         <h1>{project.title}</h1>
         <p>{copy(project.description, language)}</p>
       </div>
       <div className="project-facts">
         <div>
-          <span>{t('ROLE', '我的角色')}</span>
+          <span>{t('Role', '我的角色')}</span>
           <p>{copy(project.role, language)}</p>
         </div>
         <div>
-          <span>{t('TIMELINE', '时间')}</span>
+          <span>{t('Timeline', '时间')}</span>
           <p>{project.period.replace('Present', t('Present', '至今'))}</p>
         </div>
         <div>
-          <span>{t('STATUS', '状态')}</span>
-          <p>
-            <i className={`status-dot${project.ongoing ? '' : ' completed'}`} />
-            {project.ongoing ? t('In progress', '进行中') : t('Completed', '已完成')}
-          </p>
+          <span>{t('Status', '状态')}</span>
+          <p>{project.ongoing ? t('In progress', '进行中') : t('Completed', '已完成')}</p>
         </div>
       </div>
-      <figure className="project-detail-figure">
-        <ProjectArtwork id={project.id} />
-        <figcaption>
-          {t(
-            'Concept illustration · a visual interpretation of the project, not an in-game capture.',
-            '项目概念插图 · 对项目主题的视觉表达，并非实际运行截图。',
-          )}
-        </figcaption>
-      </figure>
       <div className="project-story">
         <aside>
-          <p className="eyebrow">{t('THE TOOLBOX', '使用工具')}</p>
+          <p className="eyebrow">{t('Tools', '工具')}</p>
           <ul className="tool-list">
             {project.tools.map((tool) => (
               <li key={tool}>{tool}</li>
@@ -115,7 +92,7 @@ export function ProjectPage({ project }: { project: Project }) {
         </div>
       </div>
       <a className="next-project" href={`#/projects/${next.id}`}>
-        <span className="eyebrow">{t('NEXT PROJECT', '下一个项目')}</span>
+        <span className="eyebrow">{t('Next project', '下一个项目')}</span>
         <span>{next.title}</span>
         <Arrow diagonal />
       </a>
