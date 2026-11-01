@@ -6,7 +6,7 @@ import ResearchPage from './pages/ResearchPage'
 import GalleryPage from './pages/GalleryPage'
 import AboutPage from './pages/AboutPage'
 import { SiteContext } from './lib/SiteContext'
-import { projects, type Language } from './data/content'
+import { copy, galleryCategories, projects, workCategories, type Language } from './data/content'
 
 const getRoute = () => window.location.hash.slice(1).replace(/\/$/, '') || '/'
 function initialLanguage(): Language {
@@ -37,17 +37,23 @@ export default function App() {
   const project = route.startsWith('/projects/')
     ? projects.find((item) => route === `/projects/${item.id}`)
     : undefined
+  const workCategory = workCategories.find((item) => route === `/projects/category/${item.id}`)
+  const galleryCategory = galleryCategories.find((item) => route === `/gallery/${item.id}`)
   const pageNames: Record<string, string> = {
-    '/': language === 'en' ? 'Home' : '首页',
+    '/': 'cocoJune',
     '/projects': language === 'en' ? 'Works' : '项目',
     '/research': language === 'en' ? 'Research' : '研究',
     '/gallery': language === 'en' ? 'Gallery' : '画廊',
     '/about': language === 'en' ? 'About' : '关于',
   }
   const pageTitle =
-    project?.title ?? pageNames[route] ?? (language === 'en' ? 'Page not found' : '页面不存在')
+    project?.title ??
+    (workCategory ? copy(workCategory.label, language) : undefined) ??
+    (galleryCategory ? copy(galleryCategory.label, language) : undefined) ??
+    pageNames[route] ??
+    (language === 'en' ? 'Page not found' : '页面不存在')
   useEffect(() => {
-    document.title = `${pageTitle} — cocoJune`
+    document.title = pageTitle === 'cocoJune' ? 'cocoJune — Junyan He' : `${pageTitle} — cocoJune`
   }, [pageTitle])
   useEffect(() => {
     if (firstRender.current) {
@@ -60,9 +66,16 @@ export default function App() {
   let page
   if (project) page = <ProjectPage key={project.id} project={project} />
   else if (route === '/') page = <HomePage />
-  else if (route === '/projects') page = <ProjectsPage />
+  else if (route === '/projects' || workCategory)
+    page = <ProjectsPage category={workCategory?.id} />
   else if (route === '/research') page = <ResearchPage />
-  else if (route === '/gallery') page = <GalleryPage />
+  else if (route === '/gallery' || galleryCategory)
+    page = (
+      <GalleryPage
+        key={galleryCategory?.id ?? 'drawings'}
+        category={galleryCategory?.id ?? 'drawings'}
+      />
+    )
   else if (route === '/about') page = <AboutPage />
   else
     page = (

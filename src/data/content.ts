@@ -2,6 +2,18 @@ export type Language = 'en' | 'zh'
 export type Localized = { en: string; zh: string }
 export const copy = (value: Localized, language: Language) => value[language]
 
+export type WorkCategory = 'games' | 'tools' | 'research'
+export const workCategories: { id: WorkCategory; label: Localized }[] = [
+  { id: 'games', label: { en: 'Games & XR', zh: '游戏与 XR' } },
+  { id: 'tools', label: { en: 'Graphics & tools', zh: '图形与工具' } },
+  { id: 'research', label: { en: 'Interaction', zh: '交互设计' } },
+]
+export type GalleryCategory = 'drawings' | 'photographs'
+export const galleryCategories: { id: GalleryCategory; label: Localized }[] = [
+  { id: 'drawings', label: { en: 'Drawings', zh: '绘画' } },
+  { id: 'photographs', label: { en: 'Photographs', zh: '摄影' } },
+]
+
 export type ProjectId =
   | 'tinyroomies'
   | 'textile-toolkit'
@@ -14,7 +26,7 @@ export type Project = {
   id: ProjectId
   number: string
   title: string
-  category: 'games' | 'tools' | 'research'
+  category: WorkCategory
   discipline: Localized
   period: string
   ongoing: boolean
@@ -304,7 +316,7 @@ export type GalleryItem = {
   src: string
   title: Localized
   alt: Localized
-  year?: string
+  category: GalleryCategory
 }
 // Add original drawings and photographs here when they are ready to publish.
 export const galleryItems: GalleryItem[] = []

@@ -1,11 +1,19 @@
 import { useEffect, useRef, useState } from 'react'
-import { copy, galleryItems, type GalleryItem } from '../data/content'
+import {
+  copy,
+  galleryCategories,
+  galleryItems,
+  type GalleryCategory,
+  type GalleryItem,
+} from '../data/content'
 import { useSite } from '../lib/SiteContext'
 import { CloseIcon } from '../components/Icons'
 
-export default function GalleryPage() {
+export default function GalleryPage({ category }: { category: GalleryCategory }) {
   const { language, t } = useSite()
   const [selected, setSelected] = useState<GalleryItem | null>(null)
+  const items = galleryItems.filter((item) => item.category === category)
+  const categoryName = copy(galleryCategories.find((item) => item.id === category)!.label, language)
   const dialog = useRef<HTMLDialogElement>(null)
   useEffect(() => {
     if (selected) dialog.current?.showModal()
@@ -23,11 +31,11 @@ export default function GalleryPage() {
     <div className="wrapper page-content gallery-page">
       <div className="page-heading">
         <h1>{t('Gallery', '画廊')}</h1>
-        <p>{t('Drawings & photographs', '绘画与摄影')}</p>
       </div>
-      {galleryItems.length ? (
+      <h2 className="category-heading">{categoryName}</h2>
+      {items.length ? (
         <div className="gallery-grid">
-          {galleryItems.map((item) => (
+          {items.map((item) => (
             <button
               className="gallery-item"
               key={item.id}
@@ -36,10 +44,7 @@ export default function GalleryPage() {
               aria-label={`${t('View', '查看')} ${copy(item.title, language)}`}
             >
               <img src={item.src} alt={copy(item.alt, language)} loading="lazy" />
-              <span>
-                {copy(item.title, language)}
-                <small>{item.year}</small>
-              </span>
+              <span>{copy(item.title, language)}</span>
             </button>
           ))}
         </div>
@@ -69,9 +74,7 @@ export default function GalleryPage() {
         {selected && (
           <figure>
             <img src={selected.src} alt={copy(selected.alt, language)} />
-            <figcaption>
-              {copy(selected.title, language)} {selected.year && <span> / {selected.year}</span>}
-            </figcaption>
+            <figcaption>{copy(selected.title, language)}</figcaption>
           </figure>
         )}
       </dialog>

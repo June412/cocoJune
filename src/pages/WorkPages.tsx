@@ -1,37 +1,42 @@
-import { copy, projects, type Project } from '../data/content'
+import { copy, projects, workCategories, type Project, type WorkCategory } from '../data/content'
 import { useSite } from '../lib/SiteContext'
 import ProjectCard from '../components/ProjectCard'
 import { Arrow } from '../components/Icons'
 
-export function ProjectsPage() {
-  const { t } = useSite()
+export function ProjectsPage({ category }: { category?: WorkCategory }) {
+  const { language, t } = useSite()
+  const groups = workCategories.filter((group) => !category || group.id === category)
   return (
     <div className="wrapper page-content">
-      <div className="page-heading collection-heading">
-        <div>
-          <h1>{t('Works', '项目')}</h1>
-        </div>
-        <a className="text-link" href="#/research">
-          {t('Research & publications', '研究与论文')} ↗
-        </a>
+      <div className="page-heading">
+        <h1>{t('Works', '项目')}</h1>
       </div>
-      <div className="project-index">
-        {projects.map((project) => (
-          <ProjectCard key={project.id} project={project} />
-        ))}
-      </div>
+      {groups.map((group) => (
+        <section className="work-group" key={group.id} aria-labelledby={`category-${group.id}`}>
+          <h2 className="category-heading" id={`category-${group.id}`}>
+            {copy(group.label, language)}
+          </h2>
+          <div className="project-index">
+            {projects
+              .filter((project) => project.category === group.id)
+              .map((project) => (
+                <ProjectCard key={project.id} project={project} />
+              ))}
+          </div>
+        </section>
+      ))}
     </div>
   )
 }
 
 export function ProjectPage({ project }: { project: Project }) {
   const { language, t } = useSite()
-  const next =
-    projects[(projects.findIndex((item) => item.id === project.id) + 1) % projects.length]
+  const related = projects.filter((item) => item.category === project.category)
+  const next = related[(related.findIndex((item) => item.id === project.id) + 1) % related.length]
   return (
     <article className="wrapper page-content project-detail">
-      <a className="back-link" href="#/projects">
-        ← {t('All projects', '全部项目')}
+      <a className="back-link" href={`#/projects/category/${project.category}`}>
+        ← {copy(workCategories.find((group) => group.id === project.category)!.label, language)}
       </a>
       <div className="project-detail-heading">
         <p className="eyebrow">{copy(project.discipline, language)}</p>
