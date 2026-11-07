@@ -8,12 +8,13 @@ export function ProjectsPage({ category }: { category?: WorkCategory }) {
   const groups = workCategories.filter((group) => !category || group.id === category)
   return (
     <div className="wrapper page-content">
-      <div className="page-heading">
-        <h1>{t('Works', '项目')}</h1>
-      </div>
+      <h1 className="visually-hidden">{t('Works', '项目')}</h1>
       {groups.map((group) => (
         <section className="work-group" key={group.id} aria-labelledby={`category-${group.id}`}>
-          <h2 className="category-heading" id={`category-${group.id}`}>
+          <h2
+            className={category ? 'visually-hidden' : 'category-heading'}
+            id={`category-${group.id}`}
+          >
             {copy(group.label, language)}
           </h2>
           <div className="project-index">

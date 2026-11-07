@@ -29,10 +29,9 @@ export default function GalleryPage({ category }: { category: GalleryCategory })
   }, [selected])
   return (
     <div className="wrapper page-content gallery-page">
-      <div className="page-heading">
-        <h1>{t('Gallery', '画廊')}</h1>
-      </div>
-      <h2 className="category-heading">{categoryName}</h2>
+      <h1 className="visually-hidden">
+        {t('Gallery', '画廊')} / {categoryName}
+      </h1>
       {items.length ? (
         <div className="gallery-grid">
           {items.map((item) => (

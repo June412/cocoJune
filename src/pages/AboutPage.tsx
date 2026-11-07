@@ -5,9 +5,7 @@ export default function AboutPage() {
   const { t } = useSite()
   return (
     <div className="wrapper page-content about-page">
-      <div className="page-heading">
-        <h1>{t('About', '关于我')}</h1>
-      </div>
+      <h1 className="visually-hidden">{t('About', '关于我')}</h1>
       <div className="about-layout">
         <div className="about-biography">
           <h2>Junyan He</h2>

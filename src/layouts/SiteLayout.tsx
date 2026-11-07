@@ -42,16 +42,19 @@ export default function SiteLayout({ children, route }: PropsWithChildren<{ rout
       >
         {t('Skip to content', '跳到正文')}
       </a>
-      <header className="site-sidebar">
+      <header className="site-header">
         <a
           className="site-name"
           href="#/"
           aria-current={route === '/' ? 'page' : undefined}
           aria-label={t('cocoJune — home', 'cocoJune — 首页')}
         >
-          cocoJune
+          <span className="wordmark" aria-hidden="true">
+            <span>coco</span>
+            <span>June</span>
+          </span>
         </a>
-        <div className="sidebar-navigation">
+        <div className="header-navigation">
           <nav className="main-nav" aria-label={t('Main navigation', '主导航')}>
             {links.map(([href, label]) => (
               <a
@@ -63,23 +66,25 @@ export default function SiteLayout({ children, route }: PropsWithChildren<{ rout
               </a>
             ))}
           </nav>
-          {secondaryLinks.length > 0 && (
-            <nav
-              key={route.startsWith('/projects') ? 'projects' : 'gallery'}
-              className="secondary-nav"
-              aria-label={t('Categories', '分类')}
-            >
-              {secondaryLinks.map((link) => (
-                <a
-                  key={link.href}
-                  href={`#${link.href}`}
-                  aria-current={link.active ? 'page' : undefined}
-                >
-                  {link.label}
-                </a>
-              ))}
-            </nav>
-          )}
+          <div className="category-nav-slot">
+            {secondaryLinks.length > 0 && (
+              <nav
+                key={route.startsWith('/projects') ? 'projects' : 'gallery'}
+                className={`secondary-nav${route.startsWith('/projects') ? ' secondary-nav--works' : ''}`}
+                aria-label={t('Categories', '分类')}
+              >
+                {secondaryLinks.map((link) => (
+                  <a
+                    key={link.href}
+                    href={`#${link.href}`}
+                    aria-current={link.active ? 'page' : undefined}
+                  >
+                    {link.label}
+                  </a>
+                ))}
+              </nav>
+            )}
+          </div>
         </div>
         <div className="language-switch" role="group" aria-label={t('Language', '语言')}>
           <button

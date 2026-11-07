@@ -7,9 +7,7 @@ export default function ResearchPage() {
   const { language, t } = useSite()
   return (
     <div className="wrapper page-content">
-      <div className="page-heading">
-        <h1>{t('Research', '研究')}</h1>
-      </div>
+      <h1 className="visually-hidden">{t('Research', '研究')}</h1>
       <section className="research-experiences" aria-labelledby="experience-title">
         <div className="section-heading">
           <h2 id="experience-title">{t('Research experience', '研究经历')}</h2>
