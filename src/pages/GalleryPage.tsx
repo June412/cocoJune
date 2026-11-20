@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import {
   copy,
   galleryCategories,
@@ -13,7 +13,19 @@ import { assetUrl } from '../data/projectVisuals'
 export default function GalleryPage({ category }: { category: GalleryCategory }) {
   const { language, t } = useSite()
   const [selected, setSelected] = useState<GalleryItem | null>(null)
-  const items = category === 'all' ? galleryItems : galleryItems.filter((item) => item.category === category)
+  const mixedItems = useMemo(() => {
+    const items = [...galleryItems]
+    let seed = 20261120
+    for (let index = items.length - 1; index > 0; index -= 1) {
+      seed = (seed * 1664525 + 1013904223) >>> 0
+      const target = seed % (index + 1)
+      const current = items[index]
+      items[index] = items[target]
+      items[target] = current
+    }
+    return items
+  }, [])
+  const items = category === 'all' ? mixedItems : galleryItems.filter((item) => item.category === category)
   const categoryName = copy(galleryCategories.find((item) => item.id === category)!.label, language)
   const dialog = useRef<HTMLDialogElement>(null)
   useEffect(() => {
