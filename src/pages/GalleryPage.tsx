@@ -8,6 +8,7 @@ import {
 } from '../data/content'
 import { useSite } from '../lib/SiteContext'
 import { CloseIcon } from '../components/Icons'
+import { assetUrl } from '../data/projectVisuals'
 
 export default function GalleryPage({ category }: { category: GalleryCategory }) {
   const { language, t } = useSite()
@@ -33,17 +34,16 @@ export default function GalleryPage({ category }: { category: GalleryCategory })
         {t('Gallery', '画廊')} / {categoryName}
       </h1>
       {items.length ? (
-        <div className="gallery-grid">
+        <div className={`gallery-grid gallery-grid--${category}`}>
           {items.map((item) => (
             <button
-              className="gallery-item"
+              className={`gallery-item gallery-item--${item.layout}`}
               key={item.id}
               type="button"
               onClick={() => setSelected(item)}
               aria-label={`${t('View', '查看')} ${copy(item.title, language)}`}
             >
-              <img src={item.src} alt={copy(item.alt, language)} loading="lazy" />
-              <span>{copy(item.title, language)}</span>
+              <img src={assetUrl(item.src)} alt={copy(item.alt, language)} loading="lazy" decoding="async" />
             </button>
           ))}
         </div>
@@ -72,7 +72,7 @@ export default function GalleryPage({ category }: { category: GalleryCategory })
         </button>
         {selected && (
           <figure>
-            <img src={selected.src} alt={copy(selected.alt, language)} />
+            <img src={assetUrl(selected.src)} alt={copy(selected.alt, language)} />
             <figcaption>{copy(selected.title, language)}</figcaption>
           </figure>
         )}

@@ -1,0 +1,16 @@
+{
+  "created": "2026-11-09",
+  "mode": "built-in image_gen",
+  "transparent_background": true,
+  "assets": [
+    {
+      "id": "alice",
+      "source": "/Users/hejunyan/.codex/generated_images/01a1b3e3-4a22-7c61-bd78-4f83ea6f9437/exec-497040d7-5505-40e7-899b-1cc189a1920e.png",
+      "file": "public/illustrations/alice-line-v5.png",
+      "prompt": "Use case: precise-object-edit.\nEdit the attached exact minimal line drawing. The user LIKES its simplified design and wants ONLY the incorrect head/body orientation fixed. Preserve the same doll identity, simple hair silhouette, simple bow, two ears, button X eye, missing-eye diamond and two short stitches, plain trapezoid dress with a U apron line, rounded arms and feet, and tiny needle/thread spool. Do not add a single decorative detail.\nTHE CORRECTION: currently the face is upright relative to the canvas while the torso sticks out sideways from her head, as though her neck is twisted 90 degrees. Fix that anatomy. The torso must attach directly BELOW HER CHIN in her own local body orientation, aligned with the central axis of the head. Neck, chin, torso and feet belong on ONE coherent straight centerline. Head and face, ears, bow, apron and body must share the same rotation. No sideways body attached beside her cheek.\nPOSE: first imagine this doll anatomically aligned with the head above the torso and feet directly below the skirt. Then tilt that ENTIRE doll together as one object, so the HEAD is toward the UPPER LEFT and the FEET toward the LOWER RIGHT, on a roughly 40-degree diagonal from upright. Rotate her face and features together with her body, not independently. Show her lying quietly flat on her back seen from above: loose soft arms alongside torso, relaxed short feet, hair softly resting around head. No raised head, sitting, standing, bending at waist or broken neck. The diagonal is a whole-body tilt and conveys a softly laid-down rag doll.\nKeep the same exaggerated large head and tiny body proportions. No extra hair strands, curls, cuffs, seams, ruffles, cheek circles, mouth or ornate detailing. Tiny spool and needle rest separately beside her lower body, unheld, with only one winding line. Compact complete uncropped silhouette centered with about 8–10% padding on a square canvas.\nPreserve single peacock-green #086B68 rounded mildly wobbly medium-bold felt-tip strokes, clean transparent negative space, and flat unfilled interiors. No shading, texture clouds, cast shadows, furniture, pillow, background, text, watermark or new objects. TRUE transparent RGBA background. Keep the existing very simple icon style exactly, readable at 104 pixels.",
+      "references": [
+        "/Users/hejunyan/个人网站/public/illustrations/alice-line-v4.png"
+      ]
+    }
+  ]
+}

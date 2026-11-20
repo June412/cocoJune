@@ -1,3 +1,5 @@
+import { galleryItems } from './drawingGallery'
+
 export type Language = 'en' | 'zh'
 export type Localized = { en: string; zh: string }
 export const copy = (value: Localized, language: Language) => value[language]
@@ -8,10 +10,11 @@ export const workCategories: { id: WorkCategory; label: Localized }[] = [
   { id: 'tools', label: { en: 'Graphics & tools', zh: '图形与工具' } },
   { id: 'research', label: { en: 'Interaction', zh: '交互设计' } },
 ]
-export type GalleryCategory = 'drawings' | 'photographs'
+export type GalleryCategory = 'character-design' | 'illustrations' | 'on-paper'
 export const galleryCategories: { id: GalleryCategory; label: Localized }[] = [
-  { id: 'drawings', label: { en: 'Drawings', zh: '绘画' } },
-  { id: 'photographs', label: { en: 'Photographs', zh: '摄影' } },
+  { id: 'character-design', label: { en: 'Character design', zh: '角色设计' } },
+  { id: 'illustrations', label: { en: 'Illustrations', zh: '插画' } },
+  { id: 'on-paper', label: { en: 'On paper', zh: '手绘' } },
 ]
 
 export type ProjectId =
@@ -317,9 +320,9 @@ export type GalleryItem = {
   title: Localized
   alt: Localized
   category: GalleryCategory
+  layout: 'compact' | 'regular' | 'large' | 'featured'
 }
-// Add original drawings and photographs here when they are ready to publish.
-export const galleryItems: GalleryItem[] = []
+export { galleryItems }
 export const email = 'Junyan.He23@student.xjtlu.edu.cn'
 export const github = 'https://github.com/June412'
 export const cvUrl = `${import.meta.env.BASE_URL}Junyan_He_CV.pdf`

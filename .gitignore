@@ -1,5 +1,6 @@
 node_modules/
 dist/
+Junyan-He.html
 *.local
 .env
 .env.*

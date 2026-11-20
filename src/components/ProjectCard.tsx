@@ -1,12 +1,21 @@
 import { copy, type Project } from '../data/content'
+import { projectVisuals } from '../data/projectVisuals'
 import { useSite } from '../lib/SiteContext'
+import ProjectIllustration from './ProjectIllustration'
+import ProjectPreview from './ProjectPreview'
 
 export default function ProjectCard({ project }: { project: Project }) {
-  const { language } = useSite()
+  const { language, t } = useSite()
+  const link = projectVisuals[project.id].link
   return (
-    <a className="project-entry" href={`#/projects/${project.id}`}>
-      <h3>{project.title}</h3>
-      <span>{copy(project.discipline, language)}</span>
-    </a>
+    <article className="project-entry" aria-labelledby={`project-${project.id}`}>
+      <ProjectPreview id={project.id} title={project.title} />
+      <div className="project-caption">
+        <h3 id={`project-${project.id}`} lang="en">{project.title}</h3>
+        {link ? <a className="project-action" href={link.href} target="_blank" rel="noreferrer">{copy(link.label, language)}</a> :
+          <span className="project-action project-action-pending">{t('Link coming soon', '项目链接待补充')}</span>}
+      </div>
+      <ProjectIllustration id={project.id} />
+    </article>
   )
 }

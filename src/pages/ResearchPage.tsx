@@ -13,7 +13,7 @@ export default function ResearchPage() {
           <h2 id="experience-title">{t('Research experience', '研究经历')}</h2>
         </div>
         {[projects[4], projects[6]].map((project) => (
-          <a key={project.id} href={`#/projects/${project.id}`} className="research-row">
+          <a key={project.id} href={`#/projects/category/${project.category}`} className="research-row">
             <span className="eyebrow">
               {project.period.replace('Present', t('Present', '至今'))}
             </span>

@@ -1,0 +1,35 @@
+{
+  "created": "2026-11-15",
+  "mode": "built-in image_gen",
+  "assets": [
+    {
+      "id": "knit-border-red",
+      "file": "public/borders/knit-border-red-v1.png",
+      "transparent_background": true,
+      "description": "A warm tomato-red hand-sewn running-stitch frame with an empty transparent center."
+    },
+    {
+      "id": "knit-border-blue",
+      "file": "public/borders/knit-border-blue-v1.png",
+      "transparent_background": true,
+      "description": "A cobalt-blue hand-sewn frame with doubled crossing stitches and uneven loops."
+    },
+    {
+      "id": "knit-border-yellow",
+      "file": "public/borders/knit-border-yellow-v1.png",
+      "transparent_background": true,
+      "description": "A mustard-yellow hand-sewn blanket-stitch frame with short diagonal stitches."
+    },
+    {
+      "id": "wrinkled-linen",
+      "file": "public/textures/wrinkled-linen-v1.png",
+      "transparent_background": false,
+      "description": "A low-contrast pale cream linen cloth texture with broad soft wrinkles and subtle woven grain."
+    }
+  ],
+  "style_reference": "public/illustrations/alice-line-v7.png",
+  "constraints": [
+    "Keep the borders simple and handmade, with transparent centers and no text or watermark.",
+    "Keep the linen texture pale and quiet enough for peacock-green typography to remain readable."
+  ]
+}

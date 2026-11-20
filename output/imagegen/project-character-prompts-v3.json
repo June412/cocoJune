@@ -1,0 +1,26 @@
+{
+  "created": "2026-11-08",
+  "mode": "built-in image_gen",
+  "transparent_background": true,
+  "revision": "Alice lying still and Between Sips tea only",
+  "assets": [
+    {
+      "id": "alice",
+      "prompt": "Use case: precise-object-edit. Input image 1 is the existing illustration to edit. Preserve its very simple, charming indie-game hand-drawn line style and character/object identity. Same mildly wobbly rounded felt-tip brush, consistent medium-bold strokes with subtle rough edges, single peacock green ink #086B68. Outline only, transparent unfilled interiors, no shading, no gradients, no hatching or colored fills. TRUE transparent RGBA background, no cream/paper background, no shadow, no ground line, text or watermark. One standalone illustration, full uncropped silhouette, square canvas with about 10% padding, legible at 104px.\nCHANGE: The user now wants the doll lying still and resting, NOT sewing or doing anything. Redraw the SAME damaged cloth girl doll gently lying on her back in a relaxed horizontal pose, her head to the LEFT and her feet to the RIGHT; show the whole doll from a slightly overhead angle so her face, bow, dress and all limbs remain recognizable. Body supported by an implied surface with no surface drawn. Her head, body, arms and legs all rest at the same level: do not leave her sitting upright or standing. Arms lie loosely beside her, legs loosely extended. Preserve oversized softly square head, bunny headband with one upright-shaped and one bent-shaped ear (now resting with the head), large bow, simple wavy yarn hair, one four-hole button eye and one missing-button ragged fabric hole, small apron and short dress. Keep fabric damage non-gory. Beside her lower body place ONE small thread spool with a short loose thread and ONE small needle lying beside it. She holds neither tool; no sewing gesture, no motion lines, no smile added. Calm, still, slightly floppy rag-doll feeling. No capybara, cup, other characters, furniture or scenery.",
+      "references": [
+        "/Users/hejunyan/个人网站/public/illustrations/alice-line-v2.png"
+      ],
+      "source": "/Users/hejunyan/.codex/generated_images/01a1b3e3-4a22-7c61-bd78-4f83ea6f9437/exec-b66f00bf-1906-4c7a-8d05-343d647c969a.png",
+      "file": "public/illustrations/alice-line-v3.png"
+    },
+    {
+      "id": "between-sips",
+      "prompt": "Use case: precise-object-edit. Input image 1 is the existing illustration to edit. Preserve its very simple, charming indie-game hand-drawn line style and character/object identity. Same mildly wobbly rounded felt-tip brush, consistent medium-bold strokes with subtle rough edges, single peacock green ink #086B68. Outline only, transparent unfilled interiors, no shading, no gradients, no hatching or colored fills. TRUE transparent RGBA background, no cream/paper background, no shadow, no ground line, text or watermark. One standalone illustration, full uncropped silhouette, square canvas with about 10% padding, legible at 104px.\nCHANGE: Keep ONLY the tea cup from the existing illustration. Completely remove the capybara, orange, clothing, limbs, face and all character features. Enlarge and center the one large simple teacup: broad gently rounded bowl, elliptical opening showing the tea surface as an unfilled simple contour, one rounded handle on the LEFT, tiny curved foot/base. Two spare gently curved steam wisps rising above. A warm inviting cup of tea with very few lines; no personified face or eyes, no animal, no orange or fruit, no saucer, spoon, teabag, tabletop or extra props. Cup centered and occupying about 70% of the canvas; handle and steam completely visible.",
+      "references": [
+        "/Users/hejunyan/个人网站/public/illustrations/between-sips-line-v2.png"
+      ],
+      "source": "/Users/hejunyan/.codex/generated_images/01a1b3e3-4a22-7c61-bd78-4f83ea6f9437/exec-a76d6d51-df60-4c51-b8fa-a626fb3b9293.png",
+      "file": "public/illustrations/between-sips-line-v3.png"
+    }
+  ]
+}

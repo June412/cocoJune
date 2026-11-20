@@ -1,0 +1,35 @@
+{
+  "created": "2026-11-14",
+  "mode": "built-in image_gen",
+  "transparent_background": true,
+  "assets": [
+    {
+      "id": "alice",
+      "file": "public/illustrations/alice-line-v6.png",
+      "references": [
+        "/Users/hejunyan/个人网站/public/illustrations/alice-line-v5.png"
+      ],
+      "prompt": "Use case: precise-object-edit.\nAsset: tiny transparent portfolio character illustration.\nInput image 1 is the exact edit target. Preserve its extremely simple design and the same sparse, rounded, gently hand-wobbled peacock-green #086B68 outline.\nChange ONLY the doll's posture and viewpoint: she must unmistakably be LYING FLAT ON HER BACK, reclining away from the viewer on an invisible horizontal surface, with gentle perspective foreshortening. The current image looks like an upright doll merely tipped sideways. Redraw the pose in a low three-quarter overhead view, so the doll's long axis lies mostly across the picture: head at upper left, little feet at lower right, roughly 20–25 degrees below the horizontal. Her head, neck, torso and feet must remain anatomically aligned along that SAME axis, no twisted neck or head facing a different direction. Face and apron tilt backward into the same horizontal plane, the far side of the head is slightly compressed, the near rounded feet show a tiny suggestion of their end/sole. The back of her head rests down, arms lie loosely outward beside the torso; bunny ears flop/rest backward. She is quiet and limp like a small rag doll laid on a table, not standing, seated, airborne or propped on elbows. Do not draw the table.\nKeep the giant rounded-square head, just two smooth outer hair lobes and one curved fringe, two bunny ears, tiny simple bow, one circle-with-X button eye, one solid tiny diamond missing eye with two short stitches, plain trapezoid dress with one U-shaped apron line, rounded short arms and two rounded feet. No additional details, facial expression, fingers, hair strands, ruffles, cuffs or seams. Same tiny needle and thread spool resting separately beside the lower body, reduced to just a few lines.\nWhole figure complete and uncropped, centered, fills about 82% of square canvas width, comfortable clear margins. Single-color ink, flat unfilled interiors, true transparent RGBA background including inside outline areas. No shading, shadows, ground, color fills, texture, background, text or watermark. Preserve very simple icon legibility at 104px.",
+      "source": "/Users/hejunyan/.codex/generated_images/01a1b3e3-4a22-7c61-bd78-4f83ea6f9437/exec-373282e4-e4ab-4aeb-82b5-ea5a984c3f7b.png"
+    },
+    {
+      "id": "textile-toolkit",
+      "file": "public/illustrations/textile-toolkit-line-v3.png",
+      "references": [
+        "/var/folders/s5/9847bgw14xs_k_w9jpj2ccj40000gn/T/TemporaryItems/NSIRD_screencaptureui_M0gFly/截屏2026-11-14 00.48.06.png",
+        "/Users/hejunyan/个人网站/public/illustrations/alice-line-v5.png"
+      ],
+      "prompt": "Use case: style-transfer.\nCreate ONE minimal hand-drawn HEDGEHOG PINCUSHION character for a small portfolio icon. Image 1 is SUBJECT reference only: use the recognizable plump fabric pincushion hedgehog with a smooth dome back, long gently pointed snout, tiny round nose, tiny bead eyes and soft little ears, with sewing pins sticking out of its back. Image 2 is STYLE reference only: match its extremely simple, medium-bold, slightly wobbly rounded peacock-green #086B68 outline and sparse shapes. Do not depict the doll.\nDraw a side/very slight three-quarter view facing LEFT. One large smooth rounded dome for the body, one pointed soft snout, a dot nose and a dot eye, one small curved ear, a simple curved division between the face and dome. Just FIVE well-spaced straight sewing pins with tiny round ball heads stick outward from the back in different directions, clearly readable and not a dense cluster. No natural spines or zigzag fur. Two tiny rounded feet in a gentle stepping pose give it a quietly alive, inquisitive feeling.\nOnly essential contour lines, no stitches, fabric texture, shading, whiskers, extra decorations, labels, scenery or other sewing supplies. Single peacock-green ink, unfilled interiors, TRUE transparent RGBA background throughout. Match line thickness and informal pen feel of image 2. Complete uncropped silhouette centered with 8–10% padding, filling about 82% of a square canvas width. Must remain immediately recognizable at 104px.",
+      "source": "/Users/hejunyan/.codex/generated_images/01a1b3e3-4a22-7c61-bd78-4f83ea6f9437/exec-1742f6eb-6688-4180-a4c7-d52e29dfef52.png"
+    },
+    {
+      "id": "holdlight",
+      "file": "public/illustrations/holdlight-line-v2.png",
+      "references": [
+        "/Users/hejunyan/个人网站/public/illustrations/holdlight-line-v1.png"
+      ],
+      "prompt": "Use case: precise-object-edit.\nImage 1 is the exact edit target. Preserve this little climber's identity, short pointy bob haircut, face, T-shirt, shorts, socks, climbing shoes, reaching arms and bent-leg climbing pose, and preserve the SAME simple peacock-green #086B68 rounded hand-drawn strokes. User likes the character as it is.\nMake ONLY these additions: a single thin slightly hand-drawn VERTICAL LINE just to the LEFT of the climber represents the side edge of a climbing wall; extend it from a little above the upper hand to a little below the lower foot. Add FOUR small irregular rounded climbing holds aligned with her hands and feet: her raised hand grips the top hold, lower hand grips another, bent-leg shoe presses a middle foothold and the lower shoe rests on the low foothold. Put the holds at/just beside that line so the physical climbing action is clear. Show simple overlaps at hand/hold and shoe/hold contact; the wall line should not cross the character. Draw no other wall plane, floor, route arrows, rope, extra text or details. The holds are simple unfilled outlines, not realistic rocks.\nKeep the climber large and centered with this wall line as one compact complete illustration, character fills about 86% of square canvas height with small clear margins; do not miniaturize the person to make room for a large wall. Single-color green line art only, preserve original line weight, no shading, texture, color fills or background. TRUE transparent RGBA background, including figure interiors. No text, watermark, cropped feet or cropped wall line.",
+      "source": "/Users/hejunyan/.codex/generated_images/01a1b3e3-4a22-7c61-bd78-4f83ea6f9437/exec-a3ca7803-e15e-4338-9bbf-aecde51b504f.png"
+    }
+  ]
+}

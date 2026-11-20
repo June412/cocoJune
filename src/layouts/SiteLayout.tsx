@@ -1,5 +1,5 @@
 import type { PropsWithChildren } from 'react'
-import { copy, galleryCategories, projects, workCategories } from '../data/content'
+import { copy, galleryCategories, workCategories } from '../data/content'
 import { useSite } from '../lib/SiteContext'
 
 export default function SiteLayout({ children, route }: PropsWithChildren<{ route: string }>) {
@@ -8,17 +8,14 @@ export default function SiteLayout({ children, route }: PropsWithChildren<{ rout
     ['/projects', t('Works', '项目')],
     ['/gallery', t('Gallery', '画廊')],
     ['/research', t('Research', '研究')],
-    ['/about', t('About', '关于')],
   ]
-  const project = projects.find((item) => route === `/projects/${item.id}`)
   const secondaryLinks = route.startsWith('/projects')
     ? [
         { href: '/projects', label: t('All works', '全部项目'), active: route === '/projects' },
         ...workCategories.map((category) => ({
           href: `/projects/category/${category.id}`,
           label: copy(category.label, language),
-          active:
-            route === `/projects/category/${category.id}` || project?.category === category.id,
+          active: route === `/projects/category/${category.id}`,
         })),
       ]
     : route.startsWith('/gallery')
@@ -27,11 +24,11 @@ export default function SiteLayout({ children, route }: PropsWithChildren<{ rout
           label: copy(category.label, language),
           active:
             route === `/gallery/${category.id}` ||
-            (route === '/gallery' && category.id === 'drawings'),
+            (route === '/gallery' && category.id === 'character-design'),
         }))
       : []
   return (
-    <div className={`site-shell${route === '/' ? ' is-home' : ''}`}>
+    <div className={`site-shell${route === '/' ? ' is-home' : ''}${route.startsWith('/projects') ? ' is-work' : ''}`}>
       <a
         className="skip-link"
         href="#main-content"
@@ -47,12 +44,9 @@ export default function SiteLayout({ children, route }: PropsWithChildren<{ rout
           className="site-name"
           href="#/"
           aria-current={route === '/' ? 'page' : undefined}
-          aria-label={t('cocoJune — home', 'cocoJune — 首页')}
+          aria-label={t('Junyan He — home', 'Junyan He — 首页')}
         >
-          <span className="wordmark" aria-hidden="true">
-            <span>coco</span>
-            <span>June</span>
-          </span>
+          <span className="wordmark" aria-hidden="true" lang="en">JUNYAN HE</span>
         </a>
         <div className="header-navigation">
           <nav className="main-nav" aria-label={t('Main navigation', '主导航')}>
@@ -108,12 +102,19 @@ export default function SiteLayout({ children, route }: PropsWithChildren<{ rout
           </button>
         </div>
       </header>
-      <main id="main-content" tabIndex={-1}>
+      <main id="main-content" className={route.startsWith('/gallery') ? 'gallery-main' : undefined} tabIndex={-1}>
         <div key={route} className="page-transition">
           {children}
         </div>
       </main>
-      <footer className="site-footer">© Junyan He</footer>
+      <footer className="site-footer">
+        <span>© Junyan He</span>
+        <span className="font-credit">
+          <a href="https://www.dafont.com/cardenio-modern.font" target="_blank" rel="noreferrer">Cardenio Modern by Nils Cordes</a>
+          {' · '}
+          <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noreferrer">CC BY-SA 4.0</a>
+        </span>
+      </footer>
     </div>
   )
 }

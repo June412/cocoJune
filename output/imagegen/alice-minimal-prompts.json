@@ -1,0 +1,17 @@
+{
+  "created": "2026-11-09",
+  "mode": "built-in image_gen",
+  "transparent_background": true,
+  "assets": [
+    {
+      "id": "alice",
+      "source": "/Users/hejunyan/.codex/generated_images/01a1b3e3-4a22-7c61-bd78-4f83ea6f9437/exec-bcfe9675-2a60-4c2f-a809-72229d9b8a65.png",
+      "file": "public/illustrations/alice-line-v4.png",
+      "prompt": "Use case: style-transfer.\nCreate ONE extremely simple hand-drawn outline icon of the cloth GIRL doll from image 1, as a new simplified portfolio illustration. The previous illustration was rejected for being too intricate: the highest priority is drastic reduction of lines and detail, a quick childlike doodle readable at 80 pixels.\nInput image 1 is ONLY the doll identity reference, not its 3D material or shading. Image 2 is ONLY the desired simple charming ink brushwork reference, not a subject to draw.\nPOSE: the doll lies quietly on her back, whole body almost horizontal, head to the LEFT and feet to the RIGHT, seen from a gentle overhead angle. Loose resting arms and simple relaxed legs. Not standing or sitting or sewing. Do not merely rotate a rigid standing doll.\nESSENTIAL SHAPES ONLY:\n- One very large rounded-square face.\n- Two simple bunny ears above the head, one straight and one bent; single outline each, NO inner ear lines.\n- One small simple bow beside the ears, made of two plain lobes and a center; NO ribbon tails, folds or decoration.\n- Hair as ONE smooth outer hood-like silhouette ending in two broad rounded lobes beside the face, plus ONE simple shallow bang curve. Absolutely NO curls, waves, separate strands, braid detail or parallel inner hair outlines.\n- One eye is a simple outlined button circle with a single X inside. The other eye is a tiny irregular diamond-shaped missing-button hole. Only two tiny short stitch marks beside the missing eye. NO cheeks, mouth, eyelashes, additional facial decorations or circular cheek marks.\n- A plain short trapezoid dress with a STRAIGHT hem and only ONE U-shaped line to indicate the apron. NO ruffles, scallops, layered skirts, collar, neckline details, folds, double borders, cuffs, socks or shoe divisions.\n- Two tiny soft mitten-like arms and two stubby rounded feet; no finger detail or limb seams.\n- At the lower right, only one TINY spool outline with ONE winding stroke and one short thread ending at a simple needle stroke. These props are very secondary; no realistic sewing detail.\nKeep the illustration astonishingly spare, with big clear empty shapes and roughly 18-24 simple strokes overall. No tiny ornate details. The visual impression must be a simple floppy cloth toy, not a decorative character drawing.\nSingle-color peacock green #086B68. Slightly uneven rounded medium-bold felt-tip contours matching image 2, about 14px at 1024px canvas; clean transparent negative space, no speckles or texture clouds. No shading, hatching, gradients, color fills or background. Tiny solid ink for missing eye allowed. TRUE transparent RGBA background AND unfilled transparent interiors. Square canvas, complete uncropped silhouette occupying about 80% of width with generous padding. No scene, table, pillow, text, watermark or extra objects.",
+      "references": [
+        "/var/folders/s5/9847bgw14xs_k_w9jpj2ccj40000gn/T/codex-clipboard-21f31c45-df71-4a14-aa65-b7d515371e7d.png",
+        "/Users/hejunyan/个人网站/public/illustrations/perspective-freeze-line-v1.png"
+      ]
+    }
+  ]
+}

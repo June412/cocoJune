@@ -1,0 +1,24 @@
+{
+  "generated_at": "2026-11-15",
+  "tool": "built-in image_gen",
+  "intent": "User revision: reduce long stitches and deepen only red.",
+  "assets": {
+    "red": {
+      "source": "/Users/hejunyan/.codex/generated_images/01a1b3e3-4a22-7c61-bd78-4f83ea6f9437/exec-d9041efd-ff47-430a-97d9-dd14fdfe6772.png",
+      "target": "public/borders/knit-border-red-v4.png"
+    },
+    "blue": {
+      "source": "/Users/hejunyan/.codex/generated_images/01a1b3e3-4a22-7c61-bd78-4f83ea6f9437/exec-11f50775-a0aa-4ada-8ba7-3c4f645424a5.png",
+      "target": "public/borders/knit-border-blue-v4.png"
+    },
+    "yellow": {
+      "source": "/Users/hejunyan/.codex/generated_images/01a1b3e3-4a22-7c61-bd78-4f83ea6f9437/exec-c64cdee2-f4b0-4229-b448-2eb8e0d6a042.png",
+      "target": "public/borders/knit-border-yellow-v4.png"
+    }
+  },
+  "prompts": {
+    "red": "Use case: precise-object-edit.\nInput image 1 is the exact red border to refine. This is a transparent sewing-thread overlay for small video previews.\nThe user finds these long thick stitches too exaggerated. Make a restrained refinement: shorten ALL individual cross-stitches to 65% of their present length, and reduce their thickness to 75% of their present thickness. Their centers and the rectangular continuous seam MUST remain in the SAME positions. Do NOT shrink the overall rectangular frame or change the transparent canvas size. Keep the same stitch count and spacing. Keep mild handmade variation, rounded thread ends, and recognizable thread texture, but clean up stray marks.\nChange the thread to a somewhat deeper warm red, target #D74538, with minimal shade variation. The previous light coral was too light; use this moderately deeper red. Avoid burgundy or dark brown.\nRetain the diagonal overcast stitch construction and simplify corner joins to match the thinner threads.\nGenuinely transparent RGBA background and center, zero fabric/paper fill. Only thread. Same wide rectangular framing and fully visible stitches on all four sides. Do not add text, video, drop shadows, patterns in the center, glow, labels, or extra objects.\nThis is a subtle reduction of the supplied image, with every stitch still longer and clearer than a tiny tick.",
+    "blue": "Use case: precise-object-edit.\nInput image 1 is the exact blue border to refine. This is a transparent sewing-thread overlay for small video previews.\nThe user finds these long thick stitches too exaggerated. Make a restrained refinement: shorten ALL individual cross-stitches to 65% of their present length, and reduce their thickness to 75% of their present thickness. Their centers and the rectangular continuous seam MUST remain in the SAME positions. Do NOT shrink the overall rectangular frame or change the transparent canvas size. Keep the same stitch count and spacing. Keep mild handmade variation, rounded thread ends, and recognizable thread texture, but clean up stray marks.\nPreserve the current bright blue color exactly; only adjust stitch lengths and thickness.\nRetain the perpendicular blanket stitch construction and simplify corner joins to match the thinner threads.\nGenuinely transparent RGBA background and center, zero fabric/paper fill. Only thread. Same wide rectangular framing and fully visible stitches on all four sides. Do not add text, video, drop shadows, patterns in the center, glow, labels, or extra objects.\nThis is a subtle reduction of the supplied image, with every stitch still longer and clearer than a tiny tick.",
+    "yellow": "Use case: precise-object-edit.\nInput image 1 is the exact yellow border to refine. This is a transparent sewing-thread overlay for small video previews.\nThe user finds these long thick stitches too exaggerated. Make a restrained refinement: shorten ALL individual cross-stitches to 65% of their present length, and reduce their thickness to 75% of their present thickness. Their centers and the rectangular continuous seam MUST remain in the SAME positions. Do NOT shrink the overall rectangular frame or change the transparent canvas size. Keep the same stitch count and spacing. Keep mild handmade variation, rounded thread ends, and recognizable thread texture, but clean up stray marks.\nPreserve the current bright yellow color exactly; only adjust stitch lengths and thickness.\nRetain the perpendicular blanket stitch construction and simplify corner joins to match the thinner threads.\nGenuinely transparent RGBA background and center, zero fabric/paper fill. Only thread. Same wide rectangular framing and fully visible stitches on all four sides. Do not add text, video, drop shadows, patterns in the center, glow, labels, or extra objects.\nThis is a subtle reduction of the supplied image, with every stitch still longer and clearer than a tiny tick."
+  }
+}

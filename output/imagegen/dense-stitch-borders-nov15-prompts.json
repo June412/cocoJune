@@ -1,0 +1,15 @@
+{
+  "generated_at": "2026-11-15",
+  "purpose": "Dense hand-sewn rectangular overlays that sit directly on the HoldLight video edge.",
+  "references": [
+    "/Users/hejunyan/Downloads/9d7808894adceb3aa7547967f3dc345a.jpg",
+    "/Users/hejunyan/Downloads/974cd7f284b63956576e9cda09577877.jpg",
+    "/var/folders/s5/9847bgw14xs_k_w9jpj2ccj40000gn/T/TemporaryItems/NSIRD_screencaptureui_qvIszZ/截屏2026-11-15 01.58.13.png"
+  ],
+  "assets": {
+    "red": "public/borders/knit-border-red-v2.png",
+    "blue": "public/borders/knit-border-blue-v2.png",
+    "yellow": "public/borders/knit-border-yellow-v2.png"
+  },
+  "notes": "The references informed the continuous thread path, crossed corner loops, and especially the dense repeated stitch rhythm of the square fabric sample. The generated overlays have transparent centers and edges, with no paper, cloth fill, glow, or shadow. They were resized to 1600×900 so the 16:9 HoldLight frame can be sewn directly into the page."
+}

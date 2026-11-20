@@ -1,0 +1,103 @@
+{
+  "created": "2026-11-09",
+  "mode": "built-in image_gen",
+  "transparent_background": true,
+  "assets": [
+    {
+      "id": "games",
+      "source": "/Users/hejunyan/.codex/generated_images/01a1b3e3-4a22-7c61-bd78-4f83ea6f9437/exec-08ae02d7-5743-4a16-9cb9-8ae3e93a648e.png",
+      "file": "public/illustrations/home-games-line-v1.png",
+      "steps": [
+        {
+          "prompt": "Use case: style-transfer. Asset: one small homepage link illustration in a matching six-piece hand-drawn set.\nInput image 1 shows SIX old thin-line icons stacked vertically: use ONLY the one specified below as the subject/composition reference. Do NOT reproduce the other five icons, the page layout or background. Input image 2 is exclusively the approved brush and drawing-style reference: copy its simple charming hand-doodled language, mildly wobbly rounded felt-tip contours, slightly rough ink edge and softly imperfect shapes. Do not copy its person, frame or cube.\nRedraw the requested icon as one cohesive, friendly, minimal indie-game doodle with lively slight asymmetry. A consistent medium-bold rounded stroke, approximately 18px at 1024px canvas, visually match the second reference. Only ONE ink color peacock green #086B68. No shading, hatching, gradients, 3D rendering, colored fills, smooth corporate vector look, fake paper grain, text or watermark. Preserve generous open interiors and use very few inner lines, legible at 54–76px. TRUE transparent RGBA background AND transparent unfilled interior shapes. Square canvas, complete uncropped silhouette centered, about 10% padding, fill about 75–80% of canvas, no shadows or surroundings. Output exactly ONE standalone icon, not a contact sheet.\nSUBJECT: Redraw the FIRST icon from image 1: a rounded game controller with two droopy rounded grips, a plus-shaped D-pad on the left, two little circular buttons on the right, a tiny happy curved mouth between them. A short curvy cord grows from its top and ends in one small loop like a sprout. Give the controller a small jaunty tilt, keep the silhouette chubby and welcoming. Only the controller and short cord; no hands or character body.",
+          "references": [
+            "/var/folders/s5/9847bgw14xs_k_w9jpj2ccj40000gn/T/TemporaryItems/NSIRD_screencaptureui_qcXMDh/截屏2026-11-09 11.03.32.png",
+            "/Users/hejunyan/个人网站/public/illustrations/perspective-freeze-line-v1.png"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "github",
+      "source": "/Users/hejunyan/.codex/generated_images/01a1b3e3-4a22-7c61-bd78-4f83ea6f9437/exec-7eee24ca-56a2-45a1-8806-3c6928fd1e39.png",
+      "file": "public/illustrations/home-github-line-v1.png",
+      "steps": [
+        {
+          "prompt": "Use case: style-transfer. Asset: one small homepage link illustration in a matching six-piece hand-drawn set.\nInput image 1 shows SIX old thin-line icons stacked vertically: use ONLY the one specified below as the subject/composition reference. Do NOT reproduce the other five icons, the page layout or background. Input image 2 is exclusively the approved brush and drawing-style reference: copy its simple charming hand-doodled language, mildly wobbly rounded felt-tip contours, slightly rough ink edge and softly imperfect shapes. Do not copy its person, frame or cube.\nRedraw the requested icon as one cohesive, friendly, minimal indie-game doodle with lively slight asymmetry. A consistent medium-bold rounded stroke, approximately 18px at 1024px canvas, visually match the second reference. Only ONE ink color peacock green #086B68. No shading, hatching, gradients, 3D rendering, colored fills, smooth corporate vector look, fake paper grain, text or watermark. Preserve generous open interiors and use very few inner lines, legible at 54–76px. TRUE transparent RGBA background AND transparent unfilled interior shapes. Square canvas, complete uncropped silhouette centered, about 10% padding, fill about 75–80% of canvas, no shadows or surroundings. Output exactly ONE standalone icon, not a contact sheet.\nSUBJECT: Redraw the SECOND icon from image 1: an open little laptop in a simple three-quarter/front view, screen above a shallow trapezoid base. In the screen is just the large face of a cheerful curious cat, two pointed ears, two simple eyes and small smiling mouth. Make the cat's head slightly cocked as if peeking from the screen; keep it inside the laptop screen. On the base only one small touchpad dash, no keyboard grid, no coding text, no logo lettering. Only the laptop with the cat face on its screen.",
+          "references": [
+            "/var/folders/s5/9847bgw14xs_k_w9jpj2ccj40000gn/T/TemporaryItems/NSIRD_screencaptureui_qcXMDh/截屏2026-11-09 11.03.32.png",
+            "/Users/hejunyan/个人网站/public/illustrations/perspective-freeze-line-v1.png"
+          ]
+        },
+        {
+          "prompt": "Use case: precise-object-edit. Clean up this exact hand-drawn cat-laptop icon. Remove ONLY the stray ink speckles, grain clouds and smudges floating in the transparent empty screen, inside the cat face, inside the laptop base and outside the outline. All blank areas must be truly transparent and clean. Preserve the existing composition, silhouette, happy cat face, line position, peacock green #086B68, rounded hand-wobbled medium-bold brush and all main strokes exactly. Preserve tiny roughness ONLY immediately at the stroke boundary; do not scatter any pigment away from the lines. No other changes or new elements, no background or text. True transparent RGBA output and transparent interiors.",
+          "references": [
+            "/Users/hejunyan/.codex/generated_images/01a1b3e3-4a22-7c61-bd78-4f83ea6f9437/exec-8d3fb9f5-086b-4936-9589-189d0f40707e.png"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cv",
+      "source": "/Users/hejunyan/.codex/generated_images/01a1b3e3-4a22-7c61-bd78-4f83ea6f9437/exec-3b33c849-7356-4a4c-bbbd-68e06c796831.png",
+      "file": "public/illustrations/home-cv-line-v1.png",
+      "steps": [
+        {
+          "prompt": "Use case: style-transfer. Asset: one small homepage link illustration in a matching six-piece hand-drawn set.\nInput image 1 shows SIX old thin-line icons stacked vertically: use ONLY the one specified below as the subject/composition reference. Do NOT reproduce the other five icons, the page layout or background. Input image 2 is exclusively the approved brush and drawing-style reference: copy its simple charming hand-doodled language, mildly wobbly rounded felt-tip contours, slightly rough ink edge and softly imperfect shapes. Do not copy its person, frame or cube.\nRedraw the requested icon as one cohesive, friendly, minimal indie-game doodle with lively slight asymmetry. A consistent medium-bold rounded stroke, approximately 18px at 1024px canvas, visually match the second reference. Only ONE ink color peacock green #086B68. No shading, hatching, gradients, 3D rendering, colored fills, smooth corporate vector look, fake paper grain, text or watermark. Preserve generous open interiors and use very few inner lines, legible at 54–76px. TRUE transparent RGBA background AND transparent unfilled interior shapes. Square canvas, complete uncropped silhouette centered, about 10% padding, fill about 75–80% of canvas, no shadows or surroundings. Output exactly ONE standalone icon, not a contact sheet.\nSUBJECT: Redraw the THIRD icon from image 1: a single slightly tilted resume sheet with a folded upper-right corner. A very simple small head-and-shoulders portrait symbol near the upper-left, three broad slightly uneven horizontal writing strokes in the middle (not actual text), one friendly hand-drawn checkmark near the bottom-right. Keep the sheet softly skewed with rounded imperfect corners, a minimal charming paper doodle. No eyes or face on the sheet itself, no hands, no extra papers, no actual letters.",
+          "references": [
+            "/var/folders/s5/9847bgw14xs_k_w9jpj2ccj40000gn/T/TemporaryItems/NSIRD_screencaptureui_qcXMDh/截屏2026-11-09 11.03.32.png",
+            "/Users/hejunyan/个人网站/public/illustrations/perspective-freeze-line-v1.png"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "research",
+      "source": "/Users/hejunyan/.codex/generated_images/01a1b3e3-4a22-7c61-bd78-4f83ea6f9437/exec-9793fb4b-2722-4b87-a9ea-df11ea8b26b6.png",
+      "file": "public/illustrations/home-research-line-v1.png",
+      "steps": [
+        {
+          "prompt": "Use case: style-transfer. Asset: one small homepage link illustration in a matching six-piece hand-drawn set.\nInput image 1 shows SIX old thin-line icons stacked vertically: use ONLY the one specified below as the subject/composition reference. Do NOT reproduce the other five icons, the page layout or background. Input image 2 is exclusively the approved brush and drawing-style reference: copy its simple charming hand-doodled language, mildly wobbly rounded felt-tip contours, slightly rough ink edge and softly imperfect shapes. Do not copy its person, frame or cube.\nRedraw the requested icon as one cohesive, friendly, minimal indie-game doodle with lively slight asymmetry. A consistent medium-bold rounded stroke, approximately 18px at 1024px canvas, visually match the second reference. Only ONE ink color peacock green #086B68. No shading, hatching, gradients, 3D rendering, colored fills, smooth corporate vector look, fake paper grain, text or watermark. Preserve generous open interiors and use very few inner lines, legible at 54–76px. TRUE transparent RGBA background AND transparent unfilled interior shapes. Square canvas, complete uncropped silhouette centered, about 10% padding, fill about 75–80% of canvas, no shadows or surroundings. Output exactly ONE standalone icon, not a contact sheet.\nSUBJECT: Redraw the FOURTH icon from image 1: a chunky little open book with soft rounded page tops, central crease, a small ribbon bookmark hanging over the top of the right page. Three short hand-drawn reading strokes on the left page and two on the right, no actual text. Three very short loose rays above the book suggest an idea or discovery. Keep the spreads slightly asymmetric and springy, not ruler-straight. Only the open book, bookmark and those three rays.",
+          "references": [
+            "/var/folders/s5/9847bgw14xs_k_w9jpj2ccj40000gn/T/TemporaryItems/NSIRD_screencaptureui_qcXMDh/截屏2026-11-09 11.03.32.png",
+            "/Users/hejunyan/个人网站/public/illustrations/perspective-freeze-line-v1.png"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "gallery",
+      "source": "/Users/hejunyan/.codex/generated_images/01a1b3e3-4a22-7c61-bd78-4f83ea6f9437/exec-670367e4-5938-4f1b-9bbb-acbc7a2e29df.png",
+      "file": "public/illustrations/home-gallery-line-v1.png",
+      "steps": [
+        {
+          "prompt": "Use case: style-transfer. Asset: one small homepage link illustration in a matching six-piece hand-drawn set.\nInput image 1 shows SIX old thin-line icons stacked vertically: use ONLY the one specified below as the subject/composition reference. Do NOT reproduce the other five icons, the page layout or background. Input image 2 is exclusively the approved brush and drawing-style reference: copy its simple charming hand-doodled language, mildly wobbly rounded felt-tip contours, slightly rough ink edge and softly imperfect shapes. Do not copy its person, frame or cube.\nRedraw the requested icon as one cohesive, friendly, minimal indie-game doodle with lively slight asymmetry. A consistent medium-bold rounded stroke, approximately 18px at 1024px canvas, visually match the second reference. Only ONE ink color peacock green #086B68. No shading, hatching, gradients, 3D rendering, colored fills, smooth corporate vector look, fake paper grain, text or watermark. Preserve generous open interiors and use very few inner lines, legible at 54–76px. TRUE transparent RGBA background AND transparent unfilled interior shapes. Square canvas, complete uncropped silhouette centered, about 10% padding, fill about 75–80% of canvas, no shadows or surroundings. Output exactly ONE standalone icon, not a contact sheet.\nSUBJECT: Redraw the FIFTH icon from image 1: one small simple artwork sheet/photo with an outlined mountain zigzag and one small sun, accompanied by one long paintbrush leaning diagonally along its RIGHT edge. Brush has a pointed tip, simple ferrule line and rounded handle. A second backing-sheet corner may peek out behind the main artwork like in the reference. Keep the sheet casually tilted and the brush expressive but minimal. No easel, palette, hands, lettering, extra scenery or decorative confetti.",
+          "references": [
+            "/var/folders/s5/9847bgw14xs_k_w9jpj2ccj40000gn/T/TemporaryItems/NSIRD_screencaptureui_qcXMDh/截屏2026-11-09 11.03.32.png",
+            "/Users/hejunyan/个人网站/public/illustrations/perspective-freeze-line-v1.png"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "email",
+      "source": "/Users/hejunyan/.codex/generated_images/01a1b3e3-4a22-7c61-bd78-4f83ea6f9437/exec-aba10274-d316-4b7e-9d40-11b185bf8469.png",
+      "file": "public/illustrations/home-email-line-v1.png",
+      "steps": [
+        {
+          "prompt": "Use case: style-transfer. Asset: one small homepage link illustration in a matching six-piece hand-drawn set.\nInput image 1 shows SIX old thin-line icons stacked vertically: use ONLY the one specified below as the subject/composition reference. Do NOT reproduce the other five icons, the page layout or background. Input image 2 is exclusively the approved brush and drawing-style reference: copy its simple charming hand-doodled language, mildly wobbly rounded felt-tip contours, slightly rough ink edge and softly imperfect shapes. Do not copy its person, frame or cube.\nRedraw the requested icon as one cohesive, friendly, minimal indie-game doodle with lively slight asymmetry. A consistent medium-bold rounded stroke, approximately 18px at 1024px canvas, visually match the second reference. Only ONE ink color peacock green #086B68. No shading, hatching, gradients, 3D rendering, colored fills, smooth corporate vector look, fake paper grain, text or watermark. Preserve generous open interiors and use very few inner lines, legible at 54–76px. TRUE transparent RGBA background AND transparent unfilled interior shapes. Square canvas, complete uncropped silhouette centered, about 10% padding, fill about 75–80% of canvas, no shadows or surroundings. Output exactly ONE standalone icon, not a contact sheet.\nSUBJECT: Redraw the SIXTH icon from image 1: a slightly tilted envelope with rounded imperfect rectangle outline and simple triangular flap/seam lines. One small outlined heart floats just above the opening, with two short happy dashes beside it. The envelope feels like a warm little note being sent, but has no face, arms or legs. Only one envelope, one heart and two tiny dashes; no address, text, stamps, background or extra hearts.",
+          "references": [
+            "/var/folders/s5/9847bgw14xs_k_w9jpj2ccj40000gn/T/TemporaryItems/NSIRD_screencaptureui_qcXMDh/截屏2026-11-09 11.03.32.png",
+            "/Users/hejunyan/个人网站/public/illustrations/perspective-freeze-line-v1.png"
+          ]
+        },
+        {
+          "prompt": "Use case: precise-object-edit. Clean up this exact hand-drawn envelope and heart icon. Remove ONLY ALL stray ink speckles, grain clouds and smudges floating inside the envelope, inside or around the heart, between the decorative dashes and in the background. Every blank area must be truly transparent and clean. Preserve the existing composition, silhouette, single outlined heart, two small dashes, envelope seam lines, peacock green #086B68 and rounded mildly wobbly medium-bold brush exactly. Keep subtle hand-drawn irregularity on the actual main strokes only. No scattered pigment away from stroke edges, no texture fills. No other changes or new elements, no paper or colored background, no text. True transparent RGBA output with transparent unfilled interiors.",
+          "references": [
+            "/Users/hejunyan/.codex/generated_images/01a1b3e3-4a22-7c61-bd78-4f83ea6f9437/exec-69ccd727-95b2-427b-9b1b-e7ec4869b596.png"
+          ]
+        }
+      ]
+    }
+  ]
+}
