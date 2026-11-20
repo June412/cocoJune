@@ -25,7 +25,7 @@ const allPriorityIds = [
 export default function GalleryPage({ category }: { category: GalleryCategory }) {
   const { language, t } = useSite()
   const [selected, setSelected] = useState<GalleryItem | null>(null)
-  const mixedItems = useMemo(() => {
+  const allLayout = useMemo(() => {
     const priorityItems = allPriorityIds
       .map((id) => galleryItems.find((item) => item.id === id))
       .filter((item): item is GalleryItem => Boolean(item))
@@ -39,11 +39,22 @@ export default function GalleryPage({ category }: { category: GalleryCategory })
       items[index] = items[target]
       items[target] = current
     }
-    return [...priorityItems, ...items]
+    return { priorityItems, remainingItems: items }
   }, [])
-  const items = category === 'all' ? mixedItems : galleryItems.filter((item) => item.category === category)
+  const items = category === 'all' ? [...allLayout.priorityItems, ...allLayout.remainingItems] : galleryItems.filter((item) => item.category === category)
   const categoryName = copy(galleryCategories.find((item) => item.id === category)!.label, language)
   const dialog = useRef<HTMLDialogElement>(null)
+  const renderItems = (itemsToRender: GalleryItem[]) => itemsToRender.map((item) => (
+    <button
+      className={`gallery-item gallery-item--${item.layout}`}
+      key={item.id}
+      type="button"
+      onClick={() => setSelected(item)}
+      aria-label={`${t('View', '查看')} ${copy(item.title, language)}`}
+    >
+      <img src={assetUrl(item.src)} alt={copy(item.alt, language)} loading="lazy" decoding="async" />
+    </button>
+  ))
   useEffect(() => {
     if (selected) dialog.current?.showModal()
     else dialog.current?.close()
@@ -62,19 +73,14 @@ export default function GalleryPage({ category }: { category: GalleryCategory })
         {t('Gallery', '画廊')} / {categoryName}
       </h1>
       {items.length ? (
-        <div className={`gallery-grid gallery-grid--${category}`}>
-          {items.map((item) => (
-            <button
-              className={`gallery-item gallery-item--${item.layout}`}
-              key={item.id}
-              type="button"
-              onClick={() => setSelected(item)}
-              aria-label={`${t('View', '查看')} ${copy(item.title, language)}`}
-            >
-              <img src={assetUrl(item.src)} alt={copy(item.alt, language)} loading="lazy" decoding="async" />
-            </button>
-          ))}
-        </div>
+        category === 'all' ? (
+          <>
+            <div className="gallery-grid gallery-grid--all gallery-grid--all-priority">{renderItems(allLayout.priorityItems)}</div>
+            <div className="gallery-grid gallery-grid--all gallery-grid--all-rest">{renderItems(allLayout.remainingItems)}</div>
+          </>
+        ) : (
+          <div className={`gallery-grid gallery-grid--${category}`}>{renderItems(items)}</div>
+        )
       ) : (
         <div className="gallery-empty">
           <p>{t('Works to be added.', '作品待整理。')}</p>

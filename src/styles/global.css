@@ -202,6 +202,7 @@ a.research-row h3 { color: var(--link); text-decoration: underline; text-underli
 .gallery-grid--all .gallery-item--featured { width: 112%; margin-left: -6%; }
 .gallery-grid--all .gallery-item--large { width: 106%; margin-left: -3%; }
 .gallery-grid--all .gallery-item--compact { width: 95%; margin-left: 2.5%; }
+.gallery-grid--all-priority { margin-bottom: clamp(16px, 2vw, 28px); }
 .lightbox { border: none; padding: 55px 20px 20px; width: 100vw; max-width: 100vw; height: 100dvh; max-height: 100dvh; background: var(--paper); color: var(--ink); }
 .lightbox::backdrop { background: var(--paper); }
 .lightbox[open], .lightbox[open]::backdrop { animation: viewer-enter var(--motion-fast) ease-out backwards; }
