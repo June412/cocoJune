@@ -78,8 +78,8 @@ export default function App() {
   else if (route === '/gallery' || galleryCategory)
     page = (
       <GalleryPage
-        key={galleryCategory?.id ?? 'character-design'}
-        category={galleryCategory?.id ?? 'character-design'}
+        key={galleryCategory?.id ?? 'all'}
+        category={galleryCategory?.id ?? 'all'}
       />
     )
   else

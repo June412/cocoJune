@@ -13,7 +13,7 @@ import { assetUrl } from '../data/projectVisuals'
 export default function GalleryPage({ category }: { category: GalleryCategory }) {
   const { language, t } = useSite()
   const [selected, setSelected] = useState<GalleryItem | null>(null)
-  const items = galleryItems.filter((item) => item.category === category)
+  const items = category === 'all' ? galleryItems : galleryItems.filter((item) => item.category === category)
   const categoryName = copy(galleryCategories.find((item) => item.id === category)!.label, language)
   const dialog = useRef<HTMLDialogElement>(null)
   useEffect(() => {

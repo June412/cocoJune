@@ -24,7 +24,7 @@ export default function SiteLayout({ children, route }: PropsWithChildren<{ rout
           label: copy(category.label, language),
           active:
             route === `/gallery/${category.id}` ||
-            (route === '/gallery' && category.id === 'character-design'),
+            (route === '/gallery' && category.id === 'all'),
         }))
       : []
   return (
