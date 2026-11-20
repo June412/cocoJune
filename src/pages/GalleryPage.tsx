@@ -10,11 +10,27 @@ import { useSite } from '../lib/SiteContext'
 import { CloseIcon } from '../components/Icons'
 import { assetUrl } from '../data/projectVisuals'
 
+const allPriorityIds = [
+  'illustration-front-03', // IMG_2784.pdf
+  'on-paper-01', // FullSizeRender 2.pdf
+  'illustration-front-04', // IMG_4043.PNG
+  'illustration-front-11', // IMG_4861.PNG
+  'illustration-front-06', // IMG_3277.JPG
+  'illustration-middle-11', // IMG_4850.PNG
+  'illustration-middle-10', // IMG_1867.JPG
+  'illustration-middle-22', // IMG_3269.PNG
+  'character-design-01', // 角色设计/1.PNG
+]
+
 export default function GalleryPage({ category }: { category: GalleryCategory }) {
   const { language, t } = useSite()
   const [selected, setSelected] = useState<GalleryItem | null>(null)
   const mixedItems = useMemo(() => {
-    const items = [...galleryItems]
+    const priorityItems = allPriorityIds
+      .map((id) => galleryItems.find((item) => item.id === id))
+      .filter((item): item is GalleryItem => Boolean(item))
+    const priorityIds = new Set(priorityItems.map((item) => item.id))
+    const items = galleryItems.filter((item) => !priorityIds.has(item.id))
     let seed = 20261120
     for (let index = items.length - 1; index > 0; index -= 1) {
       seed = (seed * 1664525 + 1013904223) >>> 0
@@ -23,7 +39,7 @@ export default function GalleryPage({ category }: { category: GalleryCategory })
       items[index] = items[target]
       items[target] = current
     }
-    return items
+    return [...priorityItems, ...items]
   }, [])
   const items = category === 'all' ? mixedItems : galleryItems.filter((item) => item.category === category)
   const categoryName = copy(galleryCategories.find((item) => item.id === category)!.label, language)
