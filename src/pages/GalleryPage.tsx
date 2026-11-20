@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import {
   copy,
   galleryCategories,
@@ -14,7 +14,7 @@ const allPriorityIds = [
   'illustration-front-03', // IMG_2784.pdf
   'on-paper-01', // FullSizeRender 2.pdf
   'illustration-front-04', // IMG_4043.PNG
-  'illustration-front-11', // IMG_4861.PNG
+  'illustration-front-02', // IMG_4861.PNG
   'illustration-front-06', // IMG_3277.JPG
   'illustration-middle-11', // IMG_4850.PNG
   'illustration-middle-10', // IMG_1867.JPG
@@ -25,7 +25,7 @@ const allPriorityIds = [
 export default function GalleryPage({ category }: { category: GalleryCategory }) {
   const { language, t } = useSite()
   const [selected, setSelected] = useState<GalleryItem | null>(null)
-  const allLayout = useMemo(() => {
+  const allItems = useMemo(() => {
     const priorityItems = allPriorityIds
       .map((id) => galleryItems.find((item) => item.id === id))
       .filter((item): item is GalleryItem => Boolean(item))
@@ -39,11 +39,29 @@ export default function GalleryPage({ category }: { category: GalleryCategory })
       items[index] = items[target]
       items[target] = current
     }
-    return { priorityItems, remainingItems: items }
+    return [...priorityItems, ...items]
   }, [])
-  const items = category === 'all' ? [...allLayout.priorityItems, ...allLayout.remainingItems] : galleryItems.filter((item) => item.category === category)
+  const items = category === 'all' ? allItems : galleryItems.filter((item) => item.category === category)
   const categoryName = copy(galleryCategories.find((item) => item.id === category)!.label, language)
   const dialog = useRef<HTMLDialogElement>(null)
+  const gallery = useRef<HTMLDivElement>(null)
+  useLayoutEffect(() => {
+    const grid = gallery.current
+    if (category !== 'all' || !grid) return
+
+    const tiles = Array.from(grid.querySelectorAll<HTMLButtonElement>('.gallery-item'))
+    const layout = () => {
+      const rowHeight = parseFloat(getComputedStyle(grid).gridAutoRows)
+      const gap = parseFloat(getComputedStyle(tiles[0]).marginBottom)
+      const spans = tiles.map((tile) => Math.ceil((tile.getBoundingClientRect().height + gap) / rowHeight))
+      tiles.forEach((tile, index) => { tile.style.gridRowEnd = `span ${spans[index]}` })
+    }
+    // Size the grid tracks before paint. Grid auto-placement then fills the shortest column in reading order.
+    layout()
+    const observer = new ResizeObserver(layout)
+    tiles.forEach((tile) => observer.observe(tile))
+    return () => observer.disconnect()
+  }, [category])
   const renderItems = (itemsToRender: GalleryItem[]) => itemsToRender.map((item) => (
     <button
       className={`gallery-item gallery-item--${item.layout}`}
@@ -52,7 +70,7 @@ export default function GalleryPage({ category }: { category: GalleryCategory })
       onClick={() => setSelected(item)}
       aria-label={`${t('View', '查看')} ${copy(item.title, language)}`}
     >
-      <img src={assetUrl(item.src)} alt={copy(item.alt, language)} loading="lazy" decoding="async" />
+      <img src={assetUrl(item.src)} alt={copy(item.alt, language)} width={item.width} height={item.height} loading="lazy" decoding="async" />
     </button>
   ))
   useEffect(() => {
@@ -73,14 +91,7 @@ export default function GalleryPage({ category }: { category: GalleryCategory })
         {t('Gallery', '画廊')} / {categoryName}
       </h1>
       {items.length ? (
-        category === 'all' ? (
-          <>
-            <div className="gallery-grid gallery-grid--all gallery-grid--all-priority">{renderItems(allLayout.priorityItems)}</div>
-            <div className="gallery-grid gallery-grid--all gallery-grid--all-rest">{renderItems(allLayout.remainingItems)}</div>
-          </>
-        ) : (
-          <div className={`gallery-grid gallery-grid--${category}`}>{renderItems(items)}</div>
-        )
+        <div ref={gallery} className={`gallery-grid gallery-grid--${category}`}>{renderItems(items)}</div>
       ) : (
         <div className="gallery-empty">
           <p>{t('Works to be added.', '作品待整理。')}</p>

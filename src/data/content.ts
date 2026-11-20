@@ -318,6 +318,8 @@ export const publications = [
 export type GalleryItem = {
   id: string
   src: string
+  width: number
+  height: number
   title: Localized
   alt: Localized
   category: GalleryCategory
