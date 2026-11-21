@@ -64,3 +64,31 @@ export const galleryItems: GalleryItem[] = [
   item('on-paper-02', 'drawings/on-paper/02.webp', 2400, 1800, 'Illustration 41', '插画 41', 'Hand-drawn work 2', '手绘作品 2', 'illustrations', 'large'),
   item('on-paper-03', 'drawings/on-paper/03.webp', 2400, 2400, 'Illustration 42', '插画 42', 'Hand-drawn work 3', '手绘作品 3', 'illustrations', 'regular'),
 ]
+
+// Reading order for All, independent of the category pages.
+const allGalleryOrder = [
+  'illustration-front-03', 'on-paper-03', 'illustration-front-04',
+  'illustration-front-02', 'illustration-front-06', 'illustration-middle-11',
+  'illustration-middle-10', 'illustration-middle-22', 'character-design-01',
+  'illustration-front-08', 'illustration-middle-03',
+
+  'illustration-front-09', 'illustration-front-01', 'illustration-front-11',
+  'character-design-03', 'character-design-05', 'illustration-middle-06',
+  'character-design-02', 'illustration-back-03', 'illustration-front-07',
+  'illustration-front-10', 'illustration-middle-02', 'illustration-middle-14',
+  'illustration-middle-19', 'illustration-back-02', 'illustration-back-01',
+  'illustration-back-05', 'illustration-middle-21', 'illustration-middle-07',
+  'illustration-middle-12', 'illustration-middle-05', 'illustration-middle-16',
+  'illustration-middle-13', 'illustration-middle-04', 'illustration-back-04',
+  'illustration-middle-15', 'illustration-back-06', 'illustration-middle-09',
+  'on-paper-02', 'illustration-middle-01', 'on-paper-01',
+  'illustration-middle-20', 'illustration-middle-18', 'illustration-front-05',
+  'illustration-middle-17',
+
+  'illustration-middle-08', 'character-design-04',
+]
+
+const allRanks = new Map(allGalleryOrder.map((id, index) => [id, index]))
+export const allGalleryItems = [...galleryItems].sort((a, b) =>
+  (allRanks.get(a.id) ?? allGalleryOrder.length) - (allRanks.get(b.id) ?? allGalleryOrder.length),
+)
