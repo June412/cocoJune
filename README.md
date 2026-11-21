@@ -32,9 +32,9 @@ npm run preview   # 预览构建结果，需先运行 build
 | `#/projects/category/:category` | 分类项目列表                                    |
 | `#/projects/:id`                | 兼容旧地址，显示对应项目分类，不再提供详情页      |
 | `#/research`                    | 研究经历与论文 DOI 链接                         |
-| `#/gallery`                     | 默认进入绘画集合                                |
-| `#/gallery/drawings`            | 绘画集合                                        |
-| `#/gallery/photographs`         | 摄影集合                                        |
+| `#/gallery`、`#/gallery/all`    | 全部作品                                        |
+| `#/gallery/character-design`    | 角色设计                                        |
+| `#/gallery/illustrations`       | 插画，包含数字绘画和纸上手绘                     |
 | `#/about`                       | 兼容旧地址，自动跳转至 `#/` 首页                 |
 
 使用 hash 路由，静态托管不需要单独配置页面重写。构建后的资源使用相对路径，可部署到根目录或子目录。
@@ -105,7 +105,7 @@ alice: {
 - 项目、论文和联系方式：`src/data/content.ts`。
 - 项目插画、录屏与封面：`src/data/projectVisuals.ts`；临时线稿：`src/components/ProjectIllustration.tsx`。
 - 简历下载文件：`public/Junyan_He_CV.pdf`，内容来自提供的 2026-10-31 版本。
-- 个人画廊：目前没有发布任何图片，也未使用参考网站或参考图片中的他人作品。将自己的图片放在 `public/gallery/`，再向 `galleryItems` 添加记录即可。
+- 个人画廊的图片位于 `public/drawings/`，作品记录位于 `src/data/drawingGallery.ts`。
 - 视觉样式：`src/styles/global.css`。包含桌面、平板和手机布局，以及减少动态效果的偏好支持。
 
 画廊记录格式：
@@ -113,10 +113,13 @@ alice: {
 ```ts
 {
   id: 'a-still-afternoon',
-  src: `${import.meta.env.BASE_URL}gallery/a-still-afternoon.jpg`,
+  src: 'drawings/illustrations/a-still-afternoon.jpg',
+  width: 2400,
+  height: 1800,
   title: { en: 'A still afternoon', zh: '安静的午后' },
   alt: { en: 'Describe the image here', zh: '在这里描述图片内容' },
-  category: 'photographs', // 'drawings' 或 'photographs'
+  category: 'illustrations', // 'illustrations' 或 'character-design'
+  layout: 'regular',
 }
 ```
 

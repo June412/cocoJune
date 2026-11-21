@@ -60,7 +60,7 @@ export const galleryItems: GalleryItem[] = [
   item('illustration-back-04', 'drawings/illustrations/back/05.webp', 2400, 2400, 'Illustration 04', '插画 04', 'Character illustration 4', '角色插画 4', 'illustrations', 'compact'),
   item('illustration-back-05', 'drawings/illustrations/back/01.webp', 2400, 2400, 'Illustration 05', '插画 05', 'Character illustration 5', '角色插画 5', 'illustrations', 'regular'),
   item('illustration-back-06', 'drawings/illustrations/back/06.webp', 2400, 2248, 'Illustration 06', '插画 06', 'Character illustration 6', '角色插画 6', 'illustrations', 'regular'),
-  item('on-paper-01', 'drawings/on-paper/01.webp', 1801, 2400, 'On paper 01', '手绘 01', 'Hand-drawn work 1', '手绘作品 1', 'on-paper', 'large'),
-  item('on-paper-02', 'drawings/on-paper/02.webp', 2400, 1800, 'On paper 02', '手绘 02', 'Hand-drawn work 2', '手绘作品 2', 'on-paper', 'large'),
-  item('on-paper-03', 'drawings/on-paper/03.webp', 2400, 2400, 'On paper 03', '手绘 03', 'Hand-drawn work 3', '手绘作品 3', 'on-paper', 'regular'),
+  item('on-paper-01', 'drawings/on-paper/01.webp', 1801, 2400, 'Illustration 40', '插画 40', 'Hand-drawn work 1', '手绘作品 1', 'illustrations', 'large'),
+  item('on-paper-02', 'drawings/on-paper/02.webp', 2400, 1800, 'Illustration 41', '插画 41', 'Hand-drawn work 2', '手绘作品 2', 'illustrations', 'large'),
+  item('on-paper-03', 'drawings/on-paper/03.webp', 2400, 2400, 'Illustration 42', '插画 42', 'Hand-drawn work 3', '手绘作品 3', 'illustrations', 'regular'),
 ]

@@ -10,12 +10,11 @@ export const workCategories: { id: WorkCategory; label: Localized }[] = [
   { id: 'tools', label: { en: 'Graphics & tools', zh: '图形与工具' } },
   { id: 'research', label: { en: 'Interaction', zh: '交互设计' } },
 ]
-export type GalleryCategory = 'all' | 'character-design' | 'illustrations' | 'on-paper'
+export type GalleryCategory = 'all' | 'character-design' | 'illustrations'
 export const galleryCategories: { id: GalleryCategory; label: Localized }[] = [
   { id: 'all', label: { en: 'All', zh: '全部' } },
   { id: 'character-design', label: { en: 'Character design', zh: '角色设计' } },
   { id: 'illustrations', label: { en: 'Illustrations', zh: '插画' } },
-  { id: 'on-paper', label: { en: 'On paper', zh: '手绘' } },
 ]
 
 export type ProjectId =

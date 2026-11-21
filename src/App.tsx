@@ -7,11 +7,17 @@ import GalleryPage from './pages/GalleryPage'
 import { SiteContext } from './lib/SiteContext'
 import { copy, galleryCategories, projects, workCategories, type Language } from './data/content'
 
+const redirects = new Map([
+  ['/about', '/'],
+  ['/gallery/drawings', '/gallery/illustrations'],
+  ['/gallery/photographs', '/gallery/illustrations'],
+  ['/gallery/on-paper', '/gallery/illustrations'],
+])
+const currentPath = () => window.location.hash.slice(1).replace(/\/$/, '') || '/'
 const getRoute = () => {
-  const route = window.location.hash.slice(1).replace(/\/$/, '') || '/'
-  if (route === '/about') return '/'
-  if (route === '/gallery/drawings') return '/gallery/illustrations'
-  if (route === '/gallery/photographs') return '/gallery/on-paper'
+  const route = currentPath()
+  const redirect = redirects.get(route)
+  if (redirect) return redirect
   // Old project bookmarks open the relevant collection instead of a detail page.
   const previousProject = projects.find((item) => route === `/projects/${item.id}`)
   return previousProject ? `/projects/category/${previousProject.category}` : route
@@ -30,10 +36,8 @@ export default function App() {
   const previousRoute = useRef(route)
   useEffect(() => {
     const onHashChange = () => {
-      // The former About page now lives at the homepage.
-      if (/^#\/about\/?$/.test(window.location.hash)) {
-        window.history.replaceState(null, '', '#/')
-      }
+      const redirect = redirects.get(currentPath())
+      if (redirect) window.history.replaceState(null, '', `#${redirect}`)
       setRoute(getRoute())
     }
     onHashChange()
