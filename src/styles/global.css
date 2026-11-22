@@ -257,6 +257,7 @@ a.research-row h3 { color: var(--link); text-decoration: underline; text-underli
   .project-preview { grid-column: 1 / -1; }
   .project-preview--scaled { transform-origin: left center; }
   .project-caption { text-align: left; }
+  .project-caption:last-child { grid-column: 1 / -1; }
   .project-entry h3 { font-size: 29px; }
   .project-action { margin-left: 0; }
   .project-illustration { --illustration-size: 80px; justify-self: end; }

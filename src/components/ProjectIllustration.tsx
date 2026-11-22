@@ -5,7 +5,7 @@ import { useSite } from '../lib/SiteContext'
 
 // Original, deliberately small layout sketches. Replace through projectVisuals
 // with Junyan's own transparent drawings when those are ready.
-const sketches: Record<ProjectId, ReactNode> = {
+const sketches: Partial<Record<ProjectId, ReactNode>> = {
   tinyroomies: (
     <>
       <path d="M47 53C26 38 40 19 54 37M84 38C95 16 112 32 98 53" />
@@ -75,7 +75,8 @@ const sketches: Record<ProjectId, ReactNode> = {
 export default function ProjectIllustration({ id }: { id: ProjectId }) {
   const { language } = useSite()
   const visual = projectVisuals[id]
-  const label = copy(visual.illustrationAlt, language)
+  if (!visual.illustration && !sketches[id]) return null
+  const label = visual.illustrationAlt ? copy(visual.illustrationAlt, language) : ''
   return (
     <span className={`project-illustration${id === 'alice' ? ' project-illustration--still' : ''}${id === 'holdlight' ? ' project-illustration--large' : ''}`}>
       {visual.illustration ? (

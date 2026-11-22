@@ -25,11 +25,15 @@ export type ProjectId =
   | 'perspective-freeze'
   | 'x-ray'
   | 'holdlight'
-export type Project = {
+  | 'opengl-2d-greeting-card'
+  | 'reality-link-cyber-travel'
+export type ProjectEntry = {
   id: ProjectId
-  number: string
   title: string
   category: WorkCategory
+}
+export type Project = ProjectEntry & {
+  number: string
   discipline: Localized
   period: string
   ongoing: boolean
@@ -283,6 +287,12 @@ export const projects: Project[] = [
       zh: '指导老师：西交利物浦大学 Yue Li。相关论文发表于 ASSETS ’26。',
     },
   },
+]
+
+export const projectIndex: ProjectEntry[] = [
+  ...projects,
+  { id: 'opengl-2d-greeting-card', title: 'Pixel Light Greeting Card', category: 'tools' },
+  { id: 'reality-link-cyber-travel', title: 'Reality Link: Cyber Travel', category: 'tools' },
 ]
 
 export const publications = [

@@ -24,7 +24,7 @@ export type ProjectVisual = {
   cover?: string
   // Use an actual project/game/repository URL; unset links keep a visible placeholder.
   link?: { href: string; label: Localized }
-  illustrationAlt: Localized
+  illustrationAlt?: Localized
   coverAlt: Localized
 }
 
@@ -92,6 +92,14 @@ export const projectVisuals: Record<ProjectId, ProjectVisual> = {
     previewBorder: 'blue',
     illustrationAlt: { en: 'A little cube balancing on one foot and holding up its wobbling cross-section slices', zh: '单脚踮起、举手扶住头顶摇晃切片的小方块' },
     coverAlt: { en: 'Volumetric X-ray rendering', zh: '体数据 X 射线渲染' },
+  },
+  'opengl-2d-greeting-card': {
+    link: { href: 'https://github.com/June412/opengl-2d-greeting-card', label: { en: 'View on GitHub', zh: '在 GitHub 查看' } },
+    coverAlt: { en: 'Interactive campus greeting card', zh: '校园互动贺卡' },
+  },
+  'reality-link-cyber-travel': {
+    link: { href: 'https://github.com/June412/reality-link-cyber-travel', label: { en: 'View on GitHub', zh: '在 GitHub 查看' } },
+    coverAlt: { en: 'Interactive 3D cyberpunk city', zh: '可交互的 3D 赛博朋克城市' },
   },
   holdlight: {
     illustration: 'illustrations/holdlight-line-v2.png',

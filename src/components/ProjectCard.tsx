@@ -1,10 +1,10 @@
-import { copy, type Project } from '../data/content'
+import { copy, type ProjectEntry } from '../data/content'
 import { projectVisuals } from '../data/projectVisuals'
 import { useSite } from '../lib/SiteContext'
 import ProjectIllustration from './ProjectIllustration'
 import ProjectPreview from './ProjectPreview'
 
-export default function ProjectCard({ project }: { project: Project }) {
+export default function ProjectCard({ project }: { project: ProjectEntry }) {
   const { language, t } = useSite()
   const link = projectVisuals[project.id].link
   return (

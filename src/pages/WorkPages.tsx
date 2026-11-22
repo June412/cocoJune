@@ -1,4 +1,4 @@
-import { copy, projects, workCategories, type WorkCategory } from '../data/content'
+import { copy, projectIndex, workCategories, type WorkCategory } from '../data/content'
 import { useSite } from '../lib/SiteContext'
 import ProjectCard from '../components/ProjectCard'
 
@@ -17,7 +17,7 @@ export function ProjectsPage({ category }: { category?: WorkCategory }) {
             {copy(group.label, language)}
           </h2>
           <div className="project-index">
-            {projects
+            {projectIndex
               .filter((project) => project.category === group.id)
               .map((project) => (
                 <ProjectCard key={project.id} project={project} />

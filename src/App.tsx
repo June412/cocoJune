@@ -5,7 +5,7 @@ import { ProjectsPage } from './pages/WorkPages'
 import ResearchPage from './pages/ResearchPage'
 import GalleryPage from './pages/GalleryPage'
 import { SiteContext } from './lib/SiteContext'
-import { copy, galleryCategories, projects, workCategories, type Language } from './data/content'
+import { copy, galleryCategories, projectIndex, workCategories, type Language } from './data/content'
 
 const redirects = new Map([
   ['/about', '/'],
@@ -19,7 +19,7 @@ const getRoute = () => {
   const redirect = redirects.get(route)
   if (redirect) return redirect
   // Old project bookmarks open the relevant collection instead of a detail page.
-  const previousProject = projects.find((item) => route === `/projects/${item.id}`)
+  const previousProject = projectIndex.find((item) => route === `/projects/${item.id}`)
   return previousProject ? `/projects/category/${previousProject.category}` : route
 }
 function initialLanguage(): Language {
