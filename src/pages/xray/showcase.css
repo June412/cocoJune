@@ -1,0 +1,90 @@
+.xray-study-choices {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 3px 15px;
+  min-width: 0;
+  margin: 0 0 15px;
+  padding: 0;
+  border: 0;
+}
+.xray-study-choices label {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  cursor: pointer;
+}
+.xray-study-choices input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+.xray-study-choices span {
+  padding: 2px 1px;
+  border-bottom: 2px dashed transparent;
+  color: var(--ink);
+  font-family: var(--font-hand);
+  font-size: 1.32rem;
+  font-weight: 700;
+  line-height: 1.15;
+}
+.xray-study-choices span:lang(zh-CN) { font-family: var(--font-body); font-size: .96rem; }
+.xray-study-choices input:checked + span { color: var(--link); border-bottom-color: currentColor; }
+.xray-study-choices label:hover span { color: var(--link-hover); }
+.xray-study-choices input:focus-visible + span { outline: 2px solid var(--link); outline-offset: 4px; }
+.xray-study-panel .xray-study-choices { margin-bottom: 8px; }
+.xray-study-panel .xray-study-choices span { font-size: 1.12rem; }
+.xray-study-panel .xray-study-choices span:lang(zh-CN) { font-size: .9rem; }
+
+.xray-plates {
+  display: grid;
+  align-items: start;
+  gap: 18px;
+  margin: 14px auto 20px;
+}
+.xray-plates--single { grid-template-columns: minmax(0, 1fr); }
+.xray-plates--pair { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.xray-plates--three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.xray-plates--four { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.xray-showcase .xray-plates figure { justify-self: center; min-width: 0; max-width: 100%; margin: 0; }
+.xray-plates .xray-zoom-button { display: block; width: 100%; max-width: 100%; margin-inline: auto; padding: 0; cursor: zoom-in; }
+.xray-plates img { width: 100%; height: auto; margin: auto; }
+.xray-plates figcaption { text-align: center; }
+.xray-film .alice-video-cues {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0,1fr));
+  align-items: start;
+  gap: 12px;
+  margin: 34px auto 0;
+}
+.xray-film .alice-video-cues button {
+  min-width: 0;
+  padding: 0;
+  color: var(--link);
+  font-family: inherit;
+  font-size: .95rem;
+  font-weight: 600;
+  line-height: 1.3;
+  text-align: left;
+}
+.xray-film .alice-video-cues img { width: 100%; height: auto; aspect-ratio: 16 / 9; margin-bottom: 7px; }
+.xray-film .alice-video-cues time { margin-right: .2em; color: var(--ink); font-variant-numeric: tabular-nums; }
+.xray-film .alice-video-cues button:hover { color: var(--link-hover); text-decoration: underline; text-underline-offset: .15em; }
+@keyframes xray-plate-in {
+  from { opacity: .5; transform: translateY(3px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .xray-study-panel, .xray-plates { animation: xray-plate-in var(--motion-page) var(--motion-ease) both; }
+}
+@media (max-width: 540px) {
+  .xray-plates { gap: 11px; }
+  .xray-study-choices { gap: 2px 12px; }
+  .xray-study-choices label { min-height: 44px; }
+  .xray-film .alice-video-cues, .xray-plates--four { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .xray-film .alice-video-cues { margin-top: 25px; gap: 14px; }
+}

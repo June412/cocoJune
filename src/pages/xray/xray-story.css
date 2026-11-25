@@ -1,0 +1,34 @@
+.xray-story { min-width: 0; }
+.xray-story section { min-width: 0; }
+.xray-story-plate { min-width: 0; }
+.xray-story-plate img { display: block; height: auto; width: 100%; }
+.xray-story-plate .xray-zoom-button { display: block; width: 100%; }
+.xray-transmission-plot { display: block; width: 100%; height: auto; color: var(--ink); fill: currentColor; font: 400 14px/1 'Alegreya', Georgia, serif; }
+.xray-transmission-plot:lang(zh-CN) { font-family: var(--font-body); }
+.xray-transmission-grid { stroke: var(--line); stroke-width: 1; }
+.xray-transmission-axis, .xray-transmission-leader { fill: none; stroke: currentColor; stroke-opacity: .7; stroke-width: 1; }
+.xray-transmission-line { fill: none; stroke: currentColor; stroke-width: 2.8; stroke-linejoin: round; stroke-linecap: round; }
+.xray-transmission-label { font-size: 16px; font-weight: 500; }
+.xray-lightbox .xray-transmission-plot { width: min(900px, calc(100vw - 66px)); }
+.xray-story-plate figcaption, .xray-projection-diagram figcaption { text-align: start; }
+.xray-phantom-plates { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.report-transcript .xray-phantom-plates figure { margin-block: 10px 6px; }
+.xray-data-table table { font-size: clamp(.9rem, 2vw, 1rem); font-variant-numeric: tabular-nums; }
+.xray-data-table th[scope='row'] { text-align: start; font-weight: 600; background: transparent; }
+.xray-data-table td, .xray-data-table th { overflow-wrap: normal; word-break: normal; }
+.xray-data-table th:first-child { width: 26%; }
+.xray-projection-diagram { color: var(--ink); padding: 8px 0 0; }
+.xray-projection-diagram svg { display: block; width: min(100%, 490px); margin-inline: auto; }
+.xray-projection-diagram text { font: 15px var(--font-hand-text); }
+.xray-volume-outline { stroke: currentColor; stroke-linejoin: round; stroke-width: 1.8; fill: var(--muted); fill-opacity: .24; }
+.xray-selected-ray { stroke: var(--link); stroke-linecap: round; stroke-width: 2.5; fill: none; }
+.xray-detector-control { width: fit-content; max-width: 100%; margin: 12px auto; display: flex; align-items: center; gap: 12px; font: inherit; color: var(--ink); }
+.xray-detector-control input { width: clamp(60px, 18vw, 130px); min-height: 28px; accent-color: var(--ink); cursor: pointer; }
+.xray-references { overflow-wrap: break-word; }
+@media (max-width: 580px) {
+  .xray-phantom-plates { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .report-transcript .xray-data-table td, .report-transcript .xray-data-table th { padding: 6px 5px; }
+}
+@media (max-width: 380px) {
+  .xray-detector-control { gap: 7px; }
+}

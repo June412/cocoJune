@@ -1,0 +1,124 @@
+/* Manual step viewers use the existing type scale, image controls and rules. */
+.step-sequence {
+    min-width: 0;
+    margin-block: 12px 24px;
+    --sequence-line: var(--line, #d9dcd6);
+    --sequence-text: var(--ink, #262925);
+}
+
+.sequence-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 4px 0 10px;
+    margin-bottom: 22px;
+    border-bottom: 1px solid var(--sequence-line);
+}
+
+.sequence-progress {
+    color: var(--sequence-text);
+    font-size: 13px;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+}
+
+.sequence-meter {
+    display: flex;
+    gap: 4px;
+    width: clamp(50px, 9vw, 95px);
+}
+
+.sequence-meter i {
+    flex: 1;
+    height: 2px;
+    background: var(--sequence-line);
+}
+
+.sequence-meter i.is-past { background: #93998f; }
+.sequence-meter i.is-current { background: var(--sequence-text); }
+
+.sequence-picture { min-width:0; }
+.sequence-picture > button:first-child { display:block; width:100%; }
+
+.sequence-stage { min-width: 0; touch-action: pan-y pinch-zoom; }
+.sequence-panel[hidden] { display: none !important; }
+.sequence-panel :is(.process-row, .case-study) { margin: 0; }
+.sequence-panel .process-row {
+    display: grid;
+    grid-template-columns: minmax(0, .9fr) minmax(0, 1.35fr);
+    gap: clamp(22px, 3.5vw, 48px);
+    align-items: start;
+}
+
+.sequence-panel .process-row > .prose { margin: 0; }
+.sequence-panel .process-row h3 { margin: 0 0 12px; }
+.sequence-panel .process-row .prose > p:last-child { margin-bottom: 0; }
+.sequence-panel .process-row > figure { margin: 0; }
+.sequence-panel .process-row > figure .image-button { width: 100%; }
+.sequence-panel .process-row > figure img {
+    width: 100%;
+    max-height: min(48vh, 430px);
+    object-fit: contain;
+}
+
+.sequence-panel .figure-pair { margin: 16px 0 0; }
+.sequence-detail {
+    margin: 14px 0 0;
+    padding-block: 0;
+    border-top: 1px solid var(--sequence-line);
+}
+
+.sequence-detail > h4 {
+    margin: 18px 0 10px;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.sequence-detail > figure { margin: 8px 0 20px; }
+.sequence-detail > figure .image-button img {
+    max-height: 400px;
+    object-fit: contain;
+}
+#cushion .cushion-settings > figure { max-width: 580px; }
+#cushion .cushion-settings img { background: transparent; }
+
+.sequence-sr {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    clip-path: inset(50%);
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+@media (max-width: 740px) {
+    .sequence-toolbar { gap: 12px; margin-bottom: 15px; }
+    .sequence-panel .process-row { grid-template-columns: minmax(0, 1fr); gap: 14px; }
+    .sequence-panel .process-row > figure img { max-height: 355px; }
+}
+
+/* On a narrow display, keep the browsable result above the secondary settings. */
+@media (max-width:610px) {
+    #cushion .step-sequence .sequence-panel:has(.cushion-settings) .craft-step > figure { grid-row:2; }
+    #cushion .step-sequence .sequence-panel .cushion-settings { grid-row:3; }
+}
+
+@media print {
+    .sequence-toolbar, .sequence-sr, .sequence-arrow { display: none !important; }
+    .step-sequence, .sequence-stage { display: block !important; }
+    .sequence-panel, .sequence-panel[hidden] {
+        display: block !important;
+        margin: 0 0 8mm;
+        opacity: 1 !important;
+        transform: none !important;
+    }
+    .sequence-panel .process-row { display: block; }
+    .sequence-panel :is(.process-row, .sequence-detail) figure {
+        margin: 3mm auto;
+        max-width: 145mm;
+        break-inside: avoid;
+    }
+    .sequence-detail { border: 0; }
+    .sequence-panel .process-row > figure img, .sequence-detail > figure .image-button img { max-height: 85mm; }
+}

@@ -1,0 +1,157 @@
+/* The parcel story, repair bench and workshop each have a different viewing distance. */
+@media screen {
+  .personal-alice[data-page="game"] #main :where(
+    .mending-first-look, .story-arrival ol, alice-commission-route, .step-sequence,
+    .mending-triptych, .story-workmat, .repair-methods,
+    .doll-models, .story-block, .story-feedback, .window-film,
+    alice-weather-comparison, .prop-at-desk
+  ) {
+    --game-width: var(--alice-wide);
+    width: var(--game-width);
+    max-width: none;
+    margin-inline: calc((100% - var(--game-width)) / 2);
+  }
+  .personal-alice[data-page="game"] #main :is(.story-arrival ol, .prop-at-desk) {
+    --game-width: var(--alice-spread);
+  }
+  .personal-alice[data-page="game"] #main :is(.story-block, .story-feedback) {
+    row-gap: 16px;
+    margin-block: 20px;
+  }
+  .personal-alice[data-page="game"] #main .story-row { padding-top: 10px; }
+  .personal-alice[data-page="game"] #main .story-evidence { margin-top: 8px; }
+  .personal-alice[data-page="game"] #main .story-workmat { margin-bottom: 16px; }
+  .personal-alice[data-page="game"] #main :is(.window-study, .workshop-comparisons) { margin-bottom: 20px; }
+  .personal-alice[data-page="game"] #main :is(.mending-transfer, .mending-ribbon, .mending-needle, .story-props, .story-brief) {
+    margin-top: 20px;
+  }
+  .personal-alice[data-page="game"] #main :is(.story-buttons, .doll-models, alice-commission-route) { margin-block: 10px 16px; }
+  .personal-alice[data-page="game"] #main .window-film figcaption {
+    margin-top: 8px;
+  }
+  .personal-alice[data-page="game"] #main .window-film .window-cues {
+    justify-content: center;
+  }
+  .personal-alice[data-page="game"] #main :is(.process-row, .mending-needle, .story-finishing .story-row, #panda-knit, .story-commissions article, .repair-method .video-layout) {
+    grid-template-columns: minmax(0, 1fr);
+    align-items: start;
+    row-gap: 8px;
+  }
+  .personal-alice[data-page="game"] #main .story-commissions article { align-content: start; }
+  .personal-alice[data-page="game"] #main .story-commissions .story-image img { height: 158px; }
+  .personal-alice[data-page="game"] #main .repair-method > h3 { margin-bottom: 4px; }
+  .personal-alice[data-page="game"] #main :is(.step-sequence, .window-film, alice-weather-comparison, .mending-first-look) {
+    --game-width: min(820px, var(--alice-wide));
+  }
+  .personal-alice[data-page="game"] #main .sequence-panel .process-row > figure img {
+    max-height: min(60svh, 520px);
+  }
+}
+
+@media screen and (min-width: 820px) {
+  .personal-alice[data-page="game"] #main .mending-first-frame {
+    margin-top: 0;
+    margin-bottom: clamp(16px, 1.5vw, 22px);
+  }
+  .personal-alice[data-page="game"] #main .story-commissions {
+    width: var(--alice-wide);
+    margin-inline: calc((100% - var(--alice-wide)) / 2);
+  }
+  .personal-alice[data-page="game"] #main .story-arrival li + li::before {
+    top: min(7.2vw, 90px);
+  }
+  .personal-alice[data-page="game"] #main .mending-triptych {
+    gap: clamp(18px, 2.6vw, 36px);
+  }
+  .personal-alice[data-page="game"] #main .mending-triptych > :nth-child(2) { padding-top: 1rem; }
+  .personal-alice[data-page="game"] #main .mending-triptych > :nth-child(3) { padding-top: 2rem; }
+  .personal-alice[data-page="game"] #main .story-workmat {
+    --game-width: var(--alice-spread);
+    grid-template-columns: minmax(0, .78fr) minmax(0, 1.22fr);
+    gap: clamp(30px, 4vw, 64px);
+  }
+  .personal-alice[data-page="game"] #main .story-at-mat {
+    padding: 0 0 0 clamp(23px, 3vw, 42px);
+    border: 0;
+    border-inline-start: 1px solid var(--line);
+  }
+  .personal-alice[data-page="game"] #main .repair-methods {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px clamp(20px, 3vw, 42px);
+  }
+  .personal-alice[data-page="game"] #main .repair-methods > .repair-method {
+    display: grid;
+    grid-row: span 3;
+    grid-template-rows: subgrid;
+    padding-block: 14px 0;
+  }
+  .personal-alice[data-page="game"] #main .repair-methods .video-layout { display: contents; }
+  .personal-alice[data-page="game"] #main .repair-methods .mending-trim { grid-column: 1 / -1; }
+
+  .personal-alice[data-page="game"] #main :is(.story-block, .story-feedback) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: clamp(28px, 4vw, 60px);
+  }
+  .personal-alice[data-page="game"] #main .story-gestures {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+  }
+  .personal-alice[data-page="game"] #main .story-gestures a { display: block; }
+  .personal-alice[data-page="game"] #main .story-gestures a > span { display: block; margin-top: 6px; }
+  .personal-alice[data-page="game"] #main .prop-at-desk {
+    grid-template-columns: minmax(0, 1.12fr) minmax(0, 1fr);
+    gap: 18px clamp(21px, 3vw, 44px);
+  }
+  .personal-alice[data-page="game"] #main .prop-at-desk .prop-details {
+    grid-area: 2 / 2;
+  }
+  .personal-alice[data-page="game"] #main .prop-at-desk .prop-pair img {
+    height: clamp(130px, 16vw, 216px);
+  }
+}
+
+@media screen and (max-width: 819px) {
+  .personal-alice[data-page="game"] #main .story-workmat { gap: 16px; }
+  .personal-alice[data-page="game"] #main .story-prep { margin-inline: auto; }
+  .personal-alice[data-page="game"] #main .repair-method .video-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .personal-alice[data-page="game"] #main .repair-methods > .repair-method :is(h3, .video-copy) {
+    width: min(100%, var(--reader-width), calc(100vw - 2 * var(--reader-gutter)));
+    margin-inline: auto;
+  }
+  .personal-alice[data-page="game"] #main .story-arrival ol { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .personal-alice[data-page="game"] #main .story-arrival li + li::before { display: none; }
+  .personal-alice[data-page="game"] #main :is(.window-film, .mending-first-look, .repair-methods, .story-workmat) {
+    /* The painted seam reaches past the image on each side. */
+    --game-width: min(var(--alice-wide), 94vw);
+  }
+}
+
+@media screen and (max-width: 600px) {
+  /* The physical doll and its game model, and the two saved states, are direct comparisons. */
+  .personal-alice[data-page="game"] #main :is(#doll .project-notes, #thread-state) .figure-pair {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+    gap: 10px;
+    margin-block: 12px;
+  }
+  .personal-alice[data-page="game"] #main .repair-method { padding-block: 16px; }
+  .personal-alice[data-page="game"] #main .video-layout { row-gap: 10px; }
+  .personal-alice[data-page="game"] #main .story-foley-links {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+  }
+  .personal-alice[data-page="game"] #main .story-buttons { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+  .personal-alice[data-page="game"] #main .story-buttons .story-figure {
+    display: grid;
+    grid-template-columns: minmax(0, .95fr) minmax(0, 1fr);
+    gap: 12px;
+    align-items: center;
+  }
+  .personal-alice[data-page="game"] #main .story-buttons :is(img, .story-button-options) { height: 85px; }
+  .personal-alice[data-page="game"] #main .story-buttons figcaption { margin: 0; }
+  .personal-alice[data-page="game"] #main .mending-flow { gap: 10px; }
+  .personal-alice[data-page="game"] #main .mending-flow li:not(:last-child)::after { content: none; }
+}

@@ -1,0 +1,10 @@
+{
+  "model": "mlx-community/Qwen3-TTS-12Hz-1.7B-VoiceDesign-8bit",
+  "revision": "f90d617701d9f7f4ca499291e0b57f2b3c2fd2ee",
+  "origin": "Original synthetic voice descriptions with no human reference; no The WereCleaner or Nintendo audio.",
+  "renderer": "Tools/Audio/VoiceSmoothing/smooth_voice.py",
+  "sourceRecords": "Tools/Audio/GameVoices/Sources/English",
+  "priorRecords": "Tools/Audio/PerformanceLab/Sources/provenance.json",
+  "license": "Apache-2.0 model; full license included.",
+  "date": "2026-11-02"
+}

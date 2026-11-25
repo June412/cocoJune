@@ -25,11 +25,11 @@ export default function ProjectPreview({ id, title }: { id: ProjectId; title: st
     'project-preview',
     visual.hoverPlay ? 'project-preview--hover-video' : '',
     visual.previewScale ? 'project-preview--scaled' : '',
-    visual.previewAspect === '16 / 9' ? 'project-preview--wide' : '',
   ].filter(Boolean).join(' ')
   const crop = visual.previewVideoCrop
-  const previewStyle = visual.previewScale || visual.previewBorderScale || crop || visual.previewVideoZoom
+  const previewStyle = visual.previewAspect || visual.previewScale || visual.previewBorderScale || crop || visual.previewVideoZoom
     ? ({
+        aspectRatio: visual.previewAspect,
         '--preview-scale': visual.previewScale,
         '--preview-border-scale': visual.previewBorderScale,
         '--preview-video-zoom': visual.previewVideoZoom,

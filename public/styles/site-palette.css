@@ -1,0 +1,10 @@
+:root {
+  --ink: #5b4035;
+  --prose-ink: var(--ink);
+  --muted: #765f50;
+  --link: #007697;
+  --link-hover: #005c78;
+  --line: #d9c9ba;
+  /* Tint the transparent line drawings to #5b4035, including in the offline HTML. */
+  --line-art-filter: invert(50%) sepia(1) hue-rotate(-28deg) saturate(1.55) brightness(44.5%);
+}

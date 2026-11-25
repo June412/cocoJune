@@ -1,0 +1,82 @@
+.admission-film-launch {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: .65em;
+    min-height: 42px;
+    padding: .44em 1em;
+    background: var(--folio-ink, #25392f);
+    color: white;
+    border: 1px solid var(--folio-ink, #25392f);
+    border-radius: 2px;
+    font-size: 15px;
+    line-height: 1.35;
+    font-weight: 500;
+    text-align: center;
+}
+.admission-film-launch:hover { background: #394e43; color: white; }
+.admission-play-sign { font-size: .8em; }
+.admission-film-open { overflow: hidden; }
+.admission-film-dialog {
+    width: min(830px, calc(100% - 32px));
+    max-width: none;
+    max-height: calc(100dvh - 32px);
+    border: 0;
+    padding: clamp(16px, 3.2vw, 28px);
+    background: white;
+    color: var(--folio-ink, #25392f);
+    overscroll-behavior: contain;
+}
+.admission-film-dialog::backdrop { background: rgb(21 28 23 / 72%); }
+.admission-film-mast,
+.admission-film-dialog footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+}
+.admission-film-mast { margin-bottom: 14px; }
+.admission-film-mast h2 { font: 600 clamp(21px, 3.5vw, 32px)/1.12 var(--folio-type, Georgia, serif); }
+.admission-film-close {
+    flex: none;
+    width: 40px;
+    height: 40px;
+    font: 27px/1 var(--sans, sans-serif);
+    text-align: center;
+}
+.admission-film-dialog video {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16/9;
+    max-height: 57dvh;
+    background: #18201c;
+}
+.admission-film-chapters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2px 17px;
+    padding: 12px 0 15px;
+}
+.admission-film-chapters button {
+    min-height: 35px;
+    font-size: 14px;
+    line-height: 1.3;
+    color: #3c443e;
+    text-decoration-thickness: 1px;
+    text-underline-offset: .32em;
+}
+.admission-film-chapters time { font-variant-numeric: tabular-nums; color: #58695f; }
+.admission-film-chapters button[aria-current="time"], .admission-film-chapters button:hover { text-decoration-line: underline; }
+.admission-film-dialog footer { flex-wrap: wrap; border-top: 1px solid var(--line); padding-top: 14px; }
+.admission-game-download { display: grid; gap: 4px; justify-items: start; }
+.admission-game-download a, .admission-film-credit { text-decoration: underline; text-underline-offset: .28em; }
+.admission-game-download > span { color: #555e58; font-size: 13px; line-height: 1.45; }
+.admission-film-credit { font-size: 13px; }
+.admission-film-status { margin: 6px 0; color: #535f55; }
+.admission-film-status a { text-decoration: underline; }
+@media (max-width: 560px) {
+    .admission-film-dialog { width: calc(100% - 16px); max-height: calc(100dvh - 16px); padding: 16px; }
+    .admission-film-chapters { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 1px 9px; }
+    .admission-film-chapters button { min-height: 42px; }
+}
+@media print { .admission-film-launch, .admission-film-dialog { display: none !important; } }

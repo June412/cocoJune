@@ -1,0 +1,229 @@
+@media screen {
+  /* Keep chapter introductions on the reading column. Images and their controls
+     travel together so the guide wires, crop sliders and arrows stay aligned. */
+  [data-page="toolkit"].personal-alice #main :is(.wg-guide, .works-catalogue, .ts-showcase) {
+    width: var(--alice-spread);
+    max-width: none;
+    margin-inline: calc((100% - var(--alice-spread)) / 2);
+  }
+
+  [data-page="toolkit"].personal-alice #main :is(
+    .wg-examples, .step-sequence, .ts-export-images, .ts-suzanne-looks, .ts-gesture-atlas,
+    .ts-reuse, .ts-chart-study, .material-layout, .ts-night,
+    .ts-trial-process ol, .prop-atlas
+  ), [data-page="toolkit"].personal-alice #materials .study {
+    width: var(--alice-wide);
+    max-width: none;
+    margin-inline: calc((100% - var(--alice-wide)) / 2);
+  }
+
+  [data-page="toolkit"].personal-alice #main .wg-board {
+    width: 100%;
+  }
+
+  [data-page="toolkit"] #main #editing-sewn-piece {
+    width: min(740px, var(--alice-wide));
+    margin-inline: calc((100% - min(740px, var(--alice-wide))) / 2);
+  }
+
+  [data-page="toolkit"] #editing-sewn-piece .ts-panel > h3 { margin: 8px 0 2px; }
+  [data-page="toolkit"] #editing-sewn-piece .ts-panel > .ts-copy { max-width: 80ch; }
+  [data-page="toolkit"] #editing-sewn-piece .ts-comparison {
+    width: min(100%, calc(100vw - 116px), var(--capture-width));
+    margin-inline: auto;
+  }
+  [data-page="toolkit"] #editing-sewn-piece .ts-browse-gutters {
+    --browse-inset: -46px;
+    padding-inline: 0;
+  }
+  [data-page="toolkit"] #editing-sewn-piece .ts-wipe {
+    height: auto;
+    aspect-ratio: var(--capture-ratio);
+  }
+
+  [data-page="toolkit"] #main :is(.ts-gesture, .ts-reuse, .ts-evidence, .ts-session, .ts-ellipse-study, .ts-fabric-breakdown) {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 8px;
+  }
+  [data-page="toolkit"].personal-alice #main .ts-reuse {
+    width: 100%;
+    margin-inline: 0;
+  }
+
+  [data-page="toolkit"] .ts-gesture-film figcaption {
+    margin-inline: 3%;
+  }
+
+  [data-page="toolkit"] .ts-gesture-film.personal-video-host > :is(video, .personal-video-tools) {
+    margin-block: clamp(12px, 1.6vw, 22px);
+  }
+
+  [data-page="toolkit"] #main :is(.wg-guide, .wg-examples, .ts-design, .ts-trial-process, .ts-pack-flow) {
+    margin-block-start: clamp(14px, 1.7vw, 24px);
+  }
+  [data-page="toolkit"] #main :is(.ts-choices, .sequence-toolbar) { margin-bottom: 10px; }
+  [data-page="toolkit"] #main :is(.ts-route, .ts-iterations, .ts-loom, .ts-metric, .ts-night, .ts-research) {
+    margin-block: 12px 18px;
+  }
+  [data-page="toolkit"] #main :is(.ts-showcase article, .ts-gesture, .ts-reuse, .ts-evidence, .ts-fabric-breakdown, .ts-ellipse-study) {
+    padding-block: 14px;
+  }
+  [data-page="toolkit"] #main .ts-review { margin-block: 20px 0; }
+  [data-page="toolkit"] #main .ts-selection-study { padding-bottom: 14px; margin-bottom: 10px; }
+  [data-page="toolkit"] #editing-sewn-piece .ts-copy { margin-block: 4px 10px; }
+  [data-page="toolkit"] #editing-sewn-piece .ts-comparison { margin-block: 6px 12px; }
+  [data-page="toolkit"] #editing-sewn-piece .ts-wipe-labels { padding-block: 2px; }
+  [data-page="toolkit"] #cases article.case-study {
+    margin-top: 18px;
+  }
+  [data-page="toolkit"] #cases article.case-study + article.case-study {
+    padding-top: 16px;
+  }
+  [data-page="toolkit"] #cases .figure-pair { margin-block: 8px 10px; }
+  [data-page="toolkit"] #main .wg-examples figure { padding-top: 8px; }
+  [data-page="toolkit"] #main .wg-examples figcaption { padding-top: 4px; }
+  [data-page="toolkit"] #main .ts-showcase article header { margin-bottom: 6px; }
+  [data-page="toolkit"] #main .ts-work-phases img { aspect-ratio: 1.52; }
+  [data-page="toolkit"] #main .ts-work-phases { row-gap: 12px; }
+  [data-page="toolkit"] #main .ts-work-phases figcaption { margin-top: 4px; }
+  [data-page="toolkit"] #main .ts-reuse .ts-filmstrip img {
+    height: clamp(126px, 17vw, 220px);
+  }
+  [data-page="toolkit"] #main .work-image { height: clamp(132px, 16vw, 192px); }
+  [data-page="toolkit"] #main .ts-path-flow span { margin-top: 2px; }
+  [data-page="toolkit"] #main .ts-showcase { margin-block: 14px 22px; }
+  [data-page="toolkit"] #main .ts-case-source { margin-top: 6px; }
+  [data-page="toolkit"] #main .prop-atlas { margin-block: 12px; }
+  [data-page="toolkit"] #workflow .project-notes { margin-top: 20px; padding-top: 14px; }
+  [data-page="toolkit"] #main .wg-enlarge { margin-top: 4px; }
+  [data-page="toolkit"] #main .sequence-detail > h4 { margin-block: 8px 4px; }
+  [data-page="toolkit"] #main .gallery-pager { margin-top: 12px; }
+  [data-page="toolkit"] #main .ts-trial-process ol { row-gap: 12px; margin-block: 8px 14px; }
+  [data-page="toolkit"] #main .ts-ellipse-study { margin-top: 14px; }
+  [data-page="toolkit"] #main .ts-suzanne-looks img { max-height: 290px; }
+  [data-page="toolkit"] #cases .case-study > .prose { margin-bottom: 8px; }
+  [data-page="toolkit"] #main .wg-examples figure > button { max-height: 100px; }
+  [data-page="toolkit"] #main .ts-research :is(th,td) {
+    padding-block: 7px;
+  }
+}
+
+@media screen and (min-width: 900px) {
+  [data-page="toolkit"] #main .overview-tool .overview-actions {
+    align-items: flex-start;
+    flex-direction: row;
+  }
+
+  [data-page="toolkit"].personal-alice #main .gallery {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px clamp(20px, 2.5vw, 36px);
+  }
+
+  [data-page="toolkit"] #main .material-layout {
+    grid-template-columns: minmax(0, .95fr) minmax(0, 1.05fr);
+    align-items: center;
+    gap: clamp(24px, 4.5vw, 68px);
+  }
+
+  [data-page="toolkit"] #materials .material-buttons {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  [data-page="toolkit"] #main .ts-export-images .image-button img {
+    height: clamp(215px, 23vw, 306px);
+  }
+}
+
+@media screen and (min-width: 1050px) {
+  [data-page="toolkit"] .wg-guide .wg-diagram {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 3.8fr) minmax(0, 1fr);
+    gap: 8px clamp(18px, 1.7vw, 28px);
+  }
+}
+
+@media screen and (min-width: 900px) {
+  [data-page="toolkit"] #editing-sewn-piece {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: baseline;
+    column-gap: 24px;
+  }
+  [data-page="toolkit"] #editing-sewn-piece > h3 { margin: 0; }
+  [data-page="toolkit"] #editing-sewn-piece > .ts-panel { grid-column: 1 / -1; }
+  [data-page="toolkit"] #cases .case-study > .figure-pair img { max-height: 270px; object-fit: contain; }
+
+  [data-page="toolkit"] #main .ts-gesture-atlas {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px clamp(22px, 3vw, 40px);
+  }
+  [data-page="toolkit"] #main .ts-gesture-atlas .ts-gesture {
+    grid-template-columns: minmax(0, 1fr);
+    grid-row: span 2;
+    grid-template-rows: subgrid;
+    align-items: start;
+    row-gap: 6px;
+  }
+}
+
+@media screen and (max-width: 899px) {
+  [data-page="toolkit"].personal-alice #main .overview-tool .tool-opening-piece {
+    width: var(--alice-wide);
+    max-width: none;
+    margin-inline: calc((100% - var(--alice-wide)) / 2);
+  }
+}
+
+@media screen and (max-width: 520px) {
+  [data-page="toolkit"] #main .work-image {
+    height: clamp(120px, 38vw, 184px);
+  }
+
+  [data-page="toolkit"] #main :is(.ts-chart-study, .step-sequence) {
+    /* The image can reach the edge while captions and controls retain a touch gutter. */
+    padding-inline: 4px;
+  }
+}
+
+@media screen and (max-width: 1049px) {
+  [data-page="toolkit"] #main .wg-note { padding-block: 7px; }
+  [data-page="toolkit"] #main .wg-sample { height: 58px; }
+}
+@media screen and (max-width: 610px) {
+  [data-page="toolkit"] #main .wg-examples { gap: 8px; }
+  [data-page="toolkit"] #main .wg-examples figure > button { height: 58px; }
+  [data-page="toolkit"] #main .ts-gesture { gap: 6px; padding-block: 10px; }
+  [data-page="toolkit"] #main .ts-filmstrip figcaption { margin-top: 3px; }
+  [data-page="toolkit"] #main .ts-work-phases { gap: 10px 12px; }
+  [data-page="toolkit"] #main .ts-work-phases img { aspect-ratio: 1.65; }
+}
+@media screen and (min-width: 370px) and (max-width: 610px) {
+  [data-page="toolkit"] #cases .case-study > .figure-pair {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+    gap: 12px;
+  }
+  [data-page="toolkit"] #cases .case-study > .figure-pair img {
+    width: 100%;
+    height: clamp(128px, 36vw, 192px);
+    object-fit: contain;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  /* Let the full photo take the first row and keep both controls within thumb reach. */
+  [data-page="toolkit"] #editing-sewn-piece .ts-comparison { width: min(100%, var(--capture-width)); }
+  [data-page="toolkit"] #editing-sewn-piece .ts-browse-gutters {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 4px 12px;
+  }
+  [data-page="toolkit"] #editing-sewn-piece .ts-wipe { grid-column: 1 / -1; }
+  [data-page="toolkit"] #editing-sewn-piece .browse-arrow {
+    position: static;
+    transform: none;
+    justify-self: start;
+  }
+  [data-page="toolkit"] #editing-sewn-piece .browse-next { justify-self: end; }
+}

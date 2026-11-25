@@ -4,6 +4,11 @@ import HomePage from './pages/HomePage'
 import { ProjectsPage } from './pages/WorkPages'
 import ResearchPage from './pages/ResearchPage'
 import GalleryPage from './pages/GalleryPage'
+import GraphicsReportPage from './pages/GraphicsReportPage'
+import HoldLightPage from './pages/HoldLightPage'
+import XrayPage from './pages/XrayPage'
+import { portfolioDocumentUrl, hasProjectPage } from './data/projectRoutes'
+import { isReportId } from './data/graphicsReports'
 import { SiteContext } from './lib/SiteContext'
 import { copy, galleryCategories, projectIndex, workCategories, type Language } from './data/content'
 
@@ -13,16 +18,19 @@ const redirects = new Map([
   ['/gallery/photographs', '/gallery/illustrations'],
   ['/gallery/on-paper', '/gallery/illustrations'],
 ])
-const currentPath = () => window.location.hash.slice(1).replace(/\/$/, '') || '/'
+const currentPath = () => window.location.hash.slice(1).split('#', 1)[0].replace(/\/$/, '') || '/'
 const getRoute = () => {
   const route = currentPath()
   const redirect = redirects.get(route)
   if (redirect) return redirect
   // Old project bookmarks open the relevant collection instead of a detail page.
   const previousProject = projectIndex.find((item) => route === `/projects/${item.id}`)
-  return previousProject ? `/projects/category/${previousProject.category}` : route
+  return previousProject && !hasProjectPage(previousProject.id)
+    ? `/projects/category/${previousProject.category}` : route
 }
 function initialLanguage(): Language {
+  const requested = new URLSearchParams(window.location.search).get('lang')
+  if (requested === 'zh' || requested === 'en') return requested
   try {
     return localStorage.getItem('cocojune-language') === 'zh' ? 'zh' : 'en'
   } catch {
@@ -34,6 +42,10 @@ export default function App() {
   const [route, setRoute] = useState(getRoute)
   const [language, setLanguage] = useState<Language>(initialLanguage)
   const previousRoute = useRef(route)
+  const portfolioUrl = portfolioDocumentUrl(route, language)
+  useLayoutEffect(() => {
+    if (portfolioUrl) window.location.replace(portfolioUrl)
+  }, [portfolioUrl])
   useEffect(() => {
     const onHashChange = () => {
       const redirect = redirects.get(currentPath())
@@ -42,9 +54,21 @@ export default function App() {
     }
     onHashChange()
     window.addEventListener('hashchange', onHashChange)
-    return () => window.removeEventListener('hashchange', onHashChange)
+    const restoreLanguage = (event: PageTransitionEvent) => {
+      if (event.persisted) setLanguage(initialLanguage())
+    }
+    window.addEventListener('pageshow', restoreLanguage)
+    return () => {
+      window.removeEventListener('hashchange', onHashChange)
+      window.removeEventListener('pageshow', restoreLanguage)
+    }
   }, [])
   useEffect(() => {
+    const address = new URL(window.location.href)
+    if (address.searchParams.has('lang')) {
+      address.searchParams.delete('lang')
+      try { window.history.replaceState(null, '', address.href) } catch { /* Some file URLs restrict history changes. */ }
+    }
     document.documentElement.lang = language === 'zh' ? 'zh-CN' : 'en'
     try {
       localStorage.setItem('cocojune-language', language)
@@ -53,6 +77,7 @@ export default function App() {
     }
   }, [language])
   const workCategory = workCategories.find((item) => route === `/projects/category/${item.id}`)
+  const detailProject = projectIndex.find(item => route === `/projects/${item.id}`)
   const galleryCategory = galleryCategories.find((item) => route === `/gallery/${item.id}`)
   const pageNames: Record<string, string> = {
     '/': 'Junyan He',
@@ -61,6 +86,7 @@ export default function App() {
     '/gallery': language === 'en' ? 'Gallery' : '画廊',
   }
   const pageTitle =
+    detailProject?.title ??
     (workCategory ? copy(workCategory.label, language) : undefined) ??
     (galleryCategory ? copy(galleryCategory.label, language) : undefined) ??
     pageNames[route] ??
@@ -74,8 +100,13 @@ export default function App() {
     window.scrollTo({ top: 0, behavior: 'instant' })
     document.getElementById('main-content')?.focus({ preventScroll: true })
   }, [route])
+  if (portfolioUrl) return <a href={portfolioUrl}>{detailProject?.title ?? (route.startsWith('/projects/tinyroomies/') ? 'TinyRoomies' : 'Textile Studio & Alice')}</a>
   let page
   if (route === '/') page = <HomePage />
+  else if (detailProject?.id === 'holdlight') page = <HoldLightPage />
+  else if (detailProject?.id === 'x-ray') page = <XrayPage />
+  else if (detailProject && isReportId(detailProject.id))
+    page = <GraphicsReportPage id={detailProject.id} title={detailProject.title} />
   else if (route === '/projects' || workCategory)
     page = <ProjectsPage category={workCategory?.id} />
   else if (route === '/research') page = <ResearchPage />
@@ -98,7 +129,7 @@ export default function App() {
     )
   return (
     <SiteContext.Provider value={{ language, setLanguage }}>
-      <SiteLayout route={route}>{page}</SiteLayout>
+      <SiteLayout route={route} projectCategory={detailProject?.category}>{page}</SiteLayout>
     </SiteContext.Provider>
   )
 }

@@ -1,0 +1,62 @@
+/* The linen shows through the empty areas around each image. The image itself
+   supplies any background that belongs to a photographed scene or editor UI. */
+.personal-alice :where(img) {
+  mask-image: var(--alice-silhouette, none);
+  mask-size: var(--alice-mask-fit, contain);
+  mask-position: center;
+  mask-origin: content-box;
+  mask-repeat: no-repeat;
+}
+.alice-technical-doc :is(.screens .picture, .archive) img { --alice-mask-fit: cover; }
+.alice-technical-doc :is(.complete-objects, .pattern-case) .picture img { --alice-mask-fit: contain; }
+.alice-technical-doc figure[data-media="cushionLeafDetail"] img { --alice-mask-fit: cover; }
+
+.personal-alice #main img,
+.personal-alice #main :is(
+  .hero-work, .project-home-cover, .image-button, .work-image, .wg-sample,
+  .material-stage, .material-btn, .compare, .climate-wipe, .mending-first-frame,
+  .ts-image, .ts-wipe, .ts-wipe-image, .ts-night-figure, .ts-chart-frame,
+  .ts-cloth-crop, .prop-pair figure button
+),
+.personal-alice .lightbox :is(.dialog-view, .dialog-thumbs img) {
+  background-color: transparent;
+}
+
+.personal-alice.alice-technical-doc #image-dialog {
+  background: var(--paper) url('../../textures/wrinkled-linen-v1.png') repeat center top / 840px;
+}
+
+@media screen {
+  /* The foreground and background each own one side of the divider, including
+     the transparent pixels between and around the shapes. */
+  .personal-alice .ts-wipe .ts-after { clip-path: inset(0 0 0 var(--ts-split)); }
+  .personal-alice .compare > img { clip-path: inset(0 0 0 var(--split, 50%)); }
+  .personal-alice .climate-wipe .climate-alternative { clip-path: inset(0 0 0 var(--weather-split)); }
+
+  /* The editor capture is 671 × 824 and the exported model is 1800 × 1500.
+     Using those aspect ratios for the columns aligns both images and captions. */
+  .personal-alice[data-page="toolkit"] #main #delivery .ts-export-images {
+    --export-width: min(820px, var(--alice-wide));
+    width: var(--export-width);
+    margin-inline: calc((100% - var(--export-width)) / 2);
+    grid-template-columns: minmax(0, .81432fr) minmax(0, 1.2fr);
+    gap: clamp(20px, 4vw, 56px);
+    align-items: start;
+  }
+  .personal-alice[data-page="toolkit"] #main .ts-export-images .image-button img {
+    width: 100%;
+    height: auto;
+    max-height: none;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .personal-alice[data-page="toolkit"] #main #delivery .ts-export-images {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
+  }
+  .personal-alice #main .ts-export-images > figure:first-child {
+    width: min(100%, 19rem);
+    justify-self: center;
+  }
+}

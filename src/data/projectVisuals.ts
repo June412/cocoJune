@@ -1,9 +1,10 @@
-import { publications, type Localized, type ProjectId } from './content'
+import type { Localized, ProjectId } from './content'
 
 export type ProjectVisual = {
   // Paths are relative to public/, e.g. 'illustrations/alice.png'.
   illustration?: string
   video?: string
+  demo?: { video: string; poster: string; aspect: string }
   // Hover previews wait for the pointer before playing and stay non-interactive.
   hoverPlay?: boolean
   // Video scale knob. Change this number (1 = base size, 1.2 = 20% larger).
@@ -17,7 +18,7 @@ export type ProjectVisual = {
   // Border scale knob. This is independent from the video scale.
   previewBorderScale?: number
   // Match the source video's frame so the sewn border hugs the actual video edge.
-  previewAspect?: '16 / 9' | '8 / 5'
+  previewAspect?: string
   // Hand-stitched preview frame; assign a different colour per video.
   previewBorder?: 'red' | 'blue' | 'yellow'
   // A still image can also serve as the video's poster.
@@ -33,6 +34,12 @@ export type ProjectVisual = {
 export const projectVisuals: Record<ProjectId, ProjectVisual> = {
   tinyroomies: {
     illustration: 'illustrations/tinyroomies-line-v2.png',
+    video: 'projects/tinyroomies/narrative/experience-overview.mp4',
+    cover: 'projects/tinyroomies/narrative/film-poster.webp',
+    hoverPlay: true,
+    previewAspect: '16 / 9',
+    previewScale: 1.2,
+    previewBorderScale: 1.03,
     previewBorder: 'red',
     illustrationAlt: { en: 'A bespectacled succulent-pot resident eagerly stepping forward', zh: '戴眼镜的多肉盆栽住客正好奇地迈步向前' },
     coverAlt: { en: 'TinyRoomies mixed-reality workshop', zh: 'TinyRoomies 混合现实工坊' },
@@ -57,7 +64,6 @@ export const projectVisuals: Record<ProjectId, ProjectVisual> = {
     previewScale: 1.2,
     previewBorderScale: 1.03,
     previewAspect: '16 / 9',
-    previewVideoCrop: { top: 1.5, right: 0, bottom: 1.5, left: 0 },
     previewBorder: 'yellow',
     illustrationAlt: { en: 'A simple cup of hot tea with two curls of steam', zh: '一杯冒着两缕热气的茶' },
     coverAlt: { en: 'The hand-painted world of Between Sips', zh: 'Between Sips 的手绘世界' },
@@ -70,7 +76,6 @@ export const projectVisuals: Record<ProjectId, ProjectVisual> = {
     previewBorderScale: 1.03,
     previewAspect: '16 / 9',
     previewVideoFit: 'cover',
-    previewVideoCrop: { top: 1.5, right: 0, bottom: 1.5, left: 0 },
     previewBorder: 'red',
     illustrationAlt: { en: 'A little hedgehog pincushion with five round-headed sewing pins on its back', zh: '圆背上插着五根球头缝纫针的小刺猬针插' },
     coverAlt: { en: 'Textile Toolkit materials and authoring tools', zh: 'Textile Toolkit 的织物材质与创作工具' },
@@ -88,20 +93,40 @@ export const projectVisuals: Record<ProjectId, ProjectVisual> = {
     previewScale: 1.2,
     previewBorderScale: 1.03,
     previewAspect: '16 / 9',
-    previewVideoCrop: { top: 1.5, right: 0, bottom: 1.5, left: 0 },
     previewBorder: 'blue',
     illustrationAlt: { en: 'A little cube balancing on one foot and holding up its wobbling cross-section slices', zh: '单脚踮起、举手扶住头顶摇晃切片的小方块' },
     coverAlt: { en: 'Volumetric X-ray rendering', zh: '体数据 X 射线渲染' },
   },
   'opengl-2d-greeting-card': {
+    illustration: 'illustrations/greeting-lantern-line-v1.png',
+    illustrationAlt: { en: 'A light bulb tilts to the right inside two rings of light', zh: '一盏向右倾斜的小灯，四周泛着两圈光晕' },
+    cover: 'projects/reports/card/preview.jpg',
+    video: 'projects/reports/card/preview.mp4',
+    hoverPlay: true,
+    previewScale: 1.2,
+    previewBorderScale: 1.03,
+    previewAspect: '960 / 530',
+    previewBorder: 'yellow',
+    demo: { video: 'projects/reports/card/demo.mp4', poster: 'projects/reports/card/demo.jpg', aspect: '1440 / 798' },
     link: { href: 'https://github.com/June412/opengl-2d-greeting-card', label: { en: 'View on GitHub', zh: '在 GitHub 查看' } },
     coverAlt: { en: 'Interactive campus greeting card', zh: '校园互动贺卡' },
   },
   'reality-link-cyber-travel': {
+    illustration: 'illustrations/cyber-cloud-cat-line-v3.png',
+    illustrationAlt: { en: 'A cyber cat faces away with its beaded tail raised. A tilted ring circles its cloud mount. Two long rays shine beneath it, and a few irregular specks float alongside.', zh: '小猫背对着我们站在云上，翘着珠串尾巴。光环斜绕云身，两条长长的光线从云下散开，旁边浮着几颗大小不一的粒子。' },
+    cover: 'projects/reports/travel/preview.jpg',
+    video: 'projects/reports/travel/preview.mp4',
+    hoverPlay: true,
+    previewScale: 1.2,
+    previewBorderScale: 1.03,
+    previewAspect: '800 / 398',
+    previewBorder: 'blue',
+    demo: { video: 'projects/reports/travel/demo.mp4', poster: 'projects/reports/travel/demo.jpg', aspect: '1280 / 636' },
     link: { href: 'https://github.com/June412/reality-link-cyber-travel', label: { en: 'View on GitHub', zh: '在 GitHub 查看' } },
     coverAlt: { en: 'Interactive 3D cyberpunk city', zh: '可交互的 3D 赛博朋克城市' },
   },
   holdlight: {
+    demo: { video: 'projects/holdlight/demo.mp4', poster: 'projects/holdlight/route-guidance.png', aspect: '16 / 9' },
     illustration: 'illustrations/holdlight-line-v2.png',
     video: 'projects/holdlight-preview.mp4',
     hoverPlay: true,
@@ -110,7 +135,6 @@ export const projectVisuals: Record<ProjectId, ProjectVisual> = {
     previewVideoCrop: { top: 1.5, right: 0, bottom: 1.5, left: 0 }, // 按边裁剪百分比，不会拉伸
     previewAspect: '16 / 9',
     previewBorder: 'red',
-    link: { href: publications[0].url, label: { en: 'Read the paper!', zh: '阅读论文' } },
     illustrationAlt: { en: 'A little climber gripping four holds beside a vertical wall line', zh: '沿着竖直墙线攀爬、手脚抓踩四个岩点的小攀岩者' },
     coverAlt: { en: 'HoldLight climbing route guidance', zh: 'HoldLight 攀岩路线引导' },
   },

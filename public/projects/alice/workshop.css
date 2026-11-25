@@ -1,0 +1,57 @@
+.window-study, .workshop-comparisons { margin:0 0 clamp(32px,4vw,54px); }
+.window-study h3, .workshop-comparisons h3, .workshop-props-title { margin:0 0 14px; font-size:clamp(21px,2vw,26px); line-height:1.25; }
+.window-study p, .workshop-comparisons > p { margin:8px 0 16px; max-width:66ch; font-size:1rem; line-height:1.65; }
+.window-film { margin:0; }
+.window-film video, .window-film .window-print { display:block; width:100%; height:auto; aspect-ratio:16 / 9; object-fit:contain; background:#282b26; }
+.window-film figcaption { margin:9px 0 0; color:inherit; line-height:1.55; font-size:.95rem; }
+.window-cues { display:flex; flex-wrap:wrap; gap:3px 16px; }
+.window-cues button { border:0; border-bottom:1px solid var(--line,var(--rule)); background:transparent; color:inherit; padding:6px 0; font:inherit; text-align:left; cursor:pointer; }
+.window-cues button:hover, .window-cues button:focus-visible { border-color:currentColor; }
+.window-cues .cue-time { font-variant-numeric:tabular-nums; margin-right:.2em; }
+.window-film .window-print { display:none; }
+.workshop-comparisons { padding-top:22px; border-top:1px solid var(--line,var(--rule)); }
+alice-weather-comparison { display:block; max-width:780px; margin-inline:auto; }
+.climate-choices { display:flex; flex-wrap:wrap; gap:.28rem .5rem; margin:1rem 0 .75rem; }
+.climate-choices button, .climate-views button {
+    font:inherit; font-size:.93rem; color:var(--ink,#26372e); border:0; background:transparent; cursor:pointer;
+}
+.climate-choices button { min-height:40px; padding:.4rem .75rem; border:1px solid var(--line); border-radius:3px; }
+.climate-choices button[aria-pressed="true"] { background:var(--sewing-ink); color:white; border-color:var(--sewing-ink); }
+.climate-choices button:hover { border-color:var(--sewing-ink); }
+.climate-wipe { isolation:isolate; position:relative; overflow:hidden; aspect-ratio:1440/1000; background:#e8e7e0; }
+.climate-wipe img { position:absolute; inset:0; display:block; width:100%; height:100%; object-fit:contain; }
+.climate-wipe .climate-base { clip-path:inset(0 calc(100% - var(--weather-split)) 0 0); }
+.climate-wipe i { position:absolute; top:0; bottom:0; left:var(--weather-split); width:2px; transform:translateX(-50%); background:white; box-shadow:0 0 0 1px #17201c60; }
+.climate-wipe i::after { content:'↔'; position:absolute; left:50%; top:74%; transform:translate(-50%,-50%); display:grid; place-items:center; width:35px; height:35px; border:1px solid #fff; border-radius:50%; background:#26392ff5; color:white; font:18px/1 system-ui,sans-serif; }
+.climate-wipe input { appearance:none; -webkit-appearance:none; position:absolute; inset:0; margin:0; width:100%; height:100%; opacity:0; cursor:ew-resize; touch-action:pan-y; }
+.climate-wipe input::-webkit-slider-runnable-track { height:100%; }
+.climate-wipe input::-webkit-slider-thumb { -webkit-appearance:none; width:1px; height:100%; }
+.climate-wipe input::-moz-range-track { height:100%; }
+.climate-wipe input::-moz-range-thumb { width:1px; height:100%; }
+.climate-wipe:focus-within,.climate-choices button:focus-visible,.climate-views button:focus-visible { outline:2px solid var(--sewing-thread); outline-offset:3px; }
+.climate-views { display:flex; gap:.75rem; justify-content:space-between; align-items:flex-start; }
+.climate-views button { padding:.65rem 0; text-align:start; text-decoration:underline; text-underline-offset:4px; text-decoration-color:#a8b2aa; cursor:zoom-in; }
+.climate-views button:last-child { text-align:end; }
+.climate-note { margin:.25rem 0 0; font-size:.92rem; color:var(--muted); }
+.climate-status { position:absolute; clip-path:inset(50%); width:1px; height:1px; overflow:hidden; }
+.climate-print { display:none; }
+.repair-method .repair-sound { margin:.85rem 0 0; color:var(--muted); font-size:.95rem; line-height:1.5; }
+.repair-sample { display:block; width:100%; max-width:22rem; height:34px; margin-top:.65rem; }
+.repair-actions { display:flex; flex-wrap:wrap; align-items:baseline; margin:0; padding:0; gap:.2rem .45rem; list-style:none; color:var(--sewing-ink); font-size:1rem; line-height:1.55; }
+.repair-actions li { display:flex; gap:.45rem; align-items:baseline; }
+.repair-actions li:not(:last-child)::after { content:'→'; color:var(--sewing-thread); }
+@media (max-width:480px) {
+    .climate-choices { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); }
+    .climate-choices button { min-height:44px; padding:.3rem; }
+}
+@media print {
+    .window-cues button { border:0; padding:0; }
+    .window-film video,alice-weather-comparison { display:none !important; }
+    .window-film .window-print { display:block; max-height:70mm; background:transparent; }
+    .window-study,.workshop-comparisons { margin:0 0 8mm; }
+    .climate-print { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:2mm; }
+    .climate-print figure { margin:0; }
+    .climate-print img { display:block; width:100%; height:auto; }
+    .climate-print figcaption { font-size:8pt; }
+    .window-film,.climate-print figure { break-inside:avoid; }
+}

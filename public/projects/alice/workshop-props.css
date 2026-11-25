@@ -1,0 +1,40 @@
+.prop-atlas {display:block;margin:18px 0 30px}
+.prop-choices {display:flex;flex-wrap:wrap;gap:4px 18px;border-block:1px solid var(--line);padding:5px 0}
+.prop-choice {display:inline-flex;align-items:center;gap:7px;min-height:40px;font:inherit;color:#444e48}
+.prop-number {display:inline-grid;place-items:center;border:1px solid #a7aea7;border-radius:50%;width:22px;height:22px;font:500 13px/1 var(--sans);background:white;color:#36483c}
+.prop-choice[aria-pressed=true] {font-weight:600;color:#243d30}
+.prop-choice[aria-pressed=true] .prop-number,.prop-pin[aria-pressed=true] .prop-number {background:#284635;border-color:#284635;color:white}
+.prop-details {min-width:0}
+.prop-detail {padding-top:15px}
+.prop-detail h3 {margin:0 0 12px;font:600 clamp(22px,2vw,28px)/1.16 var(--folio-type);color:var(--folio-ink)}
+.prop-pair {display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);grid-template-rows:auto auto auto;gap:6px clamp(12px,2vw,22px)}
+.prop-pair figure {display:grid;grid-template-rows:subgrid;grid-row:1/4;min-width:0;margin:0}
+.prop-pair .prop-model {grid-column:1}
+.prop-pair .prop-closeup {grid-column:2}
+.prop-pair .browse-arrow {grid-area:2/1/3/-1}
+.prop-view-label {display:block;margin:0;align-self:end;color:#48574c;font-size:14px;line-height:1.4}
+.prop-pair figure button {display:block;width:100%;border:0;background:#f6f5f0;padding:0;cursor:zoom-in}
+.prop-pair img {display:block;width:100%;height:clamp(175px,22vw,260px);object-fit:contain}
+.prop-model img {padding:12px}
+.prop-closeup img {object-fit:cover}
+.prop-pair figcaption {margin:0;color:#414a43;font-size:15px;line-height:1.48}
+.prop-detail .text-link {margin:12px 0 0;font-size:14px}
+.prop-at-desk {display:grid;grid-template-columns:minmax(0,1.16fr) minmax(0,1fr);align-items:start;gap:18px 26px}
+.prop-at-desk .prop-choices {grid-row:1;grid-column:1/-1}
+.prop-map {position:relative;min-width:0;grid-column:1;grid-row:2}
+.prop-map > img {display:block;width:100%;height:auto}
+.prop-pin {position:absolute;transform:translate(-50%,-50%);background:none;display:grid;place-items:center;width:40px;height:40px;border:0;padding:0;cursor:pointer}
+.prop-pin .prop-number {width:25px;height:25px;border:2px solid white;box-shadow:0 0 0 1px #465044,0 1px 5px #0005}
+.prop-at-desk .prop-details {grid-row:2;grid-column:2}
+.prop-at-desk .prop-detail {padding-top:0}
+.prop-at-desk .prop-pair img {height:clamp(115px,13.5vw,157px)}
+.prop-atlas :focus-visible {outline:2px solid #936431;outline-offset:2px}
+.prop-announcement {position:absolute;clip-path:inset(50%);width:1px;height:1px;overflow:hidden}
+@media (prefers-reduced-motion:no-preference){.prop-detail:not([hidden]) {animation:prop-reveal 160ms ease-out}@keyframes prop-reveal {from {opacity:.5}to {opacity:1}}}
+@media(max-width:700px){.prop-pair {--browse-inset:-6px}.prop-at-desk {display:flex;flex-direction:column;gap:14px}.prop-map,.prop-choices,.prop-details {width:100%}.prop-at-desk .prop-choices {order:0}.prop-at-desk .prop-map {order:1}.prop-at-desk .prop-details {order:2}.prop-at-desk .prop-pair img,.prop-in-studio .prop-pair img {height:clamp(105px,30vw,200px)}.prop-choices {gap:0 12px}.prop-choice {font-size:14px}.prop-number {width:20px;height:20px}.prop-pin .prop-number {width:24px;height:24px}}
+@media print {
+ .prop-choices,.prop-pin,.prop-announcement,.prop-detail .text-link {display:none!important}
+ .prop-at-desk {display:block}.prop-map {max-width:95mm;margin:0 auto 4mm}
+ .prop-atlas .prop-detail,.main .prop-atlas .prop-detail[hidden] {display:block!important;break-inside:avoid;margin:4mm 0;padding-top:0}
+ .prop-atlas .prop-pair img {height:31mm}.prop-pair figcaption {font-size:9pt}
+}

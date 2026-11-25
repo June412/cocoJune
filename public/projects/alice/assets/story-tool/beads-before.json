@@ -1,0 +1,15 @@
+{
+    "state": "passed",
+    "error": "",
+    "sources": 1001,
+    "previewRenderers": 1001,
+    "syncMs": 32.8918,
+    "dragP50": 49.967400000000008,
+    "dragP95": 71.9923,
+    "orbitP50": 49.8213,
+    "orbitP95": 71.3308,
+    "passed": [
+        "Source beads retain shared meshes and materials",
+        "Picking resolves the original bead layer"
+    ]
+}

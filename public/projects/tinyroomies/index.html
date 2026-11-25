@@ -1,0 +1,670 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#fff8e8">
+  <meta name="description" content="A mixed reality game for Quest 3. Follow five residents from a second-hand suitcase to a shared home, and explore the tools, drawings and choices that restore their belongings.">
+  <title>TinyRoomies — Game design portfolio</title>
+  <link rel="icon" href="images/mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="site.css">
+  <link rel="stylesheet" href="story.css">
+  <link rel="stylesheet" href="field/field.css">
+  <link rel="stylesheet" href="research/research.css">
+  <link rel="stylesheet" href="model/viewer.css">
+  <link rel="stylesheet" href="media/media.css">
+  <link rel="stylesheet" href="recipe/guide.css">
+  <link rel="stylesheet" href="narrative/narrative.css">
+  <link rel="stylesheet" href="making/making.css">
+  <link rel="stylesheet" href="people/people.css">
+  <link rel="stylesheet" href="edition/edition.css">
+  <noscript><style>.plate-controls,.index-trigger{display:none}.mast-type{margin-right:auto}</style></noscript>
+  <script src="site.js" defer></script>
+  <script src="model/viewer.js" defer></script>
+  <script src="media/media.js" defer></script>
+  <script src="recipe/guide.js" defer></script>
+  <script src="narrative/narrative.js" defer></script>
+  <script src="making/making.js" defer></script>
+  <script src="people/people.js" defer></script>
+<link rel="stylesheet" href="./../alice/personal-shell.css"><link rel="stylesheet" href="./../alice/personal-media.css"><link rel="stylesheet" href="./personal.css"><link rel="stylesheet" href="studio-outlines.css"></head>
+<body class="personal-roomies roomies-case">
+<a class="skip-link" href="#main">Skip to case study</a>
+<header class="masthead">
+  <div class="mast-inner">
+    <a class="brand" href="#overview" aria-label="TinyRoomies overview"><img src="images/mark.svg" width="30" height="30" alt="">TinyRoomies</a>
+    <span class="chapter-location">Overview</span>
+    <nav class="quick-nav" aria-label="Featured chapters"><a href="#game-design">Game design</a>
+    <a href="#workshop">Workshop</a>
+    <a href="#shared-life">Emotional interaction</a>
+    <a href="#results">Results</a></nav>
+    <button type="button" id="open-index" class="index-trigger" aria-haspopup="dialog" aria-controls="chapter-index">
+      <svg viewBox="0 0 16 16" width="15" height="15" fill="currentColor" aria-hidden="true"><path d="M1 1h5v5H1zm9 0h5v5h-5zM1 10h5v5H1zm9 0h5v5h-5z"/></svg><span>Index</span>
+    </button>
+  </div>
+</header>
+<dialog id="chapter-index" aria-labelledby="index-heading">
+  <div class="index-head"><h2 id="index-heading">Project index</h2><button type="button" data-dismiss aria-label="Close project index">Close</button></div>
+  <nav class="index-list" aria-label="All chapters"><a href="#overview">Overview</a>
+    <a href="#game-design">Game design</a>
+    <a href="#research">Research</a>
+    <a href="#workshop">Workshop</a>
+    <a href="#assembly">Crafting</a>
+    <a href="#drawing-design">Drawing design</a>
+    <a href="#household">Furniture design</a>
+    <a href="#space">MR &amp; space</a>
+    <a href="#residents">Character design</a>
+    <a href="#shared-life">Emotional interaction</a>
+    <a href="#iteration">Iteration</a>
+    <a href="#accessibility">Accessibility</a>
+    <a href="#results">Results</a></nav>
+  <nav class="index-shortcuts" aria-label="Interactive exhibits"><a href="#tool-models">Tool library</a>
+    <a href="#furniture-collection">Furniture models</a>
+    <a href="#experience-film">Overview film</a></nav>
+</dialog>
+
+
+<main tabindex="-1" id="main">
+
+<section id="overview" class="opening" aria-labelledby="project-name">
+  <div class="hero-layout">
+    <div class="hero-text">
+      <p class="kicker"><span class="ink-line"></span>Mixed reality game · Meta Quest 3</p>
+      <h1 id="project-name">TinyRoomies</h1>
+      <p class="hero-line">Five tiny residents. <br>One second-hand suitcase.</p>
+      <p class="hero-summary">The residents leave their old woodshop with their furniture in pieces. As their Room Host, you help restore each belonging and find a place for it in your own home.</p>
+      <div class="hero-actions">
+        <a class="action-solid" href="#experience-film"><svg viewBox="0 0 16 16" fill="currentColor" width="13" height="13" aria-hidden="true"><path d="m4 2 9 6-9 6z"/></svg>Watch the experience</a>
+        <a class="action-text" href="#game-design">Explore the game</a>
+      </div>
+    </div>
+    <figure class="hero-gallery" aria-label="Project gallery">
+      <div class="hero-picture"><a id="plate-target" aria-keyshortcuts="ArrowLeft ArrowRight" href="#game-design" aria-label="Explore how the five residents arrive"><img id="plate" width="1157" height="948" src="edition/arrival.webp" srcset="edition/arrival-sm.webp 630w, edition/arrival.webp 1157w" sizes="(max-width: 680px) 90vw, 50vw" fetchpriority="high" alt="The five residents sit inside an open wooden suitcase lined with green felt."></a></div>
+      <figcaption class="plate-caption">
+        <span class="plate-text" aria-live="polite" aria-atomic="true"><span class="plate-count">01 / 04</span><span id="plate-name">Arrival at the new home</span></span>
+        <span class="plate-controls" role="group" aria-label="Change project image">
+          <button type="button" id="prev-plate" aria-label="Previous project image"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14 6-6 6 6 6"/></svg></button>
+          <button type="button" id="next-plate" aria-label="Next project image"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m10 6 6 6-6 6"/></svg></button>
+        </span>
+      </figcaption>
+    </figure>
+  </div>
+  <dl class="project-facts">
+    <div><dt>My role</dt><dd>Game &amp; interaction design<br>Character direction · Technical art</dd></div>
+    <div><dt>Built with</dt><dd>Unity · Blender<br>OpenXR on Quest 3</dd></div>
+    <div><dt>At the workbench</dt><dd><a href="#tool-models">22 workshop objects</a><br><a href="#furniture-collection">10 furniture models</a></dd></div>
+    <div><dt>In the room</dt><dd><a href="#residents">Meet the five residents</a><br><a href="#shared-life">Explore their daily lives</a></dd></div>
+  </dl>
+</section>
+
+<div class="case-story">
+
+<section class="story-chapter trn" id="game-design" aria-labelledby="game-design-title">
+  <header class="story-intro">
+    <div><p class="story-kicker">Game design</p><h2 id="game-design-title">A reason to <br>build together</h2></div>
+    <div class="story-lead"><p>The residents took their furniture apart when they left the old woodshop. Their bench, shelf and table travel with them in a second-hand case. Opening it gives you two roles in the same room. You help them make things at the workbench and make space for them as their Room Host.</p></div>
+  </header>
+  <div class="trn-triptych">
+    <figure><img src="narrative/woodshop.webp" width="740" height="493" loading="lazy" alt="A hand plane, shavings and tools on a carpenter’s bench"><figcaption><strong>The old woodshop</strong>Where the furniture came from. Reference photo, <a href="https://www.pexels.com/photo/close-up-shot-of-carpentry-tools-6790031/">Tima Miroshnichenko / Pexels</a>.</figcaption></figure>
+    <figure class="trn-arrival"><img src="edition/arrival.webp" width="740" height="493" loading="lazy" alt="The residents gathered in their open suitcase"><figcaption><strong>The suitcase</strong>The five arrive with the parts they packed. Opening the case reveals their portable workshop.</figcaption></figure>
+    <figure><img src="narrative/room.webp" width="740" height="493" loading="lazy" alt="An empty room with a wooden table beside the window"><figcaption><strong>A shared home</strong>The player’s own room remains visible through the headset. Setting reference, <a href="https://unsplash.com/photos/empty-living-room-vfIx29EsLHA">Grovemade / Unsplash</a>.</figcaption></figure>
+  </div>
+  <div class="trn-reading">
+    <div><h3>One piece, two kinds of play</h3><p>At the workbench a good fit has a physical answer. In a conversation the resident gets a say. Put a tool down to listen, respond or negotiate, then pick it up and return to the same operation.</p></div>
+    <ol class="trn-steps">
+      <li><strong>Notice a need.</strong> A habit, a request or a disagreement gives a belonging a purpose.</li>
+      <li><strong>Restore it.</strong> Identify the next joint, fit the parts in order and work the surface. Contact and movement leave a visible finish.</li>
+      <li><strong>Find its place.</strong> Hold, turn and release the finished piece in a clear spot in the room.</li>
+      <li><strong>Use it together.</strong> Share a cup of tea, read a book or listen to the record that a resident brings.</li>
+      <li><strong>Remember the exchange.</strong> A completed action and the response to it can resurface in later dialogue, giving the next encounter a history.</li>
+    </ol>
+  </div>
+  <p class="trn-progression">Completing the six core projects leads to an invitation to stay. Four further projects give the household more places to spend time together.</p>
+</section>
+
+<section class="story-chapter research-chapter" id="research" aria-labelledby="research-title">
+  <header class="story-intro">
+    <div><p class="story-kicker">Research</p><h2 id="research-title">Learning to read<br> a joint</h2></div>
+    <div class="story-lead"><p>How can a player tell where a piece of wood belongs? I studied 34 Chinese joinery families and variants, to see what carries the load, which shapes fit together and what has to go in first. Those clues became part of the game.</p></div>
+  </header>
+  <div class="research-plates" id="joinery-studies">
+    <figure><img src="research/tsinghua-jiatou-table.jpg" width="457" height="520" loading="lazy" alt="A Ming jiātóu table with long aprons underneath its top and paired stretchers between the legs."><figcaption><strong>Support</strong>The legs, rails and top of this Ming table share a load. In the game, recognising the supporting parts gives the player a place to start. <a href="https://www.artmuseum.tsinghua.edu.cn/cpsj/gcxy/jj/m/202403/t20240301_18958.shtml">Tsinghua University Art Museum</a></figcaption></figure>
+    <figure><img src="edition/joint.webp" width="800" height="797" loading="lazy" alt="Project joint study with the leg, apron and underside of the frame separated to expose their mating faces."><figcaption><strong>Interlock</strong>The shoulder stops the rail and the socket admits it from one direction. I separated the parts of the project model to make the fit visible. <a href="research/wenzhou-corner-joints.jpg" data-art-link>View the museum joint plate</a> · <a href="https://www.wzmuseum.cn/Art/Art_26/Art_26_3854.aspx">Wenzhou Museum</a></figcaption></figure>
+    <figure><img src="edition/exploded-table.webp" width="860" height="817" loading="lazy" alt="Exploded view of the project table with legs, stretchers, aprons and the top panel separated."><figcaption><strong>Assembly order</strong>Closing the frame too soon blocks the panel. The next move follows from the openings the player can still reach. <a href="#drawing-design">See the playable drawing</a></figcaption></figure>
+  </div>
+  <div class="story-subhead" id="game-references"><h3>Two games informed the work</h3><p>One influenced what happens around a finished table. The other influenced what the player feels while making it.</p></div>
+  <div class="rs-game-pair">
+    <figure><img src="edition/roost.webp" alt="A visitor sits at Brewster’s counter at The Roost in Animal Crossing: New Horizons." loading="lazy" width="990" height="557"><figcaption><strong>Animal Crossing: New Horizons</strong>Returning to the same place gives familiar voices and rituals room to develop. In TinyRoomies, tea and music bring out each resident’s habits. <a href="https://animalcrossing.nintendo.com/new-horizons/explore/">Image and game · Nintendo</a></figcaption></figure>
+    <figure><img src="edition/restoration-reference.webp" alt="Hands work on the surface of an object in Workshop Simulator VR." loading="lazy" width="990" height="556"><figcaption><strong>Workshop Simulator VR</strong>Contact between the tool and material makes progress visible. In the suitcase, the direction of a stroke and the mark it leaves tell the player when to move on. <a href="https://workshopsimulatorvr.com/">Image and game · VR Factory Games</a></figcaption></figure>
+  </div>
+  <details class="story-note research-notebook"><summary>Open the joinery notebook · 34 structures and three construction studies</summary>
+    <div class="rs-taxonomy">
+      <div class="rs-text"><h3>34 structures in five groups</h3><p>My October survey grouped joints, locking pieces and assemblies by the construction problem they solve. A through-tenon shows where it enters. A pin adds a second action that locks it in place. Closing a frame too soon can block the next piece entirely.</p><p>Open a group to explore the survey entries, including the architectural and puzzle structures I considered as extensions.</p><a href="research/joinery-survey.html" hreflang="zh-CN">Read the original research notes (中文)</a></div>
+      <div class="rs-groups" aria-label="Five groups of structures in the October survey">
+        <details><summary><span><strong>Rails and crosspieces</strong><small>Alignment, shoulders and locking pins</small></span><span class="rs-count">9</span></summary><ul>
+        <li>Through-tenon <span lang="zh-CN">透直榫</span></li>
+        <li>Blind tenon <span lang="zh-CN">暗直榫</span></li>
+        <li>Twin and multiple tenons <span lang="zh-CN">双榫／多榫</span></li>
+        <li>Round tenons and separate dowels <span lang="zh-CN">圆榫与独立木销</span></li>
+        <li>Cross-pinned tenon <span lang="zh-CN">穿销锁榫</span></li>
+        <li>Split wedged tenon <span lang="zh-CN">破头楔类</span></li>
+        <li>Half-lap <span lang="zh-CN">半搭接</span></li>
+        <li>Cross-lap <span lang="zh-CN">十字搭接</span></li>
+        <li>T-lap <span lang="zh-CN">丁字搭接</span></li>
+        </ul><figure class="rs-sample"><img src="images/story/bench-joints.webp" width="1000" height="714" loading="lazy" alt="Bench frame with two locking pieces lifted above the rails"><figcaption>Project study of the bench frame and its separate locking pieces.</figcaption></figure></details>
+        <details><summary><span><strong>Boards, cases and panels</strong><small>Sliding access and when to close a frame</small></span><span class="rs-count">8</span></summary><ul>
+        <li>Through dovetail <span lang="zh-CN">明燕尾</span></li>
+        <li>Half-blind dovetail <span lang="zh-CN">半隐燕尾</span></li>
+        <li>Sliding dovetail <span lang="zh-CN">滑动燕尾</span></li>
+        <li>Butterfly key <span lang="zh-CN">银锭形键／蝴蝶键</span></li>
+        <li>Tongued and rebated board edges <span lang="zh-CN">企口／榫舌槽口拼板</span></li>
+        <li>Interlocking board-edge profiles <span lang="zh-CN">龙凤榫拼板类</span></li>
+        <li>Crosspiece in a board groove <span lang="zh-CN">穿带</span></li>
+        <li>Frame-and-panel assembly <span lang="zh-CN">攒边装板</span></li>
+        </ul><figure class="rs-sample"><img src="images/story/frame-panel.webp" width="1000" height="714" loading="lazy" alt="Panel lifted out of its channel in the frame"><figcaption>Project teaching model showing the panel edge and the matching groove.</figcaption></figure></details>
+        <details><summary><span><strong>Corners, legs and aprons</strong><small>How rails and supports meet beneath a top</small></span><span class="rs-count">8</span></summary><ul>
+        <li>Mitred frame joint <span lang="zh-CN">格角榫</span></li>
+        <li>Profiled shoulder joint <span lang="zh-CN">格肩榫</span></li>
+        <li>Long and short tenons <span lang="zh-CN">长短榫</span></li>
+        <li>Clamped-rail joint <span lang="zh-CN">夹头榫</span></li>
+        <li>Inserted-shoulder joint <span lang="zh-CN">插肩榫</span></li>
+        <li>Embracing-shoulder joint <span lang="zh-CN">抱肩榫</span></li>
+        <li>Three-way mitred corner <span lang="zh-CN">粽角榫</span></li>
+        <li>Corner-support joints <span lang="zh-CN">托角榫类</span></li>
+        </ul></details>
+        <details><summary><span><strong>Detachable and curved members</strong><small>Two-stage locks, curved parts and braces</small></span><span class="rs-count">5</span></summary><ul>
+        <li>Sliding key joint <span lang="zh-CN">走马销</span></li>
+        <li>Hooked joints <span lang="zh-CN">勾挂榫类</span></li>
+        <li>Wedge-nail joint for curved members <span lang="zh-CN">楔钉榫</span></li>
+        <li>Diagonal leg brace <span lang="zh-CN">霸王枨</span></li>
+        <li>Round-member socket and shoulder joints <span lang="zh-CN">圆材套接／包肩接合</span></li>
+        </ul></details>
+        <details><summary><span><strong>Architecture and interlocking forms</strong><small>Beam assemblies, stacked supports and puzzles</small></span><span class="rs-count">4</span></summary><ul>
+        <li>Beam-to-column joints <span lang="zh-CN">梁柱榫接家族</span></li>
+        <li>Lengthening joints <span lang="zh-CN">接长榫家族</span></li>
+        <li>Bracket sets <span lang="zh-CN">斗拱</span></li>
+        <li>Interlocking burr puzzles <span lang="zh-CN">鲁班锁／孔明锁</span></li>
+        </ul></details>
+      </div>
+    </div>
+
+    <div class="story-subhead rs-heading"><h3>Testing the assembly order</h3><p>Three original Blender studies put those observations into practice. I built 30 separate wooden parts and checked 21 sampled insertion paths against the surrounding geometry.</p></div>
+    <div class="story-trio rs-drawings">
+      <figure><img src="research/table-exploded.webp" width="846" height="740" loading="lazy" alt="Exploded table study separating legs, aprons, rails, panel and frame"><figcaption><strong>Clamped-rail table · 17 parts</strong>Slide the crosspieces into the panel before closing its frame. The top assembly can then lower onto the leg tenons. <a href="research/table-drawing.svg">Open dimensioned drawing</a></figcaption></figure>
+      <figure><img src="research/shelf-exploded.webp" width="846" height="740" loading="lazy" alt="Reading shelf with boards and rear rails drawn away from the two sides"><figcaption><strong>Reading shelf · 7 parts</strong>Shelves enter their dovetail grooves from the front. Each rear rail fits a wide opening and slides down into a narrower slot. <a href="research/shelf-drawing.svg">Open dimensioned drawing</a></figcaption></figure>
+      <figure><img src="research/box-exploded.webp" width="846" height="740" loading="lazy" alt="Exploded wooden tool box with dovetailed sides, bottom and sliding lid"><figcaption><strong>Sliding-lid box · 6 parts</strong>The bottom panel fits between the front and back before the dovetailed sides close around it. The lid slides in last. <a href="research/box-drawing.svg">Open dimensioned drawing</a></figcaption></figure>
+    </div>
+  </details>
+</section>
+
+<section id="workshop" class="story-chapter making-chapter" aria-labelledby="workshop-title">
+  <header class="story-intro"><div><p class="story-kicker">Workshop design</p><h2 id="workshop-title">Inside the suitcase</h2></div><div class="story-lead"><p>The suitcase opens into two connected places. Five residents live on the case. Across a short bridge, the player works at a turntable with tools on the left and pigments on the right.</p></div></header>
+  <div class="making-anatomy">
+    <figure class="making-plate"><div class="making-board"><img src="making/workshop.webp" width="1550" height="904" loading="lazy" alt="The complete suitcase workshop, with five residents on the open case behind the worktop and two fold-out trays."><div class="making-pins" hidden><button type="button" data-station="1" aria-label="Locate process board" aria-controls="station-1" style="--pin-x:33%;--pin-y:29%">1</button>
+<button type="button" data-station="2" aria-label="Locate tool cabinet" aria-controls="station-2" style="--pin-x:19%;--pin-y:54%">2</button>
+<button type="button" data-station="3" aria-label="Locate turntable" aria-controls="station-3" style="--pin-x:26%;--pin-y:73%">3</button>
+<button type="button" data-station="4" aria-label="Locate suitcase home" aria-controls="station-4" style="--pin-x:70%;--pin-y:52%">4</button>
+<button type="button" data-station="5" aria-label="Locate drawing board" aria-controls="station-5" style="--pin-x:52.3%;--pin-y:48.7%">5</button>
+<button type="button" data-station="6" aria-label="Locate finishing tray" aria-controls="station-6" style="--pin-x:43.3%;--pin-y:78%">6</button></div></div><figcaption>Unfolded workshop · Unity model study</figcaption></figure>
+    <div class="making-stations" aria-label="Workshop stations"><details name="workshop-stations" id="station-1" open><summary><span>01</span>Process board</summary><p>The current instruction and its progress sit beside the workpiece.</p></details>
+<details name="workshop-stations" id="station-2"><summary><span>02</span>Tool cabinet</summary><p>Tools are grouped by use. Each handle faces the player so it can be picked up directly.</p></details>
+<details name="workshop-stations" id="station-3"><summary><span>03</span>Turntable</summary><p>Click the red lever to unlock the turntable. Turn it with the left stick, then lock it before cutting.</p></details>
+<details name="workshop-stations" id="station-4"><summary><span>04</span>Suitcase home</summary><p>The five residents gather on the open case. A sliding bridge joins their home to the worktop.</p></details>
+<details name="workshop-stations" id="station-5"><summary><span>05</span>Drawing board</summary><p>The drawing keeps the parts, joint order and carving motif in sight while both hands are busy.</p></details>
+<details name="workshop-stations" id="station-6"><summary><span>06</span>Finishing tray</summary><p>Brushes stand beside the pigments and mixing well on the right, clear of the repair tools.</p></details></div>
+  </div>
+  <details class="story-note making-films" id="workshop-films"><summary>Watch the workshop unfold and rotate</summary>
+    <div class="making-film-grid">
+      <figure><video controls playsinline preload="none" poster="media/fold.webp" src="media/fold.mp4" aria-label="Folding workshop, silent Unity Editor capture"></video><figcaption><strong>Opening the case</strong>The worktop, left cabinet and right tray unfold in order. Tools travel with their supports and return to the same place.</figcaption></figure>
+      <figure><video controls playsinline preload="none" poster="media/turntable-detail.webp" src="media/turntable-detail.mp4" aria-label="Locking the turntable, silent Unity Editor capture"></video><figcaption><strong>Turning the work</strong>The front lever releases the turntable so the next joint can face the player. Locking it steadies the workpiece.</figcaption></figure>
+    </div>
+  </details>
+</section>
+<section id="assembly" class="story-chapter making-chapter" aria-labelledby="crafting-title">
+  <header class="story-intro"><div><p class="story-kicker">Crafting</p><h2 id="crafting-title">From joint to finish</h2></div><div class="story-lead"><p>Each recipe selects the work its furniture needs. A peg repair calls for a drill and a saw. A carved surface calls for a gouge, a brush and a lighter touch.</p></div></header>
+  <ol class="making-stages" aria-label="Crafting stages"><li><a href="#tool-models" data-making-tool="JoineryMallet" aria-label="Inspect the joinery mallet in 3D"><img src="making/JoineryMallet.webp" width="380" height="285" alt="" loading="lazy"><span>Assembly</span></a><p>Read the drawing, find the matching part and release it at its seat. Secure the joint with a tap or a turn.</p></li>
+<li><a href="#tool-models" data-making-tool="HandDrill" aria-label="Inspect the hand-cranked drill in 3D"><img src="making/HandDrill.webp" width="380" height="285" alt="" loading="lazy"><span>Repair</span></a><p>Clamp and mark the damage. Drill, peg and trim a hole, or cut a shallow groove and glue in a strip of old wood.</p></li>
+<li><a href="#tool-models" data-making-tool="Plane" aria-label="Inspect the hand plane in 3D"><img src="making/Plane.webp" width="380" height="285" alt="" loading="lazy"><span>Surface</span></a><p>Plane the repair flush, sand the surrounding wood and sweep away the dust.</p></li>
+<li><a href="#tool-models" data-making-tool="CarvingGouge" aria-label="Inspect the carving gouge in 3D"><img src="making/CarvingGouge.webp" width="380" height="285" alt="" loading="lazy"><span>Relief</span></a><p>Transfer the pattern, cut its outline and carve the recess. Sand the edges before brushing it clean.</p></li>
+<li><a href="#tool-models" data-making-tool="PaletteLeaf" aria-label="Inspect the paint palette in 3D"><img src="making/PaletteLeaf.webp" width="380" height="285" alt="" loading="lazy"><span>Colour and finish</span></a><p>Mix the pigments, test a stroke on an offcut and paint the carving. The Reading Table gets a final coat of wax.</p></li></ol>
+  <div class="story-subhead"><h3>How a joint fits</h3><p>The player chooses the parts and their order. The final alignment assist reduces the small wrist adjustments needed to seat a joint.</p></div>
+  <div class="making-strip">
+    <figure><img src="making/joint-match.webp" width="590" height="443" loading="lazy" alt="Highlighted rail and leg on the turntable before the joint connects."><figcaption><strong>Match</strong>The joint must be empty and its supporting parts in place.</figcaption></figure>
+    <figure><img src="making/joint-fit.webp" width="590" height="443" loading="lazy" alt="Wooden rail meeting the leg along its insertion path."><figcaption><strong>Approach</strong>Bring the part close at the correct angle with a clear path into the joint.</figcaption></figure>
+    <figure><img src="making/joint-fasten.webp" width="590" height="443" loading="lazy" alt="A hand raises the wooden mallet beside the fitted joint."><figcaption><strong>Release and secure</strong>Let go to complete alignment. Tap the joint home or tighten its hardware.</figcaption></figure>
+  </div>
+  <details class="story-note making-surface"><summary>How the tool leaves a mark</summary>
+    <div class="making-strip">
+      <figure><img src="making/table.webp" width="650" height="488" loading="lazy" alt="Built wooden reading table with an inset top."><figcaption><strong>Workpiece</strong>The recipe identifies a repair strip or a region of the surface.</figcaption></figure>
+      <figure><img src="recipe/stages/repair-plane.webp" width="880" height="550" loading="lazy" alt="A hand plane held against the workpiece on the turntable."><figcaption><strong>Contact and motion</strong>The correct tool must stay in contact and follow its working motion for progress to register.</figcaption></figure>
+      <figure><img src="making/finished-wood.webp" width="590" height="443" loading="lazy" alt="Completed coloured motif on the restored wood."><figcaption><strong>Saved finish</strong>Brush marks follow the grain as the piece turns and stay on the furniture when it is placed.</figcaption></figure>
+    </div>
+  </details>
+  <div class="story-subhead catalogue-head" id="tool-library"><h3>The tool cabinet</h3><p>Turn the tools, fixtures and materials to inspect their working ends. Each object links to the operation that uses it.</p></div>
+  <div id="tool-models" data-tool-viewer><img src="model/mallet.webp" alt="Wooden joinery mallet" loading="lazy"></div>
+    <details class="story-note" id="repair-guide">
+      <summary>Browse the 24 workshop operations</summary>
+      <div class="recipe-guide" data-recipe-guide>
+        <details class="recipe-source">
+          <summary>Assembly</summary>
+          <ol>
+            <li>
+              <a class="recipe-source-image" href="recipe/stages/assembly-manual.webp" data-alt="The workshop manual showing a furniture assembly and its next wooden part">Find the part</a>
+              <p>Read the drawing to find the part and the supporting pieces that must already be in place. Move it towards its empty seat. Within the capture radius and 22 degrees of the target angle, releasing the grip commits the fit.</p>
+            </li>
+            <li>
+              <a class="recipe-source-image" href="recipe/stages/assembly-aligned.webp" data-alt="A long rail aligned with the leg on the rotating work surface">Seat a wooden joint</a>
+              <p>Lift the mallet and tap each highlighted joint. Watch the gap close as the contacts seat the wood.</p>
+              <span class="recipe-source-tools"><a href="recipe/tools/JoineryMallet.webp" data-tool-id="JoineryMallet">Joinery mallet</a></span>
+            </li>
+            <li>
+              <a class="recipe-source-image" href="recipe/stages/assembly-fastened.webp" data-alt="A fitted rail and leg shown on the green work surface">Fasten the hardware</a>
+              <p>For a screwed connection, seat the driver, hold the trigger and turn clockwise. Finish each fastening site before fitting the next part.</p>
+              <span class="recipe-source-tools"><a href="recipe/tools/Driver.webp" data-tool-id="Driver">Slotted screwdriver</a></span>
+            </li>
+          </ol>
+        </details>
+        <details class="recipe-source">
+          <summary>Peg repair</summary>
+          <ol>
+            <li>
+              <a class="recipe-source-image" href="recipe/stages/repair-clamp.webp" data-alt="The wooden workpiece held in a clamp on the workshop turntable">Hold the workpiece</a>
+              <p>Lock the turntable. Turn the padded clamp’s handle clockwise with the screwdriver to steady the workpiece for repair.</p>
+              <span class="recipe-source-tools"><a href="recipe/tools/BenchClamp.webp" data-tool-id="BenchClamp">Padded clamp</a>, <a href="recipe/tools/Driver.webp" data-tool-id="Driver">Slotted screwdriver</a></span>
+            </li>
+            <li>
+              <a class="recipe-source-image" href="recipe/stages/repair-mark.webp" data-alt="A marking gauge at the wooden repair surface">Mark the site</a>
+              <p>Trace the highlighted strip with the gauge. The mark gives the next operation a destination.</p>
+              <span class="recipe-source-tools"><a href="recipe/tools/MarkingGauge.webp" data-tool-id="MarkingGauge">Marking gauge</a></span>
+            </li>
+            <li>
+              <a class="recipe-source-image" href="recipe/stages/repair-drill.webp" data-alt="The hand-cranked drill standing at a marked repair site">Drill the hole</a>
+              <p>Set the bit on a mark and turn the side crank. Crank travel deepens the hole. A support can hold the drill while the same hand operates it.</p>
+              <span class="recipe-source-tools"><a href="recipe/tools/HandDrill.webp" data-tool-id="HandDrill">Hand-cranked drill</a></span>
+            </li>
+            <li>
+              <a class="recipe-source-image" href="recipe/stages/repair-peg.webp" data-alt="A wooden peg at the repair site by the parts tray">Insert the peg</a>
+              <p>Press a wooden peg into each drilled hole until it settles into its matching position.</p>
+              <span class="recipe-source-tools"><a href="recipe/tools/Dowel.webp" data-tool-id="Dowel">Wooden peg</a></span>
+            </li>
+            <li>
+              <a class="recipe-source-image" href="recipe/stages/repair-drive-peg.webp" data-alt="The mallet at the workpiece during peg seating">Seat the peg</a>
+              <p>Lift the mallet and give each peg three accepted taps to seat it in the wood.</p>
+              <span class="recipe-source-tools"><a href="recipe/tools/JoineryMallet.webp" data-tool-id="JoineryMallet">Joinery mallet</a></span>
+            </li>
+            <li>
+              <a class="recipe-source-image" href="recipe/stages/repair-saw.webp" data-alt="A flush-cut saw crossing the wooden workpiece">Saw it flush</a>
+              <p>Move the saw back and forth across the projecting peg until it is level with the surrounding surface.</p>
+              <span class="recipe-source-tools"><a href="recipe/tools/FlushSaw.webp" data-tool-id="FlushSaw">Flush-cut saw</a></span>
+            </li>
+          </ol>
+        </details>
+        <details class="recipe-source">
+          <summary>Inlay and surface</summary>
+          <ol>
+            <li>
+              <a class="recipe-source-image" href="recipe/stages/repair-chisel.webp" data-alt="A chisel aligned along the groove in a wooden panel">Cut a shallow groove</a>
+              <p>Steady the chisel at the neck and push shallow passes through both groove regions.</p>
+              <span class="recipe-source-tools"><a href="recipe/tools/Chisel.webp" data-tool-id="Chisel">Flat chisel</a></span>
+            </li>
+            <li>
+              <a class="recipe-source-image" href="recipe/stages/repair-glue.webp" data-alt="The glue nozzle over the workpiece on the turntable">Lay down glue</a>
+              <p>Hold the trigger and draw the nozzle along the groove, covering all three repair regions with a thin layer.</p>
+              <span class="recipe-source-tools"><a href="recipe/tools/GlueBottle.webp" data-tool-id="GlueBottle">Wood glue</a></span>
+            </li>
+            <li>
+              <a class="recipe-source-image" href="recipe/stages/repair-inlay.webp" data-alt="The old-wood strip in the clamped repair surface">Set the inlay</a>
+              <p>Press the old-wood strip into the groove, then tighten the clamp to hold it through the short setting time.</p>
+              <span class="recipe-source-tools"><a href="recipe/tools/InlayStrip.webp" data-tool-id="InlayStrip">Old-wood inlay</a>, <a href="recipe/tools/BenchClamp.webp" data-tool-id="BenchClamp">Padded clamp</a></span>
+            </li>
+            <li>
+              <a class="recipe-source-image" href="recipe/stages/repair-plane.webp" data-alt="A hand plane on the wooden repair surface">Level the strip</a>
+              <p>Keep the plane’s sole near the wood and push over the repaired strip until it meets the surrounding surface.</p>
+              <span class="recipe-source-tools"><a href="recipe/tools/Plane.webp" data-tool-id="Plane">Hand plane</a></span>
+            </li>
+            <li>
+              <a class="recipe-source-image" href="recipe/stages/repair-sand.webp" data-alt="A sanding block touching the wooden workpiece">Sand the surface</a>
+              <p>Rub across the front, middle and rear. The distance travelled in contact with each region counts towards its finish.</p>
+              <span class="recipe-source-tools"><a href="recipe/tools/SandingBlock.webp" data-tool-id="SandingBlock">Sanding block</a></span>
+            </li>
+            <li>
+              <a class="recipe-source-image" href="recipe/stages/repair-clean.webp" data-alt="A small brush sweeping the top of the workpiece">Brush away dust</a>
+              <p>Sweep all three prepared areas with the dust brush before transferring the pattern.</p>
+              <span class="recipe-source-tools"><a href="recipe/tools/DustBrush.webp" data-tool-id="DustBrush">Dust brush</a></span>
+            </li>
+          </ol>
+        </details>
+        <details class="recipe-source">
+          <summary>Pattern and relief</summary>
+          <ol>
+            <li>
+              <a class="recipe-source-image" href="recipe/stages/relief-transfer.webp" data-alt="A transfer sheet positioned on the wooden surface">Transfer the pattern</a>
+              <p>Align the sheet on the highlighted wood and press briefly. The transferred motif defines the boundaries for carving.</p>
+              <span class="recipe-source-tools"><a href="recipe/tools/TransferPaper.webp" data-tool-id="TransferPaper">Transfer sheet</a></span>
+            </li>
+            <li>
+              <a class="recipe-source-image" href="recipe/stages/relief-outline.webp" data-alt="The carving gouge tracing the transferred motif">Trace the outline</a>
+              <p>Push the gouge along the transferred boundaries. Following each edge leaves a visible shallow cut.</p>
+              <span class="recipe-source-tools"><a href="recipe/tools/CarvingGouge.webp" data-tool-id="CarvingGouge">Carving gouge</a></span>
+            </li>
+            <li>
+              <a class="recipe-source-image" href="recipe/stages/relief-recess.webp" data-alt="The gouge clearing the interior of the motif">Carve the recess</a>
+              <p>Use shallow passes inside each outline. Covered regions become recessed geometry in the surface.</p>
+              <span class="recipe-source-tools"><a href="recipe/tools/CarvingGouge.webp" data-tool-id="CarvingGouge">Carving gouge</a></span>
+            </li>
+            <li>
+              <a class="recipe-source-image" href="recipe/stages/relief-sand.webp" data-alt="A sanding block over the carved panel">Refine the edges</a>
+              <p>Sand the carved area to soften its new edges while keeping the shallow relief.</p>
+              <span class="recipe-source-tools"><a href="recipe/tools/SandingBlock.webp" data-tool-id="SandingBlock">Sanding block</a></span>
+            </li>
+            <li>
+              <a class="recipe-source-image" href="recipe/stages/relief-clean.webp" data-alt="The dust brush at the carved workpiece">Clear the carving</a>
+              <p>Sweep the carved regions clean. Their outlines and interiors also define where the paint will go.</p>
+              <span class="recipe-source-tools"><a href="recipe/tools/DustBrush.webp" data-tool-id="DustBrush">Dust brush</a></span>
+            </li>
+          </ol>
+        </details>
+        <details class="recipe-source">
+          <summary>Colour and finish</summary>
+          <ol>
+            <li>
+              <a class="recipe-source-image" href="recipe/stages/paint-workspace.webp" data-alt="The painting station with a palette, instruction board and practice offcut">Prepare the palette</a>
+              <p>At the painting station, match the numbered pigments to the drawing. Designs that call for a mixture use the well in the middle of the palette.</p>
+              <span class="recipe-source-tools"><a href="recipe/tools/PaletteLeaf.webp" data-tool-id="PaletteLeaf">Paint palette</a>, <a href="recipe/tools/PaintingMat.webp" data-tool-id="PaintingMat">Painting mat</a></span>
+            </li>
+            <li>
+              <a class="recipe-source-image" href="recipe/stages/paint-workspace.webp" data-alt="The practice offcut beside the working palette">Test the brush</a>
+              <p>Try a stroke on the offcut. Use a flat brush for broad coverage, a detail brush for tight edges or a dry brush for texture. Adjust the stroke width before moving to the piece.</p>
+              <span class="recipe-source-tools"><a href="recipe/tools/TestSwatch.webp" data-tool-id="TestSwatch">Practice offcut</a>, <a href="recipe/tools/Brush.webp" data-tool-id="Brush">Flat brush</a>, <a href="recipe/tools/DetailBrush.webp" data-tool-id="DetailBrush">Detail brush</a>, <a href="recipe/tools/DryBrush.webp" data-tool-id="DryBrush">Dry brush</a></span>
+            </li>
+            <li>
+              <a class="recipe-source-image" href="recipe/stages/paint-stroke.webp" data-alt="A brush applying pigment to the regional motif">Fill a region</a>
+              <p>Follow the motif with the selected colour. A whole stroke can be undone. The marks stay in local surface coordinates as the piece rotates and when it is placed or saved.</p>
+              <span class="recipe-source-tools"><a href="recipe/tools/Brush.webp" data-tool-id="Brush">Flat brush</a>, <a href="recipe/tools/DetailBrush.webp" data-tool-id="DetailBrush">Detail brush</a></span>
+            </li>
+            <li>
+              <a class="recipe-source-image" href="recipe/stages/paint-wax.webp" data-alt="The workshop turntable during the final surface treatment">Apply wax</a>
+              <p>The Reading Table gets a final coat after painting. Rub the pad over the completed surface to spread a thin wax finish.</p>
+              <span class="recipe-source-tools"><a href="recipe/tools/WaxPad.webp" data-tool-id="WaxPad">Wax pad</a></span>
+            </li>
+          </ol>
+        </details>
+      </div>
+    </details>
+</section>
+
+<section class="story-chapter trn" id="drawing-design" aria-labelledby="drawing-design-title">
+  <header class="story-intro">
+    <div><p class="story-kicker">Drawing design</p><h2 id="drawing-design-title">Reading the <br>workshop manual</h2></div>
+    <div class="story-lead"><p>The left page keeps the whole piece in sight. The right names the current connection and shows the path the part takes into its seat. Each view can be rotated with a trigger drag and enlarged with the thumbstick, independently of the other.</p><p>A player can browse a step, replay the movement or pause its timeline. Their actual build stays where they left it.</p></div>
+  </header>
+  <figure class="trn-board"><a href="narrative/manual-main.webp" aria-label="Open full-size production drawing of the reading shelf"><img src="narrative/manual-main.webp" width="1450" height="793" loading="lazy" alt="Open manual with the assembled reading shelf on the left and the upper shelf’s insertion step on the right"></a><figcaption>The production drawing for Sprout and Page’s Reading Shelf. The finished shelf remains visible as its support boards and next connection are isolated on the facing page.</figcaption></figure>
+  <div class="trn-manual trn-reading">
+    <div><h3>Look inside the shelf joint</h3><p>On this step, the high shelf slides in from the front. Compare the start and end of its illustrated travel, then look at the two contact faces. In the game the X-ray control ranges from 35% to 80% opacity.</p></div>
+    <div class="trn-gallery" data-drawing-gallery="Shelf guide views">
+      <figure data-drawing-label="Before insertion"><img src="narrative/step-start.webp" width="1400" height="765" loading="lazy" alt="The shelf projects forward of the side panels before entering the grooves"><figcaption>The right page at the beginning of the insertion. The two side panels provide the entry direction.</figcaption></figure>
+      <figure data-drawing-label="After insertion"><img src="narrative/step-end.webp" width="1400" height="764" loading="lazy" alt="The upper shelf has moved back into both side-panel grooves"><figcaption>The same step at the end of its travel. The upper board now sits between the sides.</figcaption></figure>
+      <figure data-drawing-label="Joint detail"><img src="narrative/joint-detail.webp" width="850" height="611" loading="lazy" alt="Close-up of the shelf and both solid wooden side panels"><figcaption>Joint focus isolates the mating parts so you can follow the motion without the rest of the furniture in the way.</figcaption></figure>
+      <figure data-drawing-label="X-ray"><img src="narrative/joint-xray.webp" width="850" height="611" loading="lazy" alt="Transparent side panels reveal the upper shelf’s edges and contact faces"><figcaption>The same joint at 42% X-ray opacity. The board remains visible as it enters the sides.</figcaption></figure>
+    </div>
+  </div>
+  <div class="trn-reading">
+    <div><h3>Three pages from the manual</h3><p>Putting a shelf into a groove, turning a top over and bringing a rail into a side panel need different pictures. Each spread pairs that movement with the shape the player is building towards.</p></div>
+    <div class="trn-gallery trn-example" data-drawing-gallery="Furniture examples">
+      <figure data-drawing-label="Folding Worktable"><img src="narrative/drawing-desk.webp" width="1320" height="716" loading="lazy" alt="Finished folding worktable beside its inverted top with left brace raised"><figcaption>Flip the top over to reach the left brace hinge. The facing page keeps the final worktable orientation in view.</figcaption></figure>
+      <figure data-drawing-label="Display Cabinet"><img src="narrative/drawing-box.webp" width="1320" height="716" loading="lazy" alt="Cabinet side panels standing upright with a base aligned to their dovetail grooves"><figcaption>Slide the base into the dovetail grooves in both upright side panels.</figcaption></figure>
+      <figure data-drawing-label="Knock-down Bench"><img src="narrative/drawing-bench.webp" width="1320" height="716" loading="lazy" alt="Bench drawing showing a side panel and a rail with its end tenon exposed"><figcaption>Slide the left side panel onto the rail’s tenon. The projecting end shows which way to approach.</figcaption></figure>
+    </div>
+  </div>
+  <div class="trn-checklist"><div><h3>Keeping your place</h3><p>Once assembly is complete, the process sheet shows five operations per page. Here, flush sawing has a checkmark, sanding is active, and dusting comes next. The three states help the player resume after a conversation.</p></div><img src="narrative/craft-sequence.webp" width="698" height="850" loading="lazy" alt="An actual process checklist with Saw Flush marked complete, Sand active and Brush Away Dust next"></div>
+</section>
+
+<section class="story-chapter making-chapter" id="household" aria-labelledby="furniture">
+  <header class="story-intro"><div><p class="story-kicker">Furniture design</p><h2 id="furniture">Objects for a shared room</h2></div><div class="story-lead"><p>I designed ten pieces of wooden furniture using traditional Chinese mortise-and-tenon joinery. Restoring each one brings back something the residents used to do together.</p></div></header>
+  <div class="making-example-grid"><article><figure><img src="field/record.webp" alt="A resident offers the selected record beside the player." loading="lazy" width="960" height="600"></figure><div><h3>Wooden Record Player</h3><p>Choose a track and a resident brings you its disc. Place it on the platter to listen together. Return that same disc before changing the music.</p><a href="#furniture-collection" data-making-piece="record-player">Inspect the wooden record player in 3D</a></div></article>
+<article><figure><img src="images/furniture/use-shelf.webp" alt="Books and a potted plant on the reading shelf beside Sprout." loading="lazy" width="960" height="600"></figure><div><h3>Reading Shelf</h3><p>Archivist needs to reach a book. Sprout needs room for leaves. Listen to both residents, choose an arrangement and see how they share the shelf.</p><a href="#furniture-collection" data-making-piece="shelf">Inspect the reading shelf in 3D</a></div></article>
+<article><figure><img src="making/tea-sharing.webp" alt="Residents gathered at the wooden table with their individual cups beside the teapot." loading="lazy" width="960" height="600"></figure><div><h3>Reading Table</h3><p>Add tea and water, steep for eight seconds, then fill the cups. As everyone drinks, the different cups and habits become a way to get to know their owners.</p><a href="#furniture-collection" data-making-piece="table">Inspect the reading table in 3D</a></div></article></div>
+    <section id="furniture-collection" aria-labelledby="collection-name">
+      <div id="bench-model">
+        <div class="catalogue-heading compare-heading">
+          <div><h3 id="collection-name">A closer look</h3><p>Rotate an assembled piece and compare it with the same belonging in use. The bench also opens into an exploded view.</p></div>
+          <label class="furniture-picker" hidden>Choose from 10 pieces<select id="furniture-choice" aria-controls="furniture-model furniture-room"></select></label>
+        </div>
+        <div class="furniture-comparison">
+          <div class="comparison-model">
+            <p class="comparison-label">3D model</p>
+            <div id="furniture-model" data-tool-viewer="furniture"><img src="making/record-player.webp" alt="Record player in an open wooden case" loading="lazy"></div>
+          </div>
+          <div class="comparison-capture">
+            <p class="comparison-label">In the room · Unity Editor</p>
+            <figure id="furniture-room">
+              <img src="images/furniture/use-record-player.webp" width="1100" height="688" loading="lazy" alt="Courier stands next to a record on the open wooden player.">
+              <figcaption aria-live="polite" aria-atomic="true"><strong>Wooden Record Player</strong><span>Accept a record and share a song with Courier.</span></figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+      <details class="story-note making-full-collection"><summary>Browse all ten belongings</summary><div class="catalogue-heading collection-browse">
+        <fieldset class="catalogue-views" hidden><legend>Furniture photographs</legend>
+          <label><input type="radio" name="furniture-view" value="room" checked><span>In the room</span></label>
+          <label><input type="radio" name="furniture-view" value="studio"><span>Studio models</span></label>
+        </fieldset>
+      </div>
+      <div class="belonging-group"><h4>Moving in · Six restorations</h4><div class="belonging-grid">
+        <figure data-furniture="bench" data-studio="images/story/bench.webp" data-studio-alt="Low wooden bench with exposed pegs" data-room="images/furniture/use-bench.webp" data-room-alt="Courier sits on the restored bench beside a small sign.">
+          <img src="images/furniture/use-bench.webp" width="1100" height="688" loading="lazy" alt="Courier sits on the restored bench beside a small sign.">
+          <figcaption><strong>Bench</strong><span>Sit together and remember the old workshop.</span></figcaption>
+          <noscript><a href="images/story/bench.webp">Studio model</a></noscript>
+        </figure>
+        <figure data-furniture="record-player" data-studio="making/record-player.webp" data-studio-alt="Record player in an open wooden case" data-room="images/furniture/use-record-player.webp" data-room-alt="Courier stands next to a record on the open wooden player.">
+          <img src="images/furniture/use-record-player.webp" width="1100" height="688" loading="lazy" alt="Courier stands next to a record on the open wooden player.">
+          <figcaption><strong>Wooden Record Player</strong><span>Accept a record and share a song with Courier.</span></figcaption>
+          <noscript><a href="making/record-player.webp">Studio model</a></noscript>
+        </figure>
+        <figure data-furniture="cabinet" data-studio="images/story/cabinet.webp" data-studio-alt="Dovetailed wooden box with a blue sliding lid" data-room="images/furniture/use-cabinet.webp" data-room-alt="The sliding-lid box with a packing tag displayed on its lid.">
+          <img src="images/furniture/use-cabinet.webp" width="1100" height="688" loading="lazy" alt="The sliding-lid box with a packing tag displayed on its lid.">
+          <figcaption><strong>Sliding-lid Box</strong><span>Choose where to display Page’s old packing tag.</span></figcaption>
+          <noscript><a href="images/story/cabinet.webp">Studio model</a></noscript>
+        </figure>
+        <figure data-furniture="shelf" data-studio="making/shelf.webp" data-studio-alt="Open reading shelf with two wooden side panels" data-room="images/furniture/use-shelf.webp" data-room-alt="Archivist, Page and an open book share the space around the reading shelf.">
+          <img src="images/furniture/use-shelf.webp" width="1100" height="688" loading="lazy" alt="Archivist, Page and an open book share the space around the reading shelf.">
+          <figcaption><strong>Reading Shelf</strong><span>Leave room for both a favourite book and Sprout’s leaves.</span></figcaption>
+          <noscript><a href="making/shelf.webp">Studio model</a></noscript>
+        </figure>
+        <figure data-furniture="desk" data-studio="images/story/desk.webp" data-studio-alt="Wooden armchair with a green backrest" data-room="images/furniture/use-desk.webp" data-room-alt="Keeper rests on the green-backed chair.">
+          <img src="images/furniture/use-desk.webp" width="1100" height="688" loading="lazy" alt="Keeper rests on the green-backed chair.">
+          <figcaption><strong>Reading Chair</strong><span>Give Keeper a steady place to talk or rest.</span></figcaption>
+          <noscript><a href="images/story/desk.webp">Studio model</a></noscript>
+        </figure>
+        <figure data-furniture="table" data-studio="making/table.webp" data-studio-alt="Reading table with a blue rim around the top" data-room="images/furniture/use-table.webp" data-room-alt="The residents around the tea table with their individual cups.">
+          <img src="images/furniture/use-table.webp" width="1100" height="688" loading="lazy" alt="The residents around the tea table with their individual cups.">
+          <figcaption><strong>Reading Table</strong><span>Bring five cups to one table for tea.</span></figcaption>
+          <noscript><a href="making/table.webp">Studio model</a></noscript>
+        </figure>
+      </div></div>
+      <div class="belonging-group"><h4>After the invitation · Four further projects</h4><div class="belonging-grid">
+        <figure data-furniture="stool" data-studio="images/story/stool.webp" data-studio-alt="Low wooden stool" data-room="images/furniture/use-stool.webp" data-room-alt="Sprout sits on the low stool beside the workshop.">
+          <img src="images/furniture/use-stool.webp" width="1100" height="688" loading="lazy" alt="Sprout sits on the low stool beside the workshop.">
+          <figcaption><strong>Sprout’s Stool</strong><span>Take a break to look at a leaf together.</span></figcaption>
+          <noscript><a href="images/story/stool.webp">Studio model</a></noscript>
+        </figure>
+        <figure data-furniture="collection-cabinet" data-studio="images/story/collection-cabinet.webp" data-studio-alt="Cabinet with two green doors and an open compartment" data-room="images/furniture/use-collection-cabinet.webp" data-room-alt="The display cabinet with a wood sample on its upper shelf.">
+          <img src="images/furniture/use-collection-cabinet.webp" width="1100" height="688" loading="lazy" alt="The display cabinet with a wood sample on its upper shelf.">
+          <figcaption><strong>Display Cabinet</strong><span>Keep a wood sample and leave space for future finds.</span></figcaption>
+          <noscript><a href="images/story/collection-cabinet.webp">Studio model</a></noscript>
+        </figure>
+        <figure data-furniture="folding-workdesk" data-studio="images/story/folding-workdesk.webp" data-studio-alt="Worktable with a folding side tray" data-room="images/furniture/use-folding-workdesk.webp" data-room-alt="Three tools on the folding worktable with its side tray extended.">
+          <img src="images/furniture/use-folding-workdesk.webp" width="1100" height="688" loading="lazy" alt="Three tools on the folding worktable with its side tray extended.">
+          <figcaption><strong>Folding Worktable</strong><span>Put away three tools or invite Keeper to rest.</span></figcaption>
+          <noscript><a href="images/story/folding-workdesk.webp">Studio model</a></noscript>
+        </figure>
+        <figure data-furniture="plant-reading-rack" data-studio="images/story/plant-reading-rack.webp" data-studio-alt="A stepped wooden rack with space for plants and books" data-room="images/furniture/use-plant-reading-rack.webp" data-room-alt="The planter shelf with books in its upper compartment.">
+          <img src="images/furniture/use-plant-reading-rack.webp" width="1100" height="688" loading="lazy" alt="The planter shelf with books in its upper compartment.">
+          <figcaption><strong>Planter Shelf</strong><span>Keep the plant and the book within reach.</span></figcaption>
+          <noscript><a href="images/story/plant-reading-rack.webp">Studio model</a></noscript>
+        </figure>
+      </div></div>
+    </details>
+    </section>
+</section>
+
+<section class="story-chapter" id="space" aria-labelledby="space-title">
+  <header class="story-intro">
+    <div><p class="story-kicker">MR &amp; space</p><h2 id="space-title">A place in<br> your room</h2></div>
+    <div class="story-lead"><p>Your tabletop sets the direction of the workshop. The real room around it decides where a chair can go, where a resident can walk and when they need you to give them a lift.</p></div>
+  </header>
+  <div class="field-trio field-diagrams">
+      <figure><svg viewBox="0 0 560 310" role="img" aria-label="Two near tabletop corners define the workbench direction"><path d="M54 245 125 74 486 74 524 245Z" fill="#e0e0dd"/><path d="M72 230H506" stroke="#242422" stroke-width="4"/><circle cx="72" cy="230" r="12" fill="#242422"/><circle cx="506" cy="230" r="12" fill="#242422"/><path d="M200 150H360l-13-9m13 9-13 9" fill="none" stroke="#4e4e4a" stroke-width="3"/><g font-family="Helvetica Neue,Arial,sans-serif" fill="#272725" font-size="25"><text x="42" y="286">1 · Near-left</text><text x="348" y="286">2 · Near-right</text><text x="156" y="121">Workbench direction</text><text x="151" y="44">Minimum reference depth</text></g></svg><figcaption><strong>Orient the workshop</strong>Mark the near-left corner of the real table, then the near-right. The line between them sets the direction. A fixed reference depth supplies the far edge. MRUK maps room surfaces and obstacles.</figcaption></figure>
+      <figure><svg viewBox="0 0 560 310" role="img" aria-label="Free furniture placement stores position and three-dimensional rotation while checking obstacles"><image href="images/story/bench.webp" x="115" y="22" width="355" height="250"/><path d="M135 222V91m0 131 124 29m-124-29-68 44" stroke="#4e4e4a" stroke-width="3" fill="none"/><path d="M290 242q95 24 164-22m-16-4 16 4-8 14" fill="none" stroke="#242422" stroke-width="3"/><g font-family="Helvetica Neue,Arial,sans-serif" fill="#272725" font-size="25"><text x="108" y="78">Y</text><text x="270" y="260">X</text><text x="47" y="294">Z</text><text x="252" y="299">Position + full rotation</text></g></svg><figcaption><strong>Place a finished piece</strong>Carry it with the side grip held. The stick turns and tilts the piece. Press the stick while moving it sideways to roll it. Releasing in clear space saves the full pose, including on an unscanned surface.</figcaption></figure>
+      <figure><svg viewBox="0 0 560 310" role="img" aria-label="Resident walks on support, receives a lift across a gap, then resumes toward the destination"><path d="M20 220H220V266H20ZM357 170H540V218H357Z" fill="#d6d6d2"/><path d="M50 210H192M390 159H503" stroke="#4e4e4a" stroke-width="5" stroke-dasharray="10 8"/><path d="M208 172Q284 35 382 137m-17 0 17 0-6-17" fill="none" stroke="#242422" stroke-width="4"/><image href="media/courier.webp" x="145" y="93" width="90" height="122"/><g font-family="Helvetica Neue,Arial,sans-serif" fill="#272725" font-size="25"><text x="36" y="299">Supported path</text><text x="233" y="49">Player lift</text><text x="361" y="94">Destination</text></g></svg><figcaption><strong>Give someone a lift</strong>When a supported path ends, the resident names the destination and asks for a lift. Set them on a clear, supported surface and they plan the rest of the walk. An unsupported landing keeps them in hand.</figcaption></figure>
+    </div>
+  <details class="story-note field-note"><summary>See the placement sequence in the simulator</summary>
+    <div class="field-contact field-inside">
+        <figure><img src="field/hold.webp" width="800" height="500" loading="lazy" alt="The wooden bench held close to the suitcase."><figcaption><strong>Grip</strong>Lift the finished bench with the side grip. Its position follows the hand.</figcaption></figure>
+        <figure><img src="field/turn.webp" width="800" height="500" loading="lazy" alt="The miniature bench visibly turned and tilted below the suitcase."><figcaption><strong>Orient</strong>Turn, tilt or roll it while holding the grip. Seated and standing players handle the same miniature.</figcaption></figure>
+        <figure><img src="field/place.webp" width="800" height="500" loading="lazy" alt="Low side view of the bench after placement."><figcaption><strong>Release</strong>A clear pose 0.22–7 metres from the headset stays in place. An overlap with a resident, another piece, the workshop or a known obstacle returns the bench to the worktop.</figcaption></figure>
+        <figure><img src="field/support.webp" width="800" height="500" loading="lazy" alt="Keeper resting on a wooden chair, with the seat supporting the body."><figcaption><strong>Support a body</strong>Seat height, approach clearance and the size of the resident shape the resting pose. The chair’s geometry provides the contact point.</figcaption></figure>
+      </div>
+  </details>
+  <div class="story-subhead" id="room-consistency"><h3>Keeping the room consistent</h3><p>The workshop, the furniture and the player’s hands each have a different role in the spatial system.</p></div>
+  <dl class="story-definitions">
+    <div><dt>Stable space</dt><dd>A local anchor restores the room reference across sessions. Head movement leaves the workshop in place. Opening the system menu pauses play, and a failed room refresh retains the last usable map.</dd></div>
+    <div><dt>Physical clearance</dt><dd>Body sweeps check a walking resident’s clearance. The furniture mesh supplies the actual seat and contact points. A blocked placement returns the piece to the workbench.</dd></div>
+    <div><dt>Hand depth</dt><dd>Tracked hand joints or a controller grip drive a hand mask. Depth decides whether the real hand or a virtual object is in front. The active interaction mode has a single input owner.</dd></div>
+  </dl>
+</section>
+
+<section class="story-chapter pp-chapter" id="residents" aria-labelledby="residents-title">
+  <header class="story-intro" id="characters">
+    <div><p class="story-kicker">Character design</p><h2 id="residents-title">Meet the roomies</h2></div>
+    <div class="story-lead"><p>Five people can reassure you in five different ways. Sprout leaves a little space between gestures. Courier rushes into a phrase, opens his arms, then waits. Each resident carries that same rhythm into the workshop and the room.</p></div>
+  </header>
+  <tiny-voices><p>Listen to the five residents. <a href="media/voice-sprout.wav">Sprout</a> · <a href="media/voice-keeper.wav">Keeper</a> · <a href="media/voice-archivist.wav">Archivist</a> · <a href="media/voice-courier.wav">Courier</a> · <a href="media/voice-page.wav">Page</a></p></tiny-voices>
+  <div class="pp-profile-source" aria-label="Resident performance notes">
+    <article data-name="Sprout" data-portrait="sprout-smile"><h3>Sprout</h3><p>Gentle gestures and patient pauses. Sprout tends leaves and turns the cup handle away from them to make a little room.</p></article>
+    <article data-name="Keeper" data-portrait="keeper-thoughtful"><h3>Keeper</h3><p>Keeper checks the alignment of the wood before a reassuring nod. At tea, a small sip brings the drink back down to a familiar fill mark.</p></article>
+    <article data-name="Archivist" data-portrait="archivist-thoughtful"><h3>Archivist</h3><p>One hand supports the book while the other turns the page. Archivist marks the place before sipping and finds it again after a cup mix-up.</p></article>
+    <article data-name="Courier" data-portrait="courier-smug"><h3>Courier</h3><p>Open gestures give way to a sudden pause. Courier retrieves offcuts, shares music and shows the player how to grip his own cup.</p></article>
+    <article data-name="Page" data-portrait="page-shy"><h3>Page</h3><p>Small gestures stay close to the body. Page keeps familiar wood and belongings, and will lend the old cup sleeve when the player asks.</p></article>
+  </div>
+  <div class="pp-expression">
+    <div><h3>From voice to face</h3><p>I used Qwen3 VoiceDesign to render “We can try again. Take your time.” in five voices. I kept the stresses and pauses as wordless syllables. Unity selects a take by resident and intention, then reads its loudness every 10 milliseconds to open the mouth as the sound plays.</p></div>
+    <div class="pp-faces" aria-label="Facial expression studies">
+      <figure><img src="people/page-shy-face.webp" width="420" height="360" alt="Page drops the eyes behind the glasses." loading="lazy"><figcaption>Page · Shy</figcaption></figure>
+      <figure><img src="people/page-anxious-face.webp" width="420" height="360" alt="Page looks up with widened eyes." loading="lazy"><figcaption>Page · Anxious</figcaption></figure>
+      <figure><img src="people/archivist-surprised-face.webp" width="420" height="360" alt="Archivist’s eyes open wide above a small round mouth." loading="lazy"><figcaption>Archivist · Surprised</figcaption></figure>
+    </div>
+  </div>
+  <div class="pp-acting">
+    <div><h3>Acting through an object</h3><p>Archivist marks the page and lifts Courier’s orange cup. The eyes widen as the voice catches. The hand finds the handle of that same cup to return it. Once it is back, Archivist can resume reading and later recall the mistake.</p></div>
+    <figure><img src="field/archivist.webp" width="800" height="600" loading="lazy" alt="At the reading table, Archivist pauses over Courier’s orange cup and says the cup belongs to someone else."><figcaption>The wrong cup in the Unity Editor.</figcaption></figure>
+  </div>
+</section>
+<section class="story-chapter pp-chapter" id="shared-life" aria-labelledby="shared-life-title">
+  <header class="story-intro">
+    <div><p class="story-kicker">Emotional interaction</p><h2 id="shared-life-title">A moment to respond</h2></div>
+    <div class="story-lead"><p>Set a tool down and the work will wait. A resident can ask for help, or for a little time to sort something out. The player can answer, take part and pick up the same repair afterwards.</p></div>
+  </header>
+  <div class="pp-episodes">
+    <article class="pp-episode">
+      <div class="pp-event-copy"><p class="pp-byline">Page · Permission</p><h3>The old cup sleeve</h3><p>Page has kept the sleeve since the move. To see the packing mark underneath, set the empty cup upright and wait for her reply.</p><p>Once she agrees, slide the sleeve off through its seam and rest it on the pad. Returning the same sleeve ends this permission. The next visit begins with a fresh request, while the story about the mark can still be remembered.</p></div>
+      <figure><img src="people/page-objects.webp" width="840" height="350" loading="lazy" alt="Page’s purple cup, its removable sleeve with a split seam, and the resting pad."><figcaption>Page’s cup, sleeve and pad.</figcaption></figure>
+    </article>
+    <article class="pp-episode">
+      <div class="pp-event-copy"><p class="pp-byline">Archivist · Independence</p><h3>The wrong cup</h3><p>Deep in the book, Archivist reaches for someone else’s tea. How much help does he need?</p>
+        <div class="pp-outcomes" data-outcomes aria-label="Possible responses to Archivist">
+          <div><h4>Point out his cup</h4><p>Help return the orange and cream cups to their owners’ rests. Archivist resumes reading and remembers being helped.</p></div>
+          <div><h4>Give him time</h4><p>Archivist puts the same orange cup back where he picked it up, finds his page and remembers settling the mix-up himself.</p></div>
+        </div>
+      </div>
+      <figure><img src="people/archivist-objects.webp" width="840" height="350" loading="lazy" alt="Archivist’s open book beside Courier’s orange cup and Archivist’s cream cup."><figcaption>One book and two easily confused cups.</figcaption></figure>
+    </article>
+    <article class="pp-episode">
+      <div class="pp-event-copy"><p class="pp-byline">Keeper · Preference</p><h3>A little above the line</h3><p>Tea rises above Keeper’s familiar fill mark. First, set the cup down safely. Then decide what to do with the extra.</p>
+        <div class="pp-outcomes" data-outcomes aria-label="Possible responses to Keeper">
+          <div><h4>A small sip</h4><p>Keeper lifts the cup and drinks a little tea. The level drops, and Keeper can mention this preference another day.</p></div>
+          <div><h4>Share the extra</h4><p>Pour the excess into a small serving cup. The physical transfer completes the exchange and Keeper remembers the response.</p></div>
+        </div>
+      </div>
+      <figure><img src="people/keeper-objects.webp" width="840" height="350" loading="lazy" alt="Keeper’s dark cup with a fine gold fill mark beside the household teapot."><figcaption>The fill mark belongs to Keeper’s cup.</figcaption></figure>
+    </article>
+  </div>
+</section>
+<section class="story-chapter pp-chapter" id="iteration" aria-labelledby="iteration-title">
+  <header class="story-intro">
+    <div><p class="story-kicker">Iteration</p><h2 id="iteration-title">How the project changed</h2></div>
+    <div class="story-lead"><p>The question changed twice. First, what could the player and the residents do together between encounters? Then, why would a resident care about the object the player had just earned?</p></div>
+  </header>
+  <ol class="pp-history">
+    <li><div class="pp-history-date"><time datetime="2026-09-13">13 September</time><span>Room prototype</span></div><div class="pp-history-copy"><h3>Living alongside</h3><p>Residents occupied corners of the room, followed routines and met by chance. Between those encounters, playtests left long stretches with little to do together. I brought everyone into one activity inside the suitcase.</p></div><figure><img src="images/story/greybox.webp" width="750" height="422" loading="lazy" alt="The early cohabitation greybox showing resident homes distributed across the room."><figcaption>Desktop cohabitation prototype.</figcaption></figure></li>
+    <li><div class="pp-history-date"><time datetime="2026-09-21">21 September</time><span>Mechanism prototype</span></div><div class="pp-history-copy"><h3>Working together</h3><p>Transport cards and mechanical levels gave the household a common task. The furniture earned at the end still had little connection to the residents’ lives. I kept the shared work and changed what it was for.</p></div><figure><img src="images/story/early.webp" width="750" height="316" loading="lazy" alt="An unfolded wooden transport mechanism standing inside the suitcase prototype."><figcaption>Mechanical transport level in the Unity Editor.</figcaption></figure></li>
+    <li><div class="pp-history-date"><time datetime="2026-10">October</time>–<time datetime="2026-11">November</time><span>Restoration workshop</span></div><div class="pp-history-copy"><h3>Restoring a belonging</h3><p>The furniture now arrives with its owners. The player assembles, repairs, decorates and places the same piece the residents later use. Requests, shared routines and remembered choices continue around it.</p></div><figure><img src="images/story/restoration.webp" width="749" height="562" loading="lazy" alt="A decorated wooden piece on the workshop turntable after repair and painting."><figcaption>A finished piece in the restoration workshop.</figcaption></figure></li>
+  </ol>
+  <details class="story-note pp-archive"><summary>Compare three early workshop prototypes</summary>
+    <div class="pp-archive-inside" data-prototype-archive>
+      <figure data-label="7 Oct · Room"><img src="people/woodshop-oct07.webp" width="1100" height="619" loading="lazy" alt="An open paper blueprint on a sloping stand beside the residents’ suitcase in the simulated room."><figcaption><strong>7 October · A drawing beside the bench</strong>The open book, parts tray and suitcase occupied separate places on the table. Unity XR Interaction Simulator.</figcaption></figure>
+      <figure data-label="9 Oct · Workbench"><img src="people/woodshop-oct09.webp" width="1067" height="800" loading="lazy" alt="A long bench being sanded on the early work surface between a red lamp and the open suitcase."><figcaption><strong>9 October · One continuous work surface</strong>The player fastened the joints and sanded the bench in place. The piece stayed on the same work surface between operations. Unity Play Mode.</figcaption></figure>
+      <figure data-label="12 Oct · Manual"><img src="people/woodshop-oct12.webp" width="1100" height="619" loading="lazy" alt="A two-page joinery manual with a picture of the chair and a three-dimensional demonstration of its assembly."><figcaption><strong>12 October · A manual that demonstrates the joint</strong>The left page introduced the complete chair. The right page showed how its next part fitted. Standalone Unity manual prototype.</figcaption></figure>
+    </div>
+  </details>
+</section>
+
+<section class="story-chapter" id="accessibility" aria-labelledby="access-title">
+  <header class="story-intro">
+    <div><p class="story-kicker">Accessibility</p><h2 id="access-title">Keep the work<br> within reach</h2></div>
+    <div class="story-lead"><p>A playtester with less strength in their left hand found sustained holding tiring. I moved the instructions closer and gave the tools supports, so a player can choose, position and operate a tool with one hand.</p></div>
+  </header>
+  <div class="posture-layout">
+    <div class="access-readout">
+      <h3>Same bench,<br> two postures</h3>
+      <p>Both layouts keep the 38&nbsp;cm reference reach and a level right tray. The left side changes to meet a seated player.</p>
+      <dl><div><dt>Tool cabinet</dt><dd>16° standing · 70° seated</dd></div><div><dt>Process board</dt><dd>High behind the cabinet when standing. Low at the centre when seated, at 72% of its standing size.</dd></div></dl>
+      <div class="source-pair"><a href="edition/standing.webp" data-art-link>Enlarge standing view</a><a href="edition/seated.webp" data-art-link>Enlarge seated view</a></div>
+    </div>
+    <div class="posture-study" data-posture>
+      <div class="posture-stage">
+        <img class="seated-layer" width="1440" height="900" src="edition/seated.webp" alt="Seated workbench with the cabinet tilted up, and a lower, smaller central instruction board." loading="lazy">
+        <img class="standing-layer" width="1440" height="900" src="edition/standing.webp" alt="Standing workbench with a gently sloped cabinet and a high instruction board behind it." loading="lazy">
+        <div class="posture-divider" aria-hidden="true"><span>‹ ›</span></div>
+        <input disabled type="range" min="0" max="100" value="50" aria-label="Amount of the standing workbench visible" aria-describedby="posture-instruction">
+      </div>
+      <div class="posture-toolbar" hidden>
+        <div class="posture-presets" role="group" aria-label="Workbench view"><button type="button" data-position="100">Standing</button><button type="button" data-position="50" aria-pressed="true">Split view</button><button type="button" data-position="0">Seated</button></div>
+        <p id="posture-instruction">Drag the divider or choose a view.</p>
+      </div>
+    </div>
+  </div>
+  <div class="access-film">
+    <div><h3>Let the stand hold the drill</h3><ol><li><strong>Position.</strong> Line up the drill with the mark.</li><li><strong>Support.</strong> Seat the drill in the stand and release your grip.</li><li><strong>Operate.</strong> Use that same hand to turn the crank and make the hole.</li></ol></div>
+    <figure><video controls playsinline preload="none" width="1280" height="720" poster="media/one-hand-drill.webp" aria-label="Single-hand drilling demonstration, silent Unity Editor capture"><source src="media/one-hand-drill.mp4" type="video/mp4"><a href="media/one-hand-drill.mp4">Open the drill demonstration</a></video><figcaption>One-handed drilling · Unity Editor capture · 7 seconds, silent</figcaption></figure>
+  </div>
+</section>
+
+<section class="story-chapter trn" id="results" aria-labelledby="results-title">
+  <header class="story-intro"><div><p class="story-kicker">Results</p><h2 id="results-title">From making <br>to moving in</h2></div><div class="story-lead"><p>The playable prototype brings ten joinery furniture pieces and five residents into a shared room. It keeps the finish and position of the furniture and remembers completed exchanges, from a borrowed belonging to a choice made during a song.</p></div></header>
+  <figure id="experience-film" class="trn-film"><video controls playsinline preload="none" poster="narrative/film-poster.webp" aria-label="TinyRoomies experience overview, from the arrival of the five residents to shared tea"><source src="narrative/experience-overview.mp4" type="video/mp4"><a href="narrative/experience-overview.mp4">Open the experience film</a></video><figcaption>Experience overview · Unity Editor captures. Meet the five residents, paint the tabletop, orient the finished table and gather for tea.</figcaption></figure>
+  <div class="trn-verify"><div><h3>What was verified</h3><p>Meta Quest 3 · Unity · OpenXR</p></div><dl><div><dt>16 November 2026 · Editor regression</dt><dd>Of 357 EditMode cases, 353 passed, 0 failed and 4 historical saved-data fixtures were skipped.</dd></div><div><dt>22 November 2026 · Android build</dt><dd>The ARM64 / ASTC / OpenXR build completed with 0 errors and 62 warnings. Headset installation and wear testing for this build remain unverified.</dd></div></dl></div>
+  <div class="story-subhead"><h3>Working within a headset budget</h3><p>Three implementation studies address different costs in a room full of small objects.</p></div>
+  <div class="trn-evidence">
+    <article><div class="trn-strip trn-geometry" aria-label="Views of the original project joint"><img src="narrative/solid.webp" width="231" height="400" loading="lazy" alt="Solid forked furniture leg"><img src="narrative/wireframe.webp" width="231" height="400" loading="lazy" alt="Triangulated surfaces of the same leg"><img src="narrative/detail.webp" width="400" height="391" loading="lazy" alt="Close-up of the fork opening"></div><h4>Contact geometry</h4><p>The leg above shows how an opening interrupts a solid face. A separate 23,056-triangle wall-contact test checked two candidates in the forward query and three in reverse.</p><details class="trn-detail"><summary>Read the test measurements</summary><p>For 16,384 edge keys, the default hash produced 15 distinct values. The mixed hash produced 16,384. Across eight repeat rounds, cached face bounds were reused with zero new bounds.</p></details></article>
+    <article><div class="trn-strip trn-paint"><img src="narrative/paint-contact.webp" width="650" height="488" loading="lazy" alt="Blue paint applied where the brush contacts the wood"><img src="images/story/pigment.webp" width="680" height="510" loading="lazy" alt="Coloured marks following the finished wooden surface"></div><h4>Surface painting</h4><p>One paint mesh per piece holds up to 3,200 brush samples. Laying new paint appends and uploads marks. An unchanged piece reuses its mesh, and a moved part reprojects its marks so openings stay clear.</p></article>
+    <article><div class="trn-strip trn-textures"><img src="narrative/wood-color.webp" width="250" height="250" loading="lazy" alt="Walnut colour texture"><img src="narrative/wood-normal.webp" width="250" height="250" loading="lazy" alt="Walnut normal map"><img src="narrative/wood-finish.webp" width="250" height="250" loading="lazy" alt="Walnut finish map"></div><h4>Wood textures</h4><p>The wood keeps a 2K colour map with 1K normal and finish maps. At the base mip level, the three maps require an estimated 2.68 MiB in ASTC 6 × 6, compared with 24 MiB in RGBA32.</p><details class="trn-detail"><summary>How the budget was calculated</summary><p>The estimated base-level allocation falls by 88.8%. Each 1K map has a quarter of the texels of a 2K map. Mipmaps are enabled in the Android build and are additional to the base-level figures.</p></details></article>
+  </div>
+  <a class="trn-doc" href="design-document.html">Read the game design document</a>
+<details class="story-note story-credits" id="credits">
+      <summary>Production and image credits</summary>
+      <div class="story-note-body"><p>Game and interaction design, character direction, furniture and prop development, technical art and Unity integration were led by the project creator, with AI-assisted implementation. Character source packages are retained separately from project-specific mesh, performance and contact work.</p><p>The research chapter credits the Tsinghua University Art Museum for the table photograph and Wenzhou Museum for its joint illustration. The game-design chapter credits Tima Miroshnichenko and Grovemade for the two setting photographs. Gameplay reference stills are credited to Nintendo and VR Factory Games. Project images show production models, construction studies and Unity Editor captures. The character voice recordings were synthesized offline from original descriptions with Qwen3-TTS VoiceDesign, then edited for timing and smoothness.</p></div>
+    </details>
+</section>
+
+</div>
+
+</main>
+<dialog id="art-detail" aria-labelledby="detail-title">
+  <div class="detail-head"><h2 id="detail-title">Project image</h2><button type="button" data-zoom aria-pressed="false">Magnify 2×</button><button type="button" data-dismiss>Close</button></div>
+  <div class="detail-viewport" tabindex="0" aria-label="Image detail"><img alt="" draggable="false"></div>
+</dialog>
+<footer class="endnote">
+  <div class="end-inner"><a class="brand" href="#overview"><img src="images/mark.svg" width="30" height="30" alt="">TinyRoomies</a><span>Mixed reality · Game design · 2026</span><a href="design-document.html" class="back-top">Game design document</a><a href="#overview" class="back-top">Back to top</a></div>
+</footer>
+<script defer src="./../alice/personal-shell.js" data-tiny-root="./"></script><script defer src="./../alice/personal-media.js"></script></body>
+</html>

@@ -1,0 +1,325 @@
+@import '../../styles/site-palette.css';
+
+/* These documents also open from disk. Keep the same font and linen paths relative to public/. */
+@font-face {
+  font-family: 'Cardenio Modern';
+  src: url('../../fonts/CardenioModern-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Alegreya';
+  src: url('../../fonts/Alegreya.ttf') format('truetype');
+  font-weight: 400 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+body.personal-alice {
+  --font-hand: 'Cardenio Modern', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  --font-body: 'Helvetica Neue', Helvetica, Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  --font-prose: 'Alegreya', Georgia, serif;
+  --paper: #fff8e8;
+  --panel: #faf2df;
+  --accent: var(--ink);
+  --rule: var(--line);
+  --folio-type: var(--font-hand);
+  --folio-ink: var(--ink);
+  --folio-seam: var(--link);
+  --serif: var(--font-prose);
+  --sans: var(--font-prose);
+  --sewing-ink: var(--ink);
+  --sewing-thread: var(--link);
+  --sewing-rule: var(--line);
+  --reader-width: 720px;
+  --reader-gutter: 32px;
+  --alice-edge: clamp(20px, 4vw, 64px);
+  --alice-spread: min(1240px, calc(100vw - 2 * var(--alice-edge)));
+  --alice-wide: min(1040px, calc(100vw - 2 * var(--alice-edge)));
+  margin: 0;
+  min-height: 100svh;
+  background: var(--paper) url('../../textures/wrinkled-linen-v1.png') repeat center top / 840px;
+  font: 400 17px/1.7 var(--font-prose);
+  color: var(--prose-ink);
+  font-synthesis: none;
+  -webkit-font-smoothing: antialiased;
+}
+.personal-alice:lang(zh-CN) { --font-prose: var(--font-body); }
+.personal-alice ::selection { background: #e6d599; color: var(--ink); }
+.personal-alice :focus-visible { outline: 2px solid var(--link); outline-offset: 4px; }
+.personal-alice :is(button, a, select, input[type="range"]) { -webkit-tap-highlight-color: transparent; }
+.personal-alice :is(main, .site-head, .lightbox, .admission-film-dialog) a {
+  color: var(--link);
+  text-underline-offset: .16em;
+}
+.personal-alice :is(main, .lightbox, .admission-film-dialog) a:hover { color: var(--link-hover); }
+.alice-technical-doc .workshop-views {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0,1fr));
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.alice-technical-doc .workshop-view { display: block; }
+.alice-technical-doc .workshop-view img { display: block; width: 100%; height: auto; }
+
+@media screen {
+  .personal-alice #main, .personal-alice .site-head .head-inner {
+    width: min(var(--reader-width), calc(100% - 2 * var(--reader-gutter)));
+    max-width: none;
+    margin-inline: auto;
+  }
+  .personal-alice #main {
+    padding: 16px 0 28px;
+    overflow-wrap: break-word;
+    animation: alice-content-enter 220ms cubic-bezier(.2,.7,.25,1) backwards;
+  }
+  .personal-alice .site-head {
+    background: var(--paper) url('../../textures/wrinkled-linen-v1.png') repeat center top / 840px;
+    border: 0;
+    z-index: 12;
+  }
+  .personal-alice .chapter-links {
+    justify-content: start;
+    flex-wrap: wrap;
+    gap: 0 clamp(14px, 2.4vw, 25px);
+    padding-block: 1px;
+    border: 0;
+    border-bottom: 1px dashed #86aab1;
+    overflow: visible;
+  }
+  .personal-alice .chapter-links a {
+    padding: 5px 0 7px;
+    font: 700 19px/1.45 var(--font-hand);
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .personal-alice .chapter-links a:lang(zh-CN) { font: 500 15px/1.6 var(--font-body); }
+  .personal-alice .chapter-links a:is([aria-current], :hover, :focus-visible) { color: var(--link); }
+  .personal-alice .chapter-links a::after {
+    bottom: 3px;
+    background: repeating-linear-gradient(110deg, #387995 0 6px, transparent 6px 10px);
+  }
+  .personal-alice .chapter-links a:is(:hover, :focus-visible)::after { transform: scaleX(1); }
+  .personal-alice #main > .section {
+    margin-block-start: clamp(18px, 1.9vw, 28px);
+    padding-block-start: clamp(10px, 1vw, 16px);
+  }
+  .personal-alice #main > .section.chapter-start {
+    margin-block-start: clamp(24px, 2.6vw, 38px);
+    padding-block-start: clamp(14px, 1.3vw, 20px);
+  }
+  .personal-alice #main .section-head { margin-bottom: 12px; }
+  .personal-alice #main .section-head:has(+ .topic-links) { margin-bottom: 4px; }
+  .personal-alice #main .topic-links { gap: 2px 18px; margin-bottom: 12px; }
+  .personal-alice #main > .next-project { margin-top: 24px; padding-block: 10px; }
+  .personal-alice .topic-links a { color: var(--link); }
+  .personal-alice .topic-links a[aria-current] { color: var(--ink); border-color: var(--ink); }
+
+  .personal-alice #main :is(h1, h2, h3, h4) {
+    color: var(--ink);
+    letter-spacing: normal;
+    text-wrap: pretty;
+  }
+  .personal-alice #main h1 { font: 700 clamp(38px, 7vw, 64px)/1.1 var(--font-hand); }
+  .personal-alice #main h2 { font: 700 32px/1.2 var(--font-hand); }
+  .personal-alice #main .chapter-name { font-size: clamp(32px, 4vw, 42px); }
+  .personal-alice #main .topic-name:lang(zh-CN),
+  .personal-alice #main h2:lang(zh-CN) { font: 650 24px/1.4 var(--font-body); }
+  .personal-alice #main .chapter-name:lang(zh-CN) { font-size: clamp(26px, 3.4vw, 34px); }
+  .personal-alice #main :is(h3, h4) { font-family: var(--font-prose); font-weight: 700; line-height: 1.4; }
+  .personal-alice #main h3 { font-size: 20px; }
+  .personal-alice #main h4 { font-size: 18px; }
+  .personal-alice #main .chapter-subject { color: var(--muted); margin-top: 4px; }
+  .personal-alice #main :is(.prose, .prose p, .project-home-copy p, .section-body > p, .story-description p) {
+    font: 400 17px/1.7 var(--font-prose);
+    color: var(--prose-ink);
+  }
+  .personal-alice #main .project-home-copy .project-home-lead,
+  .personal-alice #main .lead {
+    font: 400 20px/1.5 var(--font-prose);
+    color: var(--prose-ink);
+  }
+  .personal-alice #main .project-home-copy .project-home-lead:lang(zh-CN),
+  .personal-alice #main .lead:lang(zh-CN) { font-size: 18px; line-height: 1.7; }
+  .personal-alice #main :is(figcaption, .caption, .view-count, .filter, .work-info p, .small, .gallery-count) {
+    color: var(--muted);
+    font-family: var(--font-prose);
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  .personal-alice #main .project-home-card { text-decoration: none; }
+  .personal-alice #main .project-home-card h2 { color: var(--link); font-family: var(--font-hand); }
+  .personal-alice #main .project-home-byline { color: var(--muted); font-size: 16px; font-weight: 500; }
+  .personal-alice #main .project-home-byline:hover { color: var(--link); text-decoration: underline; }
+  .personal-alice #main .project-home-project .project-home-question { font: 400 17px/1.5 var(--font-prose); color: var(--prose-ink); }
+  .personal-alice .project-home-dolls .project-home-image { height: clamp(200px, 22vw, 256px); }
+  .personal-alice :is(.project-home-model .project-home-image, .project-home-cover) { background: transparent; }
+  .personal-alice .project-home-intro { grid-template-columns: minmax(0, 1.13fr) minmax(0, 1fr); gap: 28px; }
+  .personal-alice .project-home-model img { mix-blend-mode: multiply; }
+  .personal-alice #main .project-home-projects,
+  .personal-alice #main .making-credits,
+  .personal-alice #main > .next-project { border-top: 1px dashed var(--line); }
+  .personal-alice #main .making-credits dt { color: var(--ink); }
+  .personal-alice #main .making-credits a { color: var(--link); }
+  .personal-alice #main :is(.overview-game, .overview-tool) { grid-template-columns: minmax(0,1fr); gap: 14px; }
+  .personal-alice #main .hero-intro h1 { margin-bottom: 10px; }
+  .personal-alice #main .hero-intro, .personal-alice #main .hero-intro .lead { max-width: 67ch; }
+  .personal-alice #main :is(.mending-first-look, .tool-opening-piece) { grid-column: 1; grid-row: auto; width: 100%; max-width: 100%; }
+  .personal-alice #main .mending-first-frame { width: 94%; margin: clamp(12px, 2vw, 22px) auto; }
+  .personal-alice .mending-first-frame::before {
+    content: '';
+    position: absolute;
+    left: var(--alice-border-left);
+    top: var(--alice-border-top);
+    width: var(--alice-border-width);
+    height: var(--alice-border-height);
+    background: var(--alice-media-border) center / 100% 100% no-repeat;
+    pointer-events: none;
+    z-index: 1;
+  }
+  .personal-alice #main .mending-first-frame > img { max-height: none; aspect-ratio: 16/9; object-fit: contain; }
+  .personal-alice #main .overview-actions { gap: 2px 18px; margin-top: 8px; }
+  .personal-alice #main .overview-actions a {
+    min-height: 36px;
+    padding: 2px 0;
+    background: transparent;
+    color: var(--link);
+    border: 0;
+    border-radius: 0;
+    text-decoration: underline;
+  }
+  .personal-alice #main :is(.text-link, .story-link, .ts-records a, .tool-story-jumps a, .prop-more a) {
+    color: var(--link);
+    text-decoration: underline;
+    text-decoration-color: currentColor;
+    border: 0;
+  }
+  .personal-alice .admission-film-launch {
+    border: 1px dashed currentColor;
+    border-radius: 6px 4px 5px 3px;
+    color: var(--ink);
+    background: var(--paper);
+    font: 700 20px/1.3 var(--font-hand);
+  }
+  .personal-alice .admission-film-launch:lang(zh-CN) { font: 600 16px/1.5 var(--font-body); }
+  .personal-alice .admission-film-launch:hover { color: var(--link); background: var(--paper); }
+  .personal-alice .admission-film-dialog, .personal-alice .lightbox {
+    background: var(--paper) url('../../textures/wrinkled-linen-v1.png') repeat center top / 840px;
+    color: var(--prose-ink);
+  }
+  .personal-alice .admission-film-dialog::backdrop, .personal-alice .lightbox::backdrop { background: #293b35a8; }
+  .personal-alice .dialog-view { background: #f3ead8; }
+  .personal-alice .dialog-info h2, .personal-alice .admission-film-mast h2 {
+    font: 700 28px/1.25 var(--font-hand);
+    letter-spacing: 0;
+    color: var(--ink);
+  }
+  .personal-alice .dialog-info h2:lang(zh-CN), .personal-alice .admission-film-mast h2:lang(zh-CN) {
+    font: 650 20px/1.45 var(--font-body);
+  }
+  .personal-alice .dialog-info :is(p, .text-link), .personal-alice .dialog-bar { font-size: 14px; }
+
+  .personal-alice #main :is(.ts-choices, .sequence-toolbar, .prop-choices) { border-bottom: 1px dashed var(--line); }
+  .personal-alice #main .sequence-progress { font-size: 15px; color: var(--ink); }
+  .personal-alice .sequence-meter i { border-radius: 60% 20%; height: 3px; transform: rotate(-11deg); }
+  .personal-alice .sequence-meter i.is-past { background: var(--muted); }
+  .personal-alice .sequence-meter i.is-current { background: var(--link); }
+  .personal-alice #main :is(.ts-choices button, .filter, .window-cues button, .ts-pattern-files button, .ts-zoom-link) { color: var(--link); }
+  .personal-alice #main :is(.ts-choices button, .filter)[aria-pressed=true] { color: var(--ink); border-color: var(--ink); }
+  .personal-alice #main :is(.prop-choice, .climate-choices button, .ts-pin, .browse-arrow) { color: var(--ink); }
+  .personal-alice #main :is(.climate-choices button, .ts-pin, .gallery-pager button)[aria-pressed=true],
+  .personal-alice #main .gallery-pager button[aria-current],
+  .personal-alice #main :is(.prop-choice, .prop-pin)[aria-pressed=true] .prop-number { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .personal-alice #main :is(.prop-number, .browse-arrow) { background-color: var(--paper); }
+  .personal-alice #main .gallery { grid-template-columns: repeat(2, minmax(0,1fr)); }
+  .personal-alice #main .work-info h3 { font-size: 18px; }
+  .personal-alice #main :is(.work-image, .material-stage, .material-btn, .wg-sample) { background-color: var(--panel); }
+  .personal-alice #main .gallery-toolbar input { font-size: 16px; }
+  .personal-alice #main .table-scroll { min-width: 0; overflow-x: auto; }
+  .personal-alice #main :is(.content-table, .story-metrics, .ts-readings) { font: 400 15px/1.55 var(--font-prose); }
+  .personal-alice #main .story-block, .personal-alice #main .story-feedback { grid-template-columns: minmax(0,1fr); }
+  .personal-alice #main .story-row { min-width: 0; }
+  .personal-alice #main .wg-guide { width: 100%; margin-inline: 0; transform: none; --wg-line: var(--muted); --wg-active: var(--link); }
+  .personal-alice #main .wg-note { color: var(--prose-ink); background: transparent; }
+  .personal-alice #main .wg-label { font: 700 18px/1.4 var(--font-prose); color: var(--ink); }
+  .personal-alice #main .wg-text { color: var(--prose-ink); }
+  .personal-alice #main .wg-number { color: var(--link); }
+  .personal-alice #main .ts-ellipse-study, .personal-alice #main .ts-fabric-breakdown,
+  .personal-alice #main .prop-at-desk, .personal-alice #main .story-workmat { grid-template-columns: minmax(0,1fr); }
+  .personal-alice #main .prop-at-desk .prop-details { grid-column: 1; grid-row: 3; }
+  .personal-alice #main .prop-at-desk .prop-pair img { height: clamp(130px, 29vw, 232px); }
+  .personal-alice #main .ts-ellipse-study, .personal-alice #main .ts-fabric-breakdown,
+  .personal-alice #main .story-workmat { gap: 20px; }
+  .personal-alice #main .story-at-mat { padding: 20px 0 0; border-left: 0; border-top: 1px solid var(--line); }
+  .personal-alice #main .story-at-mat .repair-method .video-layout { grid-template-columns: minmax(0,1fr); }
+
+  .alice-technical-doc.personal-alice > nav {
+    border: 0;
+    border-bottom: 1px dashed var(--line);
+    background: var(--paper) url('../../textures/wrinkled-linen-v1.png') repeat center top / 840px;
+    padding-inline: max(var(--reader-gutter), calc((100% - var(--reader-width)) / 2));
+    font: 400 16px/1.4 var(--font-prose);
+    color: var(--ink);
+  }
+  .alice-technical-doc.personal-alice > nav a[aria-current] { color: var(--link); }
+  .alice-technical-doc #main .chapter { padding-block: 26px; }
+  .alice-technical-doc #main .grid.hero, .alice-technical-doc #main .grid.wide-left,
+  .alice-technical-doc #main .grid.wide-right { grid-template-columns: minmax(0,1fr); }
+  .alice-technical-doc #main .grid.hero .stack { grid-row: 1; }
+  .alice-technical-doc #main .table-wrap { max-width: 100%; overflow-x: auto; }
+  .alice-technical-doc #main .code { background: var(--panel); border-left-color: var(--line); }
+  .alice-technical-doc #main .annotations { grid-template-columns: repeat(auto-fit, minmax(min(100%, 140px),1fr)); }
+  .alice-technical-doc #main .chapter-chooser select { background: var(--paper); }
+  .alice-technical-doc #main .flow { grid-template-columns: repeat(3, minmax(0,1fr)); }
+  .alice-technical-doc #main .flow > div:nth-child(3n)::after { display: none; }
+}
+
+@media screen and (min-width:1050px) {
+  /* The workbench draws its leaders from the measured bounds of the editor and each label. */
+  .personal-alice .wg-guide .wg-diagram {
+    grid-template-columns: minmax(0,1fr) minmax(0,3.2fr) minmax(0,1fr);
+    gap: 10px 20px;
+  }
+  .personal-alice #main .wg-label { font-size: 16px; }
+}
+@media screen and (max-width:760px) {
+  .personal-alice .project-home-intro { grid-template-columns: minmax(0,1fr); gap: 22px; }
+  .personal-alice .project-home-copy h1 span { display: inline; }
+  .personal-alice .project-home-dolls .project-home-image { height: clamp(185px, 54vw, 282px); }
+  .personal-alice #main .ts-session, .personal-alice #main .ts-gesture,
+  .personal-alice #main .ts-reuse, .personal-alice #main .ts-chart-study { grid-template-columns: minmax(0,1fr); }
+}
+@media screen and (max-width:700px) {
+  body.personal-alice { --reader-width: 480px; --reader-gutter: 24px; --alice-edge: 12px; }
+  .personal-alice #main { padding: 12px 0 22px; }
+  .personal-alice #main h1 { font-size: clamp(35px, 8vw, 46px); }
+  .personal-alice .chapter-links a { font-size: 17px; padding-block: 6px; }
+  .personal-alice .chapter-links a:lang(zh-CN) { font-size: 14px; }
+  .personal-alice #main .story-figures { gap: 8px; }
+  .personal-alice #main .project-home-projects { gap: 26px; }
+  .alice-technical-doc #main :is(.grid.two, .sample-layout, .access-layout, .fabric-study-layout) { grid-template-columns: minmax(0,1fr); }
+}
+@media screen and (max-width:480px) {
+  .personal-alice #main .project-home-projects, .personal-alice #main .story-buttons,
+  .personal-alice #main .story-figures:has(audio), .personal-alice #main .story-foley-links { grid-template-columns: minmax(0,1fr); }
+  .personal-alice #main .cut-options { grid-template-columns: minmax(0,1fr); }
+  .personal-alice #main .work-info { display: block; }
+  .personal-alice .project-home-dolls { gap: 10px; }
+  .alice-technical-doc #main .flow { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .alice-technical-doc .workshop-views { grid-template-columns: repeat(2,minmax(0,1fr)); }
+}
+@media (prefers-reduced-motion:reduce) {
+  .personal-alice *, .personal-alice *::before, .personal-alice *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+@keyframes alice-content-enter {
+  from { opacity: .65; transform: translateY(3px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@media print {
+  body.personal-alice { color: #242a26; background: white; }
+}

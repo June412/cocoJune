@@ -1,0 +1,93 @@
+{
+    "state": "passed",
+    "error": "",
+    "samples": [
+        {
+            "name": "separated-near",
+            "meanByteDifference": 0.0,
+            "maxByteDifference": 0,
+            "activeRenderers": 25,
+            "changedPixels": 0.0
+        },
+        {
+            "name": "separated-far",
+            "meanByteDifference": 0.004938333333333334,
+            "maxByteDifference": 167,
+            "activeRenderers": 4,
+            "changedPixels": 0.000275
+        },
+        {
+            "name": "overlap-front",
+            "meanByteDifference": 0.0,
+            "maxByteDifference": 0,
+            "activeRenderers": 25,
+            "changedPixels": 0.0
+        },
+        {
+            "name": "overlap-oblique",
+            "meanByteDifference": 0.0,
+            "maxByteDifference": 0,
+            "activeRenderers": 25,
+            "changedPixels": 0.0
+        },
+        {
+            "name": "overlap-perspective",
+            "meanByteDifference": 0.0,
+            "maxByteDifference": 0,
+            "activeRenderers": 25,
+            "changedPixels": 0.0
+        },
+        {
+            "name": "individual-bead-move",
+            "meanByteDifference": 0.0,
+            "maxByteDifference": 0,
+            "activeRenderers": 25,
+            "changedPixels": 0.0
+        },
+        {
+            "name": "hidden-row",
+            "meanByteDifference": 0.0,
+            "maxByteDifference": 0,
+            "activeRenderers": 17,
+            "changedPixels": 0.0
+        },
+        {
+            "name": "suppressed-edit-layer",
+            "meanByteDifference": 0.0,
+            "maxByteDifference": 0,
+            "activeRenderers": 17,
+            "changedPixels": 0.0
+        },
+        {
+            "name": "scaled-rotated-owner",
+            "meanByteDifference": 0.0,
+            "maxByteDifference": 0,
+            "activeRenderers": 25,
+            "changedPixels": 0.0
+        },
+        {
+            "name": "per-bead-material-property",
+            "meanByteDifference": 0.0,
+            "maxByteDifference": 0,
+            "activeRenderers": 25,
+            "changedPixels": 0.0
+        }
+    ],
+    "passed": [
+        "separated-near preserves transparent compositing",
+        "Near beads retain complete per-renderer shading",
+        "separated-far preserves transparent compositing",
+        "Distant transparent beads actually combine",
+        "PNG export always uses complete bead detail",
+        "overlap-front preserves transparent compositing",
+        "Overlapping beads keep individual renderers",
+        "overlap-oblique preserves transparent compositing",
+        "overlap-perspective preserves transparent compositing",
+        "individual-bead-move preserves transparent compositing",
+        "hidden-row preserves transparent compositing",
+        "suppressed-edit-layer preserves transparent compositing",
+        "scaled-rotated-owner preserves transparent compositing",
+        "per-bead-material-property preserves transparent compositing",
+        "All pixel comparisons pass"
+    ]
+}

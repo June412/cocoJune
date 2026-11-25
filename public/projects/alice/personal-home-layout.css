@@ -1,0 +1,116 @@
+@media screen {
+  .personal-alice .project-home-intro {
+    width: var(--alice-spread);
+    margin-inline: calc((100% - var(--alice-spread)) / 2);
+    grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr);
+    gap: clamp(22px, 3.6vw, 52px);
+    align-items: center;
+  }
+  .personal-alice .project-home-copy {
+    max-width: 48ch;
+    padding-left: clamp(0px, 2.5vw, 40px);
+  }
+  .personal-alice #main .project-home-copy h1 {
+    font-size: clamp(46px, 5.1vw, 74px);
+    line-height: 1.01;
+    margin-bottom: 10px;
+  }
+  .personal-alice .project-home-copy .project-home-byline { margin-bottom: 8px; }
+  .personal-alice .project-home-copy .project-home-lead { margin-bottom: 6px; }
+  .personal-alice .project-home-actions { margin-top: 8px; }
+  .personal-alice .project-home-copy h1 span { display: block; }
+  .personal-alice .project-home-dolls {
+    width: min(100%, clamp(410px, 66svh, 610px));
+    justify-self: center;
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, .87fr);
+    align-items: start;
+    gap: clamp(14px, 2.2vw, 32px);
+  }
+  .personal-alice .project-home-dolls .project-home-image { height: auto; }
+  .personal-alice .project-home-dolls .project-home-image img {
+    display: block;
+    height: auto;
+    padding: 0;
+  }
+  .personal-alice .project-home-hand .project-home-image {
+    box-shadow: 1px 3px 8px rgb(63 51 35 / 14%);
+  }
+  .personal-alice .project-home-model { margin-top: clamp(20px, 2.8vw, 40px); }
+  .personal-alice .project-home-model figcaption { text-align: center; }
+
+  .personal-alice #main .project-home-projects {
+    width: var(--alice-wide);
+    margin-inline: calc((100% - var(--alice-wide)) / 2);
+    grid-template-columns: minmax(0, 1.14fr) minmax(0, .94fr);
+    align-items: start;
+    gap: clamp(28px, 5vw, 72px);
+    padding-top: clamp(10px, 1vw, 16px);
+    margin-top: clamp(18px, 2vw, 30px);
+  }
+  .personal-alice .project-home-project + .project-home-project {
+    margin-top: clamp(18px, 2vw, 32px);
+  }
+  .personal-alice .project-home-cover { aspect-ratio: auto; }
+  .personal-alice .project-home-cover img { height: auto; }
+  .personal-alice #main .project-home-question { max-width: 43ch; }
+  .personal-alice .project-home-project h2 { margin: 8px 0 3px; }
+  .personal-alice #main .making-credits { margin-top: clamp(24px, 2.3vw, 36px); padding-top: 12px; }
+  .personal-alice .making-credits h2 { margin-bottom: 10px; }
+}
+
+@media screen and (min-width: 900px) {
+  .personal-alice #main .making-credits {
+    width: var(--alice-wide);
+    margin-inline: calc((100% - var(--alice-wide)) / 2);
+  }
+  .personal-alice .making-credits dl {
+    grid-auto-flow: column;
+    grid-template: auto auto / repeat(3, minmax(0, 1fr));
+    gap: 4px clamp(18px, 2.4vw, 36px);
+    max-width: none;
+  }
+}
+
+@media screen and (max-width: 760px) {
+  .personal-alice .project-home-intro {
+    width: 100%;
+    margin-inline: 0;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 14px;
+  }
+  .personal-alice .project-home-copy { max-width: 58ch; padding: 0; }
+  .personal-alice #main .project-home-copy h1 {
+    font-size: clamp(42px, 7vw, 60px);
+    line-height: 1.06;
+  }
+  .personal-alice .project-home-copy h1 span { display: inline; }
+  .personal-alice .project-home-dolls {
+    width: min(530px, var(--alice-spread));
+    margin-inline: calc((100% - min(530px, var(--alice-spread))) / 2);
+    grid-template-columns: minmax(0, 1.22fr) minmax(0, .86fr);
+    gap: clamp(16px, 4vw, 32px);
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .personal-alice #main .project-home-projects {
+    width: 100%;
+    margin-inline: 0;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+  }
+  .personal-alice .project-home-project + .project-home-project {
+    margin-top: 0;
+    padding-top: 0;
+    border: 0;
+  }
+  .personal-alice .project-home-card {
+    display: grid;
+    grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr);
+    gap: 2px clamp(12px, 3vw, 18px);
+    align-content: center;
+  }
+  .personal-alice .project-home-cover { grid-row: 1 / span 2; align-self: center; }
+  .personal-alice #main .project-home-card h2 { align-self: end; font-size: 24px; margin: 0; }
+  .personal-alice #main .project-home-card .project-home-question { font-size: 16px; line-height: 1.45; margin: 0; }
+}

@@ -1,0 +1,35 @@
+/* Story evidence is grouped by player action, and shares the chapter typography. */
+.case-story .field-pair, .case-story .field-trio, .case-story .field-contact {
+  display: grid;
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  gap: clamp(1.2rem,2.4vw,2.6rem);
+  align-items: start;
+}
+.case-story .field-trio { grid-template-columns: repeat(3,minmax(0,1fr)); }
+.case-story .field-contact { grid-template-columns: repeat(4,minmax(0,1fr)); }
+.case-story .field-inside { padding: .5rem 0 1.65rem; }
+.case-story .field-rituals img { aspect-ratio: 1.6; object-fit: cover; }
+.case-story .field-diagrams svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 56 / 31;
+  background: #f7f7f5;
+}
+.case-story .field-diagrams figcaption { max-width: 36ch; }
+.case-story .field-note + .story-note { margin-top: -1px; }
+@media (max-width: 840px) {
+  .case-story .field-contact { grid-template-columns: repeat(2,minmax(0,1fr)); }
+}
+@media (max-width: 680px) {
+  .case-story .field-pair, .case-story .field-trio { grid-template-columns: 1fr; row-gap: 1.7rem; }
+  .case-story .field-diagrams svg { max-height: 16rem; }
+  .case-story .field-diagrams figcaption { max-width: none; }
+}
+@media (max-width: 410px) {
+  .case-story .field-contact { grid-template-columns: 1fr; }
+}
+.case-story .field-diagrams figure:nth-child(2) svg image {
+  filter: grayscale(1) brightness(1.025);
+  mix-blend-mode: multiply;
+}

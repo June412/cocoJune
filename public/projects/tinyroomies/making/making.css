@@ -1,0 +1,54 @@
+.making-chapter #furniture, .making-chapter #furniture-collection,
+.making-chapter #tool-models, .making-chapter details[id] { scroll-margin-top: 6rem; }
+.making-anatomy { display:grid; grid-template-columns:minmax(0,1.7fr) minmax(15rem,.73fr); gap:clamp(1.75rem,4vw,4rem); align-items:center; }
+.making-board { position:relative; }
+.making-chapter .making-board>img { display:block; width:100%; height:auto; background:#f4f4f1; }
+.making-pins { position:absolute; inset:0; pointer-events:none; }
+.making-pins button { position:absolute; left:var(--pin-x); top:var(--pin-y); transform:translate(-50%,-50%); pointer-events:auto; border:0; width:44px; height:44px; padding:0; background:transparent; display:grid; place-items:center; color:#161615; font:600 .85rem/1 "Helvetica Neue",Arial,sans-serif; isolation:isolate; }
+.making-pins button::before { content:""; position:absolute; z-index:-1; inset:8px; background:white; border:1px solid #202020; border-radius:50%; }
+.making-pins button[aria-expanded="true"] { color:white; }
+.making-pins button[aria-expanded="true"]::before { background:#1c1c1a; border-color:#fff; }
+.making-pins button:focus-visible { outline:2px solid currentColor; outline-offset:2px; }
+.making-stations details { border-bottom:1px solid var(--story-line,#d4d4ce); }
+.making-stations details:first-child { border-top:1px solid var(--story-line,#d4d4ce); }
+.making-stations summary { display:flex; align-items:center; gap:.7rem; min-height:46px; cursor:pointer; list-style:none; font-weight:550; }
+.making-stations summary span { font-size:.82rem; font-weight:400; color:#595953; }
+.making-stations summary::-webkit-details-marker { display:none; }
+.making-stations summary::after { content:"+"; margin-left:auto; color:#565651; }
+.making-stations details[open] summary::after { content:"−"; }
+.making-stations p { padding:0 1.3rem .85rem 1.8rem; max-width:42ch; line-height:1.45; }
+.making-film-grid,.making-strip,.making-example-grid { display:grid; gap:clamp(1rem,2vw,2rem); min-width:0; }
+.making-film-grid { grid-template-columns:repeat(2,minmax(0,1fr)); padding:.5rem 0 1.65rem; }
+.making-film-grid video { display:block; width:100%; background:#171717; aspect-ratio:16/9; }
+.making-stages { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:clamp(.85rem,2vw,2rem); margin:0; padding:0; list-style:none; }
+.making-stages a { display:block; color:inherit; font-weight:550; text-decoration:none; }
+.making-stages a img { display:block; background:#f4f4f1; object-fit:contain; width:100%; height:auto; aspect-ratio:1.5; }
+.making-stages a span { display:block; margin:.75rem 0 .35rem; font-size:1.12rem; letter-spacing:-.02em; }
+.making-stages a:hover span { text-decoration:underline; text-underline-offset:.18em; }
+.making-stages p,.making-example-grid p { line-height:1.5; color:#50504b; }
+.making-strip,.making-example-grid { grid-template-columns:repeat(3,minmax(0,1fr)); }
+.making-chapter .making-strip figure>img,.making-chapter .making-strip figure>.enlarge-art img { aspect-ratio:4/3; width:100%; height:auto; object-fit:cover; }
+.making-chapter .making-surface .making-strip { padding:0 0 1.6rem; }
+.making-chapter .making-surface figure:first-child img { object-fit:contain; }
+.making-chapter .making-example-grid figure img { aspect-ratio:16/10; object-fit:cover; }
+.making-chapter .making-example-grid h3 { margin:1rem 0 .55rem; font-size:clamp(1.25rem,2.15vw,2rem); }
+.making-example-grid a { display:inline-flex; min-height:44px; align-items:center; font-size:.95rem; text-decoration:underline; text-underline-offset:.2em; }
+.making-full-collection .collection-browse { justify-content:flex-end; }
+.making-full-collection { padding-bottom:.3rem; }
+.making-chapter #furniture-collection { margin-top:clamp(2rem,5vw,5rem); }
+@media(max-width:900px){
+  .making-stages { grid-template-columns:repeat(3,minmax(0,1fr)); row-gap:1.5rem; }
+  .making-anatomy { grid-template-columns:minmax(0,1.3fr) minmax(13rem,.8fr); gap:1.5rem; }
+}
+@media(max-width:640px){
+  .making-anatomy,.making-example-grid,.making-film-grid { grid-template-columns:1fr; }
+  .making-stages { grid-template-columns:1fr; gap:0; }
+  .making-stages li { display:grid; grid-template-columns:minmax(0,.85fr) minmax(0,1.6fr); align-items:center; gap:1rem; border-top:1px solid var(--story-line,#d4d4ce); padding:.7rem 0; }
+  .making-stages a span { margin:.45rem 0 0; }
+  .making-stages a img { aspect-ratio:2.25; }
+  .making-example-grid { gap:1.8rem; }
+  .making-strip { grid-template-columns:1fr; gap:1.1rem; }
+  .making-chapter .making-strip figure { display:grid; grid-template-columns:minmax(0,.8fr) minmax(0,1fr); gap:.85rem; align-items:center; }
+  .making-chapter .making-strip figcaption { margin:0; }
+  .making-stations p { padding-left:1.6rem; }
+}

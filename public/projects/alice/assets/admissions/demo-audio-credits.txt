@@ -1,0 +1,109 @@
+ALICE — PC showcase / English edition
+
+Captured from the current Unity game with its original music, ambience and tool sounds.
+
+Suggested video-description credit:
+Music by Scott Buckley — released under CC BY 4.0.
+https://www.scottbuckley.com.au
+https://creativecommons.org/licenses/by/4.0/
+Music is mixed in-game with tool sounds and environment audio.
+
+Full project attribution:
+
+Scott Buckley — Music Credits
+Downloaded: 2026-10-15 (Asia/Shanghai)
+
+Official MP3 Full Mix files; no edits or transcoding.
+License: Creative Commons Attribution 4.0 International (CC BY 4.0)
+License URL: https://creativecommons.org/licenses/by/4.0/
+Usage information: https://www.scottbuckley.com.au/library/using-this-music/
+
+Attribution text for game credits:
+
+'Home Was You' by Scott Buckley - released under CC-BY 4.0. www.scottbuckley.com.au
+Source: https://www.scottbuckley.com.au/library/home-was-you/
+File: HomeWasYou.mp3
+
+'Simplicity' by Scott Buckley - released under CC-BY 4.0. www.scottbuckley.com.au
+Source: https://www.scottbuckley.com.au/library/simplicity/
+File: Simplicity.mp3
+
+'Wildflowers' by Scott Buckley - released under CC-BY 4.0. www.scottbuckley.com.au
+Source: https://www.scottbuckley.com.au/library/wildflowers/
+File: Wildflowers.mp3
+
+'Moonlight' by Scott Buckley - released under CC-BY 4.0. www.scottbuckley.com.au
+Source: https://www.scottbuckley.com.au/library/moonlight/
+File: Moonlight.mp3
+
+When these tracks are used, include the artist attribution and license link in the game credits. Indicate later edits or adaptations.
+For YouTube uploads, the author requests attribution in the video description.
+Assigned in AliceGuidedWorkshop: Home Was You → Simplicity → Moonlight → Wildflowers.
+Looping playlist uses streaming playback and a five-second crossfade. Full tracks are unedited.
+
+Played by the physical speaker on the right window sill.
+Pink button: next track. Raised minus/plus: speaker music volume.
+Audio remains subject to the workshop master volume.
+
+
+Rain on Windows, Interior, A.wav — InspectorJ (www.jshaw.co.uk), Freesound.org
+https://freesound.org/people/InspectorJ/sounds/346642/
+License: Creative Commons Attribution 4.0
+https://creativecommons.org/licenses/by/4.0/
+Changes: HQ preview decoded, trimmed, DC removed, normalized, crossfaded into a seamless loop; low-pass filtering in game.
+
+Sewing cloth.wav — heifabaisi, Freesound.org
+https://freesound.org/people/heifabaisi/sounds/646586/
+License: CC0 1.0
+https://creativecommons.org/publicdomain/zero/1.0/
+Changes: HQ preview decoded, mono downmix, short excerpts, fades, normalization, slight runtime pitch variation.
+
+Workshop foley refresh — 2026-10-16
+The guided workshop now uses the following CC0 sources. InspectorJ attribution above is retained for the older audio asset still present in the project.
+
+Scissors — Breviceps
+https://freesound.org/people/Breviceps/sounds/445965/
+CC0 1.0: https://creativecommons.org/publicdomain/zero/1.0/
+Changes: three short excerpts from the public HQ preview, mono, filtering, fades, normalization and small runtime pitch variation.
+
+Garden rain — percydood
+https://freesound.org/people/percydood/sounds/122957/
+CC0 1.0: https://creativecommons.org/publicdomain/zero/1.0/
+Changes: public HQ preview decoded into two 40-second crossfaded loops; a sheltered, low-pass room bed and a brighter outdoor layer, with runtime window-dependent gain/filtering.
+
+Wooden hinge — soundofsong
+https://freesound.org/people/soundofsong/sounds/647646/
+CC0 1.0: https://creativecommons.org/publicdomain/zero/1.0/
+Changes: short excerpt, mono, filtering, fades and normalization.
+
+Impact Sounds — Kenney
+https://kenney.nl/assets/impact-sounds
+CC0 1.0: https://creativecommons.org/publicdomain/zero/1.0/
+Source files: impactMetal_light_000..002, impactWood_light_000..002, impactGlass_light_000..002, impactTin_medium_000..002, impactSoft_medium_000..002.
+Changes: selected excerpts, filtering, fades, level matching and small runtime pitch variation; used for tool pickup/rest, button, tin and soft stuffing actions.
+
+Needle, cloth and thread sounds remain derived from heifabaisi's CC0 Sewing cloth.wav above, with new filtering and level matching.
+Music credits remain in ScottBuckleyMusicCredits.txt. The four full music tracks have not been replaced.
+
+
+Panda commission sound provenance — 2026-10-18
+
+PaperRustle_CC0.mp3
+"rustling paper.wav" — keweldog, Freesound sound 181774.
+https://freesound.org/people/keweldog/sounds/181774/
+License: Creative Commons Zero (CC0 1.0). Official page checked 2026-10-18.
+Source preview: https://cdn.freesound.org/previews/181/181774_3153523-hq.mp3
+Usage: low-gain, short paper movement at opening and turning letters.
+
+Existing project foley reused without replacing originals:
+Assets/TextileDoll/Workshop/Audio/WorkshopFoley/CREDITS.txt
+Hand sewing: heifabaisi, https://freesound.org/people/heifabaisi/sounds/646586/ (CC0).
+Scissors: Breviceps, https://freesound.org/people/Breviceps/sounds/445965/ (CC0).
+Small impacts: Kenney, https://kenney.nl/assets/impact-sounds (CC0).
+
+
+Environment recordings:
+Morning birds — gadesound, Freesound 653518, CC0.
+https://freesound.org/people/gadesound/sounds/653518/
+Distant street cafe — evsecrets, Freesound 332271, CC0.
+https://freesound.org/people/evsecrets/sounds/332271/

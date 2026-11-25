@@ -1,0 +1,80 @@
+.pp-chapter [hidden] { display: none !important; }
+.pp-chapter .pp-profile-source { margin-top: 1.25rem; }
+.pp-chapter .pp-profile-source article { padding: .7rem 0; }
+.pp-chapter .pp-profile-source h3 { font-size: 1.12rem; }
+.pp-chapter .pp-profile-source p, .pp-chapter .pp-event-copy p,
+.pp-chapter .pp-acting p, .pp-chapter .pp-expression p,
+.pp-chapter .pp-history-copy p { font-size: 1.0625rem; line-height: 1.56; max-width: 57ch; }
+.pp-chapter .pp-expression, .pp-chapter .pp-acting {
+  display: grid;
+  align-items: center;
+  grid-template-columns: minmax(0,.95fr) minmax(0,1.05fr);
+  gap: 1.5rem clamp(2rem,5vw,5rem);
+  margin-top: clamp(3.5rem,6vw,6.5rem);
+}
+.pp-chapter .pp-expression h3, .pp-chapter .pp-acting h3,
+.pp-chapter .pp-history h3, .pp-chapter .pp-episode h3 { margin: 0 0 .8rem; }
+.pp-chapter .pp-faces { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: .6rem; }
+.pp-chapter .pp-faces img { background: #f5f5f2; }
+.pp-chapter .pp-faces figcaption { font-size: .875rem; line-height: 1.35; margin-top: .5rem; }
+.pp-chapter .pp-acting figure { max-width: 45rem; }
+.pp-chapter .pp-acting img { aspect-ratio: 16/10; object-fit: cover; object-position: center 44%; }
+.pp-chapter .pp-episode, .pp-chapter .pp-history li {
+  padding: clamp(1.65rem,3.6vw,3.7rem) 0;
+  border-top: 1px solid #d4d4ce;
+}
+.pp-chapter .pp-episode {
+  display: grid;
+  grid-template-columns: minmax(0,.95fr) minmax(0,1.05fr);
+  gap: 1.5rem clamp(2rem,5vw,5rem);
+  align-items: start;
+}
+.pp-chapter .pp-event-copy p + p {margin-top:.65rem;}
+.pp-chapter .pp-byline, .pp-chapter .pp-history-date {
+  margin-bottom: .6rem;
+  color:#62625f;
+  font-size: .875rem;
+  line-height: 1.4;
+}
+.pp-chapter .pp-outcomes { margin-top: 1rem; }
+.pp-chapter .pp-outcomes > div + div { margin-top: .65rem; }
+.pp-chapter .pp-switches { display:flex; flex-wrap:wrap; gap:.3rem .8rem; margin:.25rem 0 .9rem; }
+.pp-chapter .pp-switches button {
+  border: 0; border-bottom: 2px solid #d4d4ce; border-radius:0;
+  color:#595956; background: transparent;
+  font-family: inherit; font-weight:500; font-size:.9375rem; line-height:1.3;
+  cursor:pointer; min-height:44px; padding:.45rem .08rem;
+}
+.pp-chapter .pp-switches button[aria-pressed="true"] { border-color:#111; color:#161616; }
+.pp-chapter .pp-switches button:hover { text-decoration: underline; text-underline-offset:.2em; }
+.pp-chapter .pp-response { line-height:1.5; }
+.pp-chapter .pp-outcomes .pp-response { min-height: 4.5em; }
+.pp-chapter .pp-history { list-style: none; padding:0; margin:0; }
+.pp-chapter .pp-history li {
+  display:grid; grid-template-columns:minmax(8rem,.49fr) minmax(0,1fr) minmax(0,1.24fr);
+  gap:clamp(1.4rem,3vw,3.5rem); align-items:start;
+}
+.pp-chapter .pp-history-date { margin:0; color:#222; font-size:1rem; }
+.pp-chapter .pp-history-date span { display:block; margin-top:.3rem; color:#666; font-size:.875rem; }
+.pp-chapter .pp-history li > figure img { aspect-ratio: 1.8; object-fit:cover; }
+.pp-chapter .pp-history li > figure figcaption { font-size:.875rem; }
+.pp-chapter .pp-archive-inside { padding:.4rem 0 1.65rem; }
+.pp-chapter .pp-archive-inside .pp-switches { margin-bottom:1.2rem; }
+.pp-chapter .pp-archive-inside figure { display:grid; grid-template-columns:minmax(0,1.4fr) minmax(0,.7fr); align-items:start; gap:clamp(1.2rem,3vw,3.5rem); }
+.pp-chapter .pp-archive-inside figure + figure { margin-top:1.25rem; }
+.pp-chapter .pp-archive-inside figure img { aspect-ratio: 16/9; object-fit: contain; background: #efefec; }
+.pp-chapter .pp-archive-inside figcaption { margin:0; }
+@media(max-width:790px) {
+  .pp-chapter .pp-history li { grid-template-columns:minmax(0,1fr) minmax(0,1fr); }
+  .pp-chapter .pp-history-date { grid-column:1/-1; }
+  .pp-chapter .pp-history-date span { display:inline; margin-left:.6rem; }
+}
+@media(max-width:660px) {
+  .pp-chapter .pp-acting, .pp-chapter .pp-expression, .pp-chapter .pp-history li,
+  .pp-chapter .pp-episode, .pp-chapter .pp-archive-inside figure { grid-template-columns:1fr; }
+  .pp-chapter .pp-acting > div {grid-row:1;}
+  .pp-chapter .pp-history li { gap:1rem; }
+  .pp-chapter .pp-history-date {grid-column:auto;}
+  .pp-chapter .pp-event-copy {grid-row:1;}
+  .pp-chapter .pp-faces {gap:.35rem;}
+}

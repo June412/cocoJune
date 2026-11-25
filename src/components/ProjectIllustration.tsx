@@ -78,7 +78,7 @@ export default function ProjectIllustration({ id }: { id: ProjectId }) {
   if (!visual.illustration && !sketches[id]) return null
   const label = visual.illustrationAlt ? copy(visual.illustrationAlt, language) : ''
   return (
-    <span className={`project-illustration${id === 'alice' ? ' project-illustration--still' : ''}${id === 'holdlight' ? ' project-illustration--large' : ''}`}>
+    <span data-project={id} className={`project-illustration${id === 'alice' ? ' project-illustration--still' : ''}${id === 'holdlight' ? ' project-illustration--large' : ''}`}>
       {visual.illustration ? (
         <img src={assetUrl(visual.illustration)} alt={label} loading="lazy" width="160" height="160" />
       ) : (

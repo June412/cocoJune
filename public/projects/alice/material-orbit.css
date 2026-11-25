@@ -1,0 +1,29 @@
+.swatch-orbit { width: 100%; min-width: 0; }
+.material-view { position:relative; }
+.material-view > .material-nav { position:absolute; top:0; left:0; width:100%; aspect-ratio:1; pointer-events:none; }
+.material-position { margin-inline-start:.5em; color:var(--muted); font:400 .85rem/1.4 var(--sans); font-variant-numeric:tabular-nums; }
+.swatch-orbit-picture { position: relative; width: 100%; aspect-ratio: 1; overflow: hidden; }
+.swatch-orbit-picture.is-interactive { cursor: grab; touch-action: none; user-select: none; -webkit-user-select: none; }
+.swatch-orbit-picture.is-dragging { cursor: grabbing; }
+.swatch-orbit-picture:focus-visible { outline: 2px solid #a3bea6; outline-offset: -4px; }
+.swatch-orbit .swatch-orbit-poster, .swatch-orbit .swatch-orbit-canvas { position: absolute; inset: 0; display: block; width: 100%; height: 100%; max-height: none; max-width: none; aspect-ratio: 1; object-fit: contain; }
+.swatch-orbit [hidden] { display: none; }
+.swatch-orbit-controls { display: flex; align-items: center; justify-content: space-between; gap: .35rem .75rem; flex-wrap: wrap; padding: .55rem 0; color: var(--muted, #535b54); }
+.swatch-orbit-hint { font-size: .82rem; }
+.swatch-orbit-actions { display: flex; align-items: center; gap: .1rem; }
+.swatch-orbit .swatch-orbit-button { border: 0; background: transparent; padding: .12rem .36rem; min-width: 30px; min-height: 32px; color: inherit; font: inherit; font-size: .88rem; cursor: pointer; }
+.swatch-orbit .swatch-orbit-button:hover, .swatch-orbit .swatch-orbit-button:focus-visible { color: #1f3025; background: #eff2ed; }
+.swatch-orbit-status { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+@media (pointer: coarse) { .swatch-orbit .swatch-orbit-button { min-height: 40px; min-width: 34px; } }
+#materials .material-btn { display: flex; flex-direction: column; align-items: center; justify-content: flex-start; min-width: 0; font-size: .75rem; line-height: 1.35; }
+#materials .material-btn img { flex: none; }
+@media screen and (max-width: 600px) {
+  #materials .material-buttons { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; }
+}
+@media screen and (max-width: 360px) {
+  #materials .material-buttons { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media print {
+  .main .swatch-orbit .swatch-orbit-poster[hidden] { display: block !important; }
+  .swatch-orbit .swatch-orbit-canvas, .swatch-orbit-controls { display: none !important; }
+}

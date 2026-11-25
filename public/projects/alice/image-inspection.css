@@ -1,0 +1,24 @@
+.dialog-view { overflow:hidden; }
+.inspection-stage { position:absolute; inset:12px; overflow:hidden; cursor:zoom-in; user-select:none; -webkit-user-select:none; }
+.inspection-stage.is-zoomed { cursor:grab; touch-action:none; }
+.inspection-stage.is-dragging { cursor:grabbing; }
+.inspection-stage #dialog-image { display:block; width:100%; height:100%; padding:0; object-fit:contain; pointer-events:none; }
+.inspection-stage:focus-visible { outline:2px solid #54705b; outline-offset:-2px; }
+.image-tools { display:flex; align-items:center; gap:3px; margin-left:auto; margin-right:clamp(10px,2vw,24px); }
+.image-tools output { min-width:44px; text-align:center; font:inherit; font-size:13px; font-variant-numeric:tabular-nums; }
+.image-tools button { min-height:36px; min-width:34px; font:inherit; font-size:16px; padding:3px 7px; }
+.image-tools [data-inspect="fit"] { font-size:14px; }
+.image-tools button[aria-disabled=true] { color:#777d76; }
+.image-tools button:not([aria-disabled=true]):hover { background:#edf0eb; }
+.dialog-arrow[hidden] { display:none; }
+@media (max-width:480px) {
+    .dialog-bar { padding-inline:10px; }
+    #dialog-kind { font-size:11px; }
+    .image-tools { gap:0; margin-right:5px; }
+    .image-tools button { min-width:30px; }
+    .inspection-stage { inset:5px; }
+}
+@media (prefers-reduced-motion:no-preference) {
+    .lightbox[open] { animation:image-dialog-in 150ms ease-out; }
+    @keyframes image-dialog-in { from { opacity:.3; } to { opacity:1; } }
+}

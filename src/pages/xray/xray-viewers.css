@@ -1,0 +1,62 @@
+.xray-orbit {
+  display: grid;
+  grid-template-columns: minmax(0, 1.65fr) minmax(0, 1fr);
+  gap: clamp(18px, 4vw, 32px);
+  align-items: center;
+  margin: 12px 0 24px;
+}
+.xray-orbit-picture {
+  position: relative;
+  height: clamp(300px, 46vw, 395px);
+  min-width: 0;
+  isolation: isolate;
+  overflow: hidden;
+  border: 1px dashed var(--line);
+  border-radius: 3% 4% 2% 1% / 2% 2% 3% 4%;
+  touch-action: none;
+  user-select: none;
+}
+.xray-orbit[data-model='volume'] .xray-orbit-picture { background: #070b0b; }
+.xray-orbit[data-status='ready'] .xray-orbit-picture { cursor: grab; }
+.xray-orbit[data-status='ready'] .xray-orbit-picture:active { cursor: grabbing; }
+.xray-orbit-picture:focus-visible { outline: 2px solid var(--link); outline-offset: 4px; }
+.xray-orbit-canvas, .xray-orbit-canvas canvas, .xray-orbit-picture .xray-orbit-poster {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.xray-orbit-picture .xray-orbit-poster { z-index: 1; object-fit: contain; }
+.xray-orbit-settings { min-width: 0; color: var(--ink); font: 400 17px/1.4 'Alegreya', Georgia, serif; }
+.xray-orbit-settings:lang(zh-CN) { font: 400 15px/1.55 var(--font-body); }
+.xray-orbit .xray-orbit-help { margin: 0 0 14px; }
+.xray-orbit-controls { margin: 0; padding: 0; border: 0; min-width: 0; }
+.xray-orbit-field { margin-bottom: 14px; }
+.xray-orbit-label, .xray-orbit-opacity label { font-weight: 700; }
+.xray-orbit-choices, .xray-orbit-footer { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 14px; }
+.xray-orbit button {
+  padding: 4px 0;
+  color: var(--ink);
+  font: inherit;
+  text-decoration: underline dashed var(--muted) 1px;
+  text-underline-offset: 4px;
+}
+.xray-orbit button[aria-pressed='true'], .xray-orbit button:hover {
+  color: var(--link);
+  text-decoration: underline solid currentColor 2px;
+}
+.xray-orbit button:disabled { cursor: default; opacity: .6; }
+.xray-orbit-opacity label { display: flex; justify-content: space-between; gap: 12px; align-items: baseline; }
+.xray-orbit-opacity output, .xray-orbit-footer output { font-variant-numeric: tabular-nums; font-weight: 400; }
+.xray-orbit-opacity input { width: 100%; accent-color: var(--ink); cursor: pointer; }
+.xray-orbit-footer { border-top: 1px dashed var(--line); padding-top: 5px; justify-content: space-between; font-size: .9em; gap: 0 10px; }
+.xray-orbit-footer button { color: var(--link); }
+@media (max-width: 600px) {
+  .xray-orbit { grid-template-columns: 1fr; gap: 12px; }
+  .xray-orbit-picture { height: clamp(260px, 88vw, 350px); }
+  .xray-orbit-controls { display: flex; flex-wrap: wrap; gap: 12px 22px; }
+  .xray-orbit-field { margin: 0; }
+  .xray-orbit-opacity, .xray-orbit-footer { flex-basis: 100%; }
+  .xray-orbit-choices button { min-height: 36px; }
+}

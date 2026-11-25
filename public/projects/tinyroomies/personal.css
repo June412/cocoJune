@@ -1,0 +1,359 @@
+@import '../../styles/site-palette.css' screen;
+
+@font-face {
+  font-family: 'Cardenio Modern';
+  src: url('../../fonts/CardenioModern-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: Alegreya;
+  src: url('../../fonts/Alegreya.ttf') format('truetype');
+  font-weight: 400 900;
+  font-display: swap;
+}
+@media screen {
+  :root {
+    color-scheme: light;
+    --paper: #fff8e8;
+    --hand: 'Cardenio Modern', 'PingFang SC', sans-serif;
+    --prose: Alegreya, Georgia, serif;
+    --body: 'Helvetica Neue', Helvetica, Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    --linen: url('../../textures/wrinkled-linen-v1.png') center top / 840px repeat;
+    --sans: var(--prose);
+    --mono: var(--body);
+    --bg: var(--paper);
+    --fg: var(--prose-ink);
+    --accent: var(--link);
+    --rust: var(--link);
+    --wash: transparent;
+    --story-gutter: clamp(18px, 4vw, 58px);
+    --reading-width: 43rem;
+    --gallery-width: 55rem;
+    --measure: min(1080px, calc(100% - 2 * var(--story-gutter)));
+  }
+  body.personal-roomies {
+    margin: 0;
+    min-height: 100vh;
+    background: var(--paper) var(--linen);
+    color: var(--prose-ink);
+    font: 400 17px/1.55 var(--prose);
+    overflow-wrap: break-word;
+  }
+  body.roomies-research { font: 400 16px/1.72 var(--body); }
+  .personal-roomies *, .personal-roomies *::before, .personal-roomies *::after { box-sizing: border-box; }
+  .personal-roomies :focus-visible { outline: 2px solid var(--link); outline-offset: 3px; }
+  .personal-roomies ::selection { color: var(--ink); background: #e9d79e; }
+  .personal-roomies a { color: var(--link); }
+  .personal-roomies :is(button, select, summary, input) { accent-color: var(--ink); }
+  .personal-roomies :is(h1, h2, h3, h4) { color: var(--ink); letter-spacing: normal; }
+  .personal-roomies #main h1 { font: 700 clamp(44px, 6vw, 66px)/1.04 var(--hand); }
+  .personal-roomies #main h2 { font: 700 clamp(32px, 4vw, 43px)/1.12 var(--hand); }
+  .personal-roomies #main h3 { font: 700 22px/1.25 var(--prose); }
+  .personal-roomies #main h4 { font: 700 18px/1.32 var(--prose); }
+  .personal-roomies #main figcaption { font: 400 15px/1.45 var(--prose); color: var(--muted); margin-top: 5px; }
+  .roomies-research #main :is(h1, h2, h3, figcaption) { font-family: var(--body); }
+  .roomies-research #main h1 { font-size: clamp(27px, 4vw, 38px); line-height: 1.3; }
+  .roomies-research #main h2 { font-size: 25px; }
+  .roomies-research #main h3 { font-size: 19px; }
+  .personal-roomies .personal-project-bar {
+    max-width: min(940px, calc(100% - 32px));
+    margin: 6px auto 0;
+  }
+  .personal-project-bar nav {
+    display: flex; align-items: center; justify-content: center; flex-wrap: wrap;
+    gap: 0 clamp(12px, 2.5vw, 30px);
+  }
+  .personal-project-bar nav a {
+    padding: 6px 0;
+    font: 700 20px/1.3 var(--hand);
+    text-underline-offset: 4px;
+    text-decoration-color: transparent;
+  }
+  .personal-project-bar nav a:is([aria-current], :hover) { color: var(--ink); text-decoration-color: currentColor; }
+  .personal-project-bar:lang(zh-CN) a { font: 500 14px/1.5 var(--body); }
+  .personal-project-bar small { font: 500 10px/1 var(--body); color: var(--muted); }
+  .personal-site-bottom { margin-block-start: 24px; }
+  .personal-roomies :is(.masthead, .topbar) {
+    background: var(--paper) var(--linen); box-shadow: none; border-bottom: 1px dashed var(--line);
+    color: var(--ink);
+  }
+  .personal-roomies .mast-inner { min-height: 44px; gap: 12px; }
+  .personal-roomies .quick-nav { height: auto; gap: clamp(10px, 2vw, 26px); }
+  .personal-roomies .quick-nav a { min-height: 44px; font-size: 16px; }
+  .personal-roomies .quick-nav a[aria-current]::after { bottom: 3px; height: 2px; }
+  .personal-roomies .brand { font: 700 23px/1.2 var(--hand); color: var(--ink); letter-spacing: normal; }
+  .personal-roomies .brand img { width: 23px; height: 23px; }
+  .personal-roomies .chapter-location { font-size: 15px; }
+  .personal-roomies .index-trigger {
+    margin-left: auto; background: transparent; border: 1px dashed var(--muted);
+    color: var(--ink); border-radius: 5px 8px 4px 7px; padding-inline: 12px;
+  }
+  .personal-roomies :is(#chapter-index, #art-detail, #image-viewer, tiny-voices .tm-turn-dialog) {
+    background: var(--paper) var(--linen); color: var(--prose-ink);
+    border: 1px solid var(--line); border-radius: 5px;
+  }
+  .personal-roomies dialog::backdrop { background: #233c35a6; }
+  .personal-roomies .index-head h2 { font: 700 30px/1.1 var(--hand); letter-spacing: normal; }
+  .personal-roomies :is(.index-list, .index-shortcuts) a { color: var(--link); }
+  .personal-roomies .index-list a { padding-block: 8px; border-top-style: dashed; }
+  .personal-roomies .detail-viewport { background: transparent; }
+  .personal-roomies .detail-head button { border-color: var(--line); background: transparent; color: var(--ink); }
+
+  .roomies-case .opening { width: min(780px, calc(100% - 2 * var(--story-gutter))); padding-top: clamp(16px, 2vw, 28px); }
+  .roomies-case .hero-layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: 6px; }
+  .roomies-case .hero-text { position: relative; padding: 0 120px 0 0; }
+  .roomies-case .hero-text::after {
+    content: ''; position: absolute; right: 0; top: 6px; width: 100px; height: 106px;
+    background: url('../../illustrations/tinyroomies-line-v2.png') center / contain no-repeat;
+    filter: var(--line-art-filter);
+    pointer-events: none; transform-origin: 50% 85%;
+  }
+  .roomies-case .hero-text h1 { margin: 2px 0 0; }
+  .roomies-case .kicker, .roomies-case .story-kicker, .roomies-case .project-facts dt {
+    font: 600 14px/1.4 var(--prose); color: var(--muted); letter-spacing: .02em; text-transform: none;
+  }
+  .roomies-case .kicker { margin: 0; }
+  .roomies-case .ink-line { width: 24px; background: transparent; border-top: 2px dashed var(--link); }
+  .roomies-case .hero-line { margin: 3px 0 6px; font: 600 clamp(19px, 2.4vw, 25px)/1.23 var(--prose); color: var(--ink); letter-spacing: normal; }
+  .roomies-case :is(.hero-line, .story-intro h2, .access-readout h3) br { display: none; }
+  .roomies-case .hero-summary { font: inherit; color: var(--prose-ink); max-width: 67ch; }
+  .roomies-case .hero-actions { gap: 4px 18px; margin-top: 5px; }
+  .roomies-case .hero-actions a { min-height: 40px; padding: 3px 0; border: none; background: transparent; color: var(--link); font: 650 16px/1.3 var(--prose); text-decoration: underline; text-underline-offset: 4px; }
+  .roomies-case .hero-gallery { width: 100%; border: 0; background: transparent; }
+  .roomies-case .hero-picture { height: clamp(215px, 30vw, 350px); aspect-ratio: auto; background: transparent; }
+  .roomies-case .hero-picture img { padding: 0; }
+  .roomies-case .plate-caption { min-height: 42px; padding: 0; border: none; }
+  .roomies-case .plate-count { font: 600 13px var(--prose); color: var(--muted); }
+  .roomies-case .plate-controls { gap: 5px; }
+  .roomies-case .plate-controls button { border-radius: 50%; color: var(--ink); border: 1px dashed var(--muted); }
+  .roomies-case .project-facts { margin: 8px 0 0; padding: 12px 0; gap: 8px 16px; border-block: 1px dashed var(--line); }
+  .roomies-case .project-facts div { border: 0; padding: 0; }
+  .roomies-case .project-facts dt { margin-bottom: 2px; }
+  .roomies-case .project-facts dd { font-size: 16px; }
+
+  .roomies-case .case-story { width: var(--measure); --story-line: var(--line); color: var(--prose-ink); }
+  .roomies-case .case-story .story-chapter {
+    --trn-rule: var(--line); --trn-field: transparent;
+    display: grid;
+    grid-template-columns: [wide-start] minmax(0, 1fr) [text-start] min(100%, var(--reading-width)) [text-end] minmax(0, 1fr) [wide-end];
+    border: 0; padding: 0 0 24px;
+  }
+  .roomies-case .case-story .story-chapter:first-child { padding-top: 18px; }
+  .roomies-case .story-chapter + .story-chapter::before {
+    content: ''; grid-column: text; border-top: 1px dashed var(--line); margin-bottom: 18px;
+  }
+  .roomies-case .story-chapter > * { grid-column: text; min-width: 0; margin-inline: 0; }
+  .roomies-case .story-chapter > :is(.trn-triptych, .research-plates, .rs-game-pair, .making-anatomy,
+    .making-stages, .making-strip, .making-example-grid, .field-trio, .trn-evidence, .pp-history, .trn-film,
+    .field-note[open], .making-films[open]) {
+    grid-column: wide; width: min(100%, var(--gallery-width)); justify-self: center;
+  }
+  .roomies-case .story-chapter > :is(#furniture-collection, [data-tool-viewer], .trn-board) { grid-column: wide; }
+  .roomies-case .case-story :is(.story-intro, .story-subhead, .rs-taxonomy, .story-note-body) {
+    grid-template-columns: minmax(0, 1fr); gap: 5px; align-items: start;
+  }
+  .roomies-case .case-story .story-intro { margin-bottom: 14px; }
+  .roomies-case .case-story .story-kicker { margin: 0 0 2px; }
+  .roomies-case .case-story .story-subhead { margin-block: 20px 8px; }
+  .roomies-case .case-story :is(.story-lead, .story-subhead > p, .story-note-body, .story-definitions) { font: inherit; letter-spacing: normal; }
+  .roomies-case .case-story :is(.story-lead, .story-subhead > p, .rs-text) { max-width: 100%; }
+  .roomies-case .case-story .story-definitions > div,
+  .roomies-case .case-story .access-readout dl > div,
+  .roomies-case .case-story .trn-verify dl > div { display: block; padding-block: 7px; }
+  .roomies-case .case-story :is(.story-definitions, .access-readout dl, .trn-verify dl) dt {
+    display: inline; margin: 0 .45em 0 0; color: var(--ink); font-weight: 700;
+  }
+  .roomies-case .case-story :is(.story-definitions, .access-readout dl, .trn-verify dl) dd {
+    display: inline; margin: 0; color: var(--prose-ink);
+  }
+  .roomies-case .case-story .trn-steps li { padding-block: 6px; }
+  .roomies-case .rs-groups li, .roomies-case .rs-groups summary { justify-content: flex-start; gap: .65em; }
+  .roomies-case .rs-groups .rs-count { margin-left: 0; }
+  .roomies-case .case-story :is(.trn-reading, .trn-checklist, .pp-expression, .pp-acting, .pp-episode,
+    .posture-layout, .access-film, .recipe-panel, .pp-archive-inside figure) {
+    grid-template-columns: minmax(0, 1fr); gap: 8px; align-items: start;
+  }
+  .roomies-case .case-story :is(.trn-reading, .trn-verify, .trn-checklist, .pp-expression, .pp-acting, .access-film) { margin-top: 20px; }
+  .roomies-case .case-story .trn-progression { margin-top: 12px; padding-block: 8px; }
+  .roomies-case .case-story .trn-gallery figcaption { min-height: 0; }
+  .roomies-case .case-story .story-note { margin-top: 14px; border-block-style: dashed; }
+  .roomies-case .story-note > summary { justify-content: flex-start; gap: .6em; font-size: 17px; min-height: 44px; padding-block: 8px; color: var(--link); }
+  .roomies-case .case-story :is(.making-films, .field-note, .making-full-collection) > summary,
+  .roomies-case .case-story .making-full-collection:not([open]) { max-width: var(--reading-width); margin-inline: auto; }
+  .roomies-case .case-story .pp-episode, .roomies-case .pp-history li { padding-block: 14px; border-top-style: dashed; }
+  .roomies-case .pp-episode .pp-outcomes { margin-top: 5px; }
+  .roomies-case .pp-episode .pp-response { min-height: 0; }
+  .roomies-case .pp-expression .pp-faces { max-width: 580px; }
+  .roomies-case .pp-acting figure { max-width: none; }
+  .roomies-case .access-readout dl { margin-block: 8px 4px; }
+  .roomies-case .access-readout p { max-width: 72ch; }
+  .roomies-case .access-film { padding-top: 12px; }
+  .roomies-case .case-story figcaption strong { letter-spacing: 0; color: var(--ink); }
+  .roomies-case .case-story :is(p,li,dd) { letter-spacing: normal; }
+  .roomies-case .case-story :is(.rs-source,.making-stations,.trn-reading,.pp-chapter,.field-note) { font-family: var(--prose); }
+  .roomies-case .endnote { background: transparent; color: var(--ink); border-top: 1px dashed var(--line); margin-top: 20px; }
+  .roomies-case .end-inner { padding: 14px 0; }
+  .roomies-case .end-inner > span { color: var(--muted); }
+  .roomies-case .end-inner .brand img { filter: none; }
+}
+
+@media screen {
+  /* Each capture supplies its own backdrop. The live mesh canvas already paints alpha. */
+  .roomies-case #main img, .personal-roomies #art-detail img,
+  .roomies-case #main :is([data-tool-viewer], .tool-view-stage, .tool-picks button, .posture-stage,
+    .trn-strip, tiny-voices, tiny-films, .tm-turn-stage, .tm-resident, .tm-turn-stage canvas) {
+    background-color: transparent;
+  }
+  .roomies-case .posture-stage { border: none; }
+  .roomies-case .interactive .posture-stage img:not(.standing-layer) { clip-path: inset(0 0 0 var(--standing-share)); }
+  .roomies-case .interactive .posture-divider { background: var(--ink); }
+  .roomies-case .posture-divider span {
+    color: var(--ink); background: var(--paper); border: 1px solid var(--muted);
+    box-shadow: 0 1px 3px color-mix(in srgb, var(--prose-ink) 14%, transparent);
+  }
+  .roomies-case #main :is(.posture-presets, [data-tool-viewer]) { border: 0; }
+  .roomies-case #main :is(.trn-switch, .pp-switches, .posture-presets) {
+    display: flex; gap: 3px 14px; flex-wrap: wrap; border-bottom: 1px dashed var(--line);
+  }
+  .roomies-case #main :is(.trn-switch, .pp-switches, .posture-presets) button {
+    border: 0; border-bottom: 2px solid transparent; padding: 3px 2px; min-height: 44px;
+    background: transparent; color: var(--link); font: 500 16px/1.35 var(--prose);
+  }
+  .roomies-case #main :is(.trn-switch, .pp-switches, .posture-presets) :is([aria-pressed=true], [aria-selected=true]) {
+    border-color: var(--ink); color: var(--ink); font-weight: 700;
+  }
+  .roomies-case #main [data-tool-viewer] { color: var(--ink); border-block: 1px dashed var(--line); }
+  .roomies-case #main .tool-picks button { color: var(--prose-ink); }
+  .roomies-case #main .tool-picks button[aria-pressed=true] { border-color: var(--ink); border-radius: 5px 3px 7px 4px; color: var(--ink); }
+  .roomies-case #main .tool-library { border-inline-end-color: var(--line); }
+  .roomies-case #main :is(.tool-description, .tool-controls, .tool-picks, .tm-residents) { border-color: var(--line); }
+  .roomies-case #main .tool-catalog .tool-view-stage { height: clamp(190px, 32cqw, 330px); }
+  .roomies-case #main .tool-description { border-top: 0; border-bottom: 1px dashed var(--line); padding: 10px 14px; }
+  .roomies-case #main .tool-description h4 { color: var(--ink); }
+  .roomies-case #main .tool-description a { min-height: 36px; margin: 0; color: var(--link); }
+  .roomies-case #main .tool-controls button, .roomies-case #main .tm-open-turn { color: var(--link); }
+  .roomies-case #main :is(.tool-description p, .tool-controls p, .tool-group, .tm-note) { color: var(--prose-ink); }
+  .roomies-case #main :is(.tool-group select, .furniture-picker select, .recipe-selectors select) {
+    font: 500 16px/1.35 var(--prose); border: 1px solid var(--line); border-radius: 4px 6px 3px 5px;
+    color: var(--ink); background-color: var(--paper);
+  }
+  .roomies-case #main .tm-turn-stage canvas { touch-action: pan-y; }
+  .roomies-case #main tiny-voices { color: var(--prose-ink); --tm-line: var(--line); --tm-faint: var(--muted); }
+  .roomies-case #main :is(.tm-turn-controls button, .tm-turn-close, .recipe-pager button) {
+    border: 1px dashed var(--muted); border-radius: 4px 6px; color: var(--ink); background: transparent;
+  }
+  .roomies-case #main .tm-resident[aria-pressed=true] { color: var(--ink); border-color: var(--ink); }
+  .roomies-case #main .tm-listening { grid-template-columns: minmax(0,1fr); gap: 8px; padding-top: 10px; }
+  .roomies-case #main .tm-person .tm-note { max-width: none; }
+  .roomies-case #main .making-pins button::before { background: var(--paper); border-color: var(--ink); }
+  .roomies-case #main .making-pins button[aria-expanded=true] { color: var(--paper); }
+  .roomies-case #main .making-pins button[aria-expanded=true]::before { background: var(--ink); }
+  .roomies-case .case-story .research-plates figure img { padding: 0; }
+  .roomies-case .case-story :is(.making-plate img, .recipe-frame img) { padding: 0; }
+  .roomies-case .case-story .enlarge-art::after { background: var(--paper); color: var(--ink); border-color: var(--line); }
+  .roomies-case .case-story .recipe-panel { gap: 6px; }
+  .roomies-case .case-story .recipe-frame { max-width: 680px; width: 100%; justify-self: center; }
+  .roomies-case .case-story .recipe-tool-list { margin-block: 8px; }
+
+  /* TinyRoomies uses the same red stitching as its cover in Games & XR. */
+  body.roomies-case {
+    --alice-media-border: url('../../borders/knit-border-red-v4.png');
+    --alice-yarn-disc: url('../../borders/yarn-disc-red.png');
+    --alice-yarn-play: url('../../borders/yarn-play-red.png');
+    --alice-border-left: -3.9329%; --alice-border-top: -6.3107%;
+    --alice-border-width: 107.7369%; --alice-border-height: 114.1990%;
+  }
+  .roomies-case #main .personal-video-host > :is(video, .personal-video-tools) {
+    width: 94%; margin: clamp(12px, 1.8vw, 22px) 0; max-height: none;
+  }
+  .roomies-case #main .personal-video-host figcaption { margin: 2px 3% 0; }
+  .roomies-case #experience-film video { object-fit: cover; }
+  .roomies-case .case-story .trn-verify { grid-template-columns: minmax(0, 1fr); gap: 6px; }
+  .roomies-case .trn-verify h3 { margin: 0; }
+  .roomies-case .case-story .trn-doc { justify-self: start; margin-top: 12px; }
+  .roomies-case .case-story .compare-heading {
+    display: grid; justify-content: stretch; gap: 6px;
+    max-width: var(--reading-width); margin: 0 auto 12px;
+  }
+  .roomies-case .compare-heading .furniture-picker { width: fit-content; max-width: 100%; }
+  .roomies-case .case-story .making-film-grid { gap: clamp(16px, 3vw, 30px); }
+
+  .roomies-design #main { max-width: 1050px; margin-inline: auto; padding: 20px var(--story-gutter) 32px; }
+  .roomies-design #main > :not(.chapter), .roomies-design #main .chapter > *,
+  .roomies-research #main > * { width: min(100%, var(--reading-width)); margin-inline: auto; }
+  .roomies-design #main .chapter > :is(.diagram, .table-wrap:has(th:nth-child(3))),
+  .roomies-research #main > :is(.gallery, .table-wrap) { width: 100%; }
+  .roomies-design #main .chapter .grid { grid-template-columns: 1fr; gap: 10px; }
+  .roomies-design #main .grid article h3 { margin-bottom: 3px; }
+  .roomies-design #main .steps { grid-template-columns: 1fr; gap: 9px; }
+  .roomies-design #main .steps h3 { margin-bottom: 2px; }
+  .roomies-design #main .toc { grid-template-columns: repeat(auto-fit, minmax(min(100%, 11rem), 1fr)); gap: 4px 12px; }
+  .roomies-design #main .chapter-end, .roomies-design #main .document-footer { justify-content: flex-start; flex-wrap: wrap; gap: 6px 18px; }
+  .roomies-design .table-wrap:not(:has(th:nth-child(3))) table { min-width: 0; }
+  .roomies-design .table-wrap:not(:has(th:nth-child(3))) th:first-child { width: 26%; }
+  .roomies-design #persistence th:first-child { width: 50%; }
+  .roomies-design #main .chapter { padding-top: 22px; }
+  .roomies-design #main .chapter-head {
+    display: grid; grid-template-columns: auto minmax(0,1fr); align-items: baseline;
+    gap: 4px 12px; border-top: 1px dashed var(--line); padding-top: 12px; margin-bottom: 10px;
+  }
+  .roomies-design .chapter-head p { grid-column: 2; max-width: 72ch; margin: 0; }
+  .roomies-design .chapter-number { color: var(--link); font: 700 16px var(--prose); }
+  .roomies-design .topbar { padding: 5px var(--story-gutter); justify-content: center; gap: 14px; }
+  .roomies-design .topbar nav { flex: 0 1 auto; }
+  .roomies-design .topbar :is(button, a) { min-height: 36px; display: inline-flex; align-items: center; }
+  .roomies-design .topbar button { color: var(--link); }
+  .roomies-design #main :is(.block,.subblock) { margin-top: 16px; }
+  .roomies-design #main :is(.grid,.media-row) { row-gap: 14px; }
+  .roomies-design #main > :is(p,h1,.lead,.meta) { max-width: 74ch; }
+  .roomies-design #main .image-link { background: transparent; }
+  .personal-roomies .table-wrap { min-width: 0; max-width: 100%; overflow-x:auto; }
+  .personal-roomies .table-wrap :is(table,th,td) { background: transparent; border-color: var(--line); }
+  .personal-roomies .table-wrap th { font-weight: 700; color: var(--ink); }
+  .roomies-design .table-wrap table { font: 400 16px/1.45 var(--prose); }
+  .roomies-research #main { width: min(100%, 1030px); padding: 20px var(--story-gutter) 32px; }
+  .roomies-research #main h2 { margin-block: 24px 8px; padding-top: 12px; border-top: 1px dashed var(--line); }
+  .roomies-research #main h3 { margin-block: 16px 6px; }
+  .roomies-research #main > :is(nav, .callout) { margin-block: 12px; }
+  .roomies-research .table-wrap :is(th,td) { padding-block: 7px; }
+  .roomies-research #main :is(.callout,nav) { background: transparent; border-color: var(--line); }
+  .roomies-research #main .gallery figure, .roomies-research #main .gallery img { background: transparent; }
+}
+@media screen and (min-width: 720px) {
+  .roomies-case .case-story .pp-episodes { grid-column: wide; width: min(100%, var(--gallery-width)); justify-self: center; display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 16px; }
+  .roomies-case .pp-episodes .pp-episode { display: grid; grid-template-rows: subgrid; grid-row: span 2; align-items: start; }
+  .roomies-case .case-story .pp-history { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 8px 24px; }
+  .roomies-case .pp-history li { grid-template-columns: minmax(0,1fr); gap: 4px; align-content: start; }
+  .roomies-case .pp-history li > figure { grid-row: 3; }
+  .roomies-case .case-story .access-readout .source-pair { margin-block: 4px; }
+}
+@media screen and (max-width: 720px) {
+  .roomies-case .mast-inner { gap: 6px; }
+  .roomies-case .quick-nav { display: none; }
+  .roomies-case .hero-text { padding-right: 0; }
+  .roomies-case .hero-text::after { width: 60px; height: 60px; top: 0; right: 0; }
+  .roomies-case .hero-text h1 { max-width: calc(100% - 66px); }
+  .roomies-case .case-story .story-chapter { padding-bottom: 18px; }
+  .roomies-case .case-story .story-chapter > .story-intro { margin-bottom: 12px; }
+  .roomies-case .pp-history li { grid-template-columns: minmax(0,1fr); gap: 5px; }
+  .roomies-case .pp-history li > figure { grid-row: 3; }
+  .roomies-case .trn-triptych, .roomies-case .making-example-grid { row-gap: 14px; }
+  .roomies-design .topbar { grid-template-columns: 1fr auto; gap: 0 8px; }
+  .roomies-design .topbar nav { min-width: 0; justify-content: flex-start; width: 100%; }
+  .roomies-design .topbar a { flex: none; }
+  .personal-project-bar nav { gap: 0 12px; }
+  .personal-project-bar nav a { font-size: 17px; }
+  .personal-project-bar:lang(zh-CN) nav a { font-size: 13px; }
+}
+@media screen and (prefers-reduced-motion: no-preference) {
+  .roomies-case .hero-text::after { transition: transform 220ms cubic-bezier(.2,.7,.25,1); }
+  .roomies-case .hero-text:hover::after, .roomies-case .hero-text:focus-within::after { transform: rotate(-5deg) translateY(-2px); }
+  .roomies-case :is(.plate-controls, .trn-switch, .posture-presets, .pp-switches) button { transition: color .15s, border-color .15s, transform .15s; }
+  .roomies-case .plate-controls button:active { transform: translateY(2px); }
+  .roomies-case .tm-resident img { transition: transform .18s ease-out; transform-origin: center 85%; }
+  .roomies-case .tm-resident:is(:hover,:focus-visible) img { transform: rotate(-3deg) translateY(-2px); }
+}
+@media print {
+  .personal-roomies :is(.personal-site-chrome, .personal-project-bar) { display: none; }
+}

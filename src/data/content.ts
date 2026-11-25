@@ -83,7 +83,7 @@ export const projects: Project[] = [
   {
     id: 'textile-toolkit',
     number: '02',
-    title: 'Textile Toolkit',
+    title: 'Textile Studio',
     category: 'tools',
     discipline: { en: 'Technical art · Tools', zh: '技术美术 · 工具' },
     period: '03.2026 — Present',
@@ -295,16 +295,18 @@ export const projectIndex: ProjectEntry[] = [
   { id: 'reality-link-cyber-travel', title: 'Reality Link: Cyber Travel', category: 'tools' },
 ]
 
+export const holdLightPaper = {
+  id: 'P1',
+  title:
+    'HoldLight: Making Indoor Climbing More Accessible for Blind and Low-Vision Climbers through Layered Route Preview and Real-Time Next-Hold Guidance',
+  authors: 'Chenyu Du, Junyan He, Jiafei Sun, Yue Li',
+  venue: 'ACM ASSETS ’26',
+  year: '2026',
+  url: 'https://doi.org/10.1145/3797867.3829070',
+}
+
 export const publications = [
-  {
-    id: 'P1',
-    title:
-      'HoldLight: Making Indoor Climbing More Accessible for Blind and Low-Vision Climbers through Layered Route Preview and Real-Time Next-Hold Guidance',
-    authors: 'Chenyu Du, Junyan He, Jiafei Sun, Yue Li',
-    venue: 'ACM ASSETS ’26',
-    year: '2026',
-    url: 'https://doi.org/10.1145/3797867.3829070',
-  },
+  holdLightPaper,
   {
     id: 'P2',
     title: 'Real-Time 3-DoF Robotic Grasp Detection via Keypoint Regression',

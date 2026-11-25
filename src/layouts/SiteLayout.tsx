@@ -1,8 +1,8 @@
 import type { PropsWithChildren } from 'react'
-import { copy, galleryCategories, workCategories } from '../data/content'
+import { copy, galleryCategories, workCategories, type WorkCategory } from '../data/content'
 import { useSite } from '../lib/SiteContext'
 
-export default function SiteLayout({ children, route }: PropsWithChildren<{ route: string }>) {
+export default function SiteLayout({ children, route, projectCategory }: PropsWithChildren<{ route: string; projectCategory?: WorkCategory }>) {
   const { language, setLanguage, t } = useSite()
   const links = [
     ['/projects', t('Works', '项目')],
@@ -15,7 +15,7 @@ export default function SiteLayout({ children, route }: PropsWithChildren<{ rout
         ...workCategories.map((category) => ({
           href: `/projects/category/${category.id}`,
           label: copy(category.label, language),
-          active: route === `/projects/category/${category.id}`,
+          active: route === `/projects/category/${category.id}` || projectCategory === category.id,
         })),
       ]
     : route.startsWith('/gallery')
@@ -71,7 +71,7 @@ export default function SiteLayout({ children, route }: PropsWithChildren<{ rout
                   <a
                     key={link.href}
                     href={`#${link.href}`}
-                    aria-current={link.active ? 'page' : undefined}
+                    aria-current={link.active ? (projectCategory ? 'location' : 'page') : undefined}
                   >
                     {link.label}
                   </a>
