@@ -34,9 +34,8 @@ function section(id,zh,en,subzh,suben,body) {
         ${group?topicNavigation(group):''}<div class="section-body">${subzh?`<div class="prose"><p>${t(subzh,suben)}</p></div>`:''}${body}</div></section>`;
 }
 const compare=(a,b,zh,en)=>`<figure class="study"><div class="compare" style="--split:50%">${img(M[b],t(zh,en)+' · '+t('调整后','After'))}<div class="compare-top">${img(M[a],t(zh,en)+' · '+t('调整前','Before'))}</div><span class="compare-line"></span><span class="compare-handle">↔</span><span class="compare-label before">${t('调整前','Before')}</span><span class="compare-label after">${t('调整后','After')}</span><input type="range" min="0" max="100" value="50" aria-label="${esc(t('拖动比较：','Compare: ')+t(zh,en))}"></div><figcaption class="caption">${t(zh,en)}<span>${t('拖动分界线','Drag to compare')}</span></figcaption></figure>`;
-const navs={home:[['overview','项目缘起','Project origin']],toolkit:[['overview','概览','Overview'],['workflow','工作台与制作逻辑','Workbench'],['cushion','抱枕制作步骤','Cushion walkthrough'],['materials','材质与尺度','Materials & scale'],['cases','工艺案例','Craft examples'],['delivery','保存与导出','Saving & export'],['bridge','游戏应用','Game integration'],['development','局部修改','Editing a detail'],['works','作品与案例','Showcase'],['trial','《夜航》抱枕试作','Night Crossing trial'],['results','编辑与视口实测','Editing and viewport results']],game:[['overview','概览','Overview'],['play','修补玩法','Repair mechanics'],['arrival','开店与收件','Opening & arrival'],['alice','Alice 委托','Alice commission'],['panda','Panda 委托','Panda commission'],['mechanics','修补反馈与操作辅助','Repair feedback & accessibility'],['doll','玩偶模型与制作','Doll models & making'],['workshop','工坊的声音与光线','Workshop sound & light'],['history','开发与后续','Development & plans']]};
+const navs={toolkit:[['overview','概览','Overview'],['workflow','工作台与制作逻辑','Workbench'],['cushion','抱枕制作步骤','Cushion walkthrough'],['materials','材质与尺度','Materials & scale'],['cases','工艺案例','Craft examples'],['delivery','保存与导出','Saving & export'],['bridge','游戏应用','Game integration'],['development','局部修改','Editing a detail'],['works','作品与案例','Showcase'],['trial','《夜航》抱枕试作','Night Crossing trial'],['results','编辑与视口实测','Editing and viewport results']],game:[['overview','概览','Overview'],['play','修补玩法','Repair mechanics'],['arrival','开店与收件','Opening & arrival'],['alice','Alice 委托','Alice commission'],['panda','Panda 委托','Panda commission'],['mechanics','修补反馈与操作辅助','Repair feedback & accessibility'],['doll','玩偶模型与制作','Doll models & making'],['workshop','工坊的声音与光线','Workshop sound & light'],['history','开发与后续','Development & plans']]};
 const chapters = {
-    home: [['项目缘起','Project origin',['overview']]],
     toolkit: [
         ['概览','Overview',['overview','workflow']],
         ['制作流程','Workflow',['cushion','delivery']],
@@ -53,41 +52,6 @@ const chapters = {
         ['反馈与辅助','Feedback & access',['mechanics','history']]
     ]
 };
-
-// Keep bookmarked sections from the original Toolkit landing page reachable.
-function followHomeBookmark() {
-    if (page !== 'home') return false;
-    const id = location.hash.slice(1);
-    if (!id || id === 'overview' || id === 'main' || document.getElementById(id)) return false;
-    const gameRoute = navs.game.some(([key]) => key === id);
-    const toolRoute = navs.toolkit.some(([key]) => key === id);
-    if (!gameRoute && !toolRoute && !/^(?:work-|case-|cushion-|repair-)/.test(id)) return false;
-    const destination = new URL(gameRoute || id.startsWith('repair-') ? 'game.html' : 'toolkit.html', location.href);
-    destination.search = location.search;
-    destination.hash = id;
-    location.replace(destination.href);
-    return true;
-}
-
-function siteHeader(){
-    return `<header class="site-head">
-        <div class="head-inner"><div class="masthead">
-            <a class="wordmark" href="${href('index')}" ${page==='home'?'aria-current="page"':''} aria-label="${t('Alice 作品集首页','Alice portfolio home')}">Alice</a>
-            <nav class="projects" aria-label="${t('项目','Projects')}">
-                <a href="${href('toolkit')}" ${page==='toolkit'?'aria-current="page"':''}>${t('布艺工具','Toolkit')}</a>
-                <a href="${href('game')}" ${page==='game'?'aria-current="page"':''}>${t('修补游戏','Game')}</a>
-            </nav>
-            <div class="utilities"><div class="lang-controls" aria-label="${t('语言','Language')}">
-                <button data-lang="zh" lang="zh-CN" aria-pressed="${lang==='zh'}">中文</button>
-                <button data-lang="en" lang="en" aria-pressed="${lang==='en'}">EN</button>
-            </div><details class="more-views"><summary>${t('更多','More')}</summary><div>
-                ${page==='home'?'':`<a href="${page}-slides.html">${t('英文技术详解','Technical case study (EN)')}</a>`}
-                <a href="${href('index','making-credits')}">${t('制作与署名','Contributions & credits')}</a>
-                <button type="button" data-print>${t('打印 / PDF','Print / PDF')}</button>
-            </div></details></div>
-        </div></div>
-    </header>`;
-}
 
 function chapterNavigation() {
     return `<nav class="chapter-links" aria-label="${t('项目章节','Project chapters')}">
@@ -107,11 +71,25 @@ function topicNavigation([zh,en,ids]) {
 function overviewActions(){
     const links=page==='toolkit' ? [['workflow','查看工作台导览','Explore the workbench'],['cushion','跟做植物抱枕','Follow the cushion workflow']]
         : [['mina-letter','读 Mina 的委托信','Read Mina’s letter'],['play','看修补动作','See the repairs']];
-    return `<div class="overview-actions">${links.map(([id,z,e])=>`<a href="#${id}">${t(z,e)}</a>`).join('')}</div>`;
+    return `<div class="overview-actions">${links.map(([id,z,e])=>`<a href="#${id}">${t(z,e)}</a>`).join('')}
+        <a href="${href(page+'-slides')}">${t('技术详解（英文）','Technical case study')}</a></div>`;
 }
 
-function shell(content){return `<a href="#main" class="skip">${t('跳到内容','Skip to content')}</a>
-    ${siteHeader()}<main class="main" id="main" tabindex="-1">${content}
+function projectCredits(){
+    const game = page === 'game';
+    return `<section id="making-credits" class="making-credits" aria-labelledby="making-title">
+        <h2 id="making-title">${t('制作与署名','Contributions & credits')}</h2>
+        <p>${game
+            ? t('我手缝了 Alice 原作，设计了两份修补委托和声音交互，并在 Unity 中试玩、调整材质和画面。Codex 协助整理 Blender 模型、实现 Unity 场景与交互，以及做自动化检查。窗外街景的天气和时段变化使用了 AI 图像编辑。','I sewed the original Alice, designed the two repair commissions and sound interactions, and tested the materials and visuals in Unity. Codex assisted with Blender asset preparation, Unity scenes and interactions, and automated checks. The street backdrops use AI-assisted edits for weather and time of day.')
+            : t('我设计了布艺工作流程，选择材质，并在 Unity 中检验成品的外观和手感。Codex 协助整理 Blender 资产、实现 Unity 交互和做自动化检查。','I designed the textile workflow, selected the materials, and tested the finished pieces in Unity. Codex assisted with Blender asset preparation, Unity interactions, and automated checks.')}</p>
+        <p>${game
+            ? t('配乐由 Scott Buckley 创作。修补声和环境声使用了经过剪辑与混音的署名录音。','The music is by Scott Buckley. The repair sounds and ambience use edited and mixed source recordings.') + ' <a href="credits.txt">' + t('音乐与录音署名','Music and recording credits') + '</a>'
+            : t('《夜航》抱枕上的帆船图案由一位同学设计，制作过程的配图在 Unity 中复现。','A classmate designed the sailboat on the Night Crossing cushion. I recreated the process images in Unity.')}</p>
+        <button type="button" class="case-print" data-print>${t('打印 / PDF','Print / PDF')}</button>
+    </section>`;
+}
+
+function shell(content){return `<main class="main" id="main" tabindex="-1">${content}${projectCredits()}
     </main><dialog class="lightbox" aria-labelledby="dialog-title"><div class="dialog-bar"><span id="dialog-kind"></span><div class="image-tools" role="group" aria-label="${t('图片缩放','Image zoom')}"><button type="button" data-inspect="out" aria-label="${t('缩小','Zoom out')}">−</button><output data-zoom-level aria-live="off">100%</output><button type="button" data-inspect="in" aria-label="${t('放大','Zoom in')}">+</button><button type="button" data-inspect="fit">${t('适应窗口','Fit')}</button></div><button autofocus class="dialog-close" aria-label="${t('关闭','Close')}">×</button></div><div class="dialog-layout"><div class="dialog-view browse-frame"><div class="inspection-stage" tabindex="0" role="group" aria-label="${t('查看图片细节','Inspect image details')}"><img id="dialog-image" alt="" draggable="false"></div><button type="button" class="dialog-arrow dialog-prev browse-arrow browse-prev" aria-controls="dialog-image" aria-label="${t('上一张','Previous image')}"></button><button type="button" class="dialog-arrow dialog-next browse-arrow browse-next" aria-controls="dialog-image" aria-label="${t('下一张','Next image')}"></button></div><div class="dialog-info"><h2 id="dialog-title"></h2><p id="dialog-description"></p><p id="dialog-provenance"></p><div class="view-count" id="dialog-count" aria-live="polite" aria-atomic="true"></div><div class="dialog-thumbs"></div><a class="text-link" id="dialog-original" target="_blank" rel="noopener">${t('打开大图','Open full image')} ↗</a></div></div></dialog>`;}
 
 const para=(zh,en)=>`<p>${t(zh,en)}</p>`;
@@ -123,9 +101,13 @@ const craftRow=(zh,en,text,controls,result)=>`<article class="process-row craft-
 const table=(heads,rows)=>`<div class="table-scroll"><table class="content-table"><thead><tr>${heads.map(h=>`<th scope="col">${h}</th>`).join('')}</tr></thead><tbody>${rows.map(r=>`<tr>${r.map((v,i)=>i?`<td>${v}</td>`:`<th scope="row">${v}</th>`).join('')}</tr>`).join('')}</tbody></table></div>`;
 
 function toolkit(){return `
-<header id="overview" class="overview-tool"><div class="hero-intro"><h1>Alice Textile Studio</h1>
+<header id="overview" class="overview-tool"><div class="hero-intro"><h1>Textile Studio</h1>
 <p class="lead">${t('我想让道具制作者能直接在 Unity 模型上缝纫。这个工作台把贴布、绣线和包边留在各自的图层，成品可以导出给游戏使用。','I wanted prop artists to be able to sew directly on a Unity model. This workbench keeps felt, embroidery and binding on editable layers and exports the finished piece.')}</p>
-<div class="overview-actions"><a href="#cushion">${t('跟做植物抱枕','Make the botanical cushion')}</a><a href="game.html?lang=${lang}&amp;piece=handbook#workshop-pieces">${t('看游戏里的针法手册','See the handbook in the game')}</a></div><div data-project-navigation></div></div>
+<p class="project-connection">${t(
+    `我用这个工作台制作了游戏《<a href="${href('game')}">Alice · Mending Workshop</a>》里的布面针法手册。`,
+    `I used this workbench to make the cloth-bound stitch guide that players open in <a href="${href('game')}">Alice · Mending Workshop</a>.`
+)}</p>
+${overviewActions()}</div>
 <figure class="tool-opening-piece ts-gesture-film"><video controls playsinline preload="none" width="950" height="680" poster="assets/story-tool/botanical-leaf-gesture.webp" aria-describedby="leaf-gesture-caption"><source src="assets/story-tool/botanical-leaf-gesture.mp4" type="video/mp4"><a href="assets/story-tool/botanical-leaf-gesture.mp4">${t('播放绣叶过程','Play the embroidery clip')}</a></video>
 <figcaption id="leaf-gesture-caption">${t('描出叶形，松手生成一层缎面绣。工作台实录，3 倍速。','Trace a leaf and release to create a satin-stitch layer. Workbench recording at 3× speed.')} <a href="#editing-sewn-piece">${t('看移动毛毡后的效果','See what moves with the felt')} ↗</a></figcaption></figure>
 </header>
@@ -251,13 +233,18 @@ ${section('bridge','布艺作品进了游戏','From studio to workshop','','',`
 ${window.AliceWorkshopProps.render('toolkit',lang)}
 <p class="prop-more"><a class="text-link" href="#work-gamecraft-1">${t('角色布料研究 · Alice','Character textile study · Alice')}</a></p>
 `)}
-<a class="next-project" href="${href('game')}"><div><h2>Alice · Mending Workshop ↗</h2><p>${t('游戏设计、两份委托与布艺资产的实际应用。','Game design, two commissions and textile assets in use.')}</p></div>${img(M.room,t('Alice 工坊','Alice workshop'))}</a>`}
+`}
 
 function game(){
 const story = window.AliceGameStory.forLanguage(lang);
 const points=(...items)=>`<ul class="mending-points">${items.map(([zh,en])=>`<li>${t(zh,en)}</li>`).join('')}</ul>`;
 return `
-<header id="overview" class="overview-game"><div class="hero-intro"><h1>Alice · Mending Workshop</h1><p class="lead">${t('在窗边修好两只玩偶，第一只是我亲手缝的 Alice。Mina 明天要去新学校，请给 Alice 缝上一只新的纽扣眼，留下她歪歪的笑。','Mend two well-loved toys, starting with Alice, the doll I sewed by hand. Mina starts at a new school tomorrow. Give Alice a new button eye and keep her crooked smile.')}</p>${overviewActions()}<div data-project-navigation></div></div>
+<header id="overview" class="overview-game"><div class="hero-intro"><h1>Alice · Mending Workshop</h1><p class="lead">${t('在窗边修好两只玩偶，第一只是我亲手缝的 Alice。Mina 明天要去新学校，请给 Alice 缝上一只新的纽扣眼，留下她歪歪的笑。','Mend two well-loved toys, starting with Alice, the doll I sewed by hand. Mina starts at a new school tomorrow. Give Alice a new button eye and keep her crooked smile.')}</p>
+<p class="project-connection">${t(
+    `玩家翻开的布面针法手册，是我用自己开发的 Unity 布艺工具 <a href="${href('toolkit')}">Textile Studio</a> 制作的。`,
+    `I made the cloth-bound guide that teaches players their first stitch with <a href="${href('toolkit')}">Textile Studio</a>, my textile tool for Unity.`
+)}</p>
+${overviewActions()}</div>
 <div class="mending-first-look"><div class="mending-first-frame">${img(M[D.clips.stitch.poster],t('玩家正沿 Alice 眼旁的裂口落针。','The player places a stitch beside Alice’s missing eye.'),'',false)}${window.AliceAdmissions.film(lang,'game')}</div>${window.AliceAdmissions.download(lang)}</div></header>
 ${chapterNavigation()}
 
@@ -317,7 +304,7 @@ ${row('可调整的操作','Control options',points(['键位可重映射，也�
 `)}
 
 ${section('history','开发历程与后续设计','Development and further designs','','',`
-<div class="mending-influences"><p>${t('Alice 的原型由我手缝。我选择要保留的磨损痕迹，设计委托、修补反馈和工坊内的声音交互。','I sewed the original Alice, chose which signs of wear to keep, and designed the commissions, repair feedback and sound interactions.')} <a class="text-link" href="${href('index','making-credits')}">${t('制作分工','Production credits')}</a></p><dl><dt>ReStory</dt><dd>${t('损伤决定修理次序','Damage sets the repair order.')}</dd><dt>Assemble with Care</dt><dd>${t('主人讲出物件的来历','Owners give objects their history.')}</dd></dl></div>
+<div class="mending-influences"><p>${t('Alice 的原型由我手缝。我选择要保留的磨损痕迹，设计委托、修补反馈和工坊内的声音交互。','I sewed the original Alice, chose which signs of wear to keep, and designed the commissions, repair feedback and sound interactions.')} <a class="text-link" href="#making-credits">${t('制作分工','Production credits')}</a></p><dl><dt>ReStory</dt><dd>${t('损伤决定修理次序','Damage sets the repair order.')}</dd><dt>Assemble with Care</dt><dd>${t('主人讲出物件的来历','Owners give objects their history.')}</dd></dl></div>
 ${table([t('阶段','Stage'),t('交付','Milestone')],[
  ['2026.04–06',t('布艺材质与 Alice 数字原型','Textile materials and the digital Alice')],
  ['2026.09–10',t('窗边工坊、两份委托和针线操作','Workshop, two commissions and hand-operated stitches')],
@@ -332,7 +319,7 @@ ${passage('future','尚未实现的委托构想','Unimplemented commission conce
 ]))}
 <div class="prose game-endnote">${para('下一轮真人试玩想观察：首次接触游戏的人能否认出熊猫耳朵也需要藏针，并把在 Alice 身上学到的手法用上。','Next playtest question: do first-time players recognise that Panda’s ear needs the ladder stitch they learned on Alice?')}<p>${t('配乐来自 Scott Buckley；雨声和工具声取自授权录音。','Music by Scott Buckley. Rain and tool sounds use licensed recordings.')} <a class="text-link" href="credits.txt" target="_blank" rel="noopener">${t('音乐与音源署名','Music and recording credits')} ↗</a></p></div>
 `)}
-<a class="next-project" href="${href('toolkit')}"><div><h2>Alice Textile Studio ↗</h2><p>${t('布艺工具的设计逻辑、操作案例与导入导出。','The textile tool’s design, authoring examples and interchange.')}</p></div>${img(work('reference-4').images[0],t('针织手提包','Knitted bag'))}</a>`}
+`}
 
 const materialNames=[['细棉','Fine cotton'],['粗麻','Coarse linen'],['平针','Jersey'],['罗纹','Rib knit'],['粗毛线','Bulky yarn'],['毛毡','Felt'],['短绒','Short pile'],['缎面','Satin'],['Alice 身体','Alice body'],['Alice 包边','Alice binding'],['游戏头发','Game hair'],['金色头发','Golden hair']];
 const mechanics=[
@@ -347,9 +334,8 @@ const worksPerPage=9;
 function render(){
 
 document.documentElement.lang=lang==='en'?'en':'zh-CN';
-document.getElementById('app').innerHTML=shell(page==='home'?window.AliceProjectHome.render(lang):page==='toolkit'?toolkit():game());
+document.getElementById('app').innerHTML=shell(page==='toolkit'?toolkit():game());
 if(page==='toolkit'){showMaterial(0);renderGallery()}
-document.querySelectorAll('[data-lang]').forEach(b=>b.onclick=()=>switchLanguage(b.dataset.lang));
 document.querySelectorAll('[data-print]').forEach(b=>b.onclick=printPage);
 document.querySelectorAll('.compare input').forEach(i=>i.oninput=()=>i.closest('.compare').style.setProperty('--split',i.value+'%'));
 document.querySelectorAll('[data-hotspot]').forEach(b=>b.onclick=()=>{document.querySelectorAll('[data-hotspot]').forEach(x=>x.setAttribute('aria-pressed',x===b));document.querySelectorAll('[data-note]').forEach(x=>x.classList.toggle('selected',x.dataset.note===b.dataset.hotspot))});
@@ -392,7 +378,7 @@ function switchLanguage(nextLanguage) {
     const fraction = rect?.height ? (line-rect.top)/rect.height : 0;
     const atStart = window.scrollY < 2;
     const hashSection = document.getElementById(location.hash.slice(1))?.closest('main > .section, main > #overview');
-    if (page!=='home' && currentSection && hashSection!==currentSection) nextUrl.hash=currentSection.id;
+    if (currentSection && hashSection!==currentSection) nextUrl.hash=currentSection.id;
     try { localStorage.setItem('alice-language', nextLanguage); } catch {}
     try { history.replaceState(null, '', nextUrl.href); }
     catch { location.replace(nextUrl.href); return; }
@@ -408,7 +394,6 @@ function switchLanguage(nextLanguage) {
     }
     syncReader();
 
-    document.querySelector(`[data-lang="${lang}"]`)?.focus({preventScroll:true});
 }
 
 let printState=null;
@@ -639,7 +624,6 @@ function mountReader(){
 }
 
 function openFragment(initial=false){
-    if(followHomeBookmark())return;
     const id=location.hash.slice(1);
     const dialog=document.querySelector('dialog');
     if(dialog.open)closeModal();
@@ -687,15 +671,13 @@ document.addEventListener('click',event=>{
             caption:item.dataset.caption || item.querySelector('img')?.alt || ''
         }));
         const start=group?items.findIndex(item=>item.dataset.imageIndex===button.dataset.imageIndex):0;
-        const kind=page==='game'?'Alice · Mending Workshop':page==='toolkit'?'Textile Studio':t('项目缘起','Project origin');
+        const kind=page==='game'?'Alice · Mending Workshop':'Textile Studio';
         openModal({title:images[start].caption,description:'',provenance:'',images,kind},start);
     }
-    const menu=document.querySelector('.more-views');
-    if(menu&&!menu.contains(event.target))menu.open=false;
 });
-document.addEventListener('keydown',event=>{
-    const menu=document.querySelector('.more-views[open]');
-    if(event.key==='Escape'&&menu){menu.open=false;menu.querySelector('summary').focus();}
+document.addEventListener('portfolio-language-change', event => {
+    if (event.detail === 'en' || event.detail === 'zh') switchLanguage(event.detail);
 });
-if(!followHomeBookmark()){render();openFragment(true);}
+render();
+openFragment(true);
 })();

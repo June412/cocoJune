@@ -54,30 +54,11 @@
   .case-return, .personal-project-bar, .case-report-contents { display: none; }
 }
 
-body.personal-alice .site-head .masthead, body.personal-alice .personal-project-bar .lang-controls { display: none; }
-body.personal-alice #app > .skip, body.personal-alice.alice-technical-doc > .skip-link { display: none; }
-body.personal-alice .site-head:has(.head-inner:empty) { border: 0; }
-body.personal-alice .personal-project-bar { width: 100%; margin: 12px 0; }
-body.personal-alice .personal-project-bar .masthead {
-  display: flex; align-items: center; gap: 4px 20px; flex-wrap: wrap; min-height: 0; margin: 0; padding: 0;
-}
-body.personal-alice .personal-project-bar :is(.wordmark, .projects a, .personal-project-home, .more-views summary) {
-  color: var(--ink); font: 700 20px/1.4 var(--font-hand); letter-spacing: 0;
-}
-body.personal-alice .personal-project-bar .projects { display: flex; gap: 14px; align-items: center; }
-body.personal-alice .personal-project-bar .projects a { padding: 4px 0; }
-body.personal-alice .personal-project-bar :is(a:hover, a[aria-current], summary:hover) { color: var(--link); }
-body.personal-alice .personal-project-bar .wordmark, body.personal-alice .personal-project-home { text-decoration: underline; text-underline-offset: 4px; color: var(--muted); }
-body.personal-alice .personal-project-bar .utilities { margin: 0; }
-body.personal-alice .personal-project-bar .more-views { z-index: 20; }
-body.personal-alice .personal-project-bar .more-views > div { background: var(--paper); border-color: var(--line); }
-body.personal-alice .personal-project-bar .more-views :is(a,button) { font: 400 16px/1.5 var(--font-prose, Georgia, serif); color: var(--link); }
-body.personal-alice:lang(zh-CN) .personal-project-bar :is(.projects a, .more-views summary, .more-views a, .more-views button) { font: 400 15px/1.5 var(--font-body); }
+body.personal-alice.alice-technical-doc > .skip-link { display: none; }
+body.personal-alice .personal-project-bar { margin: 12px 0; }
+body.personal-alice .personal-project-home { color: var(--link); text-underline-offset: .16em; }
 body.personal-alice .personal-site-bottom { margin-top: 12px; }
 @media screen {
-  body.personal-alice .personal-project-bar .masthead { justify-content: flex-start; }
-  body.personal-alice .personal-project-bar .projects a[aria-current] { display: none; }
-  body.personal-alice #main > .personal-project-bar { margin-top: 38px; padding-top: 18px; border-top: 1px solid var(--line); }
   body.personal-alice #main .case-report-contents {
     position: static; display: flex; flex-wrap: wrap; align-items: baseline;
     width: 100%; margin: 24px 0 32px; padding: 9px 0; gap: 6px 20px;

@@ -100,7 +100,7 @@ export default function App() {
     window.scrollTo({ top: 0, behavior: 'instant' })
     document.getElementById('main-content')?.focus({ preventScroll: true })
   }, [route])
-  if (portfolioUrl) return <a href={portfolioUrl}>{detailProject?.title ?? (route.startsWith('/projects/tinyroomies/') ? 'TinyRoomies' : 'Textile Studio & Alice')}</a>
+  if (portfolioUrl) return <a href={portfolioUrl}>{detailProject?.title ?? (route.startsWith('/projects/tinyroomies/') ? 'TinyRoomies' : 'Alice · Mending Workshop')}</a>
   let page
   if (route === '/') page = <HomePage />
   else if (detailProject?.id === 'holdlight') page = <HoldLightPage />

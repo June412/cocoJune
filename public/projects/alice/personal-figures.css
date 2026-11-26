@@ -13,7 +13,7 @@
 
 .personal-alice #main img,
 .personal-alice #main :is(
-  .hero-work, .project-home-cover, .image-button, .work-image, .wg-sample,
+  .hero-work, .image-button, .work-image, .wg-sample,
   .material-stage, .material-btn, .compare, .climate-wipe, .mending-first-frame,
   .ts-image, .ts-wipe, .ts-wipe-image, .ts-night-figure, .ts-chart-frame,
   .ts-cloth-crop, .prop-pair figure button

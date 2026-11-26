@@ -21,7 +21,7 @@ export function portfolioDocumentUrl(route: string, language: Language): string 
   if (tinyDocument) return assetUrl(`projects/tinyroomies/${tinyDocument}.html?lang=${language}`)
   let documentName: string
   let fragment = ''
-  if (route === '/projects/alice') documentName = 'index'
+  if (route === '/projects/alice') documentName = 'game'
   else if (route === '/projects/textile-toolkit') documentName = 'toolkit'
   else if (route === '/projects/alice/technical') documentName = 'game-slides'
   else if (route.startsWith('/projects/alice/')) {

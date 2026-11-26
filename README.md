@@ -2,7 +2,7 @@
 
 Junyan He 的个人网站，使用 React、TypeScript 和 Vite。淡黄色背景、可可棕色文字、孔雀蓝正文链接，以及大写单行姓名 JUNYAN HE 和居中的两级导航。主导航和分类导航没有下划线，默认可可棕色，悬停或选中时变为孔雀蓝。首页按“自我介绍 → 手绘链接列表”排列，包含项目、GitHub、CV、研究、画廊和邮箱入口。点击 JUNYAN HE 返回首页，不再提供独立 About 页面。项目区域宽度不超过 800px，首页不超过 760px，研究页不超过 640px。
 
-项目采用“左边小录屏 → 中间项目名 → 右边手绘”的三列方式，中间是项目名和入口链接。Alice 和 Textile Studio 共用一个作品集首页；HoldLight 和两篇图形学作业也可进入站内详情页。手机上改为录屏在上、名字和小画在下。当前七张角色线稿为根据用户提供的角色与笔触参考生成的透明 PNG，后续可替换为作者自己的手绘；没有录屏的项目显示明确的待补充占位，没有使用参考网站的游戏素材。
+项目采用“左边小录屏 → 中间项目名 → 右边手绘”的三列方式，中间是项目名和入口链接。Alice 和 Textile Studio 各自直达项目详情页。HoldLight 和两篇图形学作业也可进入站内详情页。手机上改为录屏在上、名字和小画在下。当前七张角色线稿为根据用户提供的角色与笔触参考生成的透明 PNG，后续可替换为作者自己的手绘；没有录屏的项目显示明确的待补充占位，没有使用参考网站的游戏素材。
 
 ## 本地开发
 
@@ -33,7 +33,7 @@ npm run preview   # 预览构建结果，需先运行 build
 | `#/projects/tinyroomies` | TinyRoomies 完整案例、短片、工具和家具模型 |
 | `#/projects/tinyroomies/design-document` | TinyRoomies 英文游戏设计文档 |
 | `#/projects/tinyroomies/joinery` | TinyRoomies 中文榫卯调研 |
-| `#/projects/alice`              | Textile Studio & Alice 联合首页、项目短片和制作署名 |
+| `#/projects/alice`              | Alice 修补游戏、项目短片和制作署名 |
 | `#/projects/textile-toolkit`    | Textile Studio 工具案例、工作台、作品与使用测试 |
 | `#/projects/alice/:chapter`     | 兼容旧书签，定位至新版游戏案例的相应章节或英文技术详解 |
 | `#/projects/holdlight`          | HoldLight 项目介绍、演示、在线作品集、海报与论文  |
@@ -47,7 +47,7 @@ npm run preview   # 预览构建结果，需先运行 build
 
 使用 hash 路由，静态托管不需要单独配置页面重写。构建后的资源使用相对路径，可部署到根目录或子目录。
 
-「游戏与 XR」里的 Alice 打开联合首页。「图形与工具」里的 Textile Studio 可直达工具案例。首页、两篇连续阅读的双语案例、两篇英文技术详解及素材位于 `public/projects/alice/`。内容沿用作者更新后的原站，包括 77 秒分章短片、中英文字幕、制作署名、交互演示与可下载的 Mac 试玩包。个人站适配使用同目录的 `personal-shell`、`personal-theme` 和 `personal-media` 文件；全站导航样式共用 `public/styles/site-chrome.css`。Alice、Textile Studio 和 TinyRoomies 的详情页先显示返回分类、项目标题和简介，再给出文档或章节入口。正文共用最大 720px 的阅读栏，复杂图表、模型和工作台可展开至 920px。游戏使用蓝色缝线，布艺工具使用红色缝线。模型和材质球以透明背景展示。部分 Unity 渲染自带纯色背景，网页使用与原机位一致的轮廓遮罩；界面和场景截图按原图展示。试玩 ZIP 由 Git LFS 管理。
+「游戏与 XR」里的 Alice 直接打开修补游戏。「图形与工具」里的 Textile Studio 直接打开布艺工具。两页在简介中通过布面针法手册互相引用。两篇双语案例、各自的英文技术详解及素材位于 `public/projects/alice/`。内容沿用作者更新后的原站，包括 77 秒分章短片、中英文字幕、制作署名、交互演示与可下载的 Mac 试玩包。个人站适配使用同目录的 `personal-shell`、`personal-theme` 和 `personal-media` 文件；全站导航样式共用 `public/styles/site-chrome.css`。Alice、Textile Studio 和 TinyRoomies 的详情页先显示返回分类、项目标题和简介，再给出文档或章节入口。正文共用最大 720px 的阅读栏，复杂图表、模型和工作台可展开至 920px。游戏使用蓝色缝线，布艺工具使用红色缝线。模型和材质球以透明背景展示。部分 Unity 渲染自带纯色背景，网页使用与原机位一致的轮廓遮罩；界面和场景截图按原图展示。试玩 ZIP 由 Git LFS 管理。
 
 ## 布局检查
 

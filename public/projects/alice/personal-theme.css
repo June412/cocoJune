@@ -64,17 +64,14 @@ body.personal-alice {
 .alice-technical-doc .workshop-view img { display: block; width: 100%; height: auto; }
 
 @media screen {
-  .personal-alice #main, .personal-alice .site-head .head-inner {
+  .personal-alice #main {
     width: min(var(--reader-width), calc(100% - 2 * var(--reader-gutter)));
     max-width: none;
     margin-inline: auto;
-  }
-  .personal-alice #main {
     padding: 0 0 28px;
     overflow-wrap: break-word;
     animation: alice-content-enter 220ms cubic-bezier(.2,.7,.25,1) backwards;
   }
-  .personal-alice .site-head { position: static; min-height: 0; border: 0; }
   .personal-alice #main .chapter-links {
     display: flex;
     flex-wrap: wrap;
@@ -105,7 +102,6 @@ body.personal-alice {
   }
   .personal-alice #main .section-head { margin-bottom: 12px; }
   .personal-alice #main .topic-links { gap: 0 18px; margin-bottom: 12px; font-size: 16px; }
-  .personal-alice #main > .next-project { margin-top: 38px; padding-top: 18px; }
 
   .personal-alice #main :is(h1, h2, h3, h4) {
     color: var(--ink);
@@ -121,16 +117,14 @@ body.personal-alice {
   .personal-alice #main h3 { font-size: 20px; }
   .personal-alice #main h4 { font-size: 18px; }
   .personal-alice #main .chapter-subject { color: var(--muted); margin-top: 4px; }
-  .personal-alice #main :is(.prose, .prose p, .project-home-copy p, .section-body > p, .story-description p) {
+  .personal-alice #main :is(.prose, .prose p, .project-connection, .section-body > p, .story-description p) {
     font: 400 17px/1.7 var(--font-prose);
     color: var(--prose-ink);
   }
-  .personal-alice #main .project-home-copy .project-home-lead,
   .personal-alice #main .lead {
     font: 400 20px/1.5 var(--font-prose);
     color: var(--prose-ink);
   }
-  .personal-alice #main .project-home-copy .project-home-lead:lang(zh-CN),
   .personal-alice #main .lead:lang(zh-CN) { font-size: 18px; line-height: 1.7; }
   .personal-alice #main :is(figcaption, .caption, .view-count, .filter, .work-info p, .small, .gallery-count) {
     color: var(--muted);
@@ -138,20 +132,12 @@ body.personal-alice {
     font-size: 14px;
     line-height: 1.5;
   }
-  .personal-alice #main .project-home-card { text-decoration: none; }
-  .personal-alice #main .project-home-card h2 { color: var(--link); font-family: var(--font-hand); }
-  .personal-alice #main .project-home-byline { color: var(--muted); font-size: 16px; font-weight: 500; }
-  .personal-alice #main .project-home-byline:hover { color: var(--link); text-decoration: underline; }
-  .personal-alice #main .project-home-project .project-home-question { font: 400 17px/1.5 var(--font-prose); color: var(--prose-ink); }
-  .personal-alice .project-home-dolls .project-home-image { height: clamp(200px, 22vw, 256px); }
-  .personal-alice :is(.project-home-model .project-home-image, .project-home-cover) { background: transparent; }
-  .personal-alice .project-home-intro { grid-template-columns: minmax(0, 1.13fr) minmax(0, 1fr); gap: 28px; }
-  .personal-alice .project-home-model img { mix-blend-mode: multiply; }
-  .personal-alice #main .project-home-projects,
-  .personal-alice #main .making-credits,
-  .personal-alice #main > .next-project { border-top: 1px dashed var(--line); }
-  .personal-alice #main .making-credits dt { color: var(--ink); }
-  .personal-alice #main .making-credits a { color: var(--link); }
+  .personal-alice #main .project-connection { margin: 12px 0; }
+  .personal-alice #main .project-connection a { display: inline-block; max-width: 100%; text-decoration: underline; }
+  .personal-alice #main .making-credits { margin-top: 38px; padding-top: 18px; border-top: 1px solid var(--line); }
+  .personal-alice #main .making-credits h2 { margin-bottom: 14px; }
+  .personal-alice #main .making-credits p { margin: 0 0 12px; }
+  .personal-alice #main .case-print { padding: 4px 0; border: 0; background: transparent; color: var(--link); font: inherit; text-decoration: underline; text-underline-offset: .16em; cursor: pointer; }
   .personal-alice #main :is(.overview-game, .overview-tool) { grid-template-columns: minmax(0,1fr); gap: 14px; }
   .personal-alice #main .hero-intro h1 { margin: 18px 0 12px; }
   .personal-alice #main .hero-intro { max-width: none; }
@@ -274,9 +260,6 @@ body.personal-alice {
   .personal-alice #main .wg-label { font-size: 16px; }
 }
 @media screen and (max-width:760px) {
-  .personal-alice .project-home-intro { grid-template-columns: minmax(0,1fr); gap: 22px; }
-  .personal-alice .project-home-copy h1 span { display: inline; }
-  .personal-alice .project-home-dolls .project-home-image { height: clamp(185px, 54vw, 282px); }
   .personal-alice #main .ts-session, .personal-alice #main .ts-gesture,
   .personal-alice #main .ts-reuse, .personal-alice #main .ts-chart-study { grid-template-columns: minmax(0,1fr); }
 }
@@ -286,15 +269,13 @@ body.personal-alice {
   .personal-alice .chapter-links a { font-size: 17px; padding-block: 6px; }
   .personal-alice .chapter-links a:lang(zh-CN) { font-size: 14px; }
   .personal-alice #main .story-figures { gap: 8px; }
-  .personal-alice #main .project-home-projects { gap: 26px; }
   .alice-technical-doc #main :is(.grid.two, .sample-layout, .access-layout, .fabric-study-layout) { grid-template-columns: minmax(0,1fr); }
 }
 @media screen and (max-width:480px) {
-  .personal-alice #main .project-home-projects, .personal-alice #main .story-buttons,
+  .personal-alice #main .story-buttons,
   .personal-alice #main .story-figures:has(audio), .personal-alice #main .story-foley-links { grid-template-columns: minmax(0,1fr); }
   .personal-alice #main .cut-options { grid-template-columns: minmax(0,1fr); }
   .personal-alice #main .work-info { display: block; }
-  .personal-alice .project-home-dolls { gap: 10px; }
   .alice-technical-doc #main .flow { grid-template-columns: repeat(2,minmax(0,1fr)); }
   .alice-technical-doc .workshop-views { grid-template-columns: repeat(2,minmax(0,1fr)); }
 }
@@ -313,4 +294,4 @@ body.personal-alice {
   body.personal-alice { color: #242a26; background: white; }
 }
 
-@media print { .personal-alice .chapter-links { display: none; } }
+@media print { .personal-alice :is(.chapter-links, .case-print) { display: none; } }

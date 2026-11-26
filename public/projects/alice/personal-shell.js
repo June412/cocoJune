@@ -83,7 +83,10 @@
         if (new URL(path, location.href).pathname === location.pathname) return ''
         return `<a href="${path}?lang=${next}">${zh ? cn : en} <small>${original}</small></a>`
       }).join('')}</nav>`
-    } else if (technical) projectBar.innerHTML = `<a class="personal-project-home" href="index.html?lang=${next}">Textile Studio &amp; Alice</a>`
+    } else if (technical) {
+      const title = toolsProject ? 'Textile Studio' : 'Alice · Mending Workshop'
+      projectBar.innerHTML = `<a class="personal-project-home" href="${toolsProject ? 'toolkit' : 'game'}.html?lang=${next}">${zh ? '返回' : 'Back to'} ${title}</a>`
+    }
     remember(next)
   }
 
@@ -91,21 +94,8 @@
     const main = document.getElementById('main')
     if (!main) return
     if (main.firstElementChild !== backLink) main.prepend(backLink)
-    const destination = main.querySelector('[data-project-navigation]') || main
-    if (projectBar.parentElement !== destination) destination.append(projectBar)
-  }
-
-  function adoptProjectNavigation() {
-    const masthead = document.querySelector('.site-head .masthead')
-    if (masthead) {
-      masthead.closest('.site-head').setAttribute('role', 'presentation')
-      const home = masthead.querySelector('.wordmark')
-      home.textContent = 'Textile Studio & Alice'
-      home.lang = 'en'
-      projectBar.replaceChildren(masthead)
-    }
-    placeArticleLinks()
-    drawChrome(document.documentElement.lang === 'zh-CN' ? 'zh' : 'en')
+    const destination = main.querySelector('[data-project-navigation]')
+    if (destination && projectBar.parentElement !== destination) destination.append(projectBar)
   }
 
   function setLanguage(next) {
@@ -113,13 +103,12 @@
       const url = new URL(location.href)
       url.searchParams.set('lang', next)
       try { history.replaceState(null, '', url.href) } catch { /* The offline reader remains open. */ }
-      drawChrome(next)
-      localizeLinks()
     } else {
-      // The native switch restores the same passage and selected material.
-      projectBar.querySelector(`[data-lang="${next}"]`)?.click()
-      adoptProjectNavigation()
+      document.dispatchEvent(new CustomEvent('portfolio-language-change', { detail: next }))
+      placeArticleLinks()
     }
+    drawChrome(next)
+    localizeLinks()
   }
 
   top.addEventListener('click', event => {
@@ -151,8 +140,8 @@
     }
   }
   const preferred = savedLanguage()
+  placeArticleLinks()
   if (technical) {
-    placeArticleLinks()
     const technicalNav = document.getElementById('chapter-select')?.closest('nav')
     if (technicalNav) {
       technicalNav.classList.add('case-report-contents')
@@ -161,11 +150,8 @@
     const readerLanguage = isLanguage(technicalLanguage) ? technicalLanguage : preferred
     drawChrome(readerLanguage === 'zh' ? 'zh' : 'en')
   } else {
-    adoptProjectNavigation()
+    drawChrome(document.documentElement.lang === 'zh-CN' ? 'zh' : 'en')
     if (!technicalLanguage && isLanguage(preferred) && preferred !== language) setLanguage(preferred)
-    // A language change re-creates the native project toolbar along with the article.
-    new MutationObserver(() => { adoptProjectNavigation(); localizeLinks() })
-      .observe(document.getElementById('app'), { childList: true })
   }
   localizeLinks()
   document.title += ' — Junyan He'
