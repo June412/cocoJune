@@ -63,7 +63,7 @@ export default function ProjectReader({ id, children }: { id: ProjectId; childre
       return window.ProjectThread.mount(host.current, article.current, chapters[id], language, '#/projects/' + id)
   }, [id, language])
   return <div className="thread-layout">
-    <div ref={host} className="thread-host" />
+    <div ref={host} className="thread-host" data-project={id} />
     <div ref={article} className="thread-copy">{children}</div>
   </div>
 }

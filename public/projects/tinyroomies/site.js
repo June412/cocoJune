@@ -1,47 +1,5 @@
 "use strict";
 
-const gallery = [
-  { path: "edition/arrival", sizes: [630, 1157], name: "Arrival at the new home", target: "#game-design", action: "Explore how the five residents arrive", alt: "The five residents sit inside an open wooden suitcase lined with green felt." },
-  { path: "images/gallery/workshop", name: "The unfolded workshop", target: "#workshop", action: "Explore the suitcase workshop", alt: "Unity simulator view of the open suitcase, with its turntable between two fold-out work areas." },
-  { path: "images/gallery/tools", name: "The workshop inventory", target: "#tool-models", action: "Inspect the workshop tools in 3D", alt: "A layout of the 22 project tools, fixtures and materials, from the joinery mallet to the wax pad." },
-  { path: "images/gallery/residents", name: "The five residents", target: "#residents", action: "Meet the residents and hear their voices", alt: "Studio renders of Sprout, Keeper, Page, Archivist and Courier." }
-];
-
-let currentPlate = 0;
-function setPlate(step) {
-  currentPlate = (currentPlate + step + gallery.length) % gallery.length;
-  const item = gallery[currentPlate];
-  const [small, large] = item.sizes || [720, 1440];
-  const img = document.getElementById("plate");
-  img.srcset = item.path + "-sm.webp " + small + "w, " + item.path + ".webp " + large + "w";
-  img.src = item.path + ".webp";
-  img.alt = item.alt;
-  if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    const incoming = currentPlate;
-    img.decode().then(() => {
-      if (incoming !== currentPlate) return;
-      img.animate([
-        { opacity: .55, transform: `translateX(${Math.sign(step) * 6}px)` },
-        { opacity: 1, transform: "translateX(0)" }
-      ], { duration: 180, easing: "ease-out" });
-    }).catch(() => {});
-  }
-  const link = document.getElementById("plate-target");
-  link.href = item.target;
-  link.setAttribute("aria-label", item.action);
-  document.getElementById("plate-name").textContent = item.name;
-  document.querySelector(".plate-count").textContent = String(currentPlate + 1).padStart(2, "0") + " / 04";
-}
-document.getElementById("prev-plate").addEventListener("click", () => setPlate(-1));
-document.getElementById("next-plate").addEventListener("click", () => setPlate(1));
-
-document.querySelector(".hero-gallery").addEventListener("keydown", event => {
-  if (event.altKey || event.metaKey || event.ctrlKey) return;
-  if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
-  event.preventDefault();
-  setPlate(event.key === "ArrowRight" ? 1 : -1);
-});
-
 const detailDialog = document.getElementById("art-detail");
 if (detailDialog) {
   const detailImage = detailDialog.querySelector("img");
@@ -127,75 +85,32 @@ document.querySelectorAll("dialog").forEach(dialog => {
   });
 });
 
-const catalogue = document.getElementById("furniture-collection");
-if (catalogue) {
-  const controls = catalogue.querySelector(".catalogue-views");
-  controls.hidden = false;
-  controls.addEventListener("change", event => {
-    const mode = event.target.value;
-    for (const figure of catalogue.querySelectorAll("figure[data-room]")) {
-      const image = figure.querySelector("img");
-      image.src = figure.dataset[mode];
-      image.alt = figure.dataset[mode + "Alt"];
-      const opener = figure.querySelector(".enlarge-art");
-      if (opener) opener.setAttribute("aria-label", "Enlarge image: " + image.alt);
-    }
-  });
-}
-
-// The catalogue cards supply both views of each piece, including the static fallback.
+// The menu is the collection: each entry pairs a production model with its room capture.
 document.addEventListener("DOMContentLoaded", () => {
   const model = document.getElementById("furniture-model");
   const picker = document.getElementById("furniture-choice");
   const room = document.getElementById("furniture-room");
-  if (!model || !picker || !room || !catalogue) return;
-
-  const furniture = new Map();
-  for (const group of catalogue.querySelectorAll(".belonging-group")) {
-    const options = document.createElement("optgroup");
-    options.label = group.querySelector("h4").textContent;
-    for (const card of group.querySelectorAll("[data-furniture]")) {
-      const id = card.dataset.furniture;
-      const name = card.querySelector("figcaption strong").textContent;
-      const inspect = document.createElement("button");
-      inspect.className = "compare-piece";
-      inspect.type = "button";
-      inspect.textContent = "Inspect in 3D";
-      inspect.setAttribute("aria-label", "Inspect " + name + " in 3D beside its room capture");
-      inspect.addEventListener("click", () => {
-        selectPiece(id);
-        picker.focus({ preventScroll: true });
-        catalogue.scrollIntoView({ block: "start" });
-      });
-      furniture.set(id, {card, name});
-      options.append(new Option(name, id));
-      card.append(inspect);
-    }
-    picker.append(options);
-  }
-
-  function selectPiece(id) {
-    const entry = furniture.get(id);
-    if (!entry) return;
-    const {card, name} = entry;
+  function showPiece() {
+    const option = picker.selectedOptions[0];
     const capture = room.querySelector("img");
-    capture.src = card.dataset.room;
-    capture.alt = card.dataset.roomAlt;
-    room.querySelector("strong").textContent = name;
-    room.querySelector("figcaption span").textContent =
-      card.querySelector("figcaption span").textContent;
+    capture.src = option.dataset.room;
+    capture.alt = option.dataset.roomAlt;
+    room.querySelector("strong").textContent = option.text;
+    room.querySelector("figcaption span").textContent = option.dataset.caption;
     room.querySelector(".enlarge-art")?.setAttribute("aria-label", "Enlarge image: " + capture.alt);
-    picker.value = id;
     model.dispatchEvent(new CustomEvent("portfolio:inspect-furniture", {
-      detail: { id, name, poster: card.dataset.studio, alt: card.dataset.studioAlt }
+      detail: { id: option.value, name: option.text, poster: option.dataset.studio, alt: option.dataset.studioAlt }
     }));
   }
-
   picker.closest("label").hidden = false;
-  picker.addEventListener("change", () => selectPiece(picker.value));
-  selectPiece(location.hash === "#bench-model" ? "bench" : "record-player");
+  picker.addEventListener("change", showPiece);
+  if (location.hash === "#bench-model") picker.value = "bench";
+  showPiece();
   window.addEventListener("hashchange", () => {
-    if (location.hash === "#bench-model") selectPiece("bench");
+    if (location.hash === "#bench-model") {
+      picker.value = "bench";
+      showPiece();
+    }
   });
 });
 
@@ -220,16 +135,26 @@ for (const study of document.querySelectorAll("[data-posture]")) {
   slider.disabled = false;
 }
 
-// Direct links also reveal exhibits and credits inside a closed disclosure.
-function revealLinkedContent() {
-  const target = document.getElementById(location.hash.slice(1));
+// Older case-study and report links enter the corresponding passage of the single-page edit.
+const formerSections = {
+  "design-document": "game-design", "game-references": "game-design", "iteration-title": "iteration",
+  "spec-spec-overview": "overview", "spec-journey": "game-design", "spec-collection": "furniture-collection",
+  "spec-crafting": "assembly", "spec-decoration": "tool-library", "spec-residents": "residents",
+  "spec-care": "residents", "spec-life": "household", "spec-space": "space",
+  "spec-persistence": "results", "spec-production": "results", "crafting-title": "assembly",
+  "joinery-survey": "research", "repair-guide": "tool-library", "room-consistency": "space", "space-title": "space",
+  "characters": "residents", "shared-life": "residents", "shared-life-title": "residents"
+};
+function followFormerSection() {
+  const id = location.hash.slice(1);
+  const next = id.startsWith("survey-") ? "research" : /^station-[1-6]$/.test(id) ? "workshop" : formerSections[id];
+  const target = next && document.getElementById(next);
   if (!target) return;
-  for (let node = target; node; node = node.parentElement) {
-    if (node instanceof HTMLDetailsElement) node.open = true;
-  }
+  try { history.replaceState(history.state, "", "#" + next); } catch { /* Offline bookmarks still scroll. */ }
+  target.scrollIntoView({behavior: "instant", block: "start"});
 }
-window.addEventListener("hashchange", revealLinkedContent);
-revealLinkedContent();
+followFormerSection();
+window.addEventListener("hashchange", followFormerSection);
 
 document.addEventListener("play", event => {
   if (!(event.target instanceof HTMLMediaElement)) return;

@@ -5,8 +5,8 @@ const gameTopics = new Set(['arrival', 'alice', 'panda', 'play', 'doll', 'worksh
 
 const tinyroomiesPages = new Map([
   ['/projects/tinyroomies', ''],
-  ['/projects/tinyroomies/design-document', '#design-document'],
-  ['/projects/tinyroomies/joinery', '#joinery-survey'],
+  ['/projects/tinyroomies/design-document', '#game-design'],
+  ['/projects/tinyroomies/joinery', '#research'],
 ])
 
 // These documents also run from disk. Keep the original chapter IDs so existing

@@ -25,45 +25,4 @@
       profiles.hidden = true;
     });
   }
-
-  // Keep every response and prototype visible in the HTML with scripting disabled.
-  function switchEvidence(container, items, label, names, hideTitles) {
-    if (!items.length) return;
-    const group = document.createElement('div');
-    group.className = 'pp-switches';
-    group.setAttribute('role','group');
-    group.setAttribute('aria-label',label);
-    const buttons = items.map((item,i) => {
-      const button = document.createElement('button');
-      button.type = 'button';
-      button.textContent = names[i];
-      group.append(button);
-      if (hideTitles) item.querySelector('h4').hidden = true;
-      button.addEventListener('click', () => select(i));
-      return button;
-    });
-    const response = document.createElement('div');
-    response.setAttribute('aria-live','polite');
-    response.setAttribute('aria-atomic','true');
-    response.className = 'pp-response';
-    response.append(...items);
-    container.append(group,response);
-    function select(active) {
-      items.forEach((item,i) => {
-        buttons[i].setAttribute('aria-pressed',String(i===active));
-        item.hidden = i!==active;
-      });
-    }
-    select(0);
-  }
-
-  document.querySelectorAll('[data-outcomes]').forEach(container => {
-    const choices = [...container.children];
-    const titles = choices.map(el=>el.querySelector('h4').textContent);
-    switchEvidence(container, choices, container.getAttribute('aria-label'),titles,true);
-  });
-  document.querySelectorAll('[data-prototype-archive]').forEach(container => {
-    const plates = [...container.querySelectorAll(':scope > figure')];
-    switchEvidence(container,plates,'Compare dated workshop prototypes',plates.map(el=>el.dataset.label),false);
-  });
 })();

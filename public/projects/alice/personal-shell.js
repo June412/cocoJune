@@ -72,13 +72,12 @@
     if (tinyRoot) {
       unmountThread?.()
       unmountThread = window.ProjectThread.mount(document.querySelector('.thread-host'), document.getElementById('main'), [
-        ['overview', 'Game design', '游戏设计', 'Design', '设计'],
-        ['research', 'Joinery research', '榫卯调研', 'Joints', '榫卯'],
-        ['workshop', 'Workshop & tools', '工坊与工具', 'Tools', '工具'],
-        ['household', 'Furniture & space', '家具与空间', 'Space', '空间'],
-        ['residents', 'Life with residents', '住客与互动', 'Life', '住客'],
-        ['iteration', 'Testing & results', '迭代与成果', 'Tests', '成果'],
-        ['design-document', 'Design notes', '设计文档', 'Notes', '文档']
+        ['overview', 'Gameplay film', '游戏演示', 'Film', '演示'],
+        ['game-design', 'Game design', '游戏设计', 'Design', '设计'],
+        ['research', 'Joinery puzzles', '榫卯机制', 'Joints', '榫卯'],
+        ['workshop', 'Workshop & access', '工坊与操作', 'Tools', '工坊'],
+        ['household', 'Furniture & residents', '家具与住客', 'Room', '住客'],
+        ['results', 'Technical results', '技术验证', 'Tests', '验证']
       ], next)
     }
     remember(next)

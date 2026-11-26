@@ -370,3 +370,25 @@
 @media print {
   .personal-roomies :is(.personal-site-chrome, .personal-project-bar, .document-print, .project-heading img) { display: none; }
 }
+
+@media screen {
+  .roomies-case .case-story { width: min(100%, 920px); }
+  .roomies-case .opening .case-byline { margin: 12px 0 20px; }
+  .roomies-case .case-story .story-chapter { margin-block-start: clamp(48px, 8vh, 84px); }
+  .roomies-case .case-story .story-intro { padding-block-start: 22px; }
+  .roomies-case #main .case-pair {
+    display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(14px, 3vw, 28px);
+  }
+  .roomies-case #main .case-pair figure { margin: 0; }
+  .roomies-case #main .case-pair img { display: block; width: 100%; height: auto; aspect-ratio: 4/3; object-fit: contain; }
+  .roomies-case #main .case-pair figcaption { text-align: left; }
+  .roomies-case .case-block, .roomies-case .case-passage { margin-block-start: 24px; }
+  .roomies-case #main .case-block > :is(p, figure, .posture-study, [data-tool-viewer]) { margin-block-start: 12px; }
+  .roomies-case #main .case-credits { padding-top: 16px; border-top: 1px dashed var(--line); }
+  .roomies-case .tool-step { display: block; margin: 12px auto; width: min(96%, 320px); cursor: zoom-in; }
+  .roomies-case .tool-step img { display: block; width: 100%; height: auto; }
+  .roomies-case .trn-evidence article > h3 { margin: 14px 0 6px; }
+}
+@media screen and (max-width: 650px) {
+  .roomies-case #main .case-pair { grid-template-columns: minmax(0, 1fr); gap: 18px; }
+}

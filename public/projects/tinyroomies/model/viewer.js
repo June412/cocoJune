@@ -5,28 +5,28 @@
   'use strict';
   const base = new URL('.', document.currentScript.src);
   const tools = [
-    { id: "mallet", asset: "JoineryMallet", name: "Joinery Mallet", group: "Joinery & assembly", action: "Seat fitted joints and drive repair pegs with controlled taps." },
-    { id: "driver", asset: "Driver", name: "Slotted Screwdriver", group: "Joinery & assembly", action: "Turn clockwise to secure hardware and tighten the workholding clamp." },
-    { id: "bench-clamp", asset: "BenchClamp", name: "Padded Clamp", group: "Structural repairs", action: "Support the workpiece during structural repairs and steady finishing." },
-    { id: "marking-gauge", asset: "MarkingGauge", name: "Marking Gauge", group: "Structural repairs", action: "Trace the marked repair strip before drilling or shallow chiselling." },
-    { id: "drill", asset: "HandDrill", name: "Hand-cranked Drill", group: "Structural repairs", action: "Seat the bit, then turn the crank to open each repair hole." },
-    { id: "dowel", asset: "Dowel", name: "Wooden Peg", group: "Structural repairs", action: "Lower each peg into its drilled repair hole." },
-    { id: "flush-saw", asset: "FlushSaw", name: "Flush-cut Saw", group: "Structural repairs", action: "Saw the protruding repair peg level with the surrounding wood." },
-    { id: "chisel", asset: "Chisel", name: "Flat Chisel", group: "Structural repairs", action: "Support the chisel neck and make shallow passes through the marked groove." },
-    { id: "glue-bottle", asset: "GlueBottle", name: "Wood Glue", group: "Structural repairs", action: "Apply a thin bead across the prepared groove." },
-    { id: "inlay-strip", asset: "InlayStrip", name: "Old-wood Inlay", group: "Structural repairs", action: "Press the old wood strip into the glued repair groove." },
-    { id: "plane", asset: "Plane", name: "Hand Plane", group: "Surface & carving", action: "Move the sole across the repair strip to level the surface." },
-    { id: "sanding-block", asset: "SandingBlock", name: "Sanding Block", group: "Surface & carving", action: "Rub the surface, then refine the edges of the carved decoration." },
-    { id: "dust-brush", asset: "DustBrush", name: "Dust Brush", group: "Surface & carving", action: "Sweep the prepared surface and clear debris from the carved areas." },
-    { id: "transfer-paper", asset: "TransferPaper", name: "Transfer Sheet", group: "Surface & carving", action: "Place the pattern over the highlighted area and press to transfer." },
-    { id: "carving-gouge", asset: "CarvingGouge", name: "Carving Gouge", group: "Surface & carving", action: "Trace the outline, then clear the shallow relief within each region." },
-    { id: "brush", asset: "Brush", name: "Flat Brush", group: "Colour & finish", action: "Fill the carved colour regions with broad, controlled strokes." },
-    { id: "detail-brush", asset: "DetailBrush", name: "Detail Brush", group: "Colour & finish", action: "Use a narrower brush for small regions and close edges." },
-    { id: "dry-brush", asset: "DryBrush", name: "Dry Brush", group: "Colour & finish", action: "Use the wider bristles and reduced paint flow for textured marks." },
-    { id: "palette-leaf", asset: "PaletteLeaf", name: "Paint Palette", group: "Colour & finish", action: "Select numbered pigments and mix colours in the central well." },
-    { id: "test-swatch", asset: "TestSwatch", name: "Practice Offcut", group: "Colour & finish", action: "Try the brush colour, width and texture before painting the furniture." },
-    { id: "painting-mat", asset: "PaintingMat", name: "Painting Mat", group: "Colour & finish", action: "The work area changes from a clamped repair surface to a painting station." },
-    { id: "wax-pad", asset: "WaxPad", name: "Wax Pad", group: "Colour & finish", action: "Rub a thin final coat across the completed Reading Table." }
+    { id: "mallet", asset: "JoineryMallet", name: "Joinery Mallet", group: "Joinery & assembly", step: "assembly-aligned", stepAlt: "A long rail aligned with the leg on the rotating work surface", action: "Seat fitted joints and drive repair pegs with controlled taps." },
+    { id: "driver", asset: "Driver", name: "Slotted Screwdriver", group: "Joinery & assembly", step: "assembly-fastened", stepAlt: "A fitted rail and leg shown on the green work surface", action: "Turn clockwise to secure hardware and tighten the workholding clamp." },
+    { id: "bench-clamp", asset: "BenchClamp", name: "Padded Clamp", group: "Structural repairs", step: "repair-clamp", stepAlt: "The wooden workpiece held in a clamp on the workshop turntable", action: "Support the workpiece during structural repairs and steady finishing." },
+    { id: "marking-gauge", asset: "MarkingGauge", name: "Marking Gauge", group: "Structural repairs", step: "repair-mark", stepAlt: "A marking gauge at the wooden repair surface", action: "Trace the marked repair strip before drilling or shallow chiselling." },
+    { id: "drill", asset: "HandDrill", name: "Hand-cranked Drill", group: "Structural repairs", step: "repair-drill", stepAlt: "The hand-cranked drill standing at a marked repair site", action: "Seat the bit, then turn the crank to open each repair hole." },
+    { id: "dowel", asset: "Dowel", name: "Wooden Peg", group: "Structural repairs", step: "repair-peg", stepAlt: "A wooden peg at the repair site by the parts tray", action: "Lower each peg into its drilled repair hole." },
+    { id: "flush-saw", asset: "FlushSaw", name: "Flush-cut Saw", group: "Structural repairs", step: "repair-saw", stepAlt: "A flush-cut saw crossing the wooden workpiece", action: "Saw the protruding repair peg level with the surrounding wood." },
+    { id: "chisel", asset: "Chisel", name: "Flat Chisel", group: "Structural repairs", step: "repair-chisel", stepAlt: "A chisel aligned along the groove in a wooden panel", action: "Support the chisel neck and make shallow passes through the marked groove." },
+    { id: "glue-bottle", asset: "GlueBottle", name: "Wood Glue", group: "Structural repairs", step: "repair-glue", stepAlt: "The glue nozzle over the workpiece on the turntable", action: "Apply a thin bead across the prepared groove." },
+    { id: "inlay-strip", asset: "InlayStrip", name: "Old-wood Inlay", group: "Structural repairs", step: "repair-inlay", stepAlt: "The old-wood strip in the clamped repair surface", action: "Press the old wood strip into the glued repair groove." },
+    { id: "plane", asset: "Plane", name: "Hand Plane", group: "Surface & carving", step: "repair-plane", stepAlt: "A hand plane on the wooden repair surface", action: "Move the sole across the repair strip to level the surface." },
+    { id: "sanding-block", asset: "SandingBlock", name: "Sanding Block", group: "Surface & carving", step: "repair-sand", stepAlt: "A sanding block touching the wooden workpiece", action: "Rub the surface, then refine the edges of the carved decoration." },
+    { id: "dust-brush", asset: "DustBrush", name: "Dust Brush", group: "Surface & carving", step: "repair-clean", stepAlt: "A small brush sweeping the top of the workpiece", action: "Sweep the prepared surface and clear debris from the carved areas." },
+    { id: "transfer-paper", asset: "TransferPaper", name: "Transfer Sheet", group: "Surface & carving", step: "relief-transfer", stepAlt: "A transfer sheet positioned on the wooden surface", action: "Place the pattern over the highlighted area and press to transfer." },
+    { id: "carving-gouge", asset: "CarvingGouge", name: "Carving Gouge", group: "Surface & carving", step: "relief-outline", stepAlt: "The carving gouge tracing the transferred motif", action: "Trace the outline, then clear the shallow relief within each region." },
+    { id: "brush", asset: "Brush", name: "Flat Brush", group: "Colour & finish", step: "paint-stroke", stepAlt: "Brush applying pigment to a carved motif on the workpiece", action: "Fill the carved colour regions with broad, controlled strokes." },
+    { id: "detail-brush", asset: "DetailBrush", name: "Detail Brush", group: "Colour & finish", step: "paint-stroke", stepAlt: "Brush applying pigment to a carved motif on the workpiece", action: "Use a narrower brush for small regions and close edges." },
+    { id: "dry-brush", asset: "DryBrush", name: "Dry Brush", group: "Colour & finish", step: "paint-workspace", stepAlt: "The practice offcut beside the working palette", action: "Use the wider bristles and reduced paint flow for textured marks." },
+    { id: "palette-leaf", asset: "PaletteLeaf", name: "Paint Palette", group: "Colour & finish", step: "paint-workspace", stepAlt: "The painting station with a palette, instruction board and practice offcut", action: "Select numbered pigments and mix colours in the central well." },
+    { id: "test-swatch", asset: "TestSwatch", name: "Practice Offcut", group: "Colour & finish", step: "paint-workspace", stepAlt: "The practice offcut beside the working palette", action: "Try the brush colour, width and texture before painting the furniture." },
+    { id: "painting-mat", asset: "PaintingMat", name: "Painting Mat", group: "Colour & finish", step: "paint-workspace", stepAlt: "The painting station with a palette, instruction board and practice offcut", action: "The work area changes from a clamped repair surface to a painting station." },
+    { id: "wax-pad", asset: "WaxPad", name: "Wax Pad", group: "Colour & finish", step: "paint-wax", stepAlt: "The workshop turntable during the final surface treatment", action: "Rub a thin final coat across the completed Reading Table." }
   ];
   const benchViews = [
     { id: 'bench', name: 'Assembled', alt: 'The Keeper Bench with its removable wedges and through-tenon stretcher.' },
@@ -249,10 +249,15 @@
     caption.className = 'tool-description';
     caption.setAttribute('aria-live', 'polite');
     caption.setAttribute('aria-atomic', 'true');
-    const stepLink = document.createElement('a');
-    stepLink.href = '#repair-guide';
-    stepLink.textContent = 'See this step in the workshop';
-    caption.append(title, description, stepLink);
+    const capture = document.createElement('img');
+    capture.loading = 'lazy';
+    capture.width = 880;
+    capture.height = 550;
+    const step = document.createElement('a');
+    step.className = 'tool-step';
+    step.dataset.artLink = '';
+    step.append(capture);
+    caption.append(title, description);
     const stage = document.createElement('div');
     stage.className = 'tool-view-stage';
     const canvas = document.createElement('canvas');
@@ -349,7 +354,9 @@
       if (!furniture) {
         title.textContent = tool.name;
         description.textContent = tool.action;
-        stepLink.dataset.recipeTool = tool.asset;
+        capture.src = new URL('../recipe/stages/' + tool.step + '.webp', base).href;
+        capture.alt = tool.stepAlt;
+        step.href = capture.src;
       }
       stage.classList.remove('is-ready');
       setControls(false);
@@ -400,6 +407,7 @@
         const tool = tools.find(item => item.asset === event.detail?.id);
         if (tool) chooseFromGroup(tool, tool.group);
       });
+      groupMenu.value = tools[0].group;
       library.append(groupLabel, picks);
     }
     for (const tool of options) {
@@ -478,7 +486,7 @@
     else {
       const showcase = document.createElement('div');
       showcase.className = 'tool-showcase';
-      showcase.append(caption, stage, controls);
+      showcase.append(caption, stage, controls, step);
       root.replaceChildren(library, showcase);
     }
     select(options[0]);
