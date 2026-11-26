@@ -51,7 +51,11 @@ function viewNavigation() {
         return `<a href="${viewHref(view)}" aria-label="${label}" ${view === currentView ? 'aria-current="page"' : ''}>
             <span class="page-label">${label}</span><span class="compact-label">${t(...view.shortLabel)}</span></a>`;
     });
-    return `<nav class="project-pages" aria-label="${t('项目分页','Project pages')}">${links.join('')}</nav>`;
+    return `<div class="rail-anchor"><nav class="project-pages" aria-label="${t('项目分页','Project pages')}">
+        <div class="stitched-pages">
+            <span class="knit-meter" role="progressbar" aria-label="${t('项目阅读位置','Reading position in project')}" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"></span>
+            ${links.join('')}
+        </div></nav></div>`;
 }
 
 function pageFooter() {
@@ -616,11 +620,25 @@ function drawModal() {
 function moveModal(delta){if(!activeModal)return;modalIndex=(modalIndex+delta+activeModal.images.length)%activeModal.images.length;drawModal()}
 function closeModal(){document.querySelector('dialog').close()}
 let readerSections=[], currentSection, readerObserver, mediaVisibilityObserver, scrollFrame=0;
+let pageNav, knitMeter;
 const readerInset = 16;
 function readerLine(){ return readerInset + 4; }
 
+function placePageNav() {
+    // The in-flow anchor records where the rail starts even when a bookmark opens halfway down.
+    const entryTop = pageNav.parentElement.getBoundingClientRect().top + window.scrollY;
+    const lastVisibleTop = document.documentElement.clientHeight - pageNav.offsetHeight - 8;
+    pageNav.style.top = Math.max(8, Math.min(entryTop, lastVisibleTop)) + 'px';
+}
+
 function syncReader() {
     if(!readerSections.length)return;
+    const root = document.scrollingElement;
+    const distance = root.scrollHeight - root.clientHeight;
+    const fraction = distance > 0 ? Math.min(1, Math.max(0, root.scrollTop / distance)) : 1;
+    const percent = (views.indexOf(currentView) + fraction) * 100 / views.length;
+    knitMeter.style.setProperty('--woven', percent.toFixed(2) + '%');
+    knitMeter.setAttribute('aria-valuenow', Math.round(percent));
     let section=readerSections[0];
     for(const candidate of readerSections){
         if(candidate.getBoundingClientRect().top>readerLine())break;
@@ -634,13 +652,21 @@ function syncReader() {
 function queueReaderUpdate(){
     if(!scrollFrame)scrollFrame=requestAnimationFrame(()=>{scrollFrame=0;syncReader();});
 }
+function resizeReader() {
+    placePageNav();
+    queueReaderUpdate();
+}
 function mountReader(){
     readerObserver?.disconnect();
     mediaVisibilityObserver?.disconnect();
     readerSections=Array.from(document.querySelectorAll('main > header, main > section'));
+    pageNav=document.querySelector('.project-pages');
+    knitMeter=pageNav.querySelector('.knit-meter');
     currentSection=null;
     document.documentElement.style.setProperty('--reader-head', readerInset + 'px');
-    readerObserver=new ResizeObserver(queueReaderUpdate);
+    readerObserver=new ResizeObserver(resizeReader);
+    readerObserver.observe(document.body);
+    readerObserver.observe(pageNav);
     for(const section of readerSections)readerObserver.observe(section);
     // Keep the player and its cues active while they are still on screen.
     mediaVisibilityObserver=new IntersectionObserver(entries=>{
@@ -652,6 +678,7 @@ function mountReader(){
     for(const section of readerSections){
         if(section.querySelector('video,audio'))mediaVisibilityObserver.observe(section);
     }
+    placePageNav();
     syncReader();
 }
 
@@ -687,6 +714,7 @@ function openFragment(initial=false){
     syncReader();
 }
 window.addEventListener('scroll',queueReaderUpdate,{passive:true});
+window.addEventListener('resize',resizeReader);
 window.addEventListener('pageshow',queueReaderUpdate);
 window.addEventListener('hashchange',()=>openFragment());
 document.addEventListener('play',event=>{

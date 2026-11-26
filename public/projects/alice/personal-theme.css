@@ -1,5 +1,16 @@
 @import '../../styles/site-palette.css';
 
+@font-face {
+  font-family: 'Patrick Hand';
+  src: url('../../fonts/PatrickHand-Regular.ttf') format('truetype');
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Ma Shan Zheng';
+  src: url('../../fonts/MaShanZheng-navigation.ttf') format('truetype');
+  font-display: swap;
+}
+
 /* These documents also open from disk. Keep the same font and linen paths relative to public/. */
 @font-face {
   font-family: 'Cardenio Modern';
@@ -73,8 +84,9 @@ body.personal-alice {
     animation: alice-content-enter 220ms cubic-bezier(.2,.7,.25,1) backwards;
   }
   .project-reader {
+    --rail-width: clamp(124px, 16vw, 202px);
     display: grid;
-    grid-template-columns: clamp(124px, 16vw, 202px) minmax(0, 1fr);
+    grid-template-columns: var(--rail-width) minmax(0, 1fr);
     column-gap: clamp(18px, 2.5vw, 36px);
     width: min(1140px, calc(100% - 2 * var(--reader-gutter)));
     margin-inline: auto;
@@ -85,29 +97,59 @@ body.personal-alice {
     --alice-wide: min(800px, 100cqi);
     --alice-spread: min(920px, 100cqi);
   }
-  .project-pages {
-    position: sticky;
-    top: 24px;
+  .rail-anchor {
     align-self: start;
-    display: flex;
-    flex-direction: column;
     margin-block-start: 36px;
-    max-height: calc(100dvh - 48px);
+  }
+  .project-pages {
+    position: fixed;
+    width: var(--rail-width);
+    max-height: calc(100dvh - 16px);
     overflow-y: auto;
+    z-index: 1;
+  }
+  .stitched-pages {
+    --stitch-width: 15px;
+    position: relative;
+    display: grid;
+    grid-auto-rows: 1fr;
+  }
+  .knit-meter {
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: var(--stitch-width);
+    pointer-events: none;
+    background: linear-gradient(to bottom, var(--link) var(--woven, 0%), #bb9e7c var(--woven, 0%));
+    /* Two drawn yarn loops interlock in each row of stockinette. */
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 13'%3E%3Cg fill='none' stroke='white' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M2 0.4C2.5 4.5 3.6 8 7.6 12.4C8 7.9 6.6 4 2 0.4Z'/%3E%3Cpath d='M14 0.3C13.6 4.3 12.6 8.1 8.6 12.1C8.3 8.1 9.8 3.7 14 0.3Z'/%3E%3C/g%3E%3C/svg%3E") left top / 100% auto round;
   }
   .project-pages a {
+    position: relative;
     display: flex;
     align-items: center;
-    min-height: 44px;
-    padding: 6px 4px 6px 14px;
-    border-inline-start: 2px solid var(--line);
+    min-height: 46px;
+    padding: 5px 2px 5px calc(var(--stitch-width) + 11px);
     color: var(--link);
-    font: 600 17px/1.3 var(--font-prose);
+    font: 400 23px/1.14 'Patrick Hand', 'Ma Shan Zheng', cursive;
     text-decoration: none;
   }
   .project-pages a:hover { text-decoration: underline; text-underline-offset: .16em; }
   .project-pages a:focus-visible { outline-offset: -2px; }
-  .project-pages a[aria-current] { color: var(--ink); border-color: currentColor; }
+  .project-pages a[aria-current] { color: var(--ink); }
+  .project-pages a[aria-current]::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: var(--stitch-width);
+    height: var(--stitch-width);
+    box-sizing: border-box;
+    transform: translateY(-50%) rotate(-24deg);
+    border: 1.5px solid currentColor;
+    border-radius: 48% 52% 46% 51%;
+    background: radial-gradient(circle at 33% 50%, var(--paper) 1px, transparent 1.5px),
+                radial-gradient(circle at 67% 50%, var(--paper) 1px, transparent 1.5px), var(--ink);
+  }
   .project-pages .compact-label { display: none; }
   .personal-alice #main .reader-heading { margin: 18px 0 0; }
   .personal-alice #main .reader-heading h1 { margin: 6px 0 12px; }
@@ -291,12 +333,12 @@ body.personal-alice {
 @media screen and (max-width:700px) {
   body.personal-alice { --reader-width: var(--case-reading, 480px); --reader-gutter: var(--case-gutter, 24px); --alice-spread: var(--case-width); --alice-wide: var(--case-width); }
   .project-reader {
+    --rail-width: 54px;
     width: min(620px, calc(100% - 24px));
-    grid-template-columns: 54px minmax(0, 1fr);
     column-gap: clamp(10px, 2.5vw, 16px);
   }
-  .project-pages { top: 12px; max-height: calc(100dvh - 24px); }
-  .project-pages a { padding-inline: 6px 2px; font-size: 14px; }
+  .stitched-pages { --stitch-width: 9px; }
+  .project-pages a { padding-inline: 13px 0; font-size: 16px; }
   .reader-column .gallery-pager { flex-wrap: wrap; }
   .project-pages .page-label { display: none; }
   .project-pages .compact-label { display: inline; }
