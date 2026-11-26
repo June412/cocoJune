@@ -91,14 +91,14 @@
 
         function commissions() {
             const items = [
-                ['alice','toy-alice',t('Mina 的布偶 Alice','Mina’s doll, Alice'),t("缝回一只眼睛，留下旧缎带。","Replace a button eye. Keep the old ribbon.")],
-                ['panda','toy-panda',t('面包店的小国王','The bakery’s Little King'),t("挑好耳朵，留下生日照里的皇冠和亮片。","Mend the ear. Keep the crown and sequin from the birthday photos.")]
+                ['alice','toy-alice',t('Mina 的布偶 Alice','Mina’s doll, Alice'),t("给脸颊补棉，用藏针合拢布边，再缝牢纽扣眼。","Pack the torn cheek, ladder-stitch the edges and fasten the button eye.")],
+                ['panda','toy-panda',t('面包店的小国王','The bakery’s Little King'),t("挑回脱落的线圈，再分别固定耳朵、皇冠和亮片。","Recover the dropped loops, then secure the ear, crown and sequin.")]
             ];
-            return `<section class="story-brief" aria-label="${t('两封来信，两份委托','Two letters, two commissions')}"><div class="story-commissions">${items.map(([id,key,name,desc])=>`<article><div><h3><a href="#${id}">${name}</a></h3><p>${desc}</p></div>${image(key,name)}</article>`).join('')}</div></section>`;
+            return `<section class="story-brief" aria-label="${t('两只玩偶的损伤','Damage to the two toys')}"><div class="story-commissions">${items.map(([id,key,name,desc])=>`<article><div><h3><a href="#${id}">${name}</a></h3><p>${desc}</p></div>${image(key,name)}</article>`).join('')}</div></section>`;
         }
 
         function props() {
-            return `<section class="story-props" id="workshop-pieces"><h2>${t('工坊里的五件布艺道具','Five textiles at the repair desk')}</h2>${window.AliceWorkshopProps.render('game',lang)}</section>`;
+            return `<section class="story-props" id="workshop-pieces"><h3>${t('工坊里的五件布艺道具','Five textiles at the repair desk')}</h3>${window.AliceWorkshopProps.render('game',lang)}</section>`;
         }
 
         function arrival() {
@@ -116,7 +116,6 @@
                 [t('损伤','Damage'),t('纽扣眼脱落，脸颊开裂。','A lost button eye and a torn cheek.'),t('耳朵掉针，皇冠和亮片松脱。','Dropped ear loops and loose trimmings.')],
                 [t('沿用的手艺','Shared repair'),t('补棉，再交替缝过两边布褶。','Add stuffing and ladder-stitch the cheek.'),t('用同一套填棉、藏针和收线动作闭合耳朵。','Refill the ear and close it with the same stitch.')],
                 [t('新学的手艺','New skill'),t('配对扣孔，把新眼睛缝牢。','Pair the holes and fasten a new eye.'),t('逐行钩回线圈，再固定原来的配饰。','Hook up each dropped row and resew the trimmings.')],
-                [t('为主人留下','What stays'),t('歪笑和旧蓝缎带。','The crooked smile and blue ribbon.'),t('生日照里的皇冠和腮红亮片。','The crown and cheek sequin from the birthday photos.')]
             ];
             return `<section class="mending-transfer" id="commission-skills"><h3>${t('从 Alice 的脸颊到小国王的耳朵','From Alice’s cheek to Panda’s ear')}</h3><table><thead><tr><th scope="col">${t('委托','Commission')}</th><th scope="col">Alice</th><th scope="col">Panda</th></tr></thead><tbody>${rows.map(([key,a,b])=>`<tr><th scope="row">${key}</th><td>${a}</td><td>${b}</td></tr>`).join('')}</tbody></table></section>`;
         }
@@ -204,13 +203,17 @@
                  <thead><tr>${[t('固定机位','Fixed camera'),t('关闭薄层','Shells off'),t('开启薄层','Shells on'),t('实际绘制','Shells drawn')].map(c=>`<th scope="col">${c}</th>`).join('')}</tr></thead><tbody>
                  <tr><th scope="row">${t('缝纫近景','Sewing close-up')}</th><td>21.0 ms</td><td>25.9 ms</td><td>17</td></tr>
                  <tr><th scope="row">${t('工作台全景','Desk view')}</th><td>47.1 ms</td><td>47.9 ms</td><td>0</td></tr></tbody></table>`;
-            return `<div class="story-block"><h2>${t('镜头靠近时，布料怎样变化','What changes when the camera moves closer')}</h2>
+            return `<div class="story-block"><h3>${t('镜头靠近时，布料怎样变化','What changes when the camera moves closer')}</h3>
             ${row('panda-knit',t('熊猫耳缘的毛线','Yarn along Panda’s ear'),t("薄层随耳朵变形。镜头拉远，纱线厚度小于一像素时停绘。","Shells follow the ear mesh. They stop drawing when yarn thickness falls below one pixel."),figures(surface,ear)+timing)}
+            ${row('feedback-knit',t('退到桌边，针脚仍然清楚','Keep the knit legible from the desk'),t("距离拉远时先淡去纱线捻纹，再减弱 V 形针脚的起伏。","At a distance, fine yarn twists fade first, followed by the relief of each V stitch."),figures(figure('knit-near','1,000 × 1,000 渲染的局部','Detail from a 1,000 × 1,000 render'),figure('knit-far','256 × 256 渲染的同一区域','Same area from a 256 × 256 render')))}
             ${row('dress-weave',t('蓝裙的 V 形线圈','V stitches in the blue dress'),t("把近似帆布的方格换成交扣的 V 形线圈。","Interlocking V stitches replace the canvas-like grid."),figures(figure('dress-grid','原来的方格织纹','Original square weave'),figure('dress-knit','交扣的 V 形线圈','Interlocking V stitches')))}
             ${row('thread-simulation',t('一根活动线的三个状态','A working thread in three states'),t("针尖与布面固定两端，中间用 28 个节点模拟下垂。82 个采样点绘出六边形线管。","Needle and cloth anchor the ends. Gravity bends 28 nodes. An 82-point tube renders the strand."),figures(figure('seam-thread','线连着针与布','Thread between needle and cloth'),figure('seam-cut','剪出工作线尾','Tail after the cut'),figure('seam-closed','收紧后的布边','Edges drawn together')))}
-            ${row('window-reflection',t('跟着窗扇转动的倒影','A reflection that turns with the pane'),t("用三块色标检查转动的倒影。反射相机以半分辨率绘制，最长边 1,024 px。","Three markers track the turning reflection. The mirrored camera renders at half resolution, capped at 1,024 px."),figures(figure('pane-closed','关闭窗扇的测试画面','Test markers with the pane closed'),figure('pane-turned','窗扇转开后的倒影','Reflections as the pane turns')))}
             ${row('cloth-hatching',t('浅色布面上的铅笔排线','Pencil hatching on pale cloth'),t("暗处出现斜向排线，亮处保留原布纹。","Diagonal strokes deepen the shade. The lit cheek keeps its weave."),figures(figure('cheek-before','调整前的下巴阴影','Chin shadow before adjustment'),figure('cheek-after','调整后的斜向排线','Diagonal strokes after adjustment')))}
             </div>`;
+        }
+
+        function reflection() {
+            return row('window-reflection',t('跟着窗扇转动的倒影','A reflection that turns with the pane'),t("用三块色标检查转动的倒影。反射相机以半分辨率绘制，最长边 1,024 px。","Three markers track the turning reflection. The mirrored camera renders at half resolution, capped at 1,024 px."),figures(figure('pane-closed','关闭窗扇的测试画面','Test markers with the pane closed'),figure('pane-turned','窗扇转开后的倒影','Reflections as the pane turns')));
         }
 
         function feedback() {
@@ -230,10 +233,9 @@
             ${row('feedback-input',t('跟着手里的设备换键名','Match the prompt to the input device'),t("按实际输入切换键名，忽略摇杆漂移。F2 暂停并保留最近 40 条提示。","Prompts follow deliberate inputs and ignore stick drift. F2 pauses the repair and recalls 40 cues."),inputs)}
             ${row('feedback-foley',t('听针落下、棉花受压和剪刀合拢','Hear the stitch, press and snip'),'',foleyLinks)}
             ${row('feedback-room',t('分辨桌边与窗外的声音','Listen beyond the work mat'),t("拿放剪刀有独立音效。做针线时音箱降低音量。","The scissors sound on pickup and return. The speaker quietens during needlework."),room+link('window-video','试听同一场雨的三种窗扇状态','Hear the rain through three window positions'))}
-            ${row('feedback-knit',t('退到桌边，针脚仍然清楚','Keep the knit legible from the desk'),t("距离拉远时先淡去纱线捻纹，再减弱 V 形针脚的起伏。","At a distance, fine yarn twists fade first, followed by the relief of each V stitch."),figures(figure('knit-near','1,000 × 1,000 渲染的局部','Detail from a 1,000 × 1,000 render'),figure('knit-far','256 × 256 渲染的同一区域','Same area from a 256 × 256 render')))}
             </div>`;
         }
-        return {figure,commissions,props,arrival,route,preparation,finishing,technical,feedback,transfer,ribbon,trimming,needleLight,keyboardCheck};
+        return {figure,commissions,props,arrival,route,preparation,finishing,technical,reflection,feedback,transfer,ribbon,trimming,needleLight,keyboardCheck};
     }
 
     let lastCut=null;

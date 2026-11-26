@@ -72,34 +72,41 @@ body.personal-alice {
     overflow-wrap: break-word;
     animation: alice-content-enter 220ms cubic-bezier(.2,.7,.25,1) backwards;
   }
-  .personal-alice #main .chapter-links {
+  .personal-alice #main .project-pages {
     display: flex;
     flex-wrap: wrap;
-    justify-content: flex-start;
-    gap: 0 22px;
-    margin: 26px 0 0;
-    padding: 10px 0;
-    border-block: 1px solid var(--line);
-    overflow: visible;
+    gap: 0 clamp(14px, 3vw, 28px);
+    margin: 18px 0 8px;
+    border-bottom: 1px solid var(--line);
   }
-  .personal-alice #main :is(.chapter-links, .topic-links) a {
-    display: inline-block;
-    padding: 4px 0;
+  .personal-alice #main .project-pages a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    margin-bottom: -1px;
+    border-bottom: 2px solid transparent;
     color: var(--link);
-    background: transparent;
-    border: 0;
-    text-decoration: underline;
-    text-underline-offset: .16em;
-    font: inherit;
+    font: 600 16px/1.35 var(--font-prose);
+    text-decoration: none;
   }
-  .personal-alice #main .chapter-links a::after { content: none; }
-  .personal-alice #main :is(.chapter-links, .topic-links) a[aria-current] { color: var(--ink); }
+  .personal-alice #main .project-pages a:hover { text-decoration: underline; }
+  .personal-alice #main .project-pages [aria-current] { color: var(--ink); border-color: currentColor; }
+  .personal-alice #main .reader-heading { margin: 18px 0 0; }
+  .personal-alice #main .reader-heading h1 { margin: 6px 0 12px; }
+  .personal-alice #main .reader-heading h1:lang(zh-CN) { font: 700 clamp(30px, 5vw, 44px)/1.25 var(--font-body); }
+  .personal-alice #main .reader-project { font: 700 23px/1.2 var(--font-hand); }
+  .personal-alice #main .reader-footer { margin-top: 42px; padding-top: 14px; border-top: 1px solid var(--line); }
+  .personal-alice #main .reader-footer nav { display: flex; flex-wrap: wrap; gap: 6px 24px; justify-content: space-between; }
+  .personal-alice #main .reader-footer .case-print { margin-top: 14px; font-size: 14px; }
+  .personal-alice #main .project-aside { margin-block: 20px; }
+  .personal-alice #main .project-aside summary { color: var(--link); cursor: pointer; text-decoration: underline; text-underline-offset: .16em; }
   .personal-alice #main > .section { border: 0; margin-top: 28px; padding: 0; }
   .personal-alice #main > .section.chapter-start {
     margin-top: 38px;
     padding-top: 18px;
     border-top: 1px solid var(--line);
   }
+  .personal-alice #main .reader-heading + .section { margin-top: 24px; padding-top: 0; border: 0; }
   .personal-alice #main .section-head { margin-bottom: 12px; }
   .personal-alice #main .topic-links { gap: 0 18px; margin-bottom: 12px; font-size: 16px; }
 
@@ -294,4 +301,4 @@ body.personal-alice {
   body.personal-alice { color: #242a26; background: white; }
 }
 
-@media print { .personal-alice :is(.chapter-links, .case-print) { display: none; } }
+@media print { .personal-alice :is(.project-pages, .reader-footer) { display: none; } }

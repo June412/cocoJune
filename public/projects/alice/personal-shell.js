@@ -154,7 +154,7 @@
     if (!technicalLanguage && isLanguage(preferred) && preferred !== language) setLanguage(preferred)
   }
   localizeLinks()
-  document.title += ' — Junyan He'
+  if (technical) document.title += ' — Junyan He'
 
   // The source reader may have followed a deep link before the site header
   // acquired its fonts and final size. Only finish the initial jump if the

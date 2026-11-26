@@ -17,62 +17,95 @@ const img=(a,alt,cls='',lazy=true)=>`<img src="${a.src}" ${lazy?'loading="lazy"'
 const photo=(key,caption,cl='')=>`<figure class="${cl}"><button class="image-button" data-image="${key}" aria-label="${esc(t('放大：','Enlarge: ')+caption)}">${img(M[key],caption)}</button><figcaption class="caption">${caption}<span>↗</span></figcaption></figure>`;
 const href=(p,hash='')=>`${p}.html?lang=${lang}${hash?'#'+hash:''}`;
 function section(id,zh,en,subzh,suben,body) {
-    const group=chapters[page].find(([, ,ids])=>ids[0]===id);
-    const topic=t(zh,en);
-    let heading;
-    if(group){
-        let title=t(group[0],group[1]);
-        if(id==='mechanics')title=topic;
-        const subject=topic===title?'':`<h3 class="chapter-subject">${topic}</h3>`;
-        heading=`<h2 class="chapter-name" id="${id}-title">${title}</h2>${subject}`;
-    }else if(page==='toolkit' && id==='workflow'){
-        heading=`<h2 class="chapter-name" id="${id}-title">${topic}</h2>`;
-    }else{
-        heading=`<h3 class="topic-name" id="${id}-title">${topic}</h3>`;
-    }
-    return `<section id="${id}" class="section${group?' chapter-start':''}" aria-labelledby="${id}-title"><header class="section-head">${heading}</header>
-        ${group?topicNavigation(group):''}<div class="section-body">${subzh?`<div class="prose"><p>${t(subzh,suben)}</p></div>`:''}${body}</div></section>`;
+    return `<section id="${id}" class="section chapter-start" aria-labelledby="${id}-title"><header class="section-head">
+        <h2 class="chapter-name" id="${id}-title">${t(zh,en)}</h2></header>
+        <div class="section-body">${subzh?`<div class="prose"><p>${t(subzh,suben)}</p></div>`:''}${body}</div></section>`;
 }
 const compare=(a,b,zh,en)=>`<figure class="study"><div class="compare" style="--split:50%">${img(M[b],t(zh,en)+' · '+t('调整后','After'))}<div class="compare-top">${img(M[a],t(zh,en)+' · '+t('调整前','Before'))}</div><span class="compare-line"></span><span class="compare-handle">↔</span><span class="compare-label before">${t('调整前','Before')}</span><span class="compare-label after">${t('调整后','After')}</span><input type="range" min="0" max="100" value="50" aria-label="${esc(t('拖动比较：','Compare: ')+t(zh,en))}"></div><figcaption class="caption">${t(zh,en)}<span>${t('拖动分界线','Drag to compare')}</span></figcaption></figure>`;
-const navs={toolkit:[['overview','概览','Overview'],['workflow','工作台与制作逻辑','Workbench'],['cushion','抱枕制作步骤','Cushion walkthrough'],['materials','材质与尺度','Materials & scale'],['cases','工艺案例','Craft examples'],['delivery','保存与导出','Saving & export'],['bridge','游戏应用','Game integration'],['development','局部修改','Editing a detail'],['works','作品与案例','Showcase'],['trial','《夜航》抱枕试作','Night Crossing trial'],['results','编辑与视口实测','Editing and viewport results']],game:[['overview','概览','Overview'],['play','修补玩法','Repair mechanics'],['arrival','开店与收件','Opening & arrival'],['alice','Alice 委托','Alice commission'],['panda','Panda 委托','Panda commission'],['mechanics','修补反馈与操作辅助','Repair feedback & accessibility'],['doll','玩偶模型与制作','Doll models & making'],['workshop','工坊的声音与光线','Workshop sound & light'],['history','开发与后续','Development & plans']]};
-const chapters = {
-    toolkit: [
-        ['概览','Overview',['overview','workflow']],
-        ['制作流程','Workflow',['cushion','delivery']],
-        ['设计','Design',['development','cases','materials']],
-        ['作品展示','Showcase',['works']],
-        ['使用测试','User testing',['trial']],
-        ['结果','Results',['results','bridge']]
-    ],
-    game: [
-        ['概览','Overview',['overview']],
-        ['两份委托','Commissions',['arrival','alice','panda']],
-        ['工具与针法','Tools & stitches',['play']],
-        ['技术设计','Technical design',['doll','workshop']],
-        ['反馈与辅助','Feedback & access',['mechanics','history']]
-    ]
-};
+const views = page === 'game' ? [
+    { id: 'design', label: ['游戏设计', 'Game design'], sections: ['overview', 'arrival', 'alice', 'panda'] },
+    { id: 'interaction', label: ['修补机制', 'Repair mechanics'], sections: ['play', 'mechanics'],
+      lead: ['玩家的落针位置、换边顺序和拉线力度都影响修补。下面的操作演示展示每种输入如何判定，以及玩家怎样知道下一步该做什么。', 'Each repair depends on where the needle enters, when the player switches sides and how tightly they pull. The clips show how the game checks those actions and signals the next move.'] },
+    { id: 'technology', label: ['技术实现', 'Technical implementation'], sections: ['doll', 'workshop', 'thread-state', 'history', 'making-credits'],
+      lead: ['填棉会改变脸颊的形状。游戏在未变形的布面上记录针位，让针脚始终贴住缝口。可以查看模型与针线的绘制、<a href="#workshop">工坊的声光</a>，以及<a href="#thread-state">暂停后怎样续上这一针</a>。', 'Stuffing changes the shape of the cheek. Needle positions are stored on the undeformed cloth so the next stitch still lands on the seam. Explore the model and thread, <a href="#workshop">light and sound at the desk</a>, and <a href="#thread-state">how the game resumes a stitch</a>.'] }
+] : [
+    { id: 'design', label: ['工具设计', 'Tool design'], sections: ['overview', 'development', 'materials'] },
+    { id: 'guide', label: ['制作教程', 'Making guide'], sections: ['workflow', 'cushion', 'cases', 'delivery'],
+      lead: ['跟着<a href="#cushion">植物刺绣抱枕的八个步骤</a>做一遍。在工作台选定布面，描出叶片，做好锁边，再把成品导出为 Unity 道具。', 'Follow the <a href="#cushion">eight steps of the botanical cushion</a> from cloth to game prop. Choose the surface, trace a leaf, bind the edge and export the finished piece for Unity.'] },
+    { id: 'archive', label: ['测试与作品', 'Tests & works'], sections: ['trial', 'results', 'bridge', 'works', 'making-credits'],
+      lead: ['用《夜航》抱枕检验作品重开后能否继续修改，再看串珠预览的耗时，以及五件道具导入游戏后的表现。也可以直接<a href="#works">按工艺浏览作品</a>。', 'The Night Crossing cushion tests whether a saved piece can still be edited. Bead-preview timings and five props imported into the game show how the workbench performs. You can also <a href="#works">browse the collection by technique</a>.'] }
+];
+const projectName = page === 'game' ? 'Alice · Mending Workshop' : 'Textile Studio';
+const anchorViews = new Map();
+let currentView;
 
-function chapterNavigation() {
-    return `<nav class="chapter-links" aria-label="${t('项目章节','Project chapters')}">
-        ${chapters[page].map(([zh,en,ids])=>`<a href="#${ids[0]}">${t(zh,en)}</a>`).join('')}
-    </nav>`;
+function viewHref(view, anchor = '') {
+    const query = new URLSearchParams({lang});
+    if (view !== views[0]) query.set('view', view.id);
+    return page + '.html?' + query + (anchor ? '#' + anchor : '');
 }
 
-function topicNavigation([zh,en,ids]) {
-    if(ids.length<2)return '';
-    const links=ids.map(id=>{
-        const [,labelZh,labelEn]=navs[page].find(entry=>entry[0]===id);
-        return `<a href="#${id}">${t(labelZh,labelEn)}</a>`;
-    });
-    return `<nav class="topic-links" aria-label="${t(zh,en)}">${links.join('')}</nav>`;
+function viewNavigation() {
+    const links = views.map(view => `<a href="${viewHref(view)}" ${view === currentView ? 'aria-current="page"' : ''}>${t(...view.label)}</a>`);
+    return `<nav class="project-pages" aria-label="${t('项目分页','Project pages')}">${links.join('')}</nav>`;
 }
 
-function overviewActions(){
-    const links=page==='toolkit' ? [['workflow','查看工作台导览','Explore the workbench'],['cushion','跟做植物抱枕','Follow the cushion workflow']]
-        : [['mina-letter','读 Mina 的委托信','Read Mina’s letter'],['play','看修补动作','See the repairs']];
-    return `<div class="overview-actions">${links.map(([id,z,e])=>`<a href="#${id}">${t(z,e)}</a>`).join('')}
-        <a href="${href(page+'-slides')}">${t('技术详解（英文）','Technical case study')}</a></div>`;
+function pageFooter() {
+    const index = views.indexOf(currentView);
+    const prev = views[index - 1], next = views[index + 1];
+    return `<footer class="reader-footer"><nav aria-label="${t('继续阅读','Continue reading')}">
+        ${prev ? `<a rel="prev" href="${viewHref(prev)}">← ${t(...prev.label)}</a>` : ''}
+        ${next ? `<a rel="next" href="${viewHref(next)}">${t(...next.label)} →</a>` :
+            `<a href="${href(page + '-slides')}">${t('技术详解（英文）', 'Full technical report (English)')} →</a>`}
+    </nav><button type="button" class="case-print" data-print>${t('打印本页 / PDF','Print this page / PDF')}</button></footer>`;
+}
+
+function viewForAnchor(id) {
+    if (anchorViews.has(id)) return anchorViews.get(id);
+    // These anchors are created by the step viewer and the searchable catalogue after mounting.
+    const sequence = /^(alice|panda|cushion)-(?:steps|step-\d+)$/.exec(id);
+    if (sequence) return anchorViews.get(sequence[1]);
+    if (page === 'toolkit' && id.startsWith('work-') && work(id.slice(5))) return anchorViews.get('works');
+}
+
+function mountView() {
+    // Index the original exhibits in an inert template. Only the current page mounts media and controls.
+    const source = document.createElement('template');
+    source.innerHTML = (page === 'game' ? game() : toolkit()) + projectCredits();
+    const sections = new Map([...source.content.children].map(section => [section.id, section]));
+    anchorViews.clear();
+    for (const view of views) {
+        anchorViews.set('view-' + view.id, view);
+        for (const id of view.sections) {
+            anchorViews.set(id, view);
+            for (const child of sections.get(id).querySelectorAll('[id]')) anchorViews.set(child.id, view);
+        }
+    }
+    const url = new URL(location.href);
+    const requested = views.find(view => view.id === url.searchParams.get('view'));
+    currentView = viewForAnchor(url.hash.slice(1)) || requested || views[0];
+    if ((url.searchParams.has('view') || currentView !== views[0]) && currentView !== requested) {
+        if (currentView === views[0]) url.searchParams.delete('view');
+        else url.searchParams.set('view', currentView.id);
+        try { history.replaceState(history.state, '', url); } catch { /* File URLs can still open the exhibit. */ }
+    }
+    document.title = (currentView === views[0] ? projectName : t(...currentView.label) + ' · ' + projectName) + ' — Junyan He';
+    document.getElementById('app').innerHTML = shell();
+    const main = document.getElementById('main');
+    if (currentView === views[0]) {
+        sections.get('overview').querySelector('.hero-intro').insertAdjacentHTML('beforeend', viewNavigation());
+    } else {
+        main.insertAdjacentHTML('beforeend', `<header class="reader-heading" id="view-${currentView.id}">
+            <a class="reader-project" href="${viewHref(views[0])}">${projectName}</a><h1>${t(...currentView.label)}</h1>
+            <p class="lead">${t(...currentView.lead)}</p>${viewNavigation()}</header>`);
+    }
+    main.append(...currentView.sections.map(id => sections.get(id)));
+    for (const link of main.querySelectorAll('a[href^="#"]')) {
+        const id = link.hash.slice(1);
+        const destination = viewForAnchor(id);
+        if (destination && destination !== currentView) link.setAttribute('href', viewHref(destination, id));
+    }
+    main.insertAdjacentHTML('beforeend', pageFooter());
 }
 
 function projectCredits(){
@@ -85,12 +118,10 @@ function projectCredits(){
         <p>${game
             ? t('配乐由 Scott Buckley 创作。修补声和环境声使用了经过剪辑与混音的署名录音。','The music is by Scott Buckley. The repair sounds and ambience use edited and mixed source recordings.') + ' <a href="credits.txt">' + t('音乐与录音署名','Music and recording credits') + '</a>'
             : t('《夜航》抱枕上的帆船图案由一位同学设计，制作过程的配图在 Unity 中复现。','A classmate designed the sailboat on the Night Crossing cushion. I recreated the process images in Unity.')}</p>
-        <button type="button" class="case-print" data-print>${t('打印 / PDF','Print / PDF')}</button>
     </section>`;
 }
 
-function shell(content){return `<main class="main" id="main" tabindex="-1">${content}${projectCredits()}
-    </main><dialog class="lightbox" aria-labelledby="dialog-title"><div class="dialog-bar"><span id="dialog-kind"></span><div class="image-tools" role="group" aria-label="${t('图片缩放','Image zoom')}"><button type="button" data-inspect="out" aria-label="${t('缩小','Zoom out')}">−</button><output data-zoom-level aria-live="off">100%</output><button type="button" data-inspect="in" aria-label="${t('放大','Zoom in')}">+</button><button type="button" data-inspect="fit">${t('适应窗口','Fit')}</button></div><button autofocus class="dialog-close" aria-label="${t('关闭','Close')}">×</button></div><div class="dialog-layout"><div class="dialog-view browse-frame"><div class="inspection-stage" tabindex="0" role="group" aria-label="${t('查看图片细节','Inspect image details')}"><img id="dialog-image" alt="" draggable="false"></div><button type="button" class="dialog-arrow dialog-prev browse-arrow browse-prev" aria-controls="dialog-image" aria-label="${t('上一张','Previous image')}"></button><button type="button" class="dialog-arrow dialog-next browse-arrow browse-next" aria-controls="dialog-image" aria-label="${t('下一张','Next image')}"></button></div><div class="dialog-info"><h2 id="dialog-title"></h2><p id="dialog-description"></p><p id="dialog-provenance"></p><div class="view-count" id="dialog-count" aria-live="polite" aria-atomic="true"></div><div class="dialog-thumbs"></div><a class="text-link" id="dialog-original" target="_blank" rel="noopener">${t('打开大图','Open full image')} ↗</a></div></div></dialog>`;}
+function shell(){return `<main class="main" id="main" tabindex="-1"></main><dialog class="lightbox" aria-labelledby="dialog-title"><div class="dialog-bar"><span id="dialog-kind"></span><div class="image-tools" role="group" aria-label="${t('图片缩放','Image zoom')}"><button type="button" data-inspect="out" aria-label="${t('缩小','Zoom out')}">−</button><output data-zoom-level aria-live="off">100%</output><button type="button" data-inspect="in" aria-label="${t('放大','Zoom in')}">+</button><button type="button" data-inspect="fit">${t('适应窗口','Fit')}</button></div><button autofocus class="dialog-close" aria-label="${t('关闭','Close')}">×</button></div><div class="dialog-layout"><div class="dialog-view browse-frame"><div class="inspection-stage" tabindex="0" role="group" aria-label="${t('查看图片细节','Inspect image details')}"><img id="dialog-image" alt="" draggable="false"></div><button type="button" class="dialog-arrow dialog-prev browse-arrow browse-prev" aria-controls="dialog-image" aria-label="${t('上一张','Previous image')}"></button><button type="button" class="dialog-arrow dialog-next browse-arrow browse-next" aria-controls="dialog-image" aria-label="${t('下一张','Next image')}"></button></div><div class="dialog-info"><h2 id="dialog-title"></h2><p id="dialog-description"></p><p id="dialog-provenance"></p><div class="view-count" id="dialog-count" aria-live="polite" aria-atomic="true"></div><div class="dialog-thumbs"></div><a class="text-link" id="dialog-original" target="_blank" rel="noopener">${t('打开大图','Open full image')} ↗</a></div></div></dialog>`;}
 
 const para=(zh,en)=>`<p>${t(zh,en)}</p>`;
 const wfig=(id,zh,en,index=0)=>{const w=work(id);return `<figure><button class="image-button" data-work="${id}" aria-label="${esc(t(zh,en))}">${img(w.images[index]||w.images[0],t(zh,en))}</button><figcaption class="caption">${t(zh,en)}</figcaption></figure>`};
@@ -107,11 +138,10 @@ function toolkit(){return `
     `我用这个工作台制作了游戏《<a href="${href('game')}">Alice · Mending Workshop</a>》里的布面针法手册。`,
     `I used this workbench to make the cloth-bound stitch guide that players open in <a href="${href('game')}">Alice · Mending Workshop</a>.`
 )}</p>
-${overviewActions()}</div>
+</div>
 <figure class="tool-opening-piece ts-gesture-film"><video controls playsinline preload="none" width="950" height="680" poster="assets/story-tool/botanical-leaf-gesture.webp" aria-describedby="leaf-gesture-caption"><source src="assets/story-tool/botanical-leaf-gesture.mp4" type="video/mp4"><a href="assets/story-tool/botanical-leaf-gesture.mp4">${t('播放绣叶过程','Play the embroidery clip')}</a></video>
 <figcaption id="leaf-gesture-caption">${t('描出叶形，松手生成一层缎面绣。工作台实录，3 倍速。','Trace a leaf and release to create a satin-stitch layer. Workbench recording at 3× speed.')} <a href="#editing-sewn-piece">${t('看移动毛毡后的效果','See what moves with the felt')} ↗</a></figcaption></figure>
 </header>
-${chapterNavigation()}
 
 ${section('workflow','布艺工作台','The Textile Studio workbench','','',`
 ${window.AliceWorkbenchGuide.render(lang)}
@@ -186,15 +216,11 @@ ${table([t('用途','Goal'),t('保存或导出','Format'),t('保留什么','What
 `)}
 
 ${section('development','局部工艺的绘制与修改','Drawing and editing a detail','','',`
+${window.AliceToolStory.design(lang)}
 ${window.AliceToolStory.suzanne(lang)}
 ${window.AliceToolStory.construction(lang)}
-${window.AliceToolStory.design(lang)}
 ${window.AliceToolStory.reuse(lang)}
-<h3 class="ts-history-title">${t('工具的演变','Tool development')}</h3>
-<ol class="ts-path-flow"><li><b>2026.04–06</b><span>${t('Alice 的材料与针脚实验','Fabric and seam studies for Alice')}</span></li>
-<li><b>2026.09–10</b><span>${t('把工艺做成独立工作台','Craft tools become a standalone workbench')}</span></li>
-<li><b>2026.11</b><span>${t('1.0.1 版通过跨项目道具导入验证','Version 1.0.1 tested with cross-project prop imports')}</span></li></ol>
-<p class="ts-input-note">${t('验证环境：macOS，Unity 6.3 / URP 17.3 与 Unity 6.5 / URP 17.5。','Tested on macOS with Unity 6.3 / URP 17.3 and Unity 6.5 / URP 17.5.')}</p>
+
 `)}
 
 ${section('cases','工艺功能与具体案例','Craft features in context','','',`
@@ -227,7 +253,13 @@ ${window.AliceToolStory.featuredWorks(lang)}
 
 ${section('trial','重新打开《夜航》抱枕','Reopening the Night Crossing cushion','','',window.AliceToolStory.trial(lang))}
 
-${section('results','串珠预览与游戏道具实测','Testing the bead preview and the game props','','',window.AliceToolStory.results(lang))}
+${section('results','串珠预览与游戏道具实测','Testing the bead preview and the game props','','',window.AliceToolStory.results(lang)+`
+<h3 class="ts-history-title">${t('工具的演变','Tool development')}</h3>
+<ol class="ts-path-flow"><li><b>2026.04–06</b><span>${t('Alice 的材料与针脚实验','Fabric and seam studies for Alice')}</span></li>
+<li><b>2026.09–10</b><span>${t('把工艺做成独立工作台','Craft tools become a standalone workbench')}</span></li>
+<li><b>2026.11</b><span>${t('1.0.1 版通过跨项目道具导入验证','Version 1.0.1 tested with cross-project prop imports')}</span></li></ol>
+<p class="ts-input-note">${t('验证环境：macOS，Unity 6.3 / URP 17.3 与 Unity 6.5 / URP 17.5。','Tested on macOS with Unity 6.3 / URP 17.3 and Unity 6.5 / URP 17.5.')}</p>
+`)}
 
 ${section('bridge','布艺作品进了游戏','From studio to workshop','','',`
 ${window.AliceWorkshopProps.render('toolkit',lang)}
@@ -239,18 +271,17 @@ function game(){
 const story = window.AliceGameStory.forLanguage(lang);
 const points=(...items)=>`<ul class="mending-points">${items.map(([zh,en])=>`<li>${t(zh,en)}</li>`).join('')}</ul>`;
 return `
-<header id="overview" class="overview-game"><div class="hero-intro"><h1>Alice · Mending Workshop</h1><p class="lead">${t('在窗边修好两只玩偶，第一只是我亲手缝的 Alice。Mina 明天要去新学校，请给 Alice 缝上一只新的纽扣眼，留下她歪歪的笑。','Mend two well-loved toys, starting with Alice, the doll I sewed by hand. Mina starts at a new school tomorrow. Give Alice a new button eye and keep her crooked smile.')}</p>
+<header id="overview" class="overview-game"><div class="hero-intro"><h1>Alice · Mending Workshop</h1><p class="lead">${t('我把手缝玩偶 Alice 做成了一款修补游戏。第一份委托教玩家补棉、交替落针、收紧缝线。第二份换成脱线的熊猫耳朵，让玩家认出可以沿用的针法，再学会逐行挑回线圈。','I turned Alice, a doll I sewed by hand, into a repair game. The first commission teaches stuffing, alternating needle placement and thread tension. On Panda’s unravelled ear, players recognise the stitch they already know and learn to recover dropped loops row by row.')}</p>
 <p class="project-connection">${t(
     `玩家翻开的布面针法手册，是我用自己开发的 Unity 布艺工具 <a href="${href('toolkit')}">Textile Studio</a> 制作的。`,
     `I made the cloth-bound guide that teaches players their first stitch with <a href="${href('toolkit')}">Textile Studio</a>, my textile tool for Unity.`
 )}</p>
-${overviewActions()}</div>
+</div>
 <div class="mending-first-look"><div class="mending-first-frame">${img(M[D.clips.stitch.poster],t('玩家正沿 Alice 眼旁的裂口落针。','The player places a stitch beside Alice’s missing eye.'),'',false)}${window.AliceAdmissions.film(lang,'game')}</div>${window.AliceAdmissions.download(lang)}</div></header>
-${chapterNavigation()}
 
-${section('arrival','两份委托','Commissions','','',story.arrival()+story.commissions()+story.transfer())}
+${section('arrival','两份委托怎样递进','How the two commissions build on each other','','',story.commissions()+story.transfer()+story.arrival())}
 
-${section('alice','Mina 的布偶 Alice','Mina’s doll, Alice','箱扣勾掉了纽扣眼。请保留她歪歪的笑容和旧缎带。','A suitcase clasp caught her eye. Keep her crooked smile and old ribbon.',`
+${section('alice','第一份委托 · 修补 Alice','First commission · Mending Alice','先填平脸颊，再沿裂口缝六组藏针。缝牢纽扣眼后，轻拉检查。','Pack the cheek, close the tear with six ladder stitches, then tug the new button eye to check it holds.',`
 ${story.route('alice')}
 ${row("1. 补回脸颊","1. Pack the cheek",points(["填入四小团棉花。","Add four tufts of cotton."],["用填充棒轻压到两边脸颊对称。","Press gently until the cheeks match."]),photo("fill100",t("整理后的脸颊","Cheek after packing")))}
 ${photo('aliceFill',t('棉花袋与填充棒','Cotton bag and packing stick'))}
@@ -258,19 +289,19 @@ ${row("2. 缝合裂口","2. Close the tear",points(["沿同一侧的布褶入针
 ${row("3. 收紧、打结、修线","3. Tension, knot and trim",points(["剪出线尾，慢拉到蓝色张力区。","Cut a working tail and pull into the blue tension band."],["稳住后松手。打结，剪短余线。","Hold, release, knot and trim."]),photo("aliceTension",t("慢拉时的张力条","The tension band while pulling")))}
 ${row("4. 挑一只新眼睛","4. Fit a new eye",points(["从盒里选纽扣，放到脸颊上。","Choose a button and place it on the cheek."],["按扣孔数量翻开手册。","Open the handbook to its hole pattern."]),story.figure("button-tin","桌上的纽扣盒","The button tin"))}
 ${row("5. 缝牢纽扣","5. Fasten the button",points(["每对孔缝四次。四孔扣依次缝两对。","Sew each pair four times. A four-hole button takes two pairs."],["收线打结，轻拉试一试。","Knot the thread and gently tug."]),photo("aliceButton",t("固定后的四孔纽扣","Secured four-hole button")))}
-${row("6. 送 Alice 回家","6. Send Alice home",points(["Alice 坐起来挥手。Mina 想让她陪自己度过明天在新学校的第一天。","Alice sits up and waves. Mina wants her there for her first day at a new school tomorrow."],["把玩偶装盒，封口寄回。","Pack the doll, seal the box and send her home."]),photo("aliceComplete",t("修好后的 Alice","Alice after repair")))}
+${row("6. 送 Alice 回家","6. Send Alice home",points(["修补通过检查后，Alice 坐起来挥手。","Alice sits up and waves once the repair passes its check."],["把玩偶装盒，封口寄回。","Pack the doll, seal the box and send her home."]),photo("aliceComplete",t("修好后的 Alice","Alice after repair")))}
 ${photo('aliceSend',t('寄回前的确认','Ready for dispatch'))}
-${story.ribbon()}
+<details class="project-aside"><summary>${t('设计手记 · Alice 的旧缎带','Design note · Alice’s old ribbon')}</summary>${story.ribbon()}</details>
 `)}
 
-${section('panda','面包店的小国王','The bakery’s Little King','生日彩旗勾松了耳朵。把原来的皇冠和亮片缝回去。','Birthday bunting snagged the ear. Sew the original crown and sequin back on.',`
+${section('panda','第二份委托 · 修补熊猫','Second commission · Mending Panda','先挑回耳朵上脱落的线圈，才能用上一份委托学过的藏针闭合耳朵。耳朵、皇冠和亮片要分别轻拉检查。','Recover the dropped loops before closing the ear with the ladder stitch learned on Alice. The ear, crown and sequin each get a separate tug test.',`
 ${story.route('panda')}
 ${row("1. 逐行挑回线圈","1. Recover the loops",points(["用两个针目扣稳住活线圈。","Secure the live loops with two markers."],["对准钩尖，逐行挑回六行。失误只重试当前行。","Align the hook and recover six rows. A miss repeats one row."]),photo("pandaLoops",t("耳朵边的钩针","Hook at the edge of the ear")))}
 ${row("2. 补棉、闭耳","2. Close the ear",points(["补三团棉花，轻压两次。","Add three tufts and press twice."],["用六组藏针合拢耳朵，收紧、回结、藏尾。","Close with six ladder stitches. Tension, knot and hide the tail."]),photo("pandaEar",t("耳部的缝口","The ear seam")))}
 ${row("3. 缝回旧皇冠","3. Anchor the crown",points(["摆正帽边。每针先穿皇冠，再进头顶布面。","Align the hem. Pass through the crown, then the head fabric."],["缝四次，两侧锁结。","Make four loops and secure both sides."]),photo("pandaCrown",t("皇冠底边","The crown hem")))}
 ${row("4. 固定旧亮片","4. Secure the sequin",points(["放平亮片，从中心孔穿入，从外缘布面穿回。","Lay the sequin flat. Pierce the centre and return just outside the rim."],["缝三道固定针，藏结修线。","Secure with three stitches and bury the knot."]),story.figure("cheek-sequin","从中心孔到外缘","Centre-to-rim stitch"))}
 ${row("5. 分开轻拉三处","5. Test each repair",points(["依次轻拉耳朵、皇冠和亮片。","Tug the ear, crown and cheek sequin in turn."],["三处都牢固后，小国王动动耳朵。","When all three hold, Panda wiggles its ears."]),story.figure("return-check","轻拉亮片","Testing the sequin"))}
-${row("6. 寄回面包店","6. Return to the bakery",points(["面包店想为每年都出现在生日照里的小国王过一次生日。","The bakery wants a birthday of Panda’s own after years in everyone’s photos."],["合上盒盖，封好寄回。","Close and seal the parcel."]),story.figure("bakery-parcel","寄回的包裹","The return parcel"))}
+${row("6. 寄回面包店","6. Return to the bakery",points(["三处轻拉检查都通过后，玩偶就能装盒。","The parcel is ready once all three repairs pass their tug checks."],["合上盒盖，封好寄回。","Close and seal the parcel."]),story.figure("bakery-parcel","寄回的包裹","The return parcel"))}
 `)}
 
 ${section('play','工具与针法','Tools & stitches','','',`
@@ -279,9 +310,8 @@ ${story.preparation(repairMethod(mechanics[2],2))}
 ${story.finishing()}
 `)}
 
-${section('doll','玩偶模型与工坊渲染','Toy models and workshop rendering','','',`
+${section('doll','玩偶模型与针线渲染','Doll models, fabric and thread','','',`
 ${window.AliceDollOrbit.gallery(lang)}
-${story.technical()}
 <section class="project-notes"><h3>${t('从实物到可修补的模型','From handmade doll to repairable model')}</h3>
 ${pair(photo('alicePhysical',t('手缝原作','The hand-sewn doll')),photo('aliceCurrent',t('游戏模型','The game model')))}
 ${table([t('部位','Part'),t('处理方法','Treatment')],[
@@ -289,19 +319,22 @@ ${table([t('部位','Part'),t('处理方法','Treatment')],[
  [t('脸颊','Cheek'),t('棉花增加体积，填充棒重新分布已有的棉花。','Cotton adds volume. The packing stick redistributes it.')],
  [t('缝口','Seam'),t('在未形变的布面记录针位，填棉后仍能准确落针。','Store needle contacts on the undeformed cloth so stitches stay aligned as the cheek fills.')]])}
 ${pair(photo('fill0',t('填棉前','Before stuffing')),photo('fill100',t('填入四团后','After four tufts')))}</section>
+${story.technical()}
 `)}
 
 ${section('workshop','工坊里的声音与光线','Sound and light in the workshop','','',`
 ${workshopAtmosphere()}
+${story.reflection()}
 ${story.needleLight()}
 ${story.props()}
 `)}
 
 ${section('mechanics','修补反馈与无障碍设计','Repair feedback and accessibility','','',`
 ${story.feedback()}
-${passage('thread-state','中途停下，会丢掉哪一针？','What happens if you stop mid-stitch?',story.keyboardCheck(),pair(photo('clothEntry',t('入针待确认','Entry pending')),photo('clothExit',t('第三针已确认','Third stitch confirmed'))))}
 ${row('可调整的操作','Control options',points(['键位可重映射，也可点击代替拖动。','Remap keys or use clicks for drag actions.'],['纸张可放大，提示可延长或提高对比度。','Enlarge the paper, extend cues or increase contrast.']),photo('accessibility',t('两份委托共用的辅助设置','Comfort settings for both commissions')))}
 `)}
+
+${section('thread-state','中途停下，会丢掉哪一针？','What happens if you stop mid-stitch?','','',story.keyboardCheck()+pair(photo('clothEntry',t('入针待确认','Entry pending')),photo('clothExit',t('第三针已确认','Third stitch confirmed'))))}
 
 ${section('history','开发历程与后续设计','Development and further designs','','',`
 <div class="mending-influences"><p>${t('Alice 的原型由我手缝。我选择要保留的磨损痕迹，设计委托、修补反馈和工坊内的声音交互。','I sewed the original Alice, chose which signs of wear to keep, and designed the commissions, repair feedback and sound interactions.')} <a class="text-link" href="#making-credits">${t('制作分工','Production credits')}</a></p><dl><dt>ReStory</dt><dd>${t('损伤决定修理次序','Damage sets the repair order.')}</dd><dt>Assemble with Care</dt><dd>${t('主人讲出物件的来历','Owners give objects their history.')}</dd></dl></div>
@@ -334,8 +367,9 @@ const worksPerPage=9;
 function render(){
 
 document.documentElement.lang=lang==='en'?'en':'zh-CN';
-document.getElementById('app').innerHTML=shell(page==='toolkit'?toolkit():game());
-if(page==='toolkit'){showMaterial(0);renderGallery()}
+mountView();
+if(document.getElementById('material-stage'))showMaterial(0);
+if(document.getElementById('work-gallery'))renderGallery();
 document.querySelectorAll('[data-print]').forEach(b=>b.onclick=printPage);
 document.querySelectorAll('.compare input').forEach(i=>i.oninput=()=>i.closest('.compare').style.setProperty('--split',i.value+'%'));
 document.querySelectorAll('[data-hotspot]').forEach(b=>b.onclick=()=>{document.querySelectorAll('[data-hotspot]').forEach(x=>x.setAttribute('aria-pressed',x===b));document.querySelectorAll('[data-note]').forEach(x=>x.classList.toggle('selected',x.dataset.note===b.dataset.hotspot))});
@@ -377,8 +411,8 @@ function switchLanguage(nextLanguage) {
     const rect = oldAnchor?.getBoundingClientRect();
     const fraction = rect?.height ? (line-rect.top)/rect.height : 0;
     const atStart = window.scrollY < 2;
-    const hashSection = document.getElementById(location.hash.slice(1))?.closest('main > .section, main > #overview');
-    if (currentSection && hashSection!==currentSection) nextUrl.hash=currentSection.id;
+    const hashSection = document.getElementById(location.hash.slice(1))?.closest('main > section, main > header');
+    if (!atStart && currentSection && hashSection!==currentSection) nextUrl.hash=currentSection.id;
     try { localStorage.setItem('alice-language', nextLanguage); } catch {}
     try { history.replaceState(null, '', nextUrl.href); }
     catch { location.replace(nextUrl.href); return; }
@@ -400,7 +434,7 @@ let printState=null;
 function preparePrint(){
     if(printState)return;
     printState={galleryFilter,query,galleryPage};
-    if(page==='toolkit'){
+    if(document.getElementById('work-gallery')){
         galleryFilter='all';query='';renderGallery();
     }
     document.querySelectorAll('main img[src]').forEach(img=>img.loading='eager');
@@ -408,7 +442,7 @@ function preparePrint(){
 
 function finishPrint(){
     if(!printState)return;
-    if(page==='toolkit'){
+    if(document.getElementById('work-gallery')){
         ({galleryFilter,query,galleryPage}=printState);
         renderGallery();
     }
@@ -591,13 +625,6 @@ function syncReader() {
     currentSection?.classList.remove('current-topic');
     currentSection=section;
     section.classList.add('current-topic');
-    const group=chapters[page].find(([, ,ids])=>ids.includes(section.id));
-    const chapterId=group[2][0];
-    document.querySelectorAll('.chapter-links a, .topic-links a').forEach(link=>{
-        const active=link.hash.slice(1)===(link.closest('.chapter-links')?chapterId:section.id);
-        if(active)link.setAttribute('aria-current','location');
-        else link.removeAttribute('aria-current');
-    });
 }
 function queueReaderUpdate(){
     if(!scrollFrame)scrollFrame=requestAnimationFrame(()=>{scrollFrame=0;syncReader();});
@@ -605,7 +632,7 @@ function queueReaderUpdate(){
 function mountReader(){
     readerObserver?.disconnect();
     mediaVisibilityObserver?.disconnect();
-    readerSections=Array.from(document.querySelectorAll('main > #overview, main > .section'));
+    readerSections=Array.from(document.querySelectorAll('main > header, main > section'));
     currentSection=null;
     document.documentElement.style.setProperty('--reader-head', readerInset + 'px');
     readerObserver=new ResizeObserver(queueReaderUpdate);
@@ -625,6 +652,13 @@ function mountReader(){
 
 function openFragment(initial=false){
     const id=location.hash.slice(1);
+    const owner = viewForAnchor(id);
+    if (owner && owner !== currentView) {
+        const url = new URL(location.href);
+        url.searchParams.set('view', owner.id);
+        location.replace(url);
+        return;
+    }
     const dialog=document.querySelector('dialog');
     if(dialog.open)closeModal();
     const deepWork=page==='toolkit'&&id.startsWith('work-')?work(id.slice(5)):null;
@@ -636,9 +670,13 @@ function openFragment(initial=false){
     }
     const target=document.getElementById(id);
     if(target){
+        const aside = target.closest('details');
+        if (aside) aside.open = true;
+        const hiddenPanel = target.closest('[hidden][data-ts-panel], .prop-detail[hidden]');
+        if (hiddenPanel) document.querySelector('button[aria-controls="' + CSS.escape(hiddenPanel.id) + '"]')?.click();
         const needsReveal=!!target.closest('.sequence-panel[hidden]');
         window.AliceSequences?.reveal(target);
-        if(initial||needsReveal||deepWork)target.scrollIntoView({block:'start',behavior:'instant'});
+        if(initial||needsReveal||hiddenPanel||deepWork)target.scrollIntoView({block:'start',behavior:'instant'});
         if(deepWork){target.focus({preventScroll:true});target.click();}
     }
     syncReader();

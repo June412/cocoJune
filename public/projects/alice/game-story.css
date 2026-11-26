@@ -4,7 +4,7 @@ body[data-page="game"] { --sewing-ink:#293e34; --sewing-thread:#8b643b; --sewing
 :is(.story-brief,.story-props,.story-arrival,.story-prep,.story-block,.story-finishing) > :is(h2,h3),.story-description h3,.prep-description h4 {
     color:var(--sewing-ink); font-family:Georgia,"Songti SC","Noto Serif CJK SC",serif; letter-spacing:-.025em; font-weight:600; line-height:1.18;
 }
-.story-brief h2,.story-props h2,.story-arrival h3,.story-block > h2,.story-prep h3,.story-finishing > h3 { margin:0 0 1rem; font-size:clamp(1.48rem,2.8vw,2rem); }
+.story-brief h2,.story-props h3,.story-arrival h3,.story-block > h3,.story-prep h3,.story-finishing > h3 { margin:0 0 1rem; font-size:clamp(1.48rem,2.8vw,2rem); }
 .story-props>p,.story-description p,.story-arrival-note,.story-commissions p { color:#424a43; font-size:1rem; line-height:1.65; margin:0; }
 .story-props > p,.story-arrival-note { max-width:65ch; }
 .story-image { display:block; width:100%; padding:0; margin:0; border:none; background:transparent; text-align:inherit; cursor:zoom-in; }
@@ -67,8 +67,8 @@ alice-commission-route button span { display:block; margin-top:.45rem; font-size
 .story-gestures a:hover strong { text-decoration:underline; text-underline-offset:3px; }
 
 .story-block,.story-feedback { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:clamp(1.2rem,3vw,2.7rem); margin:clamp(24px,4vw,48px) 0; }
-.story-block > h2,.story-block > #panda-knit { grid-column:1/-1; }
-.story-block > h2 { margin:0; }
+.story-block > h3,.story-block > #panda-knit { grid-column:1/-1; }
+.story-block > h3 { margin:0; }
 .story-row { min-width:0; border-top:1px solid var(--line); padding-block:clamp(12px,2vw,24px) 0; }
 .story-description h3 { margin:0 0 .55rem; font-size:clamp(1.2rem,2vw,1.55rem); }
 .story-description p { font-size:.99rem; }
@@ -216,7 +216,7 @@ alice-tail-rule { display:block; max-width:530px; padding:.4rem 0 .5rem; }
     .story-prep { max-width:105mm; }
     .story-row { padding:8pt 0; }
     .story-at-mat { border:0; padding:0; }
-    .story-row h3,.story-block h2 { break-after:avoid; }
+    .story-row h3,.story-block > h3 { break-after:avoid; }
     .story-figure img { max-height:35mm; object-fit:contain; }
     alice-commission-route ol { grid-template-columns:repeat(6,minmax(0,1fr)); }
 }
