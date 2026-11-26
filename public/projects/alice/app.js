@@ -25,8 +25,10 @@ function section(id,zh,en,subzh,suben,body) {
         if(id==='mechanics')title=topic;
         const subject=topic===title?'':`<h3 class="chapter-subject">${topic}</h3>`;
         heading=`<h2 class="chapter-name" id="${id}-title">${title}</h2>${subject}`;
+    }else if(page==='toolkit' && id==='workflow'){
+        heading=`<h2 class="chapter-name" id="${id}-title">${topic}</h2>`;
     }else{
-        heading=`<h2 class="topic-name" id="${id}-title">${topic}</h2>`;
+        heading=`<h3 class="topic-name" id="${id}-title">${topic}</h3>`;
     }
     return `<section id="${id}" class="section${group?' chapter-start':''}" aria-labelledby="${id}-title"><header class="section-head">${heading}</header>
         ${group?topicNavigation(group):''}<div class="section-body">${subzh?`<div class="prose"><p>${t(subzh,suben)}</p></div>`:''}${body}</div></section>`;
@@ -68,7 +70,6 @@ function followHomeBookmark() {
 }
 
 function siteHeader(){
-    const groups = chapters[page];
     return `<header class="site-head">
         <div class="head-inner"><div class="masthead">
             <a class="wordmark" href="${href('index')}" ${page==='home'?'aria-current="page"':''} aria-label="${t('Alice 作品集首页','Alice portfolio home')}">Alice</a>
@@ -84,10 +85,14 @@ function siteHeader(){
                 <a href="${href('index','making-credits')}">${t('制作与署名','Contributions & credits')}</a>
                 <button type="button" data-print>${t('打印 / PDF','Print / PDF')}</button>
             </div></details></div>
-        </div>${page==='home'?'':`<nav class="chapter-links" aria-label="${t('项目章节','Project chapters')}">
-            ${groups.map(([z,e,ids])=>`<a href="#${ids[0]}">${t(z,e)}</a>`).join('')}
-        </nav>`}</div>
+        </div></div>
     </header>`;
+}
+
+function chapterNavigation() {
+    return `<nav class="chapter-links" aria-label="${t('项目章节','Project chapters')}">
+        ${chapters[page].map(([zh,en,ids])=>`<a href="#${ids[0]}">${t(zh,en)}</a>`).join('')}
+    </nav>`;
 }
 
 function topicNavigation([zh,en,ids]) {
@@ -120,10 +125,11 @@ const table=(heads,rows)=>`<div class="table-scroll"><table class="content-table
 function toolkit(){return `
 <header id="overview" class="overview-tool"><div class="hero-intro"><h1>Alice Textile Studio</h1>
 <p class="lead">${t('我想让道具制作者能直接在 Unity 模型上缝纫。这个工作台把贴布、绣线和包边留在各自的图层，成品可以导出给游戏使用。','I wanted prop artists to be able to sew directly on a Unity model. This workbench keeps felt, embroidery and binding on editable layers and exports the finished piece.')}</p>
-<div class="overview-actions"><a href="#cushion">${t('跟做植物抱枕','Make the botanical cushion')}</a><a href="game.html?lang=${lang}&amp;piece=handbook#workshop-pieces">${t('看游戏里的针法手册','See the handbook in the game')}</a></div></div>
+<div class="overview-actions"><a href="#cushion">${t('跟做植物抱枕','Make the botanical cushion')}</a><a href="game.html?lang=${lang}&amp;piece=handbook#workshop-pieces">${t('看游戏里的针法手册','See the handbook in the game')}</a></div><div data-project-navigation></div></div>
 <figure class="tool-opening-piece ts-gesture-film"><video controls playsinline preload="none" width="950" height="680" poster="assets/story-tool/botanical-leaf-gesture.webp" aria-describedby="leaf-gesture-caption"><source src="assets/story-tool/botanical-leaf-gesture.mp4" type="video/mp4"><a href="assets/story-tool/botanical-leaf-gesture.mp4">${t('播放绣叶过程','Play the embroidery clip')}</a></video>
 <figcaption id="leaf-gesture-caption">${t('描出叶形，松手生成一层缎面绣。工作台实录，3 倍速。','Trace a leaf and release to create a satin-stitch layer. Workbench recording at 3× speed.')} <a href="#editing-sewn-piece">${t('看移动毛毡后的效果','See what moves with the felt')} ↗</a></figcaption></figure>
 </header>
+${chapterNavigation()}
 
 ${section('workflow','布艺工作台','The Textile Studio workbench','','',`
 ${window.AliceWorkbenchGuide.render(lang)}
@@ -251,8 +257,9 @@ function game(){
 const story = window.AliceGameStory.forLanguage(lang);
 const points=(...items)=>`<ul class="mending-points">${items.map(([zh,en])=>`<li>${t(zh,en)}</li>`).join('')}</ul>`;
 return `
-<header id="overview" class="overview-game"><div class="hero-intro"><h1>Alice · Mending Workshop</h1><p class="lead">${t('在窗边修好两只玩偶，第一只是我亲手缝的 Alice。Mina 明天要去新学校，请给 Alice 缝上一只新的纽扣眼，留下她歪歪的笑。','Mend two well-loved toys, starting with Alice, the doll I sewed by hand. Mina starts at a new school tomorrow. Give Alice a new button eye and keep her crooked smile.')}</p>${overviewActions()}</div>
+<header id="overview" class="overview-game"><div class="hero-intro"><h1>Alice · Mending Workshop</h1><p class="lead">${t('在窗边修好两只玩偶，第一只是我亲手缝的 Alice。Mina 明天要去新学校，请给 Alice 缝上一只新的纽扣眼，留下她歪歪的笑。','Mend two well-loved toys, starting with Alice, the doll I sewed by hand. Mina starts at a new school tomorrow. Give Alice a new button eye and keep her crooked smile.')}</p>${overviewActions()}<div data-project-navigation></div></div>
 <div class="mending-first-look"><div class="mending-first-frame">${img(M[D.clips.stitch.poster],t('玩家正沿 Alice 眼旁的裂口落针。','The player places a stitch beside Alice’s missing eye.'),'',false)}${window.AliceAdmissions.film(lang,'game')}</div>${window.AliceAdmissions.download(lang)}</div></header>
+${chapterNavigation()}
 
 ${section('arrival','两份委托','Commissions','','',story.arrival()+story.commissions()+story.transfer())}
 
@@ -585,8 +592,8 @@ function drawModal() {
 function moveModal(delta){if(!activeModal)return;modalIndex=(modalIndex+delta+activeModal.images.length)%activeModal.images.length;drawModal()}
 function closeModal(){document.querySelector('dialog').close()}
 let readerSections=[], currentSection, readerObserver, mediaVisibilityObserver, scrollFrame=0;
-let headerOffset=0;
-function readerLine(){ return headerOffset+4; }
+const readerInset = 16;
+function readerLine(){ return readerInset + 4; }
 
 function syncReader() {
     if(!readerSections.length)return;
@@ -615,16 +622,10 @@ function mountReader(){
     mediaVisibilityObserver?.disconnect();
     readerSections=Array.from(document.querySelectorAll('main > #overview, main > .section'));
     currentSection=null;
-    const header=document.querySelector('.site-head');
-    function measure(){
-        headerOffset=Math.ceil(header.getBoundingClientRect().height)+16;
-        document.documentElement.style.setProperty('--reader-head',headerOffset+'px');
-    }
-    measure();
-    readerObserver=new ResizeObserver(()=>{measure();queueReaderUpdate();});
-    readerObserver.observe(header);
+    document.documentElement.style.setProperty('--reader-head', readerInset + 'px');
+    readerObserver=new ResizeObserver(queueReaderUpdate);
     for(const section of readerSections)readerObserver.observe(section);
-    // A chapter heading can change at the sticky header while its player and cues are still on screen.
+    // Keep the player and its cues active while they are still on screen.
     mediaVisibilityObserver=new IntersectionObserver(entries=>{
         for(const entry of entries){
             if(entry.isIntersecting)continue;

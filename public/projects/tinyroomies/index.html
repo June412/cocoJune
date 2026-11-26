@@ -29,19 +29,6 @@
 <link rel="stylesheet" href="./../alice/personal-shell.css"><link rel="stylesheet" href="./../alice/personal-media.css"><link rel="stylesheet" href="./personal.css"><link rel="stylesheet" href="studio-outlines.css"></head>
 <body class="personal-roomies roomies-case">
 <a class="skip-link" href="#main">Skip to case study</a>
-<header class="masthead">
-  <div class="mast-inner">
-    <a class="brand" href="#overview" aria-label="TinyRoomies overview"><img src="images/mark.svg" width="30" height="30" alt="">TinyRoomies</a>
-    <span class="chapter-location">Overview</span>
-    <nav class="quick-nav" aria-label="Featured chapters"><a href="#game-design">Game design</a>
-    <a href="#workshop">Workshop</a>
-    <a href="#shared-life">Emotional interaction</a>
-    <a href="#results">Results</a></nav>
-    <button type="button" id="open-index" class="index-trigger" aria-haspopup="dialog" aria-controls="chapter-index">
-      <svg viewBox="0 0 16 16" width="15" height="15" fill="currentColor" aria-hidden="true"><path d="M1 1h5v5H1zm9 0h5v5h-5zM1 10h5v5H1zm9 0h5v5h-5z"/></svg><span>Index</span>
-    </button>
-  </div>
-</header>
 <dialog id="chapter-index" aria-labelledby="index-heading">
   <div class="index-head"><h2 id="index-heading">Project index</h2><button type="button" data-dismiss aria-label="Close project index">Close</button></div>
   <nav class="index-list" aria-label="All chapters"><a href="#overview">Overview</a>
@@ -68,10 +55,18 @@
 <section id="overview" class="opening" aria-labelledby="project-name">
   <div class="hero-layout">
     <div class="hero-text">
-      <p class="kicker"><span class="ink-line"></span>Mixed reality game · Meta Quest 3</p>
-      <h1 id="project-name">TinyRoomies</h1>
-      <p class="hero-line">Five tiny residents. <br>One second-hand suitcase.</p>
+      <header class="project-heading">
+        <h1 id="project-name">TinyRoomies</h1>
+        <img src="../../illustrations/tinyroomies-line-v2.png" width="84" height="84" alt="">
+      </header>
+      <p class="kicker">Mixed reality game · Meta Quest 3</p>
+      <p class="hero-line">Five tiny residents. One second-hand suitcase.</p>
       <p class="hero-summary">The residents leave their old woodshop with their furniture in pieces. As their Room Host, you help restore each belonging and find a place for it in your own home.</p>
+      <div data-project-navigation></div>
+      <section class="project-role" aria-labelledby="project-role-heading">
+        <h2 id="project-role-heading">My role</h2>
+        <p>Game and interaction design, character direction, and technical art.</p>
+      </section>
       <div class="hero-actions">
         <a class="action-solid" href="#experience-film"><svg viewBox="0 0 16 16" fill="currentColor" width="13" height="13" aria-hidden="true"><path d="m4 2 9 6-9 6z"/></svg>Watch the experience</a>
         <a class="action-text" href="#game-design">Explore the game</a>
@@ -89,12 +84,25 @@
     </figure>
   </div>
   <dl class="project-facts">
-    <div><dt>My role</dt><dd>Game &amp; interaction design<br>Character direction · Technical art</dd></div>
     <div><dt>Built with</dt><dd>Unity · Blender<br>OpenXR on Quest 3</dd></div>
     <div><dt>At the workbench</dt><dd><a href="#tool-models">22 workshop objects</a><br><a href="#furniture-collection">10 furniture models</a></dd></div>
     <div><dt>In the room</dt><dd><a href="#residents">Meet the five residents</a><br><a href="#shared-life">Explore their daily lives</a></dd></div>
   </dl>
 </section>
+
+<header class="masthead">
+  <div class="mast-inner">
+    <a class="brand" href="#overview" aria-label="TinyRoomies overview"><img src="images/mark.svg" width="30" height="30" alt="">TinyRoomies</a>
+    <span class="chapter-location">Overview</span>
+    <nav class="quick-nav" aria-label="Featured chapters"><a href="#game-design">Game design</a>
+    <a href="#workshop">Workshop</a>
+    <a href="#shared-life">Emotional interaction</a>
+    <a href="#results">Results</a></nav>
+    <button type="button" id="open-index" class="index-trigger" aria-haspopup="dialog" aria-controls="chapter-index">
+      <svg viewBox="0 0 16 16" width="15" height="15" fill="currentColor" aria-hidden="true"><path d="M1 1h5v5H1zm9 0h5v5h-5zM1 10h5v5H1zm9 0h5v5h-5z"/></svg><span>Index</span>
+    </button>
+  </div>
+</header>
 
 <div class="case-story">
 

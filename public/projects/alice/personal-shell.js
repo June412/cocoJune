@@ -27,7 +27,9 @@
   const bottom = footer.attachShadow({ mode: 'open' })
   const projectBar = document.createElement('div')
   projectBar.className = 'personal-project-bar'
-  document.body.prepend(header, projectBar)
+  const backLink = document.createElement('a')
+  backLink.className = 'case-return'
+  document.body.prepend(header)
   document.body.append(footer)
   const shellSheet = tinyRoot ? tinyRoot + '../alice/personal-shell.css' : 'personal-shell.css'
   const shellStyles = `<link rel="stylesheet" href="${shellSheet}"><link rel="stylesheet" href="${projectRoot}../../styles/site-chrome.css">`
@@ -51,7 +53,12 @@
     const zh = next === 'zh'
     header.lang = zh ? 'zh-CN' : 'en'
     footer.lang = header.lang
+    backLink.lang = header.lang
+    projectBar.lang = header.lang
     const url = route => personalRoot + '?lang=' + next + '#' + route
+    const category = categories.find(([route]) => route.endsWith('/' + section))
+    backLink.href = url(category[0])
+    backLink.textContent = '← ' + category[zh ? 2 : 1]
     const link = ([route, en, cn], current) =>
       `<a href="${url(route)}"${current ? ' aria-current="location"' : ''}>${zh ? cn : en}</a>`
     top.innerHTML = shellStyles + `<a class="chrome-skip" href="#main">${zh ? '跳到正文' : 'Skip to content'}</a>
@@ -71,14 +78,21 @@
         ['design-document.html', 'Game design document', '游戏设计文档', 'EN'],
         ['research/joinery-survey.html', 'Joinery research', '榫卯调研', '中文'],
       ]
-      projectBar.lang = header.lang
       projectBar.innerHTML = `<nav aria-label="${zh ? 'TinyRoomies 文档' : 'TinyRoomies documents'}">${documents.map(([file, en, cn, original]) => {
         const path = tinyRoot + file
-        const here = new URL(path, location.href).pathname === location.pathname
-        return `<a href="${path}?lang=${next}"${here ? ' aria-current="page"' : ''}>${zh ? cn : en} <small>${original}</small></a>`
+        if (new URL(path, location.href).pathname === location.pathname) return ''
+        return `<a href="${path}?lang=${next}">${zh ? cn : en} <small>${original}</small></a>`
       }).join('')}</nav>`
     } else if (technical) projectBar.innerHTML = `<a class="personal-project-home" href="index.html?lang=${next}">Textile Studio &amp; Alice</a>`
     remember(next)
+  }
+
+  function placeArticleLinks() {
+    const main = document.getElementById('main')
+    if (!main) return
+    if (main.firstElementChild !== backLink) main.prepend(backLink)
+    const destination = main.querySelector('[data-project-navigation]') || main
+    if (projectBar.parentElement !== destination) destination.append(projectBar)
   }
 
   function adoptProjectNavigation() {
@@ -90,6 +104,7 @@
       home.lang = 'en'
       projectBar.replaceChildren(masthead)
     }
+    placeArticleLinks()
     drawChrome(document.documentElement.lang === 'zh-CN' ? 'zh' : 'en')
   }
 
@@ -137,6 +152,12 @@
   }
   const preferred = savedLanguage()
   if (technical) {
+    placeArticleLinks()
+    const technicalNav = document.getElementById('chapter-select')?.closest('nav')
+    if (technicalNav) {
+      technicalNav.classList.add('case-report-contents')
+      document.getElementById('overview')?.after(technicalNav)
+    }
     const readerLanguage = isLanguage(technicalLanguage) ? technicalLanguage : preferred
     drawChrome(readerLanguage === 'zh' ? 'zh' : 'en')
   } else {

@@ -1,7 +1,7 @@
 /* The parcel story, repair bench and workshop each have a different viewing distance. */
 @media screen {
   .personal-alice[data-page="game"] #main :where(
-    .mending-first-look, .story-arrival ol, alice-commission-route, .step-sequence,
+    .story-arrival ol, alice-commission-route, .step-sequence,
     .mending-triptych, .story-workmat, .repair-methods,
     .doll-models, .story-block, .story-feedback, .window-film,
     alice-weather-comparison, .prop-at-desk
@@ -40,7 +40,7 @@
   .personal-alice[data-page="game"] #main .story-commissions article { align-content: start; }
   .personal-alice[data-page="game"] #main .story-commissions .story-image img { height: 158px; }
   .personal-alice[data-page="game"] #main .repair-method > h3 { margin-bottom: 4px; }
-  .personal-alice[data-page="game"] #main :is(.step-sequence, .window-film, alice-weather-comparison, .mending-first-look) {
+  .personal-alice[data-page="game"] #main :is(.step-sequence, .window-film, alice-weather-comparison) {
     --game-width: min(820px, var(--alice-wide));
   }
   .personal-alice[data-page="game"] #main .sequence-panel .process-row > figure img {
@@ -123,7 +123,7 @@
   }
   .personal-alice[data-page="game"] #main .story-arrival ol { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .personal-alice[data-page="game"] #main .story-arrival li + li::before { display: none; }
-  .personal-alice[data-page="game"] #main :is(.window-film, .mending-first-look, .repair-methods, .story-workmat) {
+  .personal-alice[data-page="game"] #main :is(.window-film, .repair-methods, .story-workmat) {
     /* The painted seam reaches past the image on each side. */
     --game-width: min(var(--alice-wide), 94vw);
   }

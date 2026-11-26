@@ -1,15 +1,21 @@
 /* Keep the reports' screen layouts independent of their original print sheets. */
 @media screen {
-  .alice-technical-doc #main { line-height: 1.5; }
-  .alice-technical-doc #main .chapter { padding-block: 16px; }
-  .alice-technical-doc #main .chapter + .chapter { margin-top: 10px; }
+  .alice-technical-doc #main { line-height: 1.7; }
+  .alice-technical-doc #main .chapter {
+    margin: 38px 0 0;
+    padding: 18px 0 0;
+    border-top: 1px solid var(--line);
+  }
+  .alice-technical-doc #main #overview { margin: 0; padding: 0; border: 0; }
+  .alice-technical-doc #main .grid.hero { grid-template-columns: minmax(0, 1fr); gap: 20px; }
+  .alice-technical-doc #main .grid.hero > .figure { width: 94%; margin-inline: auto; }
   .alice-technical-doc #main .chapter > h2 { margin-bottom: 12px; }
   .alice-technical-doc #main .stack { row-gap: 11px; }
   .alice-technical-doc #main :is(.subsection, .row-rule, .evidence, .archive, .fabric-study) { margin-top: 16px; }
   .alice-technical-doc #main :is(.row-rule, .evidence, .archive, .fabric-study) { padding-top: 12px; }
   .alice-technical-doc #main :is(.window-study, .workshop-comparisons) { margin-bottom: 18px; }
   .alice-technical-doc #main .grid.hero .stack { gap: 8px; }
-  .alice-technical-doc #main .grid.hero h1 { margin: 0; }
+  .alice-technical-doc #main .grid.hero h1 { margin: 18px 0 12px; }
   .alice-technical-doc #main .grid.hero .stack > p { margin-block-start: 0; }
   .alice-technical-doc #main :is(.grid, .controls-result) { column-gap: clamp(16px, 2.8vw, 40px); }
   .alice-technical-doc #main :is(.access-layout, .target-example) {
@@ -32,32 +38,12 @@
 }
 
 @media screen and (min-width: 1000px) {
-  .alice-technical-doc #main .chapter {
-    --report-width: min(1140px, var(--alice-spread));
-    width: var(--report-width);
-    margin-inline: calc((100% - var(--report-width)) / 2);
-  }
-  .alice-technical-doc #main :is(#overview, #workflow, #commissions, #rendering) {
-    --report-width: var(--alice-spread);
-  }
   .alice-technical-doc #main .chapter > .row-rule { padding-top: 14px; margin-top: 16px; }
   .alice-technical-doc #workflow .controls-result > .stack { display: contents; }
   .alice-technical-doc #workflow .controls-result > .stack > p { grid-column: 1 / -1; margin: 0; }
 
-  .alice-technical-doc #main .grid.hero {
-    grid-template-columns: minmax(0, .95fr) minmax(0, 1.2fr);
-    align-items: center;
-    column-gap: clamp(36px, 4vw, 68px);
-  }
-  .alice-technical-doc #main .grid.hero > .figure { grid-area: 1 / 2; }
-  .alice-technical-doc #main .grid.hero > .stack { grid-area: 1 / 1; }
-  .alice-technical-doc #main .grid.hero:has([data-media="room"]) {
-    grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
-  }
-  .alice-technical-doc #main .grid.hero:has([data-media="room"]) > .figure { grid-column: 1; }
-  .alice-technical-doc #main .grid.hero:has([data-media="room"]) > .stack { grid-column: 2; }
   .alice-technical-doc #main #overview > .annotations {
-    grid-template-columns: repeat(5, minmax(0, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
     margin-block-start: 14px;
     padding-top: 14px;
     border-top: 1px dashed var(--line);
@@ -80,16 +66,10 @@
 }
 
 @media screen and (max-width: 999px) {
-  .alice-technical-doc #main .chapter { --report-plate: min(840px, var(--alice-spread)); }
+  .alice-technical-doc #main .chapter { --report-plate: var(--case-width); }
   .alice-technical-doc #main .chapter > .grid.two { grid-template-columns: minmax(0, 1fr); row-gap: 18px; }
 
-  /* Put the first image immediately after the introduction in the single-column layout. */
-  .alice-technical-doc #main .grid.hero { display: flex; flex-direction: column; gap: 8px; }
-  .alice-technical-doc #main .grid.hero > .stack { display: contents; }
-  .alice-technical-doc #main .grid.hero :is(h1, .lead) { order: -2; }
-  .alice-technical-doc #main .grid.hero > .figure { order: -1; margin-block: 3px 6px; }
-
-  .alice-technical-doc #main :is(.grid.hero > .figure, .chapter > .screens, .archive-grid, .doll-pair,
+  .alice-technical-doc #main :is(.chapter > .screens, .archive-grid, .doll-pair,
     .workshop-views, .window-study > .window-film, .chapter > .grid.two > div:not(.screens) > :is(.screens, .diagram, .figure, .controls-result)) {
     width: var(--report-plate);
     margin-inline: calc((100% - var(--report-plate)) / 2);
@@ -111,4 +91,9 @@
   .alice-technical-doc #main .controls-result > .stack > .screens.two { grid-template-columns: minmax(0, 1fr); }
   .alice-technical-doc #main .workshop-views { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
   .alice-technical-doc #main .workshop-views > :first-child { grid-column: 1 / -1; }
+}
+
+@media print {
+  .alice-technical-doc .grid.hero > .figure { grid-area: 1 / 1 / span 2; }
+  .alice-technical-doc .grid.hero > :is(.report-heading, .stack) { grid-column: 2; }
 }

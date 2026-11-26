@@ -47,7 +47,7 @@ npm run preview   # 预览构建结果，需先运行 build
 
 使用 hash 路由，静态托管不需要单独配置页面重写。构建后的资源使用相对路径，可部署到根目录或子目录。
 
-「游戏与 XR」里的 Alice 打开联合首页。「图形与工具」里的 Textile Studio 可直达工具案例。首页、两篇连续阅读的双语案例、两篇英文技术详解及素材位于 `public/projects/alice/`。内容沿用作者更新后的原站，包括 77 秒分章短片、中英文字幕、制作署名、交互演示与可下载的 Mac 试玩包。个人站适配使用同目录的 `personal-shell`、`personal-theme` 和 `personal-media` 文件；全站导航样式共用 `public/styles/site-chrome.css`。正文使用 720px 阅读栏，各页的 `personal-*-layout.css` 单独设置图像、演示与工作台的宽幅布局，最宽可展开到 1240px。游戏使用蓝色缝线，布艺工具使用红色缝线。模型和材质球以透明背景展示。部分 Unity 渲染自带纯色背景，网页使用与原机位一致的轮廓遮罩；界面和场景截图按原图展示。试玩 ZIP 由 Git LFS 管理。
+「游戏与 XR」里的 Alice 打开联合首页。「图形与工具」里的 Textile Studio 可直达工具案例。首页、两篇连续阅读的双语案例、两篇英文技术详解及素材位于 `public/projects/alice/`。内容沿用作者更新后的原站，包括 77 秒分章短片、中英文字幕、制作署名、交互演示与可下载的 Mac 试玩包。个人站适配使用同目录的 `personal-shell`、`personal-theme` 和 `personal-media` 文件；全站导航样式共用 `public/styles/site-chrome.css`。Alice、Textile Studio 和 TinyRoomies 的详情页先显示返回分类、项目标题和简介，再给出文档或章节入口。正文共用最大 720px 的阅读栏，复杂图表、模型和工作台可展开至 920px。游戏使用蓝色缝线，布艺工具使用红色缝线。模型和材质球以透明背景展示。部分 Unity 渲染自带纯色背景，网页使用与原机位一致的轮廓遮罩；界面和场景截图按原图展示。试玩 ZIP 由 Git LFS 管理。
 
 ## 布局检查
 

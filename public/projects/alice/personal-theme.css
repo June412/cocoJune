@@ -32,11 +32,11 @@ body.personal-alice {
   --sewing-ink: var(--ink);
   --sewing-thread: var(--link);
   --sewing-rule: var(--line);
-  --reader-width: 720px;
-  --reader-gutter: 32px;
-  --alice-edge: clamp(20px, 4vw, 64px);
-  --alice-spread: min(1240px, calc(100vw - 2 * var(--alice-edge)));
-  --alice-wide: min(1040px, calc(100vw - 2 * var(--alice-edge)));
+  --reader-width: var(--case-reading, 720px);
+  --reader-gutter: var(--case-gutter, 32px);
+  --alice-edge: var(--reader-gutter);
+  --alice-spread: min(920px, calc(100vw - 2 * var(--alice-edge)));
+  --alice-wide: min(800px, calc(100vw - 2 * var(--alice-edge)));
   margin: 0;
   min-height: 100svh;
   background: var(--paper) url('../../textures/wrinkled-linen-v1.png') repeat center top / 840px;
@@ -70,51 +70,42 @@ body.personal-alice {
     margin-inline: auto;
   }
   .personal-alice #main {
-    padding: 16px 0 28px;
+    padding: 0 0 28px;
     overflow-wrap: break-word;
     animation: alice-content-enter 220ms cubic-bezier(.2,.7,.25,1) backwards;
   }
-  .personal-alice .site-head {
-    background: var(--paper) url('../../textures/wrinkled-linen-v1.png') repeat center top / 840px;
-    border: 0;
-    z-index: 12;
-  }
-  .personal-alice .chapter-links {
-    justify-content: start;
+  .personal-alice .site-head { position: static; min-height: 0; border: 0; }
+  .personal-alice #main .chapter-links {
+    display: flex;
     flex-wrap: wrap;
-    gap: 0 clamp(14px, 2.4vw, 25px);
-    padding-block: 1px;
-    border: 0;
-    border-bottom: 1px dashed #86aab1;
+    justify-content: flex-start;
+    gap: 0 22px;
+    margin: 26px 0 0;
+    padding: 10px 0;
+    border-block: 1px solid var(--line);
     overflow: visible;
   }
-  .personal-alice .chapter-links a {
-    padding: 5px 0 7px;
-    font: 700 19px/1.45 var(--font-hand);
-    color: var(--ink);
-    text-decoration: none;
+  .personal-alice #main :is(.chapter-links, .topic-links) a {
+    display: inline-block;
+    padding: 4px 0;
+    color: var(--link);
+    background: transparent;
+    border: 0;
+    text-decoration: underline;
+    text-underline-offset: .16em;
+    font: inherit;
   }
-  .personal-alice .chapter-links a:lang(zh-CN) { font: 500 15px/1.6 var(--font-body); }
-  .personal-alice .chapter-links a:is([aria-current], :hover, :focus-visible) { color: var(--link); }
-  .personal-alice .chapter-links a::after {
-    bottom: 3px;
-    background: repeating-linear-gradient(110deg, #387995 0 6px, transparent 6px 10px);
-  }
-  .personal-alice .chapter-links a:is(:hover, :focus-visible)::after { transform: scaleX(1); }
-  .personal-alice #main > .section {
-    margin-block-start: clamp(18px, 1.9vw, 28px);
-    padding-block-start: clamp(10px, 1vw, 16px);
-  }
+  .personal-alice #main .chapter-links a::after { content: none; }
+  .personal-alice #main :is(.chapter-links, .topic-links) a[aria-current] { color: var(--ink); }
+  .personal-alice #main > .section { border: 0; margin-top: 28px; padding: 0; }
   .personal-alice #main > .section.chapter-start {
-    margin-block-start: clamp(24px, 2.6vw, 38px);
-    padding-block-start: clamp(14px, 1.3vw, 20px);
+    margin-top: 38px;
+    padding-top: 18px;
+    border-top: 1px solid var(--line);
   }
   .personal-alice #main .section-head { margin-bottom: 12px; }
-  .personal-alice #main .section-head:has(+ .topic-links) { margin-bottom: 4px; }
-  .personal-alice #main .topic-links { gap: 2px 18px; margin-bottom: 12px; }
-  .personal-alice #main > .next-project { margin-top: 24px; padding-block: 10px; }
-  .personal-alice .topic-links a { color: var(--link); }
-  .personal-alice .topic-links a[aria-current] { color: var(--ink); border-color: var(--ink); }
+  .personal-alice #main .topic-links { gap: 0 18px; margin-bottom: 12px; font-size: 16px; }
+  .personal-alice #main > .next-project { margin-top: 38px; padding-top: 18px; }
 
   .personal-alice #main :is(h1, h2, h3, h4) {
     color: var(--ink);
@@ -123,10 +114,9 @@ body.personal-alice {
   }
   .personal-alice #main h1 { font: 700 clamp(38px, 7vw, 64px)/1.1 var(--font-hand); }
   .personal-alice #main h2 { font: 700 32px/1.2 var(--font-hand); }
-  .personal-alice #main .chapter-name { font-size: clamp(32px, 4vw, 42px); }
-  .personal-alice #main .topic-name:lang(zh-CN),
+
   .personal-alice #main h2:lang(zh-CN) { font: 650 24px/1.4 var(--font-body); }
-  .personal-alice #main .chapter-name:lang(zh-CN) { font-size: clamp(26px, 3.4vw, 34px); }
+  .personal-alice #main .section-head .topic-name { font: 700 20px/1.4 var(--font-prose); }
   .personal-alice #main :is(h3, h4) { font-family: var(--font-prose); font-weight: 700; line-height: 1.4; }
   .personal-alice #main h3 { font-size: 20px; }
   .personal-alice #main h4 { font-size: 18px; }
@@ -163,8 +153,9 @@ body.personal-alice {
   .personal-alice #main .making-credits dt { color: var(--ink); }
   .personal-alice #main .making-credits a { color: var(--link); }
   .personal-alice #main :is(.overview-game, .overview-tool) { grid-template-columns: minmax(0,1fr); gap: 14px; }
-  .personal-alice #main .hero-intro h1 { margin-bottom: 10px; }
-  .personal-alice #main .hero-intro, .personal-alice #main .hero-intro .lead { max-width: 67ch; }
+  .personal-alice #main .hero-intro h1 { margin: 18px 0 12px; }
+  .personal-alice #main .hero-intro { max-width: none; }
+  .personal-alice #main .hero-intro .lead { max-width: 70ch; }
   .personal-alice #main :is(.mending-first-look, .tool-opening-piece) { grid-column: 1; grid-row: auto; width: 100%; max-width: 100%; }
   .personal-alice #main .mending-first-frame { width: 94%; margin: clamp(12px, 2vw, 22px) auto; }
   .personal-alice .mending-first-frame::before {
@@ -266,7 +257,6 @@ body.personal-alice {
   .alice-technical-doc #main .chapter { padding-block: 26px; }
   .alice-technical-doc #main .grid.hero, .alice-technical-doc #main .grid.wide-left,
   .alice-technical-doc #main .grid.wide-right { grid-template-columns: minmax(0,1fr); }
-  .alice-technical-doc #main .grid.hero .stack { grid-row: 1; }
   .alice-technical-doc #main .table-wrap { max-width: 100%; overflow-x: auto; }
   .alice-technical-doc #main .code { background: var(--panel); border-left-color: var(--line); }
   .alice-technical-doc #main .annotations { grid-template-columns: repeat(auto-fit, minmax(min(100%, 140px),1fr)); }
@@ -291,9 +281,8 @@ body.personal-alice {
   .personal-alice #main .ts-reuse, .personal-alice #main .ts-chart-study { grid-template-columns: minmax(0,1fr); }
 }
 @media screen and (max-width:700px) {
-  body.personal-alice { --reader-width: 480px; --reader-gutter: 24px; --alice-edge: 12px; }
-  .personal-alice #main { padding: 12px 0 22px; }
-  .personal-alice #main h1 { font-size: clamp(35px, 8vw, 46px); }
+  body.personal-alice { --reader-width: var(--case-reading, 480px); --reader-gutter: var(--case-gutter, 24px); --alice-spread: var(--case-width); --alice-wide: var(--case-width); }
+  .personal-alice #main { padding-bottom: 22px; }
   .personal-alice .chapter-links a { font-size: 17px; padding-block: 6px; }
   .personal-alice .chapter-links a:lang(zh-CN) { font-size: 14px; }
   .personal-alice #main .story-figures { gap: 8px; }
@@ -323,3 +312,5 @@ body.personal-alice {
 @media print {
   body.personal-alice { color: #242a26; background: white; }
 }
+
+@media print { .personal-alice .chapter-links { display: none; } }

@@ -21,46 +21,43 @@
 @media (max-width: 700px) { :host(:lang(zh-CN)) { --small-size: 12px; } }
 @media print { :host { display: none; } }
 
+/* Use the same two navigation rows and header spacing as the React detail pages. */
 @media screen {
-  :host .site-header { padding-top: 12px; }
-  :host .language-switch { top: 14px; }
-  :host .header-navigation { gap: 0; margin-top: 3px; }
-  :host :is(.main-nav, .secondary-nav, .category-nav-slot) { min-height: 34px; }
-  :host :is(.main-nav, .secondary-nav) a { padding-block: 4px; }
-}
-@media screen and (min-width: 880px) {
-  :host .header-navigation {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 18px;
+  :is(body.personal-alice, body.personal-roomies) {
+    --case-reading: 720px;
+    --case-gutter: 32px;
+    --case-width: min(var(--case-reading), calc(100vw - 2 * var(--case-gutter)));
   }
-  :host .category-nav-slot {
-    padding-inline-start: 18px;
-    border-inline-start: 1px dashed var(--line);
+  body > .personal-site-chrome:first-child { margin-block-end: 52px; }
+  :is(.personal-alice, .personal-roomies) #main > .case-return {
+    display: block;
+    width: min(100%, var(--case-width));
+    margin: 0 auto 14px;
+    color: var(--muted);
+    text-decoration: underline;
+    text-underline-offset: .16em;
+    font: 700 18px/1.5 var(--font-hand, var(--hand));
+  }
+  :is(.personal-alice, .personal-roomies) #main > .case-return:lang(zh-CN) {
+    font: 400 13px/1.5 var(--font-body, var(--body));
+  }
+  :is(.personal-alice, .personal-roomies) #main > .case-return:is(:hover, :focus-visible) { color: var(--link); }
+  .roomies-case #main > .case-return {
+    width: min(var(--case-reading), calc(100% - 2 * var(--case-gutter)));
   }
 }
 @media screen and (max-width: 700px) {
-  :host .site-header { padding-top: 6px; }
-  :host .language-switch { top: 4px; }
-  :host .header-navigation { margin-top: 0; }
-  :host :is(.main-nav, .secondary-nav) a { min-height: 40px; padding-block: 5px; }
-  :host .secondary-nav--works { display: flex; gap: 0 10px; }
+  :is(body.personal-alice, body.personal-roomies) { --case-reading: 480px; --case-gutter: 24px; }
+  body > .personal-site-chrome:first-child { margin-block-end: 42px; }
 }
-@media screen and (max-width: 450px) {
-  :host .secondary-nav--works { margin-inline: -9px; column-gap: 6px; }
-  :host .secondary-nav--works a:lang(en) { font-size: 16px; padding-inline: 1px; }
-}
-@media screen and (max-width: 380px) {
-  :host .site-name { align-self: flex-start; padding-inline-start: 0; }
+@media print {
+  .case-return, .personal-project-bar, .case-report-contents { display: none; }
 }
 
-/* Project-level destinations and the original More menu sit below the global
-   navigation. Only the chapter index follows the reader down the page. */
 body.personal-alice .site-head .masthead, body.personal-alice .personal-project-bar .lang-controls { display: none; }
 body.personal-alice #app > .skip, body.personal-alice.alice-technical-doc > .skip-link { display: none; }
 body.personal-alice .site-head:has(.head-inner:empty) { border: 0; }
-body.personal-alice .personal-project-bar { width: min(720px, calc(100% - 64px)); margin: 12px auto 0; }
+body.personal-alice .personal-project-bar { width: 100%; margin: 12px 0; }
 body.personal-alice .personal-project-bar .masthead {
   display: flex; align-items: center; gap: 4px 20px; flex-wrap: wrap; min-height: 0; margin: 0; padding: 0;
 }
@@ -71,23 +68,24 @@ body.personal-alice .personal-project-bar .projects { display: flex; gap: 14px; 
 body.personal-alice .personal-project-bar .projects a { padding: 4px 0; }
 body.personal-alice .personal-project-bar :is(a:hover, a[aria-current], summary:hover) { color: var(--link); }
 body.personal-alice .personal-project-bar .wordmark, body.personal-alice .personal-project-home { text-decoration: underline; text-underline-offset: 4px; color: var(--muted); }
-body.personal-alice .personal-project-bar .utilities { margin: 0 0 0 auto; }
+body.personal-alice .personal-project-bar .utilities { margin: 0; }
 body.personal-alice .personal-project-bar .more-views { z-index: 20; }
 body.personal-alice .personal-project-bar .more-views > div { background: var(--paper); border-color: var(--line); }
 body.personal-alice .personal-project-bar .more-views :is(a,button) { font: 400 16px/1.5 var(--font-prose, Georgia, serif); color: var(--link); }
 body.personal-alice:lang(zh-CN) .personal-project-bar :is(.projects a, .more-views summary, .more-views a, .more-views button) { font: 400 15px/1.5 var(--font-body); }
 body.personal-alice .personal-site-bottom { margin-top: 12px; }
-@media (max-width: 700px) {
-  body.personal-alice .personal-project-bar { width: min(480px, calc(100% - 48px)); margin-top: 6px; }
-  body.personal-alice .personal-project-bar .masthead { gap: 4px 12px; }
+@media screen {
+  body.personal-alice .personal-project-bar .masthead { justify-content: flex-start; }
+  body.personal-alice .personal-project-bar .projects a[aria-current] { display: none; }
+  body.personal-alice #main > .personal-project-bar { margin-top: 38px; padding-top: 18px; border-top: 1px solid var(--line); }
+  body.personal-alice #main .case-report-contents {
+    position: static; display: flex; flex-wrap: wrap; align-items: baseline;
+    width: 100%; margin: 24px 0 32px; padding: 9px 0; gap: 6px 20px;
+    background: transparent; border-block: 1px dashed var(--line);
+    font: 400 17px/1.5 var(--font-prose);
+  }
+  .case-report-contents :is(a, button, select) { color: var(--link); }
 }
 @media print {
   body.personal-alice .personal-project-bar, body.personal-alice .personal-site-chrome { display: none; }
-}
-@media screen and (min-width: 701px) {
-  body.personal-alice .personal-project-bar,
-  body.personal-alice .site-head .head-inner { width: var(--alice-spread); }
-  body.personal-alice.alice-technical-doc > nav {
-    padding-inline: max(var(--alice-edge), calc((100% - var(--alice-spread)) / 2));
-  }
 }

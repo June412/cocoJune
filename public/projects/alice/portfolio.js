@@ -98,7 +98,7 @@
       if (!frame) frame = requestAnimationFrame(updateContents);
     }
     function measureHeader() {
-      readingLine = Math.ceil(header.getBoundingClientRect().height) + 14;
+      readingLine = getComputedStyle(header).position === 'sticky' ? Math.ceil(header.getBoundingClientRect().height) + 14 : 14;
       document.documentElement.style.setProperty('--nav-offset', readingLine + 'px');
       queueUpdate();
     }
