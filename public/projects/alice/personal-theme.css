@@ -72,25 +72,43 @@ body.personal-alice {
     overflow-wrap: break-word;
     animation: alice-content-enter 220ms cubic-bezier(.2,.7,.25,1) backwards;
   }
-  .personal-alice #main .project-pages {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0 clamp(14px, 3vw, 28px);
-    margin: 18px 0 8px;
-    border-bottom: 1px solid var(--line);
+  .project-reader {
+    display: grid;
+    grid-template-columns: clamp(124px, 16vw, 202px) minmax(0, 1fr);
+    column-gap: clamp(18px, 2.5vw, 36px);
+    width: min(1140px, calc(100% - 2 * var(--reader-gutter)));
+    margin-inline: auto;
   }
-  .personal-alice #main .project-pages a {
-    display: inline-flex;
+  .reader-column { container-type: inline-size; }
+  .personal-alice .reader-column #main {
+    width: min(100%, var(--reader-width));
+    --alice-wide: min(800px, 100cqi);
+    --alice-spread: min(920px, 100cqi);
+  }
+  .project-pages {
+    position: sticky;
+    top: 24px;
+    align-self: start;
+    display: flex;
+    flex-direction: column;
+    margin-block-start: 36px;
+    max-height: calc(100dvh - 48px);
+    overflow-y: auto;
+  }
+  .project-pages a {
+    display: flex;
     align-items: center;
     min-height: 44px;
-    margin-bottom: -1px;
-    border-bottom: 2px solid transparent;
+    padding: 6px 4px 6px 14px;
+    border-inline-start: 2px solid var(--line);
     color: var(--link);
-    font: 600 16px/1.35 var(--font-prose);
+    font: 600 17px/1.3 var(--font-prose);
     text-decoration: none;
   }
-  .personal-alice #main .project-pages a:hover { text-decoration: underline; }
-  .personal-alice #main .project-pages [aria-current] { color: var(--ink); border-color: currentColor; }
+  .project-pages a:hover { text-decoration: underline; text-underline-offset: .16em; }
+  .project-pages a:focus-visible { outline-offset: -2px; }
+  .project-pages a[aria-current] { color: var(--ink); border-color: currentColor; }
+  .project-pages .compact-label { display: none; }
   .personal-alice #main .reader-heading { margin: 18px 0 0; }
   .personal-alice #main .reader-heading h1 { margin: 6px 0 12px; }
   .personal-alice #main .reader-heading h1:lang(zh-CN) { font: 700 clamp(30px, 5vw, 44px)/1.25 var(--font-body); }
@@ -272,6 +290,16 @@ body.personal-alice {
 }
 @media screen and (max-width:700px) {
   body.personal-alice { --reader-width: var(--case-reading, 480px); --reader-gutter: var(--case-gutter, 24px); --alice-spread: var(--case-width); --alice-wide: var(--case-width); }
+  .project-reader {
+    width: min(620px, calc(100% - 24px));
+    grid-template-columns: 54px minmax(0, 1fr);
+    column-gap: clamp(10px, 2.5vw, 16px);
+  }
+  .project-pages { top: 12px; max-height: calc(100dvh - 24px); }
+  .project-pages a { padding-inline: 6px 2px; font-size: 14px; }
+  .reader-column .gallery-pager { flex-wrap: wrap; }
+  .project-pages .page-label { display: none; }
+  .project-pages .compact-label { display: inline; }
   .personal-alice #main { padding-bottom: 22px; }
   .personal-alice .chapter-links a { font-size: 17px; padding-block: 6px; }
   .personal-alice .chapter-links a:lang(zh-CN) { font-size: 14px; }

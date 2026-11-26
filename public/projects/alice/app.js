@@ -23,16 +23,16 @@ function section(id,zh,en,subzh,suben,body) {
 }
 const compare=(a,b,zh,en)=>`<figure class="study"><div class="compare" style="--split:50%">${img(M[b],t(zh,en)+' · '+t('调整后','After'))}<div class="compare-top">${img(M[a],t(zh,en)+' · '+t('调整前','Before'))}</div><span class="compare-line"></span><span class="compare-handle">↔</span><span class="compare-label before">${t('调整前','Before')}</span><span class="compare-label after">${t('调整后','After')}</span><input type="range" min="0" max="100" value="50" aria-label="${esc(t('拖动比较：','Compare: ')+t(zh,en))}"></div><figcaption class="caption">${t(zh,en)}<span>${t('拖动分界线','Drag to compare')}</span></figcaption></figure>`;
 const views = page === 'game' ? [
-    { id: 'design', label: ['游戏设计', 'Game design'], sections: ['overview', 'arrival', 'alice', 'panda'] },
-    { id: 'interaction', label: ['修补机制', 'Repair mechanics'], sections: ['play', 'mechanics'],
+    { id: 'design', label: ['游戏设计', 'Game design'], shortLabel: ['设计', 'Design'], sections: ['overview', 'arrival', 'alice', 'panda'] },
+    { id: 'interaction', label: ['修补机制', 'Repair mechanics'], shortLabel: ['修补', 'Repair'], sections: ['play', 'mechanics'],
       lead: ['玩家的落针位置、换边顺序和拉线力度都影响修补。下面的操作演示展示每种输入如何判定，以及玩家怎样知道下一步该做什么。', 'Each repair depends on where the needle enters, when the player switches sides and how tightly they pull. The clips show how the game checks those actions and signals the next move.'] },
-    { id: 'technology', label: ['技术实现', 'Technical implementation'], sections: ['doll', 'workshop', 'thread-state', 'history', 'making-credits'],
+    { id: 'technology', label: ['技术实现', 'Technical implementation'], shortLabel: ['技术', 'Tech'], sections: ['doll', 'workshop', 'thread-state', 'history', 'making-credits'],
       lead: ['填棉会改变脸颊的形状。游戏在未变形的布面上记录针位，让针脚始终贴住缝口。可以查看模型与针线的绘制、<a href="#workshop">工坊的声光</a>，以及<a href="#thread-state">暂停后怎样续上这一针</a>。', 'Stuffing changes the shape of the cheek. Needle positions are stored on the undeformed cloth so the next stitch still lands on the seam. Explore the model and thread, <a href="#workshop">light and sound at the desk</a>, and <a href="#thread-state">how the game resumes a stitch</a>.'] }
 ] : [
-    { id: 'design', label: ['工具设计', 'Tool design'], sections: ['overview', 'development', 'materials'] },
-    { id: 'guide', label: ['制作教程', 'Making guide'], sections: ['workflow', 'cushion', 'cases', 'delivery'],
+    { id: 'design', label: ['工具设计', 'Tool design'], shortLabel: ['设计', 'Design'], sections: ['overview', 'development', 'materials'] },
+    { id: 'guide', label: ['制作教程', 'Making guide'], shortLabel: ['教程', 'Guide'], sections: ['workflow', 'cushion', 'cases', 'delivery'],
       lead: ['跟着<a href="#cushion">植物刺绣抱枕的八个步骤</a>做一遍。在工作台选定布面，描出叶片，做好锁边，再把成品导出为 Unity 道具。', 'Follow the <a href="#cushion">eight steps of the botanical cushion</a> from cloth to game prop. Choose the surface, trace a leaf, bind the edge and export the finished piece for Unity.'] },
-    { id: 'archive', label: ['测试与作品', 'Tests & works'], sections: ['trial', 'results', 'bridge', 'works', 'making-credits'],
+    { id: 'archive', label: ['测试与作品', 'Tests & works'], shortLabel: ['作品', 'Works'], sections: ['trial', 'results', 'bridge', 'works', 'making-credits'],
       lead: ['用《夜航》抱枕检验作品重开后能否继续修改，再看串珠预览的耗时，以及五件道具导入游戏后的表现。也可以直接<a href="#works">按工艺浏览作品</a>。', 'The Night Crossing cushion tests whether a saved piece can still be edited. Bead-preview timings and five props imported into the game show how the workbench performs. You can also <a href="#works">browse the collection by technique</a>.'] }
 ];
 const projectName = page === 'game' ? 'Alice · Mending Workshop' : 'Textile Studio';
@@ -46,7 +46,11 @@ function viewHref(view, anchor = '') {
 }
 
 function viewNavigation() {
-    const links = views.map(view => `<a href="${viewHref(view)}" ${view === currentView ? 'aria-current="page"' : ''}>${t(...view.label)}</a>`);
+    const links = views.map(view => {
+        const label = t(...view.label);
+        return `<a href="${viewHref(view)}" aria-label="${label}" ${view === currentView ? 'aria-current="page"' : ''}>
+            <span class="page-label">${label}</span><span class="compact-label">${t(...view.shortLabel)}</span></a>`;
+    });
     return `<nav class="project-pages" aria-label="${t('项目分页','Project pages')}">${links.join('')}</nav>`;
 }
 
@@ -92,12 +96,10 @@ function mountView() {
     document.title = (currentView === views[0] ? projectName : t(...currentView.label) + ' · ' + projectName) + ' — Junyan He';
     document.getElementById('app').innerHTML = shell();
     const main = document.getElementById('main');
-    if (currentView === views[0]) {
-        sections.get('overview').querySelector('.hero-intro').insertAdjacentHTML('beforeend', viewNavigation());
-    } else {
+    if (currentView !== views[0]) {
         main.insertAdjacentHTML('beforeend', `<header class="reader-heading" id="view-${currentView.id}">
             <a class="reader-project" href="${viewHref(views[0])}">${projectName}</a><h1>${t(...currentView.label)}</h1>
-            <p class="lead">${t(...currentView.lead)}</p>${viewNavigation()}</header>`);
+            <p class="lead">${t(...currentView.lead)}</p></header>`);
     }
     main.append(...currentView.sections.map(id => sections.get(id)));
     for (const link of main.querySelectorAll('a[href^="#"]')) {
@@ -121,7 +123,10 @@ function projectCredits(){
     </section>`;
 }
 
-function shell(){return `<main class="main" id="main" tabindex="-1"></main><dialog class="lightbox" aria-labelledby="dialog-title"><div class="dialog-bar"><span id="dialog-kind"></span><div class="image-tools" role="group" aria-label="${t('图片缩放','Image zoom')}"><button type="button" data-inspect="out" aria-label="${t('缩小','Zoom out')}">−</button><output data-zoom-level aria-live="off">100%</output><button type="button" data-inspect="in" aria-label="${t('放大','Zoom in')}">+</button><button type="button" data-inspect="fit">${t('适应窗口','Fit')}</button></div><button autofocus class="dialog-close" aria-label="${t('关闭','Close')}">×</button></div><div class="dialog-layout"><div class="dialog-view browse-frame"><div class="inspection-stage" tabindex="0" role="group" aria-label="${t('查看图片细节','Inspect image details')}"><img id="dialog-image" alt="" draggable="false"></div><button type="button" class="dialog-arrow dialog-prev browse-arrow browse-prev" aria-controls="dialog-image" aria-label="${t('上一张','Previous image')}"></button><button type="button" class="dialog-arrow dialog-next browse-arrow browse-next" aria-controls="dialog-image" aria-label="${t('下一张','Next image')}"></button></div><div class="dialog-info"><h2 id="dialog-title"></h2><p id="dialog-description"></p><p id="dialog-provenance"></p><div class="view-count" id="dialog-count" aria-live="polite" aria-atomic="true"></div><div class="dialog-thumbs"></div><a class="text-link" id="dialog-original" target="_blank" rel="noopener">${t('打开大图','Open full image')} ↗</a></div></div></dialog>`;}
+function shell(){return `<div class="project-reader">
+    ${viewNavigation()}
+    <div class="reader-column"><main class="main" id="main" tabindex="-1"></main></div>
+</div><dialog class="lightbox" aria-labelledby="dialog-title"><div class="dialog-bar"><span id="dialog-kind"></span><div class="image-tools" role="group" aria-label="${t('图片缩放','Image zoom')}"><button type="button" data-inspect="out" aria-label="${t('缩小','Zoom out')}">−</button><output data-zoom-level aria-live="off">100%</output><button type="button" data-inspect="in" aria-label="${t('放大','Zoom in')}">+</button><button type="button" data-inspect="fit">${t('适应窗口','Fit')}</button></div><button autofocus class="dialog-close" aria-label="${t('关闭','Close')}">×</button></div><div class="dialog-layout"><div class="dialog-view browse-frame"><div class="inspection-stage" tabindex="0" role="group" aria-label="${t('查看图片细节','Inspect image details')}"><img id="dialog-image" alt="" draggable="false"></div><button type="button" class="dialog-arrow dialog-prev browse-arrow browse-prev" aria-controls="dialog-image" aria-label="${t('上一张','Previous image')}"></button><button type="button" class="dialog-arrow dialog-next browse-arrow browse-next" aria-controls="dialog-image" aria-label="${t('下一张','Next image')}"></button></div><div class="dialog-info"><h2 id="dialog-title"></h2><p id="dialog-description"></p><p id="dialog-provenance"></p><div class="view-count" id="dialog-count" aria-live="polite" aria-atomic="true"></div><div class="dialog-thumbs"></div><a class="text-link" id="dialog-original" target="_blank" rel="noopener">${t('打开大图','Open full image')} ↗</a></div></div></dialog>`;}
 
 const para=(zh,en)=>`<p>${t(zh,en)}</p>`;
 const wfig=(id,zh,en,index=0)=>{const w=work(id);return `<figure><button class="image-button" data-work="${id}" aria-label="${esc(t(zh,en))}">${img(w.images[index]||w.images[0],t(zh,en))}</button><figcaption class="caption">${t(zh,en)}</figcaption></figure>`};
