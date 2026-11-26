@@ -25,8 +25,6 @@
   footer.className = 'personal-site-chrome personal-site-bottom'
   const top = header.attachShadow({ mode: 'open' })
   const bottom = footer.attachShadow({ mode: 'open' })
-  const projectBar = document.createElement('div')
-  projectBar.className = 'personal-project-bar'
   const backLink = document.createElement('a')
   backLink.className = 'case-return'
   document.body.prepend(header)
@@ -38,7 +36,7 @@
     · <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noreferrer">CC BY-SA 4.0</a></span></footer>`
 
   const isLanguage = value => value === 'zh' || value === 'en'
-  let language
+  let language, unmountThread
   const mainLinks = [
     ['/projects', 'Works', '项目'], ['/gallery', 'Gallery', '画廊'], ['/research', 'Research', '研究'],
   ]
@@ -54,7 +52,6 @@
     header.lang = zh ? 'zh-CN' : 'en'
     footer.lang = header.lang
     backLink.lang = header.lang
-    projectBar.lang = header.lang
     const url = route => personalRoot + '?lang=' + next + '#' + route
     const category = categories.find(([route]) => route.endsWith('/' + section))
     backLink.href = url(category[0])
@@ -73,19 +70,16 @@
           <span aria-hidden="true">/</span><button type="button" lang="zh-CN" data-language="zh" aria-label="中文" aria-pressed="${zh}">中文</button>
         </div></header>`
     if (tinyRoot) {
-      const documents = [
-        ['index.html', 'Case study', '项目案例', 'EN'],
-        ['design-document.html', 'Game design document', '游戏设计文档', 'EN'],
-        ['research/joinery-survey.html', 'Joinery research', '榫卯调研', '中文'],
-      ]
-      projectBar.innerHTML = `<nav aria-label="${zh ? 'TinyRoomies 文档' : 'TinyRoomies documents'}">${documents.map(([file, en, cn, original]) => {
-        const path = tinyRoot + file
-        if (new URL(path, location.href).pathname === location.pathname) return ''
-        return `<a href="${path}?lang=${next}">${zh ? cn : en} <small>${original}</small></a>`
-      }).join('')}</nav>`
-    } else if (technical) {
-      const title = toolsProject ? 'Textile Studio' : 'Alice · Mending Workshop'
-      projectBar.innerHTML = `<a class="personal-project-home" href="${toolsProject ? 'toolkit' : 'game'}.html?lang=${next}">${zh ? '返回' : 'Back to'} ${title}</a>`
+      unmountThread?.()
+      unmountThread = window.ProjectThread.mount(document.querySelector('.thread-host'), document.getElementById('main'), [
+        ['overview', 'Game design', '游戏设计', 'Design', '设计'],
+        ['research', 'Joinery research', '榫卯调研', 'Joints', '榫卯'],
+        ['workshop', 'Workshop & tools', '工坊与工具', 'Tools', '工具'],
+        ['household', 'Furniture & space', '家具与空间', 'Space', '空间'],
+        ['residents', 'Life with residents', '住客与互动', 'Life', '住客'],
+        ['iteration', 'Testing & results', '迭代与成果', 'Tests', '成果'],
+        ['design-document', 'Design notes', '设计文档', 'Notes', '文档']
+      ], next)
     }
     remember(next)
   }
@@ -94,8 +88,6 @@
     const main = document.getElementById('main')
     if (!main) return
     if (main.firstElementChild !== backLink) main.prepend(backLink)
-    const destination = main.querySelector('[data-project-navigation]')
-    if (destination && projectBar.parentElement !== destination) destination.append(projectBar)
   }
 
   function setLanguage(next) {

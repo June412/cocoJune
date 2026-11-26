@@ -12,7 +12,7 @@ export default function GraphicsReportPage({ id, title }: { id: ReportId; title:
   const visual = projectVisuals[id]
   const isCard = id === 'opengl-2d-greeting-card'
   return <article className="graphics-report">
-    <header>
+    <header id="project-film">
       <a className="eyebrow" href="#/projects/category/tools">← {t('Graphics & tools', '图形与工具')}</a>
       <h1 className="coursework-title" lang="en">{title}</h1>
       {visual.link && <a className="text-link" href={visual.link.href} target="_blank" rel="noreferrer"><GitHubIcon /> GitHub ↗</a>}

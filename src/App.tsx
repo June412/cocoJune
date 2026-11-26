@@ -1,5 +1,7 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import SiteLayout from './layouts/SiteLayout'
+import ProjectReader from './components/ProjectReader'
+import ProjectBrief from './pages/ProjectBrief'
 import HomePage from './pages/HomePage'
 import { ProjectsPage } from './pages/WorkPages'
 import ResearchPage from './pages/ResearchPage'
@@ -7,7 +9,7 @@ import GalleryPage from './pages/GalleryPage'
 import GraphicsReportPage from './pages/GraphicsReportPage'
 import HoldLightPage from './pages/HoldLightPage'
 import XrayPage from './pages/XrayPage'
-import { portfolioDocumentUrl, hasProjectPage } from './data/projectRoutes'
+import { portfolioDocumentUrl } from './data/projectRoutes'
 import { isReportId } from './data/graphicsReports'
 import { SiteContext } from './lib/SiteContext'
 import { copy, galleryCategories, projectIndex, workCategories, type Language } from './data/content'
@@ -21,12 +23,7 @@ const redirects = new Map([
 const currentPath = () => window.location.hash.slice(1).split('#', 1)[0].replace(/\/$/, '') || '/'
 const getRoute = () => {
   const route = currentPath()
-  const redirect = redirects.get(route)
-  if (redirect) return redirect
-  // Old project bookmarks open the relevant collection instead of a detail page.
-  const previousProject = projectIndex.find((item) => route === `/projects/${item.id}`)
-  return previousProject && !hasProjectPage(previousProject.id)
-    ? `/projects/category/${previousProject.category}` : route
+  return redirects.get(route) ?? route
 }
 function initialLanguage(): Language {
   const requested = new URLSearchParams(window.location.search).get('lang')
@@ -105,6 +102,7 @@ export default function App() {
   if (route === '/') page = <HomePage />
   else if (detailProject?.id === 'holdlight') page = <HoldLightPage />
   else if (detailProject?.id === 'x-ray') page = <XrayPage />
+  else if (detailProject?.id === 'between-sips' || detailProject?.id === 'perspective-freeze') page = <ProjectBrief id={detailProject.id} />
   else if (detailProject && isReportId(detailProject.id))
     page = <GraphicsReportPage id={detailProject.id} title={detailProject.title} />
   else if (route === '/projects' || workCategory)
@@ -129,7 +127,7 @@ export default function App() {
     )
   return (
     <SiteContext.Provider value={{ language, setLanguage }}>
-      <SiteLayout route={route} projectCategory={detailProject?.category}>{page}</SiteLayout>
+      <SiteLayout route={route} projectCategory={detailProject?.category}>{detailProject ? <ProjectReader id={detailProject.id}>{page}</ProjectReader> : page}</SiteLayout>
     </SiteContext.Provider>
   )
 }

@@ -1,0 +1,69 @@
+@font-face { font-family: 'Rail handwriting'; src: url('../fonts/PatrickHand-Regular.ttf') format('truetype'); font-display: swap; }
+@font-face { font-family: 'Rail brush'; src: url('../fonts/MaShanZheng-navigation.ttf?v=8da0e1be2a') format('truetype'); font-display: swap; }
+@media screen {
+  .is-work #main-content:has(.thread-layout) { width: min(1200px, calc(100% - 56px)); }
+  .thread-layout, .personal-alice .thread-layout {
+    width: min(1200px, calc(100% - 56px)); margin-inline: auto; display: grid;
+    grid-template-columns: clamp(150px, 18vw, 218px) minmax(0, 1fr);
+    gap: clamp(22px, 3vw, 48px); align-items: start;
+  }
+  .is-work #main-content .thread-layout { width: 100%; }
+  .thread-copy, .thread-host { min-width: 0; }
+  .thread-host { margin-top: 24px; height: 1px; }
+  .thread-nav { position: fixed; z-index: 4; box-sizing: border-box; --fibre-width: clamp(32px, 3.7vw, 50px); }
+  .thread-strand { position: absolute; inset: 0 auto 0 0; width: var(--fibre-width); pointer-events: none; }
+  .thread-strand::before, .thread-strand::after { content: ''; position: absolute; inset: 0; background: var(--yarn-art) center / 100% 100% no-repeat; }
+  .thread-strand::before { filter: drop-shadow(.5px 1px .55px #72553170); }
+  .thread-strand::after { filter: sepia(1) saturate(6) hue-rotate(145deg) brightness(.65) drop-shadow(.35px 0 .3px #146989); clip-path: inset(0 0 calc(100% - var(--thread-y)) 0); }
+  .thread-nav .thread-button { position: absolute; z-index: 1; width: clamp(18px, 2vw, 27px); height: auto; max-width: none; left: var(--thread-x); top: var(--thread-y); transform: translate(-50%, -50%) rotate(-4deg); filter: drop-shadow(0 2px 1px #51352459); }
+  .thread-nav ol { position: absolute; inset: 0 0 7% calc(var(--fibre-width) + 11px); display: flex; flex-direction: column; justify-content: space-between; padding: 0; margin: 0; list-style: none; }
+  .thread-nav li { margin: 0; padding: 0; list-style: none; }
+  .thread-nav a, .personal-roomies .thread-nav a {
+    color: var(--link, #007697); text-decoration: none; background: none; border: 0; padding: 4px 0; margin: 0;
+    display: inline-flex; align-items: center; min-height: 30px; box-sizing: border-box;
+    font: 400 clamp(18px, 1.85vw, 25px)/1.12 'Rail handwriting', 'Rail brush', 'Kaiti SC', cursive;
+    transition: color .28s, transform .35s cubic-bezier(.2,.7,.2,1); text-align: left;
+  }
+  .thread-nav a:hover, .thread-nav a:focus-visible { text-decoration: underline; text-underline-offset: .18em; }
+  .thread-nav a[aria-current], .personal-roomies .thread-nav a[aria-current] { color: var(--ink, #5b4035); transform: translateX(2px) rotate(-1deg); }
+  .thread-short { display: none; }
+  .personal-alice .thread-copy #main > .section.thread-chapter { margin-block-start: clamp(48px, 7vh, 88px); }
+  .thread-copy .brief-project header > p { color: var(--muted); font-size: .75em; }
+  .thread-copy [id] { scroll-margin-block-start: min(17vh, 120px); }
+  .roomies-case .thread-layout #main { min-width: 0; width: 100%; --story-gutter: 0px; }
+  .thread-copy .case-notes { margin: clamp(55px, 7vw, 96px) auto 28px; max-width: 720px; }
+  .thread-copy .case-notes > h2 { margin-bottom: 1em; }
+  .thread-copy .case-notes details { margin: 16px 0; padding: 12px 0; border-block-start: 1px dashed var(--line); }
+  .thread-copy .case-notes summary { cursor: pointer; font-size: 1.15em; color: var(--link); }
+  .thread-copy .case-notes :is(figure, pre, table, svg, video, img) { max-width: 100%; }
+  .thread-copy .case-notes pre, .thread-copy .case-notes .table-wrap { overflow-x: auto; }
+  .thread-copy .case-notes table { border-collapse: collapse; font-size: .93em; }
+  .thread-copy .case-notes :is(th, td) { padding: .45em; border-bottom: 1px solid var(--line); vertical-align: top; }
+  .thread-copy .case-notes figure { margin: 1.2em 0; }
+  .thread-copy .case-notes img { height: auto; }
+  .thread-copy .case-notes :is(.pin,.report-heading,.document-footer,.chapter-end,.research-contents) { display: none; }
+  .thread-copy .case-notes .picture { position: relative; }
+  .thread-copy .case-notes .pin { display:block; position:absolute; transform:translate(-50%,-50%); border-radius:50%; padding:0 .4em; background:#fff4df; font-weight:bold; }
+  .thread-copy .case-notes .picture button { border:0; padding:0; background:transparent; cursor:zoom-in; }
+  .thread-copy .case-notes .annotations { margin-block: 1em; }
+  .thread-copy .report-transcript > section, .thread-copy .report-transcript h2 { margin-top: clamp(48px, 6vw, 84px); }
+  .thread-copy .brief-project section { margin-top: clamp(52px, 9vh, 96px); }
+  .thread-copy .brief-project section:last-child { min-height: 52vh; }
+  .thread-copy .brief-film { width: 100%; height: auto; margin-block: 1rem; }
+  .thread-copy .brief-illustration { width: min(40%, 180px); margin: 12px 0; filter: var(--line-art-filter); }
+}
+@media screen and (max-width:700px) {
+  .thread-layout, .personal-alice .thread-layout { width: calc(100% - 22px); grid-template-columns: 69px minmax(0,1fr); gap: 10px; }
+  .is-work #main-content:has(.thread-layout) { width: calc(100% - 22px); }
+  .thread-nav { --fibre-width: 19px; }
+  .thread-nav ol { left: 23px; }
+  .thread-strand::before { filter: drop-shadow(.55px 0 .25px #9e7954) drop-shadow(0 1px .5px #81674f44); }
+  .thread-nav a, .personal-roomies .thread-nav a { font-size: 15px; line-height: 1.04; overflow-wrap: anywhere; }
+  .thread-full { display: none; }
+  .thread-short { display: inline; }
+  .thread-nav .thread-button { width: 14px; }
+  .thread-copy .case-notes { max-width: 100%; }
+}
+@media screen and (max-height:480px) { .thread-nav a, .personal-roomies .thread-nav a { min-height: 20px; padding: 1px 0; font-size: 14px; } }
+@media (prefers-reduced-motion:reduce) { .thread-nav a { transition: none; } }
+@media print { .thread-host { display: none; } .thread-layout, .thread-copy { display: block; width: 100%; } }

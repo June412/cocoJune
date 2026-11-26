@@ -9,7 +9,7 @@ export default function HoldLightPage() {
   return (
     <article className="graphics-report holdlight-page">
       <a className="eyebrow" href="#/projects/category/research">← {t('Interaction', '交互设计')}</a>
-      <header>
+      <header id="holdlight-demo">
         <h1 lang="en">HoldLight</h1>
         {visual.illustration && <img className="holdlight-climber" src={assetUrl(visual.illustration)} alt="" width="82" height="82" />}
         <nav className="holdlight-resources" aria-label={t('Project resources', '项目资料')}>

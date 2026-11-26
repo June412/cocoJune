@@ -22,96 +22,58 @@ function section(id,zh,en,subzh,suben,body) {
         <div class="section-body">${subzh?`<div class="prose"><p>${t(subzh,suben)}</p></div>`:''}${body}</div></section>`;
 }
 const compare=(a,b,zh,en)=>`<figure class="study"><div class="compare" style="--split:50%">${img(M[b],t(zh,en)+' · '+t('调整后','After'))}<div class="compare-top">${img(M[a],t(zh,en)+' · '+t('调整前','Before'))}</div><span class="compare-line"></span><span class="compare-handle">↔</span><span class="compare-label before">${t('调整前','Before')}</span><span class="compare-label after">${t('调整后','After')}</span><input type="range" min="0" max="100" value="50" aria-label="${esc(t('拖动比较：','Compare: ')+t(zh,en))}"></div><figcaption class="caption">${t(zh,en)}<span>${t('拖动分界线','Drag to compare')}</span></figcaption></figure>`;
-const views = page === 'game' ? [
-    { id: 'design', label: ['游戏设计', 'Game design'], shortLabel: ['设计', 'Design'], sections: ['overview', 'arrival', 'alice', 'panda'] },
-    { id: 'interaction', label: ['修补机制', 'Repair mechanics'], shortLabel: ['修补', 'Repair'], sections: ['play', 'mechanics'],
-      lead: ['玩家的落针位置、换边顺序和拉线力度都影响修补。下面的操作演示展示每种输入如何判定，以及玩家怎样知道下一步该做什么。', 'Each repair depends on where the needle enters, when the player switches sides and how tightly they pull. The clips show how the game checks those actions and signals the next move.'] },
-    { id: 'technology', label: ['技术实现', 'Technical implementation'], shortLabel: ['技术', 'Tech'], sections: ['doll', 'workshop', 'thread-state', 'history', 'making-credits'],
-      lead: ['填棉会改变脸颊的形状。游戏在未变形的布面上记录针位，让针脚始终贴住缝口。可以查看模型与针线的绘制、<a href="#workshop">工坊的声光</a>，以及<a href="#thread-state">暂停后怎样续上这一针</a>。', 'Stuffing changes the shape of the cheek. Needle positions are stored on the undeformed cloth so the next stitch still lands on the seam. Explore the model and thread, <a href="#workshop">light and sound at the desk</a>, and <a href="#thread-state">how the game resumes a stitch</a>.'] }
+const chapters = page === 'game' ? [
+    ['overview', 'Game design', '游戏设计', 'Design', '设计'],
+    ['alice', 'Repair commissions', '修补委托', 'Tasks', '委托'],
+    ['play', 'Repair mechanics', '修补机制', 'Repair', '修补'],
+    ['doll', 'Models & thread', '模型与针线', 'Models', '模型'],
+    ['workshop', 'Workshop & sound', '工坊与声音', 'Sound', '声光'],
+    ['thread-state', 'Saving & testing', '存档与验证', 'Tests', '验证'],
+    ['technical-report', 'Technical notes', '技术详解', 'Notes', '详解']
 ] : [
-    { id: 'design', label: ['工具设计', 'Tool design'], shortLabel: ['设计', 'Design'], sections: ['overview', 'development', 'materials'] },
-    { id: 'guide', label: ['制作教程', 'Making guide'], shortLabel: ['教程', 'Guide'], sections: ['workflow', 'cushion', 'cases', 'delivery'],
-      lead: ['跟着<a href="#cushion">植物刺绣抱枕的八个步骤</a>做一遍。在工作台选定布面，描出叶片，做好锁边，再把成品导出为 Unity 道具。', 'Follow the <a href="#cushion">eight steps of the botanical cushion</a> from cloth to game prop. Choose the surface, trace a leaf, bind the edge and export the finished piece for Unity.'] },
-    { id: 'archive', label: ['测试与作品', 'Tests & works'], shortLabel: ['作品', 'Works'], sections: ['trial', 'results', 'bridge', 'works', 'making-credits'],
-      lead: ['用《夜航》抱枕检验作品重开后能否继续修改，再看串珠预览的耗时，以及五件道具导入游戏后的表现。也可以直接<a href="#works">按工艺浏览作品</a>。', 'The Night Crossing cushion tests whether a saved piece can still be edited. Bead-preview timings and five props imported into the game show how the workbench performs. You can also <a href="#works">browse the collection by technique</a>.'] }
+    ['overview', 'Tool design', '工具设计', 'Design', '设计'],
+    ['materials', 'Fabric surfaces', '织物材质', 'Fabric', '材质'],
+    ['workflow', 'Making a cushion', '抱枕制作', 'Making', '制作'],
+    ['cases', 'Craft & export', '工艺与导出', 'Export', '导出'],
+    ['trial', 'Workbench tests', '工作台测试', 'Tests', '测试'],
+    ['bridge', 'Props & works', '道具与作品', 'Works', '作品'],
+    ['technical-report', 'Technical notes', '技术详解', 'Notes', '详解']
 ];
+const sectionOrder = page === 'game'
+    ? ['overview','arrival','alice','panda','play','mechanics','doll','workshop','thread-state','history','making-credits']
+    : ['overview','development','materials','workflow','cushion','cases','delivery','trial','results','bridge','works','making-credits'];
+const legacyViews = {design:'overview', interaction:'play', technology:'doll', guide:'workflow', archive:'trial'};
 const projectName = page === 'game' ? 'Alice · Mending Workshop' : 'Textile Studio';
-const anchorViews = new Map();
-let currentView;
-
-function viewHref(view, anchor = '') {
-    const query = new URLSearchParams({lang});
-    if (view !== views[0]) query.set('view', view.id);
-    return page + '.html?' + query + (anchor ? '#' + anchor : '');
-}
-
-function viewNavigation() {
-    const links = views.map(view => {
-        const label = t(...view.label);
-        return `<a href="${viewHref(view)}" aria-label="${label}" ${view === currentView ? 'aria-current="page"' : ''}>
-            <span class="page-label">${label}</span><span class="compact-label">${t(...view.shortLabel)}</span></a>`;
-    });
-    return `<div class="rail-anchor"><nav class="project-pages" aria-label="${t('项目分页','Project pages')}">
-        <div class="stitched-pages">
-            <span class="knit-meter" role="progressbar" aria-label="${t('项目阅读位置','Reading position in project')}" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"></span>
-            ${links.join('')}
-        </div></nav></div>`;
-}
-
-function pageFooter() {
-    const index = views.indexOf(currentView);
-    const prev = views[index - 1], next = views[index + 1];
-    return `<footer class="reader-footer"><nav aria-label="${t('继续阅读','Continue reading')}">
-        ${prev ? `<a rel="prev" href="${viewHref(prev)}">← ${t(...prev.label)}</a>` : ''}
-        ${next ? `<a rel="next" href="${viewHref(next)}">${t(...next.label)} →</a>` :
-            `<a href="${href(page + '-slides')}">${t('技术详解（英文）', 'Full technical report (English)')} →</a>`}
-    </nav><button type="button" class="case-print" data-print>${t('打印本页 / PDF','Print this page / PDF')}</button></footer>`;
-}
-
-function viewForAnchor(id) {
-    if (anchorViews.has(id)) return anchorViews.get(id);
-    // These anchors are created by the step viewer and the searchable catalogue after mounting.
-    const sequence = /^(alice|panda|cushion)-(?:steps|step-\d+)$/.exec(id);
-    if (sequence) return anchorViews.get(sequence[1]);
-    if (page === 'toolkit' && id.startsWith('work-') && work(id.slice(5))) return anchorViews.get('works');
-}
+let unmountThread;
 
 function mountView() {
-    // Index the original exhibits in an inert template. Only the current page mounts media and controls.
+    const url = new URL(location.href);
+    const oldView = url.searchParams.get('view');
+    if (oldView || url.hash.startsWith('#view-')) {
+        if (!url.hash || url.hash.startsWith('#view-')) url.hash = legacyViews[url.hash.slice(6) || oldView] || 'overview';
+        url.searchParams.delete('view');
+        try { history.replaceState(history.state, '', url); } catch { /* File URLs can still open the project. */ }
+    }
     const source = document.createElement('template');
     source.innerHTML = (page === 'game' ? game() : toolkit()) + projectCredits();
-    const sections = new Map([...source.content.children].map(section => [section.id, section]));
-    anchorViews.clear();
-    for (const view of views) {
-        anchorViews.set('view-' + view.id, view);
-        for (const id of view.sections) {
-            anchorViews.set(id, view);
-            for (const child of sections.get(id).querySelectorAll('[id]')) anchorViews.set(child.id, view);
-        }
-    }
-    const url = new URL(location.href);
-    const requested = views.find(view => view.id === url.searchParams.get('view'));
-    currentView = viewForAnchor(url.hash.slice(1)) || requested || views[0];
-    if ((url.searchParams.has('view') || currentView !== views[0]) && currentView !== requested) {
-        if (currentView === views[0]) url.searchParams.delete('view');
-        else url.searchParams.set('view', currentView.id);
-        try { history.replaceState(history.state, '', url); } catch { /* File URLs can still open the exhibit. */ }
-    }
-    document.title = (currentView === views[0] ? projectName : t(...currentView.label) + ' · ' + projectName) + ' — Junyan He';
+    const sections = new Map([...source.content.children].map(node => [node.id, node]));
+    unmountThread?.();
+    document.title = projectName + ' — Junyan He';
     document.getElementById('app').innerHTML = shell();
     const main = document.getElementById('main');
-    if (currentView !== views[0]) {
-        main.insertAdjacentHTML('beforeend', `<header class="reader-heading" id="view-${currentView.id}">
-            <a class="reader-project" href="${viewHref(views[0])}">${projectName}</a><h1>${t(...currentView.label)}</h1>
-            <p class="lead">${t(...currentView.lead)}</p></header>`);
-    }
-    main.append(...currentView.sections.map(id => sections.get(id)));
-    for (const link of main.querySelectorAll('a[href^="#"]')) {
-        const id = link.hash.slice(1);
-        const destination = viewForAnchor(id);
-        if (destination && destination !== currentView) link.setAttribute('href', viewHref(destination, id));
-    }
-    main.insertAdjacentHTML('beforeend', pageFooter());
+    main.append(...sectionOrder.map(id => sections.get(id)));
+    const report = document.createElement('section');
+    report.id = 'technical-report';
+    report.className = 'case-notes';
+    const heading = document.createElement('h2');
+    heading.textContent = t('技术详解（英文）','Technical notes');
+    const notes = document.createElement('div');
+    notes.lang = 'en';
+    notes.append(document.getElementById('report-source').content.cloneNode(true));
+    report.append(heading, notes);
+    main.append(report);
+    main.insertAdjacentHTML('beforeend', `<footer class="reader-footer"><button type="button" class="case-print" data-print>${t('打印项目 / PDF','Print project / PDF')}</button></footer>`);
+    unmountThread = window.ProjectThread.mount(document.querySelector('.thread-host'), main, chapters, lang);
 }
 
 function projectCredits(){
@@ -127,9 +89,9 @@ function projectCredits(){
     </section>`;
 }
 
-function shell(){return `<div class="project-reader">
-    ${viewNavigation()}
-    <div class="reader-column"><main class="main" id="main" tabindex="-1"></main></div>
+function shell(){return `<div class="thread-layout">
+    <div class="thread-host"></div>
+    <div class="reader-column thread-copy"><main class="main" id="main" tabindex="-1"></main></div>
 </div><dialog class="lightbox" aria-labelledby="dialog-title"><div class="dialog-bar"><span id="dialog-kind"></span><div class="image-tools" role="group" aria-label="${t('图片缩放','Image zoom')}"><button type="button" data-inspect="out" aria-label="${t('缩小','Zoom out')}">−</button><output data-zoom-level aria-live="off">100%</output><button type="button" data-inspect="in" aria-label="${t('放大','Zoom in')}">+</button><button type="button" data-inspect="fit">${t('适应窗口','Fit')}</button></div><button autofocus class="dialog-close" aria-label="${t('关闭','Close')}">×</button></div><div class="dialog-layout"><div class="dialog-view browse-frame"><div class="inspection-stage" tabindex="0" role="group" aria-label="${t('查看图片细节','Inspect image details')}"><img id="dialog-image" alt="" draggable="false"></div><button type="button" class="dialog-arrow dialog-prev browse-arrow browse-prev" aria-controls="dialog-image" aria-label="${t('上一张','Previous image')}"></button><button type="button" class="dialog-arrow dialog-next browse-arrow browse-next" aria-controls="dialog-image" aria-label="${t('下一张','Next image')}"></button></div><div class="dialog-info"><h2 id="dialog-title"></h2><p id="dialog-description"></p><p id="dialog-provenance"></p><div class="view-count" id="dialog-count" aria-live="polite" aria-atomic="true"></div><div class="dialog-thumbs"></div><a class="text-link" id="dialog-original" target="_blank" rel="noopener">${t('打开大图','Open full image')} ↗</a></div></div></dialog>`;}
 
 const para=(zh,en)=>`<p>${t(zh,en)}</p>`;
@@ -351,7 +313,7 @@ ${table([t('阶段','Stage'),t('交付','Milestone')],[
  ['2026.04–06',t('布艺材质与 Alice 数字原型','Textile materials and the digital Alice')],
  ['2026.09–10',t('窗边工坊、两份委托和针线操作','Workshop, two commissions and hand-operated stitches')],
  ['2026.11',t('工坊加入五件布艺道具，验证中途读档与寄回','Five textile props integrated. Mid-repair saves and return journeys checked.')]])}
-<a class="text-link mending-validation" href="game-slides.html#validation">${t('查看两份委托从收件、存档到寄回的技术验证（英文）','Read the technical checks from parcel to dispatch (English)')} ↗</a>
+<a class="text-link mending-validation" href="#report-validation">${t('查看两份委托从收件、存档到寄回的技术验证（英文）','Read the technical checks from parcel to dispatch (English)')} ↗</a>
 ${passage('future','尚未实现的委托构想','Unimplemented commission concepts','',table([t('委托构想','Concept'),t('新问题与技法','New problem and technique'),t('保留的物件线索','Object details to preserve')],[
 [t('围巾狐狸','Scarf fox'),t('前臂磨破 → 补布、毛毯针','Worn forearm → patch and blanket stitch'),t('送信人的旧邮袋、围巾','Courier’s old satchel and scarf')],
 [t('条纹针织熊','Striped knitted bear'),t('腹部缺纱 → 托底、交错织补','Missing belly yarn → supported darning'),t('旧毛衣的晒痕、园丁的纸花','Sun-faded wool and gardener’s paper flower')],
@@ -398,7 +360,7 @@ if(materialNav){
 document.querySelectorAll('[data-filter]').forEach(b=>b.onclick=()=>{galleryPage=0;galleryFilter=b.dataset.filter;document.querySelectorAll('[data-filter]').forEach(x=>x.setAttribute('aria-pressed',x===b));renderGallery()});
 const search=document.querySelector('#work-search');if(search)search.value=query;if(search)search.oninput=()=>{galleryPage=0;query=search.value.toLowerCase().trim();renderGallery()};
 document.querySelector('.dialog-close').onclick=closeModal;document.querySelector('.dialog-prev').onclick=()=>moveModal(-1);document.querySelector('.dialog-next').onclick=()=>moveModal(1);
-const dialog=document.querySelector('dialog');
+const dialog=document.querySelector('.lightbox');
 window.AliceImageInspection.mount(dialog);
 dialog.addEventListener('click',e=>{if(e.target===dialog)closeModal()});dialog.addEventListener('close',()=>{document.body.style.overflow='';lastFocus?.focus({preventScroll:true})});
 dialog.addEventListener('keydown',e=>{if(e.key==='ArrowRight'){e.preventDefault();moveModal(1)}if(e.key==='ArrowLeft'){e.preventDefault();moveModal(-1)}});
@@ -426,8 +388,10 @@ function switchLanguage(nextLanguage) {
     try { history.replaceState(null, '', nextUrl.href); }
     catch { location.replace(nextUrl.href); return; }
     const material = document.querySelector('[data-material][aria-pressed="true"]')?.dataset.material;
+    const openNotes = [...document.querySelectorAll('.case-notes details[open]')].map(note => note.id);
     lang = nextLanguage;
     render();
+    openNotes.forEach(id => { document.getElementById(id).open = true; });
     if(Number(material)>0)showMaterial(Number(material));
     const anchor = oldAnchor && document.getElementById(oldAnchor.id);
     if(atStart)window.scrollTo(0,0);
@@ -618,27 +582,13 @@ function drawModal() {
     });
 }
 function moveModal(delta){if(!activeModal)return;modalIndex=(modalIndex+delta+activeModal.images.length)%activeModal.images.length;drawModal()}
-function closeModal(){document.querySelector('dialog').close()}
-let readerSections=[], currentSection, readerObserver, mediaVisibilityObserver, scrollFrame=0;
-let pageNav, knitMeter;
+function closeModal(){document.querySelector('.lightbox').close()}
+let readerSections=[], currentSection, mediaVisibilityObserver, scrollFrame=0;
 const readerInset = 16;
 function readerLine(){ return readerInset + 4; }
 
-function placePageNav() {
-    // The in-flow anchor records where the rail starts even when a bookmark opens halfway down.
-    const entryTop = pageNav.parentElement.getBoundingClientRect().top + window.scrollY;
-    const lastVisibleTop = document.documentElement.clientHeight - pageNav.offsetHeight - 8;
-    pageNav.style.top = Math.max(8, Math.min(entryTop, lastVisibleTop)) + 'px';
-}
-
 function syncReader() {
     if(!readerSections.length)return;
-    const root = document.scrollingElement;
-    const distance = root.scrollHeight - root.clientHeight;
-    const fraction = distance > 0 ? Math.min(1, Math.max(0, root.scrollTop / distance)) : 1;
-    const percent = (views.indexOf(currentView) + fraction) * 100 / views.length;
-    knitMeter.style.setProperty('--woven', percent.toFixed(2) + '%');
-    knitMeter.setAttribute('aria-valuenow', Math.round(percent));
     let section=readerSections[0];
     for(const candidate of readerSections){
         if(candidate.getBoundingClientRect().top>readerLine())break;
@@ -652,22 +602,11 @@ function syncReader() {
 function queueReaderUpdate(){
     if(!scrollFrame)scrollFrame=requestAnimationFrame(()=>{scrollFrame=0;syncReader();});
 }
-function resizeReader() {
-    placePageNav();
-    queueReaderUpdate();
-}
 function mountReader(){
-    readerObserver?.disconnect();
     mediaVisibilityObserver?.disconnect();
     readerSections=Array.from(document.querySelectorAll('main > header, main > section'));
-    pageNav=document.querySelector('.project-pages');
-    knitMeter=pageNav.querySelector('.knit-meter');
     currentSection=null;
     document.documentElement.style.setProperty('--reader-head', readerInset + 'px');
-    readerObserver=new ResizeObserver(resizeReader);
-    readerObserver.observe(document.body);
-    readerObserver.observe(pageNav);
-    for(const section of readerSections)readerObserver.observe(section);
     // Keep the player and its cues active while they are still on screen.
     mediaVisibilityObserver=new IntersectionObserver(entries=>{
         for(const entry of entries){
@@ -678,20 +617,12 @@ function mountReader(){
     for(const section of readerSections){
         if(section.querySelector('video,audio'))mediaVisibilityObserver.observe(section);
     }
-    placePageNav();
     syncReader();
 }
 
 function openFragment(initial=false){
     const id=location.hash.slice(1);
-    const owner = viewForAnchor(id);
-    if (owner && owner !== currentView) {
-        const url = new URL(location.href);
-        url.searchParams.set('view', owner.id);
-        location.replace(url);
-        return;
-    }
-    const dialog=document.querySelector('dialog');
+    const dialog=document.querySelector('.lightbox');
     if(dialog.open)closeModal();
     const deepWork=page==='toolkit'&&id.startsWith('work-')?work(id.slice(5)):null;
     if(deepWork){
@@ -708,13 +639,13 @@ function openFragment(initial=false){
         if (hiddenPanel) document.querySelector('button[aria-controls="' + CSS.escape(hiddenPanel.id) + '"]')?.click();
         const needsReveal=!!target.closest('.sequence-panel[hidden]');
         window.AliceSequences?.reveal(target);
-        if(initial||needsReveal||hiddenPanel||deepWork)target.scrollIntoView({block:'start',behavior:'instant'});
+        if(initial||aside||needsReveal||hiddenPanel||deepWork)target.scrollIntoView({block:'start',behavior:'instant'});
         if(deepWork){target.focus({preventScroll:true});target.click();}
     }
     syncReader();
 }
 window.addEventListener('scroll',queueReaderUpdate,{passive:true});
-window.addEventListener('resize',resizeReader);
+window.addEventListener('resize',queueReaderUpdate);
 window.addEventListener('pageshow',queueReaderUpdate);
 window.addEventListener('hashchange',()=>openFragment());
 document.addEventListener('play',event=>{

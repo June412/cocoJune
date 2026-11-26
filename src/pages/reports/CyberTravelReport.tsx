@@ -6,7 +6,7 @@ export default function CyberTravelReport() {
     <p>The project aims to build a small interactive world with a futuristic atmosphere using a narrative structure. The user enters the application through a simple “Play” interface, which introduces the backstory and leads into the Room scene. The room functions as the entry point to the cyber world and therefore remains intentionally minimal, using holographic elements and texture-mapped props to create a technological mood.</p>
     <p>Following the on-screen instruction, the user presses the space bar to activate the transition sequence. Two texture-based transitions are used: an screen displayed on the computer, followed by a rotating vortex texture that transports the user into the cyber world.</p>
     <p>The cyber city serves as the main scene, continuing the cat model I designed in the 2D assignment, and the cat is fixed at the lower part of the viewport. By shifting the world itself, I let the city streets continuously appear and disappear as the character moves forward. This design is inspired by the looped structure from Lab8’s train system. To present richer world layers, I built multiple subsystems in the cyber city, including a weather system, traffic system, building system, and holographic advertisement system. I also focused on the overall color tone, so different skyboxes and palettes are used for daytime, dusk, and night.</p>
-    <h2>II. README</h2>
+    <h2 id="controls">II. README</h2>
     <h3>A. Intro</h3>
     <p>This section introduces the world setting. The user selects a button to enter the world, and the program first enters the Room scene, as shown in Fig. 1.</p>
     <ReportFigure folder="travel" files={["Im2.jpg"]} caption="Fig. 1. Overall interaction flow between the Intro, Room and Cyber City scenes." />
@@ -40,7 +40,7 @@ export default function CyberTravelReport() {
         <tr><td>ESC</td><td>Exit the program</td></tr>
       </tbody>
     </table></div>
-    <h2>III. DESIGN</h2>
+    <h2 id="architecture">III. DESIGN</h2>
     <h3>A. Overall Architecture</h3>
     <p>The entire program uses a Finite State Machine (FSM) for scene management, covering four main parts: two main worlds (Room and Cyber City) and two transitions . The following sections will explain the design ideas scene by scene, from skyboxes, camera, and lighting to concrete objects and interaction mechanisms.</p>
     <h3>B. Scene 1: Intro UI (Transition Interface 1)</h3>
@@ -88,7 +88,7 @@ export default function CyberTravelReport() {
     <ReportFigure folder="travel" files={["Im5.jpg"]} caption="Fig. 4. Transition sequence inside the Room scene, from HUD hints to screen change and vortex entry." />
     <h3>D. Scene 3: Vortex Rotation Texture Transition (Transition Interface 2)</h3>
     <p>This scene provides the transition from the Room to the Cyber City. A square vortex texture is rotated around its center by translating it to the middle of the screen, applying a rotation θ, and translating it back. GL_BLEND is enabled to create fade-in and fade-out effects. The combined effect of the screen flash and vortex is also visible in Fig. 2.</p>
-    <h3>E. Cyberpunk City (Main Interface 2)</h3>
+    <h3 id="city">E. Cyberpunk City (Main Interface 2)</h3>
     <p>The Cyber scene is the most complex part of the project. Its design includes the view system, world structure, city elements, traffic, weather and particles, the main character, mounts, shadows, and interaction, as illustrated in Fig. 5. Then I well show these system one by one.</p>
     <ReportFigure folder="travel" files={["Im6.jpg"]} caption="Fig. 5. Overview of the Cyberpunk City main world in the different time." />
     <h4>1) View and World Structure:</h4>
@@ -221,7 +221,7 @@ export default function CyberTravelReport() {
       <li>C / c: toggle HUD visibility (showCyberHUD = !showCyberHUD)</li>
       <li>ESC: call exit(0) to immediately exit the program</li>
     </ul>
-    <h2>IV. CONCLUSION</h2>
+    <h2 id="conclusion">IV. CONCLUSION</h2>
     <p>This project builds a compact interactive 3D world by combining narrative transitions with real-time rendering. The Room scene, vortex transition, and Cyber City are integrated through an FSM structure, enabling smooth scene switching and consistent user interaction. The looped-city system, time-of-day lighting, weather and particle effects, and layered traffic contribute to a dynamic cyberpunk environment with controlled computational cost. The cube-cat character and its mount modes provide varied viewpoints and enhance user engagement.</p>
   </>
 }

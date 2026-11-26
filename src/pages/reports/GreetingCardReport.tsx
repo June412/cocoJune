@@ -8,7 +8,7 @@ export default function GreetingCardReport() {
     <h2>1. Introduction</h2>
     <p>This project is a 2D interactive greeting card system themed around the 20th Anniversary of Xi’an Jiaotong-Liverpool University (XJTLU). The main objective of the project is to implement a greeting card that integrates animation, interaction, and multi-scene transitions within the FreeGLUT environment.</p>
     <p>My card is designed with three main stages (or scenes): the Cover, the Campus, and the Celebration(The viewport in the third scene is larger), which are controlled by the global state variable gStage in coordination with time. The following sections first present the README of the system,which includes explanations of some code functions, interaction instructions, and key state transitions, followed by the design and transitions of the three scenes are discussed in detail. Subsequently, the hint system are described. Finally, the report concludes with a summary of the existing issues and potential improvements of the code.</p>
-    <h2>2. System Overview (README)</h2>
+    <h2 id="system">2. System Overview (README)</h2>
     <p>To provide a quick visual reference of the system layout, figure 1 illustrates the overall composition used in the README.</p>
     <SystemOverviewDiagram />
     <h3>2.1. Overview</h3>
@@ -66,7 +66,7 @@ export default function GreetingCardReport() {
       <li>COVER Scene: background (starburst) → flags → pixel title “20th” → cat &amp; balloons → fish cursor → hint overlay → black fade transition.</li>
       <li>MAIN Scene: background &amp; grass → clouds → campus → cat &amp; lantern → stencil write → layered blackout (5 layers) → confetti → (if celebrating) fireworks particles → title overlays.</li>
     </ul>
-    <h2>3. Scene 1: Cover Design Details</h2>
+    <h2 id="cover">3. Scene 1: Cover Design Details</h2>
     <p>The following figure provides the cover layout.</p>
     <ReportFigure folder="card" files={["Im2.png"]} caption="Figure 3 Cover scene layout placeholder." />
     <p>As shown in the figure 3, the cover background is implemented using a simple but festive visual effect — a soft yellow background combined with purple line-drawn stars. The overall color palette enhances the cheerful atmosphere of the celebration.</p>
@@ -88,7 +88,7 @@ export default function GreetingCardReport() {
     <ReportFigure folder="card" files={["Im3.png","Im4.png"]} caption="Figure 4 Two frames for cat animation (placeholders)." labels={["(a) Breathing frame.","(b) Tail-swing frame."]} />
     <h3>Mouse Interaction</h3>
     <p>A fish-shaped cursor follows the mouse to make the cover more fun. When the fish gets close to the cat, the cat stops walking and looks at it. If the player moves the cursor away without clicking the left mouse button to “feed” the fish, the cat starts walking again, showing a simple chasing behavior.</p>
-    <h2>4. Scene 2: Campus and Soft Flashlight System</h2>
+    <h2 id="campus">4. Scene 2: Campus and Soft Flashlight System</h2>
     <p>Before diving into the sky and object construction, the following figure sketches the main scene, and scene 2 is only a part of the campus area. The full view (Scene 3) appears gradually as the camera or viewport moves.</p>
     <ReportFigure folder="card" files={["Im5.png"]} caption="Figure 5 Main scene composition(without black screen." />
     <h3>Sky</h3>
@@ -133,7 +133,7 @@ export default function GreetingCardReport() {
     <p>After all background elements are drawn, a semi-transparent black layer covers the whole scene.</p>
     <p>The stencil buffer is divided into circular zones centered on the flashlight: the outermost area is 0, the rings are 1–4, and the bright center is 5. During rendering, the program draws full-screen black rectangles for each zone, setting different alpha values: darkest outside, lighter toward the center, and none in the middle. This forms a smooth light gradient with soft edges and a bright focus at the center.</p>
     <ReportFigure folder="card" files={["Im11.png"]} caption="Figure 10 Five-ring stencil flashlight (placeholder)." />
-    <h2>5. Scene 3: Fireworks and Celebration</h2>
+    <h2 id="fireworks">5. Scene 3: Fireworks and Celebration</h2>
     <p>The following picture stands for the overall celebration scene.</p>
     <ReportFigure folder="card" files={["Im12.png"]} caption="Figure 11 Celebration scene." />
     <h3>Fireworks System</h3>
@@ -144,7 +144,7 @@ export default function GreetingCardReport() {
       <li>At the target height, emitBurst(cx, cy, n) produces an explosion by spreading 𝑛 particles evenly in a circle, each with random velocity, lifetime, and color, with white particles at the center for stronger flashes.</li>
       <li>All particles are stored in the global list gParticles and updated each frame by updateParticles(float dt). Particles fade out gradually as their lifetime reaches zero.</li>
     </ul>
-    <h2>6. Text and Hint System</h2>
+    <h2 id="text">6. Text and Hint System</h2>
     <p>The text display system has two layers:</p>
     <ul>
       <li>A hint layer for user prompts.</li>
@@ -160,7 +160,7 @@ export default function GreetingCardReport() {
     <ul>
       <li>drawStrokeOutlinedLineCentered_simple() draws celebration slogans with two layers—an outline and inner text—for a clean, bold look. Then drawCelebrationBanner() combines two such lines into a complete banner.</li>
     </ul>
-    <h2>7. Limitations and Improvements</h2>
+    <h2 id="limits">7. Limitations and Improvements</h2>
     <ul>
       <li><strong>Inconsistent naming and redundant functions</strong><br />Some parts of the code contain repeated logic or unclear naming. For example, the main character was initially a human, so many related functions use the prefix hero. After changing the character to a cat, the old naming remained, causing confusion and reducing readability.</li>
       <li><strong>Code structure too heavy</strong><br />The overall code can be simplified. Several initialization or setup functions duplicate similar tasks and could be merged or refactored to improve clarity and maintainability.</li>

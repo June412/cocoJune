@@ -1,4 +1,4 @@
-import { useEffect, useState, type KeyboardEvent } from 'react'
+import { useState, type KeyboardEvent } from 'react'
 import { assetUrl, projectVisuals } from '../data/projectVisuals'
 import { useSite } from '../lib/SiteContext'
 import { XrayImageZoomProvider } from './xray/XrayImageZoom'
@@ -8,14 +8,6 @@ import { XrayFindings, XrayProcess } from './xray/XrayStory'
 import './xray/xray-page.css'
 
 const projectHref = '#/projects/x-ray'
-const contents = [
-  ['xray-models', 'Rotate the models', '旋转模型'],
-  ['xray-film', 'Demo film', '演示影片'],
-  ['xray-research', 'Making the renderer', '制作过程'],
-  ['xray-showcase', 'Projection studies', '投影对照'],
-  ['xray-validation', 'Validation', '验证与性能'],
-] as const
-
 function focusChapter(id: string) {
   const chapter = document.getElementById(id)
   if (!chapter) return
@@ -23,26 +15,6 @@ function focusChapter(id: string) {
   heading.setAttribute('tabindex', '-1')
   heading.focus({ preventScroll: true })
   heading.scrollIntoView({ block: 'start' })
-}
-
-function XrayContents() {
-  const { t } = useSite()
-  useEffect(() => {
-    function followBookmark() {
-      const id = window.location.hash.split('#')[2]
-      if (id?.startsWith('xray-')) focusChapter(id)
-    }
-    const frame = requestAnimationFrame(followBookmark)
-    window.addEventListener('hashchange', followBookmark)
-    return () => {
-      cancelAnimationFrame(frame)
-      window.removeEventListener('hashchange', followBookmark)
-    }
-  }, [])
-  return <nav className="xray-contents" aria-label={t('In this project', '项目目录')}>
-    {contents.map(([id, en, zh]) => <a key={id} href={projectHref + '#' + id}
-      onClick={() => { if (window.location.hash === projectHref + '#' + id) focusChapter(id) }}>{t(en, zh)}</a>)}
-  </nav>
 }
 
 const models = [
@@ -101,7 +73,6 @@ export default function XrayPage() {
             '早期的长骨从边缘到中央都是一片实白。对照影像后，我把骨骼改为致密外壳和低密度内芯，让亮边随着视角沿骨缘移动。',
           )}</p>
         </section>
-        <XrayContents />
         <XrayModels />
         <XrayFilm />
         <XrayProcess />

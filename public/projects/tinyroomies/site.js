@@ -42,53 +42,6 @@ document.querySelector(".hero-gallery").addEventListener("keydown", event => {
   setPlate(event.key === "ArrowRight" ? 1 : -1);
 });
 
-const indexDialog = document.getElementById("chapter-index");
-document.getElementById("open-index").addEventListener("click", () => indexDialog.showModal());
-indexDialog.querySelector("[data-dismiss]").addEventListener("click", () => indexDialog.close());
-indexDialog.addEventListener("click", event => {
-  const link = event.target.closest("a");
-  if (!link) return;
-  indexDialog.close();
-  const section = document.querySelector(link.hash);
-  if (section) {
-    if (section instanceof HTMLDetailsElement) section.open = true;
-    section.setAttribute("tabindex", "-1");
-    section.focus({ preventScroll: true });
-  }
-});
-
-const chapterLinks = [...indexDialog.querySelectorAll(".index-list a")];
-const chapters = chapterLinks.map(link => document.querySelector(link.hash)).filter(Boolean);
-const navigationLinks = [...chapterLinks, ...document.querySelectorAll(".quick-nav a")];
-let scheduled = false;
-let currentChapter;
-function markCurrentChapter() {
-  scheduled = false;
-  let active = chapters[0];
-  for (const chapter of chapters) {
-    if (chapter.getBoundingClientRect().top > Math.min(155, innerHeight * 0.25)) break;
-    active = chapter;
-  }
-  if (!active || active === currentChapter) return;
-  currentChapter = active;
-  const locationLabel = document.querySelector(".chapter-location");
-  if (locationLabel) locationLabel.textContent = chapterLinks.find(link => link.hash === "#" + active.id)?.textContent || "";
-  for (const link of navigationLinks) {
-    const chapter = link.closest(".quick-nav") ? active.closest(".story-chapter") || active : active;
-    if (link.hash === "#" + chapter.id) link.setAttribute("aria-current", "location");
-    else link.removeAttribute("aria-current");
-  }
-}
-function scheduleChapterCheck() {
-  if (scheduled) return;
-  scheduled = true;
-  requestAnimationFrame(markCurrentChapter);
-}
-addEventListener("scroll", scheduleChapterCheck, { passive: true });
-addEventListener("resize", scheduleChapterCheck);
-addEventListener("load", scheduleChapterCheck);
-markCurrentChapter();
-
 const detailDialog = document.getElementById("art-detail");
 if (detailDialog) {
   const detailImage = detailDialog.querySelector("img");
