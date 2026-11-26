@@ -4,49 +4,12 @@
 (() => {
   'use strict';
   const base = new URL('.', document.currentScript.src);
-  const tools = [
-    { id: "mallet", asset: "JoineryMallet", name: "Joinery Mallet", group: "Joinery & assembly", step: "assembly-aligned", stepAlt: "A long rail aligned with the leg on the rotating work surface", action: "Seat fitted joints and drive repair pegs with controlled taps." },
-    { id: "driver", asset: "Driver", name: "Slotted Screwdriver", group: "Joinery & assembly", step: "assembly-fastened", stepAlt: "A fitted rail and leg shown on the green work surface", action: "Turn clockwise to secure hardware and tighten the workholding clamp." },
-    { id: "bench-clamp", asset: "BenchClamp", name: "Padded Clamp", group: "Structural repairs", step: "repair-clamp", stepAlt: "The wooden workpiece held in a clamp on the workshop turntable", action: "Support the workpiece during structural repairs and steady finishing." },
-    { id: "marking-gauge", asset: "MarkingGauge", name: "Marking Gauge", group: "Structural repairs", step: "repair-mark", stepAlt: "A marking gauge at the wooden repair surface", action: "Trace the marked repair strip before drilling or shallow chiselling." },
-    { id: "drill", asset: "HandDrill", name: "Hand-cranked Drill", group: "Structural repairs", step: "repair-drill", stepAlt: "The hand-cranked drill standing at a marked repair site", action: "Seat the bit, then turn the crank to open each repair hole." },
-    { id: "dowel", asset: "Dowel", name: "Wooden Peg", group: "Structural repairs", step: "repair-peg", stepAlt: "A wooden peg at the repair site by the parts tray", action: "Lower each peg into its drilled repair hole." },
-    { id: "flush-saw", asset: "FlushSaw", name: "Flush-cut Saw", group: "Structural repairs", step: "repair-saw", stepAlt: "A flush-cut saw crossing the wooden workpiece", action: "Saw the protruding repair peg level with the surrounding wood." },
-    { id: "chisel", asset: "Chisel", name: "Flat Chisel", group: "Structural repairs", step: "repair-chisel", stepAlt: "A chisel aligned along the groove in a wooden panel", action: "Support the chisel neck and make shallow passes through the marked groove." },
-    { id: "glue-bottle", asset: "GlueBottle", name: "Wood Glue", group: "Structural repairs", step: "repair-glue", stepAlt: "The glue nozzle over the workpiece on the turntable", action: "Apply a thin bead across the prepared groove." },
-    { id: "inlay-strip", asset: "InlayStrip", name: "Old-wood Inlay", group: "Structural repairs", step: "repair-inlay", stepAlt: "The old-wood strip in the clamped repair surface", action: "Press the old wood strip into the glued repair groove." },
-    { id: "plane", asset: "Plane", name: "Hand Plane", group: "Surface & carving", step: "repair-plane", stepAlt: "A hand plane on the wooden repair surface", action: "Move the sole across the repair strip to level the surface." },
-    { id: "sanding-block", asset: "SandingBlock", name: "Sanding Block", group: "Surface & carving", step: "repair-sand", stepAlt: "A sanding block touching the wooden workpiece", action: "Rub the surface, then refine the edges of the carved decoration." },
-    { id: "dust-brush", asset: "DustBrush", name: "Dust Brush", group: "Surface & carving", step: "repair-clean", stepAlt: "A small brush sweeping the top of the workpiece", action: "Sweep the prepared surface and clear debris from the carved areas." },
-    { id: "transfer-paper", asset: "TransferPaper", name: "Transfer Sheet", group: "Surface & carving", step: "relief-transfer", stepAlt: "A transfer sheet positioned on the wooden surface", action: "Place the pattern over the highlighted area and press to transfer." },
-    { id: "carving-gouge", asset: "CarvingGouge", name: "Carving Gouge", group: "Surface & carving", step: "relief-outline", stepAlt: "The carving gouge tracing the transferred motif", action: "Trace the outline, then clear the shallow relief within each region." },
-    { id: "brush", asset: "Brush", name: "Flat Brush", group: "Colour & finish", step: "paint-stroke", stepAlt: "Brush applying pigment to a carved motif on the workpiece", action: "Fill the carved colour regions with broad, controlled strokes." },
-    { id: "detail-brush", asset: "DetailBrush", name: "Detail Brush", group: "Colour & finish", step: "paint-stroke", stepAlt: "Brush applying pigment to a carved motif on the workpiece", action: "Use a narrower brush for small regions and close edges." },
-    { id: "dry-brush", asset: "DryBrush", name: "Dry Brush", group: "Colour & finish", step: "paint-workspace", stepAlt: "The practice offcut beside the working palette", action: "Use the wider bristles and reduced paint flow for textured marks." },
-    { id: "palette-leaf", asset: "PaletteLeaf", name: "Paint Palette", group: "Colour & finish", step: "paint-workspace", stepAlt: "The painting station with a palette, instruction board and practice offcut", action: "Select numbered pigments and mix colours in the central well." },
-    { id: "test-swatch", asset: "TestSwatch", name: "Practice Offcut", group: "Colour & finish", step: "paint-workspace", stepAlt: "The practice offcut beside the working palette", action: "Try the brush colour, width and texture before painting the furniture." },
-    { id: "painting-mat", asset: "PaintingMat", name: "Painting Mat", group: "Colour & finish", step: "paint-workspace", stepAlt: "The painting station with a palette, instruction board and practice offcut", action: "The work area changes from a clamped repair surface to a painting station." },
-    { id: "wax-pad", asset: "WaxPad", name: "Wax Pad", group: "Colour & finish", step: "paint-wax", stepAlt: "The workshop turntable during the final surface treatment", action: "Rub a thin final coat across the completed Reading Table." }
-  ];
-  const benchViews = [
-    { id: 'bench', name: 'Assembled', alt: 'The Keeper Bench with its removable wedges and through-tenon stretcher.' },
-    { id: 'exploded', name: 'Exploded', alt: 'Six bench parts separated along their assembly paths.' }
-  ];
-  const furnitureIds = new Set(['bench', 'record-player', 'cabinet', 'shelf', 'desk', 'table',
-    'stool', 'collection-cabinet', 'folding-workdesk', 'plant-reading-rack']);
-  const initialYaw = .89;
-  const initialPitch = .57;
-  const turn = Math.PI / 8;
   const cache = new Map();
   const loading = new Map();
   const textures = new Map();
 
   function featuredTool(id) {
     return id === 'plane' || id === 'mallet' || id === 'drill';
-  }
-
-  function posterFor(id) {
-    return new URL((featuredTool(id) || id === 'bench' ? '' : 'catalog/') + id + '.webp', base);
   }
 
   function isBenchView(id) {
@@ -224,288 +187,99 @@
     }
   }
 
-  function setup(root) {
-    const sharedFurniture = root.dataset.toolViewer === 'furniture';
-    const furniture = sharedFurniture || root.dataset.toolViewer === 'bench';
-    const options = furniture ? benchViews : tools;
-    function homeYaw() {
-      return mesh?.yaw ?? (furniture ? .51 : initialYaw);
-    }
-    function homePitch() {
-      if (furniture) return mesh?.pitch ?? .32;
-      if (['palette-leaf', 'painting-mat', 'transfer-paper', 'test-swatch'].includes(selected.id)) return 1.02;
-      return initialPitch;
-    }
-    const poster = root.querySelector('img') || document.createElement('img');
-    const picks = document.createElement('div');
-    picks.className = 'tool-picks';
-    picks.setAttribute('role', 'group');
-    picks.setAttribute('aria-label', furniture ? 'Bench assembly view' : 'Choose a workshop tool');
-    const library = document.createElement('div');
-    const groupMenu = document.createElement('select');
-    const caption = document.createElement('div');
-    const title = document.createElement('h4');
-    const description = document.createElement('p');
-    caption.className = 'tool-description';
-    caption.setAttribute('aria-live', 'polite');
-    caption.setAttribute('aria-atomic', 'true');
-    const capture = document.createElement('img');
-    capture.loading = 'lazy';
-    capture.width = 880;
-    capture.height = 550;
-    const step = document.createElement('a');
-    step.className = 'tool-step';
-    step.dataset.artLink = '';
-    step.append(capture);
-    caption.append(title, description);
-    const stage = document.createElement('div');
-    stage.className = 'tool-view-stage';
+  // The printed model doubles as its turntable. Geometry is only needed on interaction.
+  function setup(stage) {
+    const { model: id, kind } = stage.dataset;
+    const furniture = kind === 'furniture';
+    const portrait = kind === 'resident';
+    const poster = stage.querySelector('img');
     const canvas = document.createElement('canvas');
-    canvas.tabIndex = 0;
-    canvas.setAttribute('role', 'img');
-    canvas.setAttribute('aria-keyshortcuts', 'ArrowLeft ArrowRight ArrowUp ArrowDown Home');
-    const controls = document.createElement('div');
-    controls.className = 'tool-controls';
-    const hint = document.createElement('p');
-    hint.textContent = 'Drag to rotate';
-    const retry = document.createElement('button');
-    retry.type = 'button';
-    retry.hidden = true;
-    retry.className = 'tool-retry';
-    retry.textContent = 'Retry 3D view';
-    retry.addEventListener('click', start);
-    const directions = document.createElement('div');
-    directions.setAttribute('role', 'group');
-    directions.setAttribute('aria-label', 'Model view');
-    const actions = {
-      left: ['Turn left', -turn, 0], right: ['Turn right', turn, 0],
-      up: ['View from above', 0, turn], down: ['View from below', 0, -turn],
-      reset: ['Reset view', 0, 0]
-    };
-    let selected, yaw, pitch, mesh, projected, pixels, depths, frame, pointer;
-    let activated = false;
     const context = canvas.getContext('2d');
-    const arrowAngle = { left: -90, right: 90, up: 0, down: 180 };
+    if (!context) return;
+    canvas.setAttribute('aria-hidden', 'true');
+    stage.append(canvas);
+    stage.tabIndex = 0;
+    stage.setAttribute('role', 'group');
+    stage.setAttribute('aria-label', poster.alt + '. Drag to rotate, or use the arrow keys. Home resets the view.');
+    stage.setAttribute('aria-keyshortcuts', 'ArrowLeft ArrowRight ArrowUp ArrowDown Home');
+    let mesh, sheet, pending, pointer, projected, pixels, depths, frame;
+    let rotation = 0, tilt = 0;
 
     function draw() {
       frame = 0;
-      if (!mesh || !context || !stage.clientWidth) return;
-      const maxDensity = pointer && furniture ? 1 : 2;
-      const density = Math.min(maxDensity, Math.max(1.5, window.devicePixelRatio || 1), 1200 / stage.clientWidth);
-      const w = Math.max(1, Math.round(stage.clientWidth * density));
-      const h = Math.max(1, Math.round(stage.clientHeight * density));
-      if (!pixels || w !== pixels.width || h !== pixels.height) {
-        canvas.width = w;
-        canvas.height = h;
-        pixels = context.createImageData(w, h);
-        depths = new Float32Array(w * h);
-      }
-      const scale = furniture ? furnitureScale(mesh, yaw, pitch, w, h) : Math.min(w, h) * .449;
-      project(mesh.vertices, projected, yaw, pitch, w, h, scale);
-      rasterize(mesh, projected, pixels, depths);
-      context.putImageData(pixels, 0, 0);
-      stage.classList.add('is-ready');
-    }
-    function update() {
-      if (!frame && mesh) frame = requestAnimationFrame(draw);
-    }
-    function setControls(enabled) {
-      for (const button of directions.children) button.disabled = !enabled;
-      canvas.tabIndex = enabled ? 0 : -1;
-    }
-    async function start() {
-      if (!context) { hint.textContent = 'Studio render'; return; }
-      retry.hidden = true;
-      hint.textContent = 'Loading 3D view…';
-      const item = selected;
-      try {
-        const packed = await loadGeometry(item.id, furniture);
-        if (item !== selected) return;
-        mesh = meshFor(item.id, packed);
-        yaw = homeYaw();
-        pitch = homePitch();
-        projected = new Float32Array(mesh.vertices.length / 11 * 6);
-        setControls(true);
-        hint.textContent = 'Drag to rotate';
-        update();
-      } catch {
-        if (item !== selected) return;
-        setControls(false);
-        hint.textContent = 'Studio render';
-        retry.hidden = false;
-      }
-    }
-    function select(tool) {
-      selected = tool;
-      mesh = null;
-      yaw = homeYaw();
-      pitch = homePitch();
-      for (const button of picks.children) button.setAttribute('aria-pressed', String(button.dataset.id === tool.id));
-      const bench = furniture && isBenchView(tool.id);
-      if (sharedFurniture) {
-        picks.hidden = !bench;
-        root.dataset.selectedFurniture = bench ? 'bench' : tool.id;
-      }
-      retry.hidden = true;
-      hint.textContent = 'Loading 3D view…';
-      poster.src = tool.poster || posterFor(bench ? 'bench' : tool.id);
-      poster.alt = bench ? benchViews[0].alt : tool.alt || tool.name;
-      canvas.setAttribute('aria-label', (tool.alt || tool.name) + ' Interactive 3D view. Use the arrow keys to rotate. Home resets the view.');
-      if (!furniture) {
-        title.textContent = tool.name;
-        description.textContent = tool.action;
-        capture.src = new URL('../recipe/stages/' + tool.step + '.webp', base).href;
-        capture.alt = tool.stepAlt;
-        step.href = capture.src;
-      }
-      stage.classList.remove('is-ready');
-      setControls(false);
-      if (!activated) {
-        const bounds = root.getBoundingClientRect();
-        activated = bounds.bottom >= -250 && bounds.top <= window.innerHeight + 250;
-      }
-      if (activated) start();
-    }
-    function orbit(dx, dy) {
-      yaw += dx;
-      pitch = Math.max(-Math.PI / 2, Math.min(Math.PI / 2, pitch + dy));
-      update();
-    }
-    function act(action) {
-      if (!mesh) return;
-      if (action === 'reset') { yaw = homeYaw(); pitch = homePitch(); update(); }
-      else orbit(actions[action][1], actions[action][2]);
+      if (sheet) {
+        const index = ((Math.round(rotation * 24 / (2 * Math.PI)) % 24) + 24) % 24;
+        if (!canvas.width || canvas.width !== 270) { canvas.width = 270; canvas.height = 360; }
+        context.clearRect(0, 0, 270, 360);
+        context.drawImage(sheet, index % 6 * 270, Math.floor(index / 6) * 360, 270, 360, 0, 0, 270, 360);
+      } else if (mesh && stage.clientWidth && stage.clientHeight) {
+        const density = Math.min(window.devicePixelRatio || 1, 2, 640 / stage.clientWidth);
+        const w = Math.max(1, Math.round(stage.clientWidth * density));
+        const h = Math.max(1, Math.round(stage.clientHeight * density));
+        if (!pixels || pixels.width !== w || pixels.height !== h) {
+          canvas.width = w;
+          canvas.height = h;
+          pixels = context.createImageData(w, h);
+          depths = new Float32Array(w * h);
+        }
+        const yaw = (mesh.yaw ?? (furniture ? .51 : .89)) + rotation;
+        const flat = ['palette-leaf', 'painting-mat', 'transfer-paper', 'test-swatch'].includes(id);
+        const pitch = Math.max(-Math.PI / 2, Math.min(Math.PI / 2, (mesh.pitch ?? (furniture ? .32 : flat ? 1.02 : .57)) + tilt));
+        const scale = furniture ? furnitureScale(mesh, yaw, pitch, w, h) : Math.min(w, h) * .46;
+        project(mesh.vertices, projected, yaw, pitch, w, h, scale);
+        rasterize(mesh, projected, pixels, depths);
+        context.putImageData(pixels, 0, 0);
+      } else return;
+      stage.classList.add('is-turned');
     }
 
-    if (!furniture) {
-      root.classList.add('tool-catalog');
-      library.className = 'tool-library';
-      const groupLabel = document.createElement('label');
-      groupLabel.className = 'tool-group';
-      groupLabel.append('Craft stage', groupMenu);
-      const all = document.createElement('option');
-      all.value = '';
-      all.text = 'All ' + tools.length + ' objects';
-      groupMenu.add(all);
-      for (const group of new Set(tools.map(item => item.group))) {
-        const option = document.createElement('option');
-        option.value = group;
-        option.text = group + ' (' + tools.filter(item => item.group === group).length + ')';
-        groupMenu.add(option);
-      }
-      function chooseFromGroup(tool, group) {
-        groupMenu.value = group;
-        for (const button of picks.children) button.hidden = Boolean(group) && button.dataset.group !== group;
-        picks.scrollTop = 0;
-        select(tool);
-      }
-      groupMenu.addEventListener('change', () => {
-        const group = groupMenu.value;
-        chooseFromGroup(tools.find(item => !group || item.group === group), group);
-      });
-      root.addEventListener('portfolio:inspect-tool', event => {
-        const tool = tools.find(item => item.asset === event.detail?.id);
-        if (tool) chooseFromGroup(tool, tool.group);
-      });
-      groupMenu.value = tools[0].group;
-      library.append(groupLabel, picks);
+    function queue() {
+      if ((sheet || mesh) && !frame) frame = requestAnimationFrame(draw);
     }
-    for (const tool of options) {
-      const button = document.createElement('button');
-      button.type = 'button';
-      button.dataset.id = tool.id;
-      if (furniture) button.textContent = tool.name;
-      else {
-        button.dataset.group = tool.group;
-        button.dataset.asset = tool.asset;
-        button.hidden = Boolean(groupMenu.value) && tool.group !== groupMenu.value;
-        const thumbnail = document.createElement('img');
-        thumbnail.src = posterFor(tool.id);
-        thumbnail.alt = '';
-        thumbnail.width = 120;
-        thumbnail.height = 76;
-        thumbnail.loading = 'lazy';
-        const label = document.createElement('span');
-        label.textContent = tool.name;
-        button.append(thumbnail, label);
-      }
-      button.addEventListener('click', () => select(tool));
-      picks.append(button);
+    async function activate() {
+      if (pending || sheet || mesh) return;
+      pending = true;
+      try {
+        if (portrait) {
+          const sprite = new Image();
+          sprite.src = new URL('../media/' + id + '-360.webp', base).href;
+          await sprite.decode();
+          sheet = sprite;
+        } else {
+          mesh = meshFor(id, await loadGeometry(id, furniture));
+          projected = new Float32Array(mesh.vertices.length / 11 * 6);
+        }
+        new ResizeObserver(queue).observe(stage);
+        queue();
+      } catch {
+        // Retain the authored render. A later drag or keypress retries loading.
+      } finally { pending = false; }
     }
-    for (const [key, [label]] of Object.entries(actions)) {
-      const button = document.createElement('button');
-      button.type = 'button';
-      button.dataset.action = key;
-      button.title = label;
-      button.setAttribute('aria-label', label);
-      if (key === 'reset') button.textContent = 'Reset';
-      else button.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><g transform="rotate(' + arrowAngle[key] + ' 12 12)" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6.5 13.5L12 8l5.5 5.5"/></g></svg>';
-      button.addEventListener('click', () => act(key));
-      directions.append(button);
-    }
-    canvas.addEventListener('keydown', event => {
-      const action = { ArrowLeft: 'left', ArrowRight: 'right', ArrowUp: 'up', ArrowDown: 'down', Home: 'reset' }[event.key];
-      if (!action || !mesh) return;
-      event.preventDefault();
-      act(action);
-    });
-    canvas.addEventListener('pointerdown', event => {
-      if (!mesh || pointer || event.button !== 0 || !event.isPrimary) return;
+    stage.addEventListener('pointerdown', event => {
+      if (!event.isPrimary || event.button !== 0) return;
       pointer = { id: event.pointerId, x: event.clientX, y: event.clientY };
-      canvas.setPointerCapture(event.pointerId);
-      stage.classList.add('is-dragging');
+      stage.setPointerCapture(event.pointerId);
+      activate();
     });
-    window.addEventListener('pointermove', event => {
+    stage.addEventListener('pointermove', event => {
       if (!pointer || pointer.id !== event.pointerId) return;
-      orbit((pointer.x - event.clientX) * .011, (event.clientY - pointer.y) * .011);
+      rotation += (event.clientX - pointer.x) * .025;
+      tilt = Math.min(2, Math.max(-2, tilt + (event.clientY - pointer.y) * .014));
       pointer.x = event.clientX;
       pointer.y = event.clientY;
+      queue();
     });
-    function release(event) {
-      if (!pointer || (event.pointerId !== undefined && pointer.id !== event.pointerId)) return;
-      pointer = null;
-      stage.classList.remove('is-dragging');
-      update();
-    }
-    window.addEventListener('pointerup', release);
-    window.addEventListener('pointercancel', release);
-    window.addEventListener('blur', release);
-    canvas.addEventListener('lostpointercapture', event => {
-      if (!event.buttons) release(event);
+    stage.addEventListener('lostpointercapture', () => { pointer = null; });
+    stage.addEventListener('keydown', event => {
+      const keys = { ArrowLeft: [-1, 0], ArrowRight: [1, 0], ArrowUp: [0, 1], ArrowDown: [0, -1], Home: [0, 0] };
+      const direction = keys[event.key];
+      if (!direction || (portrait && direction[1])) return;
+      event.preventDefault();
+      if (event.key === 'Home') { rotation = 0; tilt = 0; }
+      else { rotation += direction[0] * Math.PI / 8; tilt = Math.min(2, Math.max(-2, tilt + direction[1] * Math.PI / 8)); }
+      activate();
+      queue();
     });
-
-    stage.append(poster, canvas);
-    controls.append(hint, retry, directions);
-    if (sharedFurniture) {
-      root.replaceChildren(stage, picks, controls);
-      root.addEventListener('portfolio:inspect-furniture', event => {
-        const item = event.detail;
-        if (furnitureIds.has(item?.id)) select(item);
-      });
-    } else if (furniture) root.replaceChildren(picks, stage, controls);
-    else {
-      const showcase = document.createElement('div');
-      showcase.className = 'tool-showcase';
-      showcase.append(caption, stage, controls, step);
-      root.replaceChildren(library, showcase);
-    }
-    select(options[0]);
-    if (window.ResizeObserver) new ResizeObserver(update).observe(stage);
-    else window.addEventListener('resize', update);
-    if (activated) return;
-    if (!window.IntersectionObserver) {
-      activated = true;
-      start();
-      return;
-    }
-    const observer = new IntersectionObserver(entries => {
-      if (!entries.some(entry => entry.isIntersecting)) return;
-      observer.disconnect();
-      if (activated) return;
-      activated = true;
-      start();
-    }, { rootMargin: '250px' });
-    observer.observe(root);
   }
-  document.querySelectorAll('[data-tool-viewer]').forEach(setup);
+  document.querySelectorAll('[data-model]').forEach(setup);
 })();

@@ -57,15 +57,6 @@ if (detailDialog) {
     viewport.classList.remove("panning");
   });
 
-  for (const illustration of document.querySelectorAll(".case-story figure > img, .case-story .study-image > img")) {
-    if (illustration.closest("[data-tool-viewer], tiny-voices, tiny-films, [data-no-lightbox], a, button")) continue;
-    const trigger = document.createElement("button");
-    trigger.className = "enlarge-art";
-    trigger.type = "button";
-    trigger.setAttribute("aria-label", "Enlarge image: " + illustration.alt);
-    illustration.replaceWith(trigger);
-    trigger.appendChild(illustration);
-  }
   document.addEventListener("click", event => {
     const trigger = event.target.closest(".enlarge-art, a[data-art-link]");
     if (!trigger || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
@@ -85,69 +76,21 @@ document.querySelectorAll("dialog").forEach(dialog => {
   });
 });
 
-// The menu is the collection: each entry pairs a production model with its room capture.
-document.addEventListener("DOMContentLoaded", () => {
-  const model = document.getElementById("furniture-model");
-  const picker = document.getElementById("furniture-choice");
-  const room = document.getElementById("furniture-room");
-  function showPiece() {
-    const option = picker.selectedOptions[0];
-    const capture = room.querySelector("img");
-    capture.src = option.dataset.room;
-    capture.alt = option.dataset.roomAlt;
-    room.querySelector("strong").textContent = option.text;
-    room.querySelector("figcaption span").textContent = option.dataset.caption;
-    room.querySelector(".enlarge-art")?.setAttribute("aria-label", "Enlarge image: " + capture.alt);
-    model.dispatchEvent(new CustomEvent("portfolio:inspect-furniture", {
-      detail: { id: option.value, name: option.text, poster: option.dataset.studio, alt: option.dataset.studioAlt }
-    }));
-  }
-  picker.closest("label").hidden = false;
-  picker.addEventListener("change", showPiece);
-  if (location.hash === "#bench-model") picker.value = "bench";
-  showPiece();
-  window.addEventListener("hashchange", () => {
-    if (location.hash === "#bench-model") {
-      picker.value = "bench";
-      showPiece();
-    }
-  });
-});
-
-for (const study of document.querySelectorAll("[data-posture]")) {
-  const slider = study.querySelector("input[type=range]");
-  const toolbar = study.querySelector(".posture-toolbar");
-  const presets = [...toolbar.querySelectorAll("button")];
-  function setPosition() {
-    const share = Number(slider.value);
-    study.style.setProperty("--standing-share", share + "%");
-    slider.setAttribute("aria-valuetext", share + "% standing, " + (100 - share) + "% seated");
-    for (const button of presets) button.setAttribute("aria-pressed", String(share === Number(button.dataset.position)));
-  }
-  for (const button of presets) button.addEventListener("click", () => {
-    slider.value = button.dataset.position;
-    setPosition();
-  });
-  slider.addEventListener("input", setPosition);
-  setPosition();
-  study.classList.add("interactive");
-  toolbar.hidden = false;
-  slider.disabled = false;
-}
-
 // Older case-study and report links enter the corresponding passage of the single-page edit.
 const formerSections = {
-  "design-document": "game-design", "game-references": "game-design", "iteration-title": "iteration",
+  "design-document": "game-design", "repair-guide": "tool-library",
+  "crafting-title": "assembly", "space-title": "space", "access-title": "accessibility",
+  "shared-life-title": "shared-life", "furniture-model": "furniture-collection",
+  "furniture-choice": "furniture-collection", "collection-name": "furniture-collection",
   "spec-spec-overview": "overview", "spec-journey": "game-design", "spec-collection": "furniture-collection",
-  "spec-crafting": "assembly", "spec-decoration": "tool-library", "spec-residents": "residents",
-  "spec-care": "residents", "spec-life": "household", "spec-space": "space",
-  "spec-persistence": "results", "spec-production": "results", "crafting-title": "assembly",
-  "joinery-survey": "research", "repair-guide": "tool-library", "room-consistency": "space", "space-title": "space",
-  "characters": "residents", "shared-life": "residents", "shared-life-title": "residents"
+  "spec-crafting": "assembly", "spec-decoration": "assembly", "spec-residents": "residents",
+  "spec-care": "shared-life", "spec-life": "shared-life", "spec-space": "space",
+  "spec-persistence": "save-recovery", "spec-production": "results"
 };
 function followFormerSection() {
   const id = location.hash.slice(1);
-  const next = id.startsWith("survey-") ? "research" : /^station-[1-6]$/.test(id) ? "workshop" : formerSections[id];
+  if (document.getElementById(id)) return;
+  const next = formerSections[id] || (id.startsWith("survey-") ? "joinery-survey" : null);
   const target = next && document.getElementById(next);
   if (!target) return;
   try { history.replaceState(history.state, "", "#" + next); } catch { /* Offline bookmarks still scroll. */ }

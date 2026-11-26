@@ -72,12 +72,19 @@
     if (tinyRoot) {
       unmountThread?.()
       unmountThread = window.ProjectThread.mount(document.querySelector('.thread-host'), document.getElementById('main'), [
-        ['overview', 'Gameplay film', '游戏演示', 'Film', '演示'],
+        ['overview', 'Overview', '项目概览', 'Intro', '概览'],
         ['game-design', 'Game design', '游戏设计', 'Design', '设计'],
-        ['research', 'Joinery puzzles', '榫卯机制', 'Joints', '榫卯'],
-        ['workshop', 'Workshop & access', '工坊与操作', 'Tools', '工坊'],
-        ['household', 'Furniture & residents', '家具与住客', 'Room', '住客'],
-        ['results', 'Technical results', '技术验证', 'Tests', '验证']
+        ['research', 'Research', '设计调研', 'Study', '调研'],
+        ['workshop', 'Workshop', '工坊布局', 'Bench', '工坊'],
+        ['assembly', 'Crafting', '制作流程', 'Craft', '制作'],
+        ['drawing-design', 'Drawings', '图纸设计', 'Plans', '图纸'],
+        ['household', 'Furniture', '家具设计', 'Pieces', '家具'],
+        ['space', 'MR & space', '混合现实空间', 'Space', '空间'],
+        ['residents', 'Characters', '角色设计', 'Cast', '角色'],
+        ['shared-life', 'Shared life', '日常互动', 'Life', '日常'],
+        ['iteration', 'Iteration', '原型迭代', 'Tests', '迭代'],
+        ['accessibility', 'Accessibility', '无障碍设计', 'Access', '辅助'],
+        ['results', 'Results', '技术成果', 'Build', '成果']
       ], next)
     }
     remember(next)

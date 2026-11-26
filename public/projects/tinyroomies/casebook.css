@@ -1,0 +1,179 @@
+/* TinyRoomies uses broad, illustrated spreads inside the portfolio's reading rail. */
+@media screen {
+  .roomies-case > .personal-site-chrome:first-child { margin-bottom: clamp(20px, 3vh, 32px); }
+  .roomies-case .thread-layout {
+    width: min(1580px, calc(100% - 40px));
+    --rail-space: clamp(130px, 11.7vw, 176px);
+    --rail-inset: 0px;
+    grid-template-columns: var(--rail-space) minmax(0, 1fr) var(--rail-space);
+  }
+  .roomies-case .thread-host { width: calc(100% - 14px); }
+  .roomies-case .thread-nav { --fibre-width: clamp(26px, 2.5vw, 40px); }
+  .roomies-case .thread-nav a { padding-block: 1px; min-height: 20px; font-size: clamp(17px, 1.45vw, 21px); }
+  .roomies-case #main.casebook > .case-return { width: fit-content; margin: 0 0 9px; }
+}
+#main.casebook { font-size: 17px; line-height: 1.45; }
+.casebook :is(section,div,article,figure,audio) { min-width: 0; }
+.casebook figure, .casebook ol, .casebook ul { margin: 0; }
+.casebook img { display: block; max-width: 100%; height: auto; }
+.casebook [data-art-link] { display: block; cursor: zoom-in; }
+.casebook figure img { width: 100%; }
+.casebook figure figcaption { text-align: left; }
+#main.casebook figcaption { margin: 6px 0 0; color: var(--ink); font-size: 15px; line-height: 1.35; }
+.casebook figcaption strong { display: block; font-size: 1.12em; }
+.casebook .folio-film figcaption strong { display: inline; }
+.casebook .folio-section { padding-block: clamp(17px, 2vw, 26px) 0; margin-block: clamp(27px, 3.4vw, 50px) 0; border-top: 1px solid var(--line); }
+#main.casebook h2 { font-size: clamp(32px, 3.4vw, 48px); line-height: 1.05; margin: 0 0 14px; }
+#main.casebook h3 { font-size: clamp(19px, 1.65vw, 24px); line-height: 1.18; }
+#main.casebook h4 { font-size: 18px; line-height: 1.22; }
+.casebook .folio-section > h3 { margin: 21px 0 8px; }
+.casebook .folio-section > h2 + h3 { margin-top: 0; }
+.casebook .folio-section > p { margin: 5px 0 13px; max-width: 85ch; }
+.casebook .folio-hero { display: grid; grid-template-columns: minmax(0, .83fr) minmax(0, 1.17fr); gap: clamp(18px, 3vw, 46px); align-items: center; }
+.casebook .intro-copy { display: flow-root; }
+.casebook .intro-copy > img { float: right; width: clamp(44px, 5vw, 72px); margin: 0 0 6px 8px; filter: var(--line-art-filter); }
+#main.casebook h1 { margin: 0 0 3px; font-size: clamp(43px, 4.8vw, 76px); line-height: 1; }
+.casebook .intro-copy p { margin: 12px 0 0; }
+.casebook .intro-copy .platform, .casebook .piece .recipe, .casebook .trait { font-weight: 600; color: var(--link); }
+.casebook .intro-copy .platform { margin-top: 5px; font-size: 15px; }
+.casebook .folio-grid { display: grid; gap: clamp(12px, 1.6vw, 23px); align-items: start; }
+.casebook .grid-1 { grid-template-columns: 1fr; }
+.casebook .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.casebook .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.casebook .grid-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.casebook .grid-5 { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+.casebook .folio-grid + .folio-grid, .casebook .figure-notes + .folio-grid, .casebook .folio-grid + .figure-notes { margin-top: 18px; }
+.casebook .landscapes > figure img, .casebook .reference-pair img { aspect-ratio: 16/9; object-fit: contain; }
+.casebook #game-design .landscapes img, .casebook #iteration .landscapes img { object-fit: cover; }
+.casebook .studies img { height: clamp(130px, 13vw, 205px); object-fit: contain; }
+.casebook .reference-pair > figure { display: grid; grid-template-columns: 43% 1fr; align-items: center; gap: 12px; }
+.casebook .notes h4 { margin: 0 0 3px; }
+.casebook :is(.notes, .play-loop, .inventory, .resident, .piece, .evidence) p { line-height: 1.4; }
+.casebook .notes > div { padding-left: 12px; border-left: 2px solid var(--line); }
+.casebook .play-loop { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; padding: 9px 0; border-block: 1px dashed var(--line); list-style: none; }
+.casebook .play-loop li { position: relative; padding-inline-end: 10px; }
+.casebook .play-loop li + li::before { content: '›'; position: absolute; inset: 0 auto auto -12px; color: var(--link); }
+.casebook :is(.play-loop, .station-list) span { display: block; }
+.casebook .play-loop + .notes { margin-top: 14px; }
+.casebook .inventory { gap: 12px 16px; }
+.casebook .inventory .ledger-key { font-size: 14px; color: var(--muted); margin: 2px 0 7px; }
+.casebook .inventory ul { padding-left: 0; list-style: none; }
+.casebook .inventory li { padding: 3px 0; border-top: 1px dotted var(--line); font-size: 15px; line-height: 1.25; }
+.casebook .inventory li span { font-size: .8em; color: var(--muted); }
+.casebook .figure-notes { display: grid; grid-template-columns: minmax(0, 1.34fr) minmax(0, 1fr); gap: clamp(16px, 2.1vw, 32px); align-items: center; }
+.casebook .figure-notes > figure > a img { max-height: 390px; object-fit: contain; }
+.casebook .figure-notes h3 { margin-bottom: 10px; }
+.casebook .station-list { padding: 0 0 0 1.5em; }
+.casebook .station-list li { margin: 3px 0 7px; padding-left: 2px; line-height: 1.3; }
+.casebook .station-list li::marker { color: var(--link); font-weight: 700; }
+.casebook .figure-notes p + ol { margin-top: 10px; }
+.casebook .craft-row { display: grid; grid-template-columns: minmax(0, .75fr) minmax(0, 1.75fr); align-items: center; gap: 18px; border-top: 1px dashed var(--line); padding: 11px 0; }
+.casebook .craft-row h3 { margin: 0 0 4px; }
+.casebook .craft-row p { font-size: 16px; line-height: 1.38; }
+.casebook .tool-line { display: flex; align-items: flex-end; flex-wrap: wrap; gap: 4px 7px; }
+.casebook .tool-line > figure { width: clamp(67px, 6vw, 92px); }
+#main.casebook .tool-line figcaption { text-align: center; font-size: 13px; margin: 0; line-height: 1.15; }
+.casebook .model-stage { aspect-ratio: 4/3; position: relative; touch-action: pan-y; user-select: none; -webkit-user-select: none; cursor: grab; }
+.casebook .model-stage:active { cursor: grabbing; }
+.casebook .model-stage :is(img, canvas) { width: 100%; height: 100%; object-fit: contain; position: absolute; inset: 0; pointer-events: none; }
+.casebook .model-stage canvas, .casebook .model-stage.is-turned img { visibility: hidden; }
+.casebook .model-stage.is-turned canvas { visibility: visible; }
+.casebook .piece-images { display: grid; grid-template-columns: .85fr 1.15fr; align-items: center; gap: 5px; }
+.casebook .piece-images figure img { aspect-ratio: 1.6; object-fit: contain; }
+.casebook .piece h4 { margin: 7px 0 2px; }
+.casebook .piece .recipe { font-size: 14px; margin: 0 0 4px; }
+.casebook .bench-study { display: grid; grid-template-columns: minmax(110px, 17%) minmax(0, 60ch); gap: 12px; align-items: center; border-top: 1px dashed var(--line); margin-top: 18px; padding-top: 8px; }
+.casebook .bench-study .model-stage { aspect-ratio: 1.8; }
+.casebook .residents .model-stage { aspect-ratio: 1.25; }
+.casebook .residents h3 { margin: 5px 0 0; }
+.casebook .resident audio { margin-top: 9px; width: 100%; height: 34px; display: block; }
+.casebook .trait { font-size: 14px; }
+.casebook .expressions, .casebook .map-strip { margin-top: 12px; }
+.casebook .expressions img { height: clamp(72px, 8vw, 118px); object-fit: contain; }
+.casebook .props img { width: 100%; height: clamp(70px, 9vw, 130px); object-fit: contain; }
+.casebook .map-strip { display: flex; height: clamp(74px, 8vw, 122px); gap: 4px; margin: 0 0 9px; }
+.casebook .map-strip > a { min-width: 0; flex: 1; }
+.casebook .map-strip img { width: 100%; height: 100%; object-fit: contain; }
+.casebook .evidence h3 { margin-bottom: 4px; }
+@media screen and (max-width: 1120px) {
+  .roomies-case .thread-layout { --rail-space: 134px; grid-template-columns: var(--rail-space) minmax(0, 1fr) clamp(8px, 5vw, 55px); }
+  .casebook .inventory { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .casebook .reference-pair > figure { display: block; }
+}
+@media screen and (max-width: 960px) {
+  .roomies-case .thread-layout { --rail-space: 88px; width: calc(100% - 24px); grid-template-columns: var(--rail-space) minmax(0, 1fr) 12px; }
+  .roomies-case .thread-nav { --fibre-width: 21px; }
+  .roomies-case .thread-nav a { font-size: 17px; }
+  .casebook .grid-5, .casebook .grid-4.pieces { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .casebook .craft-row { grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); }
+}
+@media screen and (max-width: 720px) {
+  .roomies-case .thread-layout { --rail-space: 68px; width: calc(100% - 16px); grid-template-columns: var(--rail-space) minmax(0, 1fr); }
+  .roomies-case .thread-host { width: calc(100% - 6px); }
+  .roomies-case .thread-nav { --fibre-width: 16px; }
+  .roomies-case .thread-nav ol { left: 20px; }
+  .roomies-case .thread-nav a { font-size: 14px; min-height: 18px; line-height: 1; padding: 1px 0; }
+  #main.casebook { font-size: 16px; }
+  .casebook :is(.folio-hero, .figure-notes, .craft-row) { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+  .casebook :is(.grid-3, .grid-4, .grid-5, .grid-4.pieces, .inventory) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .casebook .tool-line > figure { width: clamp(64px, 13vw, 92px); }
+  .casebook .play-loop { display: flex; flex-wrap: wrap; }
+  .casebook .play-loop li { flex: 1 1 90px; }
+  .casebook .play-loop li + li::before { content: none; }
+  .casebook .bench-study { grid-template-columns: 30% minmax(0, 1fr); }
+  .casebook .folio-film { margin: 3px 0; }
+  .casebook .reference-pair > figure { display: block; }
+}
+@media screen and (max-width: 490px) {
+  .casebook :is(.grid-2, .grid-3, .grid-4.pieces, .pieces) { grid-template-columns: minmax(0, 1fr); }
+  .casebook .studies > figure { display: grid; grid-template-columns: .85fr 1fr; align-items: center; gap: 9px; }
+  .casebook .studies img { height: auto; max-height: 142px; }
+  .casebook #iteration .landscapes > figure, .casebook .reference-pair > figure { display: grid; grid-template-columns: 40% 1fr; align-items: start; gap: 9px; }
+  #main.casebook .studies figcaption { margin: 0; }
+  .casebook .notes { gap: 9px; }
+  .casebook .bench-study { grid-template-columns: 1fr; }
+  .casebook .bench-study .model-stage { max-width: 55%; }
+  .casebook .piece-images { grid-template-columns: 40% 1fr; }
+}
+@media screen and (max-height: 650px) {
+  .roomies-case .thread-nav { top: 7px !important; height: min(calc(100dvh - 14px), 420px) !important; }
+  .roomies-case .thread-nav a { min-height: 14px; font-size: 14px; padding: 0; }
+}
+@media print {
+  .casebook .folio-grid, .casebook .folio-hero, .casebook .figure-notes { break-inside: auto; }
+  .casebook :is(figure, article) { break-inside: avoid; }
+  .casebook .model-stage img { visibility: visible; }
+  .casebook canvas { display: none; }
+}
+.casebook .operation-strip { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 7px 10px; }
+.casebook .operation-strip figure { flex: 0 1 clamp(74px, 7.9vw, 118px); }
+.casebook .operation-strip img { aspect-ratio: 1.6; object-fit: cover; }
+#main.casebook .operation-strip figcaption, #main.casebook .operation-strip strong { font: 400 13px/1.16 var(--prose); margin-top: 3px; }
+.casebook .source-note { font-size: 14px; color: var(--muted); }
+
+@media screen and (min-width: 961px) {
+  .casebook .craft-row {
+    grid-template-columns: minmax(0, .8fr) minmax(0, 1.35fr) minmax(0, 1fr);
+    grid-template-areas: "action steps tools";
+    gap: 18px;
+    align-items: start;
+    padding-block: 13px;
+  }
+  .casebook .craft-row > div:first-child { grid-area: action; }
+  .casebook .operation-strip { grid-area: steps; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+  .casebook .tool-line { grid-area: tools; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 7px; }
+  .casebook .tool-line > figure { width: 100%; }
+}
+@media screen and (min-width: 961px) {
+  .casebook .resident { align-self: stretch; display: flex; flex-direction: column; }
+  .casebook .resident > audio { margin-top: auto; }
+  .casebook .resident > p:last-of-type { margin-bottom: 8px; }
+}
+.casebook .workshop-map { position: relative; }
+.casebook .workshop-map span {
+  position: absolute; transform: translate(-50%, -50%); pointer-events: none;
+  display: grid; place-items: center; width: 1.5em; height: 1.5em; line-height: 1;
+  border-radius: 50%; background: var(--paper); border: 1px solid var(--link);
+  color: var(--link); font-weight: 700;
+}
+.casebook .figure-notes > figure > .workshop-map img { max-height: none; }
