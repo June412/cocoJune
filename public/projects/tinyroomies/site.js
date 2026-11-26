@@ -1,5 +1,47 @@
 "use strict";
 
+const gallery = [
+  { path: "edition/arrival", sizes: [630, 1157], name: "Arrival at the new home", target: "#game-design", action: "Explore how the five residents arrive", alt: "The five residents sit inside an open wooden suitcase lined with green felt." },
+  { path: "images/gallery/workshop", name: "The unfolded workshop", target: "#workshop", action: "Explore the suitcase workshop", alt: "Unity simulator view of the open suitcase, with its turntable between two fold-out work areas." },
+  { path: "images/gallery/tools", name: "The workshop inventory", target: "#tool-models", action: "Inspect the workshop tools in 3D", alt: "A layout of the 22 project tools, fixtures and materials, from the joinery mallet to the wax pad." },
+  { path: "images/gallery/residents", name: "The five residents", target: "#residents", action: "Meet the residents and hear their voices", alt: "Studio renders of Sprout, Keeper, Page, Archivist and Courier." }
+];
+
+let currentPlate = 0;
+function setPlate(step) {
+  currentPlate = (currentPlate + step + gallery.length) % gallery.length;
+  const item = gallery[currentPlate];
+  const [small, large] = item.sizes || [720, 1440];
+  const img = document.getElementById("plate");
+  img.srcset = item.path + "-sm.webp " + small + "w, " + item.path + ".webp " + large + "w";
+  img.src = item.path + ".webp";
+  img.alt = item.alt;
+  if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    const incoming = currentPlate;
+    img.decode().then(() => {
+      if (incoming !== currentPlate) return;
+      img.animate([
+        { opacity: .55, transform: `translateX(${Math.sign(step) * 6}px)` },
+        { opacity: 1, transform: "translateX(0)" }
+      ], { duration: 180, easing: "ease-out" });
+    }).catch(() => {});
+  }
+  const link = document.getElementById("plate-target");
+  link.href = item.target;
+  link.setAttribute("aria-label", item.action);
+  document.getElementById("plate-name").textContent = item.name;
+  document.querySelector(".plate-count").textContent = String(currentPlate + 1).padStart(2, "0") + " / 04";
+}
+document.getElementById("prev-plate").addEventListener("click", () => setPlate(-1));
+document.getElementById("next-plate").addEventListener("click", () => setPlate(1));
+
+document.querySelector(".hero-gallery").addEventListener("keydown", event => {
+  if (event.altKey || event.metaKey || event.ctrlKey) return;
+  if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
+  event.preventDefault();
+  setPlate(event.key === "ArrowRight" ? 1 : -1);
+});
+
 const detailDialog = document.getElementById("art-detail");
 if (detailDialog) {
   const detailImage = detailDialog.querySelector("img");
@@ -57,6 +99,15 @@ if (detailDialog) {
     viewport.classList.remove("panning");
   });
 
+  for (const illustration of document.querySelectorAll(".case-story figure > img, .case-story .study-image > img")) {
+    if (illustration.closest("[data-model], [data-tool-viewer], tiny-voices, tiny-films, [data-no-lightbox], a, button")) continue;
+    const trigger = document.createElement("button");
+    trigger.className = "enlarge-art";
+    trigger.type = "button";
+    trigger.setAttribute("aria-label", "Enlarge image: " + illustration.alt);
+    illustration.replaceWith(trigger);
+    trigger.appendChild(illustration);
+  }
   document.addEventListener("click", event => {
     const trigger = event.target.closest(".enlarge-art, a[data-art-link]");
     if (!trigger || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
@@ -76,28 +127,44 @@ document.querySelectorAll("dialog").forEach(dialog => {
   });
 });
 
-// Older case-study and report links enter the corresponding passage of the single-page edit.
-const formerSections = {
-  "design-document": "game-design", "repair-guide": "tool-library",
-  "crafting-title": "assembly", "space-title": "space", "access-title": "accessibility",
-  "shared-life-title": "shared-life", "furniture-model": "furniture-collection",
-  "furniture-choice": "furniture-collection", "collection-name": "furniture-collection",
-  "spec-spec-overview": "overview", "spec-journey": "game-design", "spec-collection": "furniture-collection",
-  "spec-crafting": "assembly", "spec-decoration": "assembly", "spec-residents": "residents",
-  "spec-care": "shared-life", "spec-life": "shared-life", "spec-space": "space",
-  "spec-persistence": "save-recovery", "spec-production": "results"
-};
-function followFormerSection() {
-  const id = location.hash.slice(1);
-  if (document.getElementById(id)) return;
-  const next = formerSections[id] || (id.startsWith("survey-") ? "joinery-survey" : null);
-  const target = next && document.getElementById(next);
-  if (!target) return;
-  try { history.replaceState(history.state, "", "#" + next); } catch { /* Offline bookmarks still scroll. */ }
-  target.scrollIntoView({behavior: "instant", block: "start"});
+for (const study of document.querySelectorAll("[data-posture]")) {
+  const slider = study.querySelector("input[type=range]");
+  const toolbar = study.querySelector(".posture-toolbar");
+  const presets = [...toolbar.querySelectorAll("button")];
+  function setPosition() {
+    const share = Number(slider.value);
+    study.style.setProperty("--standing-share", share + "%");
+    slider.setAttribute("aria-valuetext", share + "% standing, " + (100 - share) + "% seated");
+    for (const button of presets) button.setAttribute("aria-pressed", String(share === Number(button.dataset.position)));
+  }
+  for (const button of presets) button.addEventListener("click", () => {
+    slider.value = button.dataset.position;
+    setPosition();
+  });
+  slider.addEventListener("input", setPosition);
+  setPosition();
+  study.classList.add("interactive");
+  toolbar.hidden = false;
+  slider.disabled = false;
 }
-followFormerSection();
-window.addEventListener("hashchange", followFormerSection);
+
+// Direct links also reveal exhibits and credits inside a closed disclosure.
+function revealLinkedContent() {
+  const id = location.hash.slice(1);
+  const aliases = { "save-recovery": "spec-persistence", "furniture-model": "furniture-collection",
+    "furniture-choice": "furniture-collection", "furniture-room": "furniture-collection" };
+  let target = document.getElementById(id);
+  if (!target && aliases[id]) {
+    target = document.getElementById(aliases[id]);
+    if (target) target.scrollIntoView({ block: "start" });
+  }
+  if (!target) return;
+  for (let node = target; node; node = node.parentElement) {
+    if (node instanceof HTMLDetailsElement) node.open = true;
+  }
+}
+window.addEventListener("hashchange", revealLinkedContent);
+revealLinkedContent();
 
 document.addEventListener("play", event => {
   if (!(event.target instanceof HTMLMediaElement)) return;

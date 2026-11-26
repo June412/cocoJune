@@ -84,7 +84,9 @@
         ['shared-life', 'Shared life', '日常互动', 'Life', '日常'],
         ['iteration', 'Iteration', '原型迭代', 'Tests', '迭代'],
         ['accessibility', 'Accessibility', '无障碍设计', 'Access', '辅助'],
-        ['results', 'Results', '技术成果', 'Build', '成果']
+        ['results', 'Results', '技术成果', 'Build', '成果'],
+        ['design-document', 'Design notes', '设计文档', 'Notes', '文档'],
+        ['joinery-survey', 'Joinery survey', '榫卯调研全文', 'Joints', '全文']
       ], next)
     }
     remember(next)
