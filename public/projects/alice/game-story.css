@@ -31,12 +31,7 @@ alice-commission-route { display:block; margin:1rem 0 1.5rem; }
 alice-commission-route ol { display:grid; grid-template-columns:repeat(6,minmax(0,1fr)); gap:clamp(7px,1.2vw,15px); }
 alice-commission-route button { padding:0 0 .45rem; background:transparent; border:0; border-bottom:2px solid transparent; text-align:left; width:100%; height:100%; color:#475249; vertical-align:top; }
 alice-commission-route button[aria-pressed="true"] { border-bottom-color:var(--sewing-thread); color:var(--sewing-ink); }
-alice-commission-route .repair-sketch { display:block; width:min(100%,76px); height:auto; stroke:#5b4035; stroke-width:2.15; stroke-linecap:round; stroke-linejoin:round; }
-.repair-sketch .paper { fill:#f5e8cd; }
-.repair-sketch .gold { fill:#f8d373; }
-.repair-sketch .holes { fill:#5b4035; stroke:none; }
-.repair-sketch .thread { stroke:#007697; stroke-width:2.6; }
-alice-commission-route button:is(:hover,:focus-visible,[aria-pressed=true]) .repair-sketch .paper { fill:#f7dea1; }
+alice-commission-route .repair-sketch { display:block; width:clamp(44px,5vw,66px); max-width:100%; height:auto; aspect-ratio:1; object-fit:contain; filter:var(--line-art-filter); }
 alice-commission-route button span { display:block; margin-top:.45rem; font-size:.9rem; line-height:1.3; }
 
 .story-workmat { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.03fr); gap:clamp(24px,4vw,48px); margin:0 0 clamp(26px,4vw,42px); align-items:start; }

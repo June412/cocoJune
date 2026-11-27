@@ -5,12 +5,12 @@ import { GameStateDiagram, SystemOverviewDiagram } from './GreetingCardDiagrams'
 export default function GreetingCardReport() {
   const { t } = useSite()
   return <>
-    <h2 id="abstract" data-thread-chapter>{t("Abstract", "摘要")}</h2>
+    <h2 id="abstract" data-thread-chapter>{t("Summary", "摘要")}</h2>
     <p>{t("This project presents a 2D interactive greeting card celebrating the 20th Anniversary of Xi’an Jiaotong–Liverpool University (XJTLU). Built with OpenGL FreeGLUT, it combines animation, interaction, and visual design to create a playful yet elegant scene. The design focuses on smooth transitions between stages, pixel-style graphics, and layered rendering effects such as soft lighting, dynamic clouds, and fireworks. Through simple controls, users can explore the campus environment and experience a lively celebration atmosphere.", "这张二维互动贺卡为西交利物浦大学二十周年而作。我用 OpenGL 和 FreeGLUT 将动画、交互与像素画面串成校园游览。玩家从封面进入校园，移动柔光手电寻找小猫，最后在流动的云和彩色烟花下庆祝校庆。")}</p>
-    <h2 id="introduction" data-thread-chapter>{t("1. Introduction", "1. 项目介绍")}</h2>
+    <h2 id="introduction" data-thread-chapter>{t("Project brief", "项目背景")}</h2>
     <p>{t("This project is a 2D interactive greeting card system themed around the 20th Anniversary of Xi’an Jiaotong-Liverpool University (XJTLU). The main objective of the project is to implement a greeting card that integrates animation, interaction, and multi-scene transitions within the FreeGLUT environment.", "我想在 FreeGLUT 中做一张可以玩的校庆贺卡，把动画、玩家操作与多场景切换放进同一个程序。")}</p>
     <p>{t("My card is designed with three main stages (or scenes): the Cover, the Campus, and the Celebration(The viewport in the third scene is larger), which are controlled by the global state variable gStage in coordination with time. The following sections first present the README of the system,which includes explanations of some code functions, interaction instructions, and key state transitions, followed by the design and transitions of the three scenes are discussed in detail. Subsequently, the hint system are described. Finally, the report concludes with a summary of the existing issues and potential improvements of the code.", "贺卡分为封面、校园和庆典三个阶段，庆典阶段会展开更大的视野。全局状态 gStage 与计时共同控制切换。下文先交代函数、操作和状态，再拆解三个场景、提示系统以及当前实现的局限。")}</p>
-    <h2 id="system" data-thread-chapter>{t("2. System Overview (README)", "2. 系统概览（README）")}</h2>
+    <h2 id="system" data-thread-chapter>{t("Game flow", "游戏流程")}</h2>
     <p>{t("To provide a quick visual reference of the system layout, figure 1 illustrates the overall composition used in the README.", "图 1 展示了程序入口、回调与视图之间的关系。")}</p>
     <div className="study-spread">
       <div>
@@ -72,7 +72,7 @@ export default function GreetingCardReport() {
       <li>{t("COVER Scene: background (starburst) → flags → pixel title “20th” → cat & balloons → fish cursor → hint overlay → black fade transition.", "封面：星光背景 → 彩旗 → 像素标题“20th” → 小猫与气球 → 鱼形光标 → 提示 → 黑场渐变。")}</li>
       <li>{t("MAIN Scene: background & grass → clouds → campus → cat & lantern → stencil write → layered blackout (5 layers) → confetti → (if celebrating) fireworks particles → title overlays.", "校园：背景和草地 → 云 → 建筑 → 小猫和灯笼 → 写入模板 → 五层遮黑 → 彩纸 → 庆典烟花粒子 → 标题。")}</li>
     </ul>
-    <h2 id="cover" data-thread-chapter>{t("3. Scene 1: Cover Design Details", "3. 场景一 · 封面")}</h2>
+    <h2 id="cover" data-thread-chapter>{t("Cover design", "封面设计")}</h2>
     <p>{t("The following figure provides the cover layout.", "下图展示了封面各元素的位置。")}</p>
     <ReportFigure folder="card" files={["Im2.png"]} caption={t("Figure 3 Cover scene layout placeholder.", "图 3 · 封面布局。")} />
     <p>{t("As shown in the figure 3, the cover background is implemented using a simple but festive visual effect — a soft yellow background combined with purple line-drawn stars. The overall color palette enhances the cheerful atmosphere of the celebration.", "封面以柔黄色衬底，用紫色线条勾勒星星，形成轻快的校庆气氛。")}</p>
@@ -94,7 +94,7 @@ export default function GreetingCardReport() {
     <ReportFigure folder="card" files={["Im3.png","Im4.png"]} caption={t("Figure 4 Two frames for cat animation (placeholders).", "图 4 · 小猫动画的两个姿势。")} labels={[t("(a) Breathing frame.", "（a）呼吸。"),t("(b) Tail-swing frame.", "（b）摆尾。")]} />
     <h3>{t("Mouse Interaction", "鼠标交互")}</h3>
     <p>{t("A fish-shaped cursor follows the mouse to make the cover more fun. When the fish gets close to the cat, the cat stops walking and looks at it. If the player moves the cursor away without clicking the left mouse button to “feed” the fish, the cat starts walking again, showing a simple chasing behavior.", "鱼形光标跟随鼠标。靠近小猫时，它会停下看鱼；玩家不喂鱼就移开光标，小猫会继续走动，形成简单的追逐互动。")}</p>
-    <h2 id="campus" data-thread-chapter>{t("4. Scene 2: Campus and Soft Flashlight System", "4. 场景二 · 校园与软边手电")}</h2>
+    <h2 id="campus" data-thread-chapter>{t("Campus lighting", "校园光照")}</h2>
     <p>{t("Before diving into the sky and object construction, the following figure sketches the main scene, and scene 2 is only a part of the campus area. The full view (Scene 3) appears gradually as the camera or viewport moves.", "图 5 展示校园主场景。第二阶段只看见校园的一部分，随后镜头移动，第三阶段才逐渐展开全景。")}</p>
     <ReportFigure folder="card" files={["Im5.png"]} caption={t("Figure 5 Main scene composition(without black screen.", "图 5 · 主场景构图，已移除黑色遮罩。")} />
     <h3>{t("Sky", "天空")}</h3>
@@ -139,7 +139,7 @@ export default function GreetingCardReport() {
     <p>{t("After all background elements are drawn, a semi-transparent black layer covers the whole scene.", "绘制完所有背景后，叠加半透明的全屏黑色层。")}</p>
     <p>{t("The stencil buffer is divided into circular zones centered on the flashlight: the outermost area is 0, the rings are 1–4, and the bright center is 5. During rendering, the program draws full-screen black rectangles for each zone, setting different alpha values: darkest outside, lighter toward the center, and none in the middle. This forms a smooth light gradient with soft edges and a bright focus at the center.", "模板缓冲以手电中心划分圆形区域：外侧为 0，四个环带为 1–4，亮心为 5。各区叠加不同透明度的黑色矩形，外侧最暗，越靠近中心越亮，中心不遮黑，由此得到软边光斑。")}</p>
     <ReportFigure folder="card" files={["Im11.png"]} caption={t("Figure 10 Five-ring stencil flashlight (placeholder).", "图 10 · 五圈模板手电。")} />
-    <h2 id="fireworks" data-thread-chapter>{t("5. Scene 3: Fireworks and Celebration", "5. 场景三 · 烟花庆典")}</h2>
+    <h2 id="fireworks" data-thread-chapter>{t("Fireworks", "烟花庆典")}</h2>
     <p>{t("The following picture stands for the overall celebration scene.", "下图为完整的庆典场景。")}</p>
     <ReportFigure folder="card" files={["Im12.png"]} caption={t("Figure 11 Celebration scene.", "图 11 · 庆典场景。")} />
     <h3>{t("Fireworks System", "烟花系统")}</h3>
@@ -150,7 +150,7 @@ export default function GreetingCardReport() {
       <li>{t("At the target height, emitBurst(cx, cy, n) produces an explosion by spreading 𝑛 particles evenly in a circle, each with random velocity, lifetime, and color, with white particles at the center for stronger flashes.", "到达目标高度时，emitBurst(cx, cy, n) 将 n 个粒子沿圆周均匀散开，为各粒子随机分配速度、寿命与颜色，中心再用白粒子增强闪光。")}</li>
       <li>{t("All particles are stored in the global list gParticles and updated each frame by updateParticles(float dt). Particles fade out gradually as their lifetime reaches zero.", "所有粒子存放在全局列表 gParticles 中，每帧由 updateParticles(float dt) 更新；寿命耗尽时逐渐淡出。")}</li>
     </ul>
-    <h2 id="text" data-thread-chapter>{t("6. Text and Hint System", "6. 文字与提示")}</h2>
+    <h2 id="text" data-thread-chapter>{t("Text & hints", "文字提示")}</h2>
     <p>{t("The text display system has two layers:", "文字系统分为两层。")}</p>
     <ul>
       <li>{t("A hint layer for user prompts.", "提示层给出玩家操作说明。")}</li>
@@ -166,7 +166,7 @@ export default function GreetingCardReport() {
     <ul>
       <li>{t("drawStrokeOutlinedLineCentered_simple() draws celebration slogans with two layers—an outline and inner text—for a clean, bold look. Then drawCelebrationBanner() combines two such lines into a complete banner.", "drawStrokeOutlinedLineCentered_simple() 分别画轮廓和内层文字；drawCelebrationBanner() 将两行标语组合成清楚醒目的横幅。")}</li>
     </ul>
-    <h2 id="limits" data-thread-chapter>{t("7. Limitations and Improvements", "7. 局限与改进")}</h2>
+    <h2 id="limits" data-thread-chapter>{t("Limits", "局限与改进")}</h2>
     <ul>
       <li><strong>{t("Inconsistent naming and redundant functions", "命名不统一、函数重复")}</strong><br />{t("Some parts of the code contain repeated logic or unclear naming. For example, the main character was initially a human, so many related functions use the prefix hero. After changing the character to a cat, the old naming remained, causing confusion and reducing readability.", "角色原型最初是人，因此许多函数沿用 hero 前缀。改成小猫后仍保留旧名，加上部分重复逻辑，降低了可读性。")}</li>
       <li><strong>{t("Code structure too heavy", "代码结构偏重")}</strong><br />{t("The overall code can be simplified. Several initialization or setup functions duplicate similar tasks and could be merged or refactored to improve clarity and maintainability.", "多个初始化或配置函数承担相似任务，可整合以提升清晰度和可维护性。")}</li>

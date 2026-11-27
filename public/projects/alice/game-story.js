@@ -2,25 +2,6 @@
 (() => {
     'use strict';
     const root = 'assets/story-game/';
-    // Each small drawing describes the hand action. The full game capture is in the step below it.
-    const stepDrawings = {
-        'fill-cheek': `<path class="paper" d="M14 33c-6-5-3-13 4-14-1-10 13-13 18-6 6-5 15 0 14 7 10 1 12 11 6 16-4 4-12 4-17 2-7 6-18 4-21-2z"/>
-            <path d="M19 25c1-4 5-5 8-4m7-4c5-3 10-1 11 3"/><path class="thread" d="m36 31 30-15 3 4-29 15z"/>`,
-        'ladder-entry': `<path d="M10 13q12-6 24-3l-3 11 4 7-5 14q-12 1-19 4m52-32q-12-6-20-3l-4 12 4 8-5 13q12 1 22 5"/>
-            <path class="thread" d="m31 16 12 2-12 5 10 3-10 6 10 2-11 6"/><path d="m46 19 15-12-6 8z"/>`,
-        'working-snip': `<path d="M27 31 52 12 34 34m-4-2 24 8-23-3"/><path class="paper" d="M29 33c1-8-10-13-14-8-5 7 5 14 12 10m3 0c0 7-6 14-12 12-8-3-4-12 4-14"/><circle cx="31" cy="33" r="1.6"/>
-            <path class="thread" d="M39 8c2 8 12 9 10 16s-10 4-8-1c2-5 10-1 15-6m2-2 6-3"/>`,
-        'button-tin': `<circle class="paper" cx="35" cy="28" r="19"/><circle cx="35" cy="28" r="15"/><g class="holes"><circle cx="30" cy="24" r="1.8"/><circle cx="40" cy="23" r="1.8"/><circle cx="31" cy="33" r="1.8"/><circle cx="40" cy="32" r="1.8"/></g>
-            <path class="thread" d="m58 14 5-4m-3 12 7-1"/>`,
-        'button-set': `<circle class="paper" cx="32" cy="30" r="16"/><circle cx="32" cy="30" r="12"/><path class="thread" d="m27 25 10 9m0-10-10 10m10-10c13-5 22 8 27 0"/><path d="m41 27 17-18c3-3 6-1 3 2z"/>`,
-        'alice-reply': `<path class="paper" d="m13 24 22-8 25 6-1 19-23 8-23-7z"/><path d="m13 24 22 7 25-9m-25 9 1 18"/><path class="thread" d="m23 20 24 7v13m-11-22c-13-1-13-9-8-9 5 0 8 8 8 9 2-9 11-12 12-8 1 4-6 8-12 8z"/>`,
-        'loop-check': `<path d="M11 32q6 15 13-1t14 0 14 0 12 0m-53 8q6 14 13-1t14 0 14 0 12 0"/><path class="thread" d="M31 34c-12-12 1-20 6-11 2 4-1 8-2 10"/><path d="m34 28 18-20c4-5 9-1 6 3l-4 2"/>`,
-        'ear-seam': `<path class="paper" d="M13 38c-4-12 1-23 11-28 15-8 32 1 34 16 1 8-4 15-10 18q-19-9-35-6z"/><path d="M20 31c-3-11 6-19 14-18"/><path class="thread" d="m18 35 4-6m3 7 4-6m4 7 4-6m3 8 4-6m3 8 4-6"/>`,
-        'crown': `<path class="gold" d="m13 17 13 9L36 9l11 16 13-10-6 24q-19 5-37-1z"/><path d="m17 33q18 4 38 0"/><path class="thread" d="m20 37-1 8m14-7-1 8m16-8-1 7"/>`,
-        'cheek-sequin': `<path class="gold" d="m34 8 8 10 13 1-4 13 3 10-14 1-8 6-7-10-13-2 6-12-1-10 12 1z"/><circle cx="34" cy="29" r="3"/><path class="thread" d="M35 29c7-5 13 4 19 2 5-2 6-6 8-10"/>`,
-        'return-check': `<path d="M13 38q14-13 31-7l8-8m-21 9 2-10c1-4 5-3 5 0l1 6 10-11c3-3 6 0 4 3l-4 6 7-7c3-2 5 1 3 4l-8 10c-4 6-9 8-16 10l-7 5"/><path class="thread" d="M11 21q10-7 16-1m-7-6 7 6-8 3"/>`,
-        'bakery-parcel': `<path class="paper" d="m11 24 23-8 27 7-1 19-24 7-24-7z"/><path d="m12 24 24 7 25-8m-25 8v18"/><path class="thread" d="m23 20 24 7v16"/><path class="gold" d="M23 18c0-6 8-12 17-11 5 0 9 4 7 7-4 5-15 7-24 4z"/><path d="m30 11 3 4m4-6 3 3"/>`
-    };
     const pictures = {
         "torn-cheek": [608, 342, "torn-cheek-full"],
         "loose-ear": [1260, 708, "loose-ear-full"],
@@ -188,7 +169,7 @@
                 ['loop-check',t('挑回线圈','Recover the loops')],['ear-seam',t('缝合耳朵','Close the ear')],['crown',t('缝回皇冠','Anchor the crown')],
                 ['cheek-sequin',t('固定亮片','Secure the sequin')],['return-check',t('轻拉三处','Test three repairs')],['bakery-parcel',t('寄回面包店','Return to the bakery')]
             ];
-            return `<alice-commission-route aria-label="${t('委托步骤','Commission steps')}"><ol>${entries.map(([id,title],i)=>`<li><button type="button" data-commission-step="${i}" aria-controls="${toy}-steps" aria-pressed="${i===0}"><svg class="repair-sketch" viewBox="0 0 76 55" fill="none" aria-hidden="true" focusable="false">${stepDrawings[id]}</svg><span>${title}</span></button></li>`).join('')}</ol></alice-commission-route>`;
+            return `<alice-commission-route aria-label="${t('委托步骤','Commission steps')}"><ol>${entries.map(([id,title],i)=>`<li><button type="button" data-commission-step="${i}" aria-controls="${toy}-steps" aria-pressed="${i===0}"><img class="repair-sketch" src="assets/repair-sketches/${id}.png" width="192" height="192" loading="lazy" alt=""><span>${title}</span></button></li>`).join('')}</ol></alice-commission-route>`;
         }
 
         function preparation(filling) {
