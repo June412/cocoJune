@@ -11,7 +11,7 @@
     .wg-examples, .step-sequence, .ts-export-images, .ts-suzanne-looks, .ts-gesture-atlas,
     .ts-reuse, .ts-chart-study, .material-layout, .ts-night,
     .ts-trial-process ol, .prop-atlas
-  ), [data-page="toolkit"].personal-alice #materials .study {
+  ) {
     width: var(--alice-wide);
     max-width: none;
     margin-inline: calc((100% - var(--alice-wide)) / 2);
@@ -19,26 +19,6 @@
 
   [data-page="toolkit"].personal-alice #main .wg-board {
     width: 100%;
-  }
-
-  [data-page="toolkit"] #main #editing-sewn-piece {
-    width: min(740px, var(--alice-wide));
-    margin-inline: calc((100% - min(740px, var(--alice-wide))) / 2);
-  }
-
-  [data-page="toolkit"] #editing-sewn-piece .ts-panel > h3 { margin: 8px 0 2px; }
-  [data-page="toolkit"] #editing-sewn-piece .ts-panel > .ts-copy { max-width: 80ch; }
-  [data-page="toolkit"] #editing-sewn-piece .ts-comparison {
-    width: min(100%, calc(100vw - 116px), var(--capture-width));
-    margin-inline: auto;
-  }
-  [data-page="toolkit"] #editing-sewn-piece .ts-browse-gutters {
-    --browse-inset: -46px;
-    padding-inline: 0;
-  }
-  [data-page="toolkit"] #editing-sewn-piece .ts-wipe {
-    height: auto;
-    aspect-ratio: var(--capture-ratio);
   }
 
   [data-page="toolkit"] #main :is(.ts-gesture, .ts-reuse, .ts-evidence, .ts-session, .ts-ellipse-study, .ts-fabric-breakdown) {
@@ -70,9 +50,6 @@
   }
   [data-page="toolkit"] #main .ts-review { margin-block: 20px 0; }
   [data-page="toolkit"] #main .ts-selection-study { padding-bottom: 14px; margin-bottom: 10px; }
-  [data-page="toolkit"] #editing-sewn-piece .ts-copy { margin-block: 4px 10px; }
-  [data-page="toolkit"] #editing-sewn-piece .ts-comparison { margin-block: 6px 12px; }
-  [data-page="toolkit"] #editing-sewn-piece .ts-wipe-labels { padding-block: 2px; }
   [data-page="toolkit"] #cases article.case-study {
     margin-top: 18px;
   }
@@ -143,28 +120,9 @@
 }
 
 @media screen and (min-width: 900px) {
-  [data-page="toolkit"] #editing-sewn-piece {
-    display: grid;
-    grid-template-columns: auto minmax(0, 1fr);
-    align-items: baseline;
-    column-gap: 24px;
-  }
-  [data-page="toolkit"] #editing-sewn-piece > h3 { margin: 0; }
-  [data-page="toolkit"] #editing-sewn-piece > .ts-panel { grid-column: 1 / -1; }
   [data-page="toolkit"] #cases .case-study > .figure-pair img { max-height: 270px; object-fit: contain; }
 
-  [data-page="toolkit"] #main .ts-gesture-atlas {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 8px clamp(22px, 3vw, 40px);
-  }
-  [data-page="toolkit"] #main .ts-gesture-atlas .ts-gesture {
-    grid-template-columns: minmax(0, 1fr);
-    grid-row: span 2;
-    grid-template-rows: subgrid;
-    align-items: start;
-    row-gap: 6px;
-  }
+
 }
 
 @media screen and (max-width: 520px) {
@@ -203,23 +161,6 @@
   }
 }
 
-@media screen and (max-width: 600px) {
-  /* Let the full photo take the first row and keep both controls within thumb reach. */
-  [data-page="toolkit"] #editing-sewn-piece .ts-comparison { width: min(100%, var(--capture-width)); }
-  [data-page="toolkit"] #editing-sewn-piece .ts-browse-gutters {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 4px 12px;
-  }
-  [data-page="toolkit"] #editing-sewn-piece .ts-wipe { grid-column: 1 / -1; }
-  [data-page="toolkit"] #editing-sewn-piece .browse-arrow {
-    position: static;
-    transform: none;
-    justify-self: start;
-  }
-  [data-page="toolkit"] #editing-sewn-piece .browse-next { justify-self: end; }
-}
-
 @media screen {
   [data-page="toolkit"] #main .ts-path-flow {
     grid-template-columns: minmax(0,1fr); gap: 0; max-width: 78ch;
@@ -243,4 +184,87 @@
   .personal-alice #main .ts-readings { table-layout: fixed; width: 100%; }
   .personal-alice #main .ts-readings :is(th,td) { padding-inline: .23em; overflow-wrap: anywhere; }
   .personal-alice #main .ts-readings th:first-child { width: 40%; }
+}
+
+/* The design plates follow the nine studies in the portfolio, with their own
+   natural aspect ratios and a shared number at the start of each title. */
+.ts-design-list {
+  display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 18px 28px;
+  margin: 0; padding: 0; list-style: none;
+}
+.ts-design-item { min-width: 0; border-top: 1px solid var(--line); padding-top: 10px; }
+[data-page="toolkit"] #cases .ts-design-item > h3 { display:flex; align-items:baseline; gap:.4em; margin:0 0 5px; }
+.ts-design-item > h3::before {
+  content: counter(list-item); display: inline-grid; place-items: center; flex: none; align-self:center;
+  width: 1.6em; height: 1.6em; border-radius: 50%; background: var(--step-yellow);
+  border: 1px solid #c19a39; color: var(--ink); font: 700 .68em/1 var(--portfolio-prose);
+}
+[data-page="toolkit"] #main .ts-design-item > p { margin: 0 0 8px; }
+.ts-design-list .ts-filmstrip { display: flex; gap: 8px; }
+.ts-design-list .ts-filmstrip figure { flex: 1 1 0; min-width: 0; margin: 0; }
+[data-page="toolkit"] #cases .ts-design-list .ts-filmstrip img {
+  width: 100%; height: clamp(78px,12cqi,132px); object-fit: contain;
+}
+.ts-design-list .ts-comparison { width:min(100%,var(--capture-width,100%)); margin:0 auto; }
+.ts-design-list .ts-wipe { height:auto; aspect-ratio:var(--capture-ratio,1.4); max-height:180px; }
+.ts-design-list .ts-wipe img { object-fit:contain; }
+.ts-pattern-study { grid-column:1/-1; }
+[data-page="toolkit"] #main .ts-pattern-study .ts-loom { margin: 4px 0 0; }
+[data-page="toolkit"] #main .ts-unit-flow {
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,190px),1fr)); gap:12px 22px; margin:10px 0;
+}
+[data-page="toolkit"] #main .ts-unit-flow > li {
+  display:grid; grid-template:"icon number label" auto / auto auto minmax(0,1fr);
+  align-items:center; align-content:center; gap:6px; padding:4px 0; line-height:1.15;
+}
+[data-page="toolkit"] #main .ts-unit-flow > li > .project-sketch { grid-area:icon; width:clamp(50px,6.3cqi,64px); height:auto; margin:0; }
+[data-page="toolkit"] #main .ts-unit-flow > li::before { grid-area:number; margin:0; }
+[data-page="toolkit"] #main .ts-unit-flow > li > span { grid-area:label; }
+[data-page="toolkit"] #main .ts-unit-flow > li::after { content:none; }
+.ts-craft-samples { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px 26px; }
+[data-page="toolkit"] #cases .ts-craft-samples .case-study { width:auto; margin:0; border-top:1px solid var(--line); padding:12px 0 0; }
+[data-page="toolkit"] #cases .ts-craft-samples .figure-pair { width:100%; margin:8px 0 0; }
+[data-page="toolkit"] #cases .ts-craft-samples .figure-pair img { height:clamp(88px,13cqi,148px); object-fit:contain; }
+.tool-substudy { margin-block:24px 0; padding-top:15px; border-top:1px solid var(--line); }
+[data-page="toolkit"] #main #fabric-breakdown, [data-page="toolkit"] #materials .fold-study {
+  display:grid; grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr); align-items:center;
+  gap:12px clamp(16px,3cqi,34px); margin:16px auto 0; max-width:760px;
+}
+[data-page="toolkit"] #materials #ts-fabric-views { width:min(100%,318px); justify-self:center; }
+[data-page="toolkit"] #fabric-breakdown .ts-browse-frame {
+  display:grid; grid-template-columns:auto minmax(0,1fr) auto; grid-template-areas:"prev swatch next";
+  align-items:center; gap:5px;
+}
+#fabric-breakdown .ts-cloth-crop { grid-area:swatch; }
+#fabric-breakdown .browse-arrow { position:static; transform:none; width:36px; height:36px; }
+#fabric-breakdown .browse-prev { grid-area:prev; }
+#fabric-breakdown .browse-next { grid-area:next; }
+[data-page="toolkit"] #materials .ts-cloth-crop img { width:100%; height:auto; aspect-ratio:1; object-fit:cover; }
+[data-page="toolkit"] #materials .fold-study .study { width:100%; margin:0; }
+[data-page="toolkit"] #main .fold-study h4 { margin:0 0 6px; }
+[data-page="toolkit"] #main .fold-study p { margin:0; }
+[data-page="toolkit"] #cushion .sequence-stage .process-row > figure { width:min(100%,365px); margin:0 auto; }
+[data-page="toolkit"] #cushion .sequence-picture img { width:100%; height:clamp(150px,22cqi,228px); object-fit:contain; }
+[data-page="toolkit"] #cushion .cushion-settings > figure { max-width:340px; margin-inline:0; }
+[data-page="toolkit"] #cushion .cushion-settings img { max-height:216px; }
+@container project-content (min-width:640px) {
+  [data-page="toolkit"] #cushion .step-sequence .sequence-panel:has(.cushion-settings) {
+    display:grid; grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);
+    grid-template-rows:auto 1fr; align-items:start; gap:8px 26px;
+  }
+  [data-page="toolkit"] #cushion .sequence-panel:has(.cushion-settings) > .craft-step { display:contents; }
+  [data-page="toolkit"] #cushion .sequence-panel .craft-step > .prose { grid-area:1/1; }
+  [data-page="toolkit"] #cushion .sequence-panel .craft-step > figure { grid-area:1/2/span 2; align-self:center; }
+  [data-page="toolkit"] #cushion .sequence-panel .cushion-settings { grid-area:2/1; margin:0; }
+  [data-page="toolkit"] #cushion .sequence-panel > .sequence-detail:not(.cushion-settings) { grid-column:1/-1; }
+}
+@container project-content (max-width:560px) {
+  .ts-design-list, .ts-craft-samples { grid-template-columns:minmax(0,1fr); }
+  [data-page="toolkit"] #main #fabric-breakdown, [data-page="toolkit"] #materials .fold-study { grid-template-columns:minmax(0,1fr); }
+  [data-page="toolkit"] #materials #ts-fabric-views { width:min(100%,260px); }
+  [data-page="toolkit"] #materials .fold-study .study { max-width:360px; justify-self:center; }
+}
+@container project-content (max-width: 350px) {
+  [data-page="toolkit"] #works .search-row { flex-wrap: wrap; }
+  [data-page="toolkit"] #works .search-row input { min-width: 0; max-width: 100%; }
 }

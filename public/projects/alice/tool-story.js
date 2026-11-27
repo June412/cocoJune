@@ -42,7 +42,7 @@
       const {images:[photo]}=window.ALICE_MEDIA.works.find(work=>work.id===id);
       return `<figure><button class="ts-image" type="button" data-story-image="${photo.src}" data-caption="${label}" aria-label="${t('放大','Enlarge')} · ${label}"><img src="${photo.thumb}" alt="${label}" width="${photo.width}" height="${photo.height}" loading="lazy"></button><figcaption>${label}</figcaption></figure>`;
     }).join('');
-    return `<article class="ts-selection-study" id="suzanne-selection"><h3>${t('给身体换布，为什么纽扣也变了色？','Why did changing the fabric recolour a button?')}</h3>
+    return `<article class="ts-selection-study" id="suzanne-selection"><h3>${t('材质选区','Material selection')}</h3>
       <ol class="ts-path-flow">
       <li><b>${t('目的','Goal')}</b><span>${t('给导入的 Suzanne 更换主体布料。','Change the body fabric on an imported Suzanne mesh.')}</span></li>
       <li><b>${t('问题','Problem')}</b><span>${t('选中模型时，额头上的纽扣也被选中了。','Selecting the model also selected the button on its forehead.')}</span></li>
@@ -61,7 +61,7 @@
       ['shaderNormal',t('起伏','Relief'),t('织纹斜面改变受光方向，纱线边缘从底色中显出。','Tilting the surface normal gives the yarn edges relief.')],
       ['shaderFinal',t('纤维反光','Fibre sheen'),t('沿纱线补入柔和反光，织纹仍清晰可见。','Fibre sheen softens the highlights while the weave stays visible.')]
     ];
-    return `<article class="ts-fabric-breakdown" id="fabric-breakdown"><div><h3>${t('一块平纹布怎样接住光','How a woven surface catches light')}</h3><p>${t('同一块布，同一近景机位。切换层级看经纬的变化。','One swatch under the same light. Switch stages to follow the weave.')}</p>
+    return `<article class="ts-fabric-breakdown" id="fabric-breakdown"><div><h3>${t('织纹光照','Weave shading')}</h3><p>${t('同一块布，同一近景机位。切换层级看经纬的变化。','One swatch under the same light. Switch stages to follow the weave.')}</p>
       ${buttons('fabric',stages.map(stage=>stage[1]),t('选择渲染层级','Choose a rendering stage'))}</div>
       <div id="ts-fabric-views">${stages.map(([key,label,caption],i)=>{
         const asset=window.ALICE_MEDIA.media[key];
@@ -72,7 +72,7 @@
 
   function ellipse(lang) {
     const t=translator(lang);
-    return `<article class="ts-ellipse-study" id="ellipse-input"><div><h3>${t('同一块椭圆，两种画法','Two gestures for one oval')}</h3><p>${t('按住鼠标不方便时，也可以分次指定两个角。试着从第一个标记画到第二个。','A sustained press is optional. Try drawing from the first marker to the second.')}</p></div>
+    return `<article class="ts-ellipse-study" id="ellipse-input"><div><h3>${t('椭圆输入','Ellipse input')}</h3><p>${t('按住鼠标不方便时，也可以分次指定两个角。试着从第一个标记画到第二个。','A sustained press is optional. Try drawing from the first marker to the second.')}</p></div>
       <alice-ellipse-demo lang="${lang}"><div class="ts-choices" role="group" aria-label="${t('选择绘图方式','Choose an input method')}">
       <button type="button" data-ellipse-mode="drag" aria-pressed="true">${t('按住拖动','Hold and drag')}</button>
       <button type="button" data-ellipse-mode="points" aria-pressed="false">${t('两次点击','Two clicks')}</button></div>
@@ -191,39 +191,46 @@
   function construction(lang) {
     const t=translator(lang);
     const gestures=[
-      [t('描出一块自由贴布','Trace a freeform patch'),t('松手时，缝线沿手绘轮廓闭合。','Release to sew along the freehand edge.'),[
+      [t('自由贴布','Freeform patch'),t('松手时，缝线沿手绘轮廓闭合。','Release to sew along the freehand edge.'),[
         ['gesture-trace',t('按住描边','Trace while holding')],['gesture-close',t('回到起点附近','Approach the start')],['gesture-release',t('松开成形','Release to sew')]]],
-      [t('把手绘环收成圆','Round a hand-drawn loop'),t('在起点停留 0.7 秒，松手裁圆。','Pause at the start for 0.7 s to snap the loop to a circle.'),[
+      [t('圆形吸附','Loop snapping'),t('在起点停留 0.7 秒，松手裁圆。','Pause at the start for 0.7 s to snap the loop to a circle.'),[
         ['circle-draw',t('自由画环','Draw the loop')],['circle-hold',t('停住吸附','Hold to snap')],['circle-release',t('得到圆形贴布','Release the circle')]]],
-      [t('约束一道直包边','Constrain a straight edging'),t('Shift 以 45° 为一档约束拖动方向。','Hold Shift to snap the line in 45° steps.'),[
+      [t('直线包边','Straight edging'),t('Shift 以 45° 为一档约束拖动方向。','Hold Shift to snap the line in 45° steps.'),[
         ['line-draw',t('自由角度','Drag freely')],['line-constrain',t('按住 Shift','Hold Shift')],['line-release',t('确认包边','Commit the binding')]]],
-      [t('让相邻的布片共用一道缝','Join two patches with one seam'),t('两边相距 0.8 mm 以内时共用缝线，移开后恢复各自锁边。','Edges within 0.8 mm share a seam. Separate the patches to restore both edges.'),[
+      [t('共享缝线','Shared seam'),t('两边相距 0.8 mm 以内时共用缝线，移开后恢复各自锁边。','Edges within 0.8 mm share a seam. Separate the patches to restore both edges.'),[
         ['seam-approach',t('相隔 2 mm','2 mm apart')],['seam-shared',t('接触时共缝','A shared seam')],['seam-apart',t('移开 6 mm','6 mm apart')]]]
     ];
-    return `<div class="ts-gesture-atlas">${gestures.map(([title,copy,steps])=>`<article class="ts-gesture"><div><h3>${title}</h3><p>${copy}</p></div><div class="ts-filmstrip">${steps.map(([asset,caption])=>plateFigure(asset,caption)).join('')}</div></article>`).join('')}</div>`;
-  }
-  function reuse(lang) {
-    const t=translator(lang);
-    return `<article class="ts-reuse"><div><h3>${t('把徽章移到另一只抱枕','Carry the badge to another cushion')}</h3><p>${t('15 层贴布、绣线与珠子一起转过 −12°、缩至 0.83 倍，仍可逐层改。','Rotate the 15-layer motif −12° and scale it to 0.83×. Each layer stays editable.')}</p></div><div class="ts-filmstrip">${plateFigure('motif-source',t('原始图案','Original motif'))}${plateFigure('motif-reused',t('在新布面上重新投射','Reprojected onto the second surface'))}</div></article>
-      <div class="ts-iterations"><div><h4>${t('拖动时只看预览','Preview while dragging')}</h4><p>${t('拖动时移动轮廓，松手后更新相邻缝线。','Move the outline while dragging. Rebuild adjacent seams on release.')}</p></div><div><h4>${t('改颜色时复用网格','Reuse the meshes for colour edits')}</h4><p>${t('26 层作品的保存时间从 8.63 秒降至 0.51 秒，新增网格为零。','Saving 26 layers fell from 8.63 s to 0.51 s, with zero new meshes.')}</p></div></div>`;
+    return gestures.map(([title,copy,steps])=>designItem(title,copy,
+      `<div class="ts-filmstrip">${steps.map(([asset,caption])=>plateFigure(asset,caption)).join('')}</div>`)).join('');
   }
 
-  function wipe(lang,i,v,editLabels) {
+  function designItem(title, copy, visual, id='') {
+    return `<li class="ts-design-item"${id ? ` id="${id}"` : ''}><h3>${title}</h3><p>${copy}</p>${visual}</li>`;
+  }
+
+  function reuse(lang) {
+    const t=translator(lang);
+    return designItem(t('图案复用','Motif reuse'),
+      t('将 15 层图案旋转 −12°、缩至 0.83 倍，投射到第二只抱枕。每层仍可单独编辑。','Rotate the 15-layer motif −12°, scale it to 0.83× and project it onto a second cushion. Each layer stays editable.'),
+      `<div class="ts-filmstrip">${plateFigure('motif-source',t('原始图案','Original motif'))}${plateFigure('motif-reused',t('第二只抱枕','Second cushion'))}</div>`);
+  }
+
+  function wipe(lang,i,v) {
     const t=translator(lang);
     const visual=`<div class="ts-wipe"><div class="ts-wipe-image ts-after">${image(v.after,v.alt2)}</div><div class="ts-wipe-image ts-before">${image(v.before,v.alt1)}</div><i aria-hidden="true"></i>
           <input type="range" min="0" max="100" value="${splits[i]}" aria-label="${escape(t('拖动分界线对照','Drag the comparison divider')+' · '+v.tab)}"></div>`;
-    const captureStyle = editLabels ? `; --capture-ratio:${v.ratio}; --capture-width:${v.width}` : '';
+    const captureStyle = v.ratio ? `; --capture-ratio:${v.ratio}; --capture-width:${v.width}` : '';
     return `<div class="ts-comparison" style="--ts-split:${splits[i]}%${captureStyle}" data-ts-diff="${i}">
-        ${editLabels?browseImage('design',i,editLabels,lang,'editing-sewn-piece',visual,true):visual}
+        ${visual}
         <div class="ts-wipe-labels">${[[v.before,v.a,v.alt1],[v.after,v.b,v.alt2]].map(([src,label,alt],j)=>`<button type="button" data-story-image="${path(src)}" data-image-group="ts-wipe-${i}" data-image-index="${j}" data-caption="${escape(alt)}" aria-label="${escape(t('放大','Enlarge')+' · '+label)}">${label} <span aria-hidden="true">↗</span></button>`).join('')}</div></div>`;
   }
 
-  function design(lang) {
+  function design(lang, sketch) {
     const t = (zh, en) => tr(lang, zh, en);
     const items = [
       {
         tab: t('移动贴布', 'Move the felt'),
-        title: t('挪动毛毡，整枝刺绣跟着走', 'Move the felt and the sprig follows'),
+        title: t('贴布依附', 'Patch attachments'),
         body: t('毛毡左移 12 mm，七个附着层一起移动。外圈包边的 96 个点留在原处。','Seven layers travel 12 mm with the felt. The outer binding’s 96 points stay put.'),
         ratio: '1486 / 1300', width: '436px',
         before: 'felt-before', after: 'felt-after', a: t('原位置', 'Original position'), b: t('左移 12 mm', '12 mm left'),
@@ -231,7 +238,7 @@
       },
       {
         tab: t('抬起珠子', 'Lift a bead'),
-        title: t('抬起中间一颗，线跟着穿过去', 'Lift the middle bead and its thread follows'),
+        title: t('珠线联动', 'Bead movement'),
         body: t('抬高中珠 3 mm，线仍穿过珠孔，两端留在原处。','Raise the middle bead 3 mm. The thread follows through its opening, with both ends fixed.'),
         ratio: '1550 / 794', width: '740px',
         before:'bead-before', after:'bead-after', a:t('三颗成行', 'Straight strand'), b:t('中珠抬高 3 mm', 'Middle bead raised 3 mm'),
@@ -239,18 +246,19 @@
       },
       {
         tab:t('改变针线精度', 'Change stitch detail'),
-        title:t('按镜头距离选针线精度','Stitch detail by camera distance'),
+        title:t('针线精度','Stitch detail'),
         body:t('同样 15 针。近景 87,236 个顶点，编辑预览 11,928 个，游戏中 3,240 个。','One 15-stitch path. Close-up uses 87,236 vertices, the editor 11,928 and the game 3,240.'),
         ratio: '630 / 350', width: '630px',
         before:'stitch-near',after:'stitch-game',a:t('三股绞线', 'Three plies'),b:t('游戏网格', 'Game mesh'),
         alt1:t('橙色交叉针的三股捻线细节', 'Twisted orange plies at the crossing of two stitches'),alt2:t('相同路径上的光滑管状针线', 'Smooth tubular yarn follows the same stitch path')
       }
     ];
-    const labels=items.map(v=>v.tab);
-    return `<div class="ts-design" id="editing-sewn-piece"><h3>${t('调整已经缝好的局部','Editing the sewn piece')}</h3>${buttons('design', labels, t('选择一项编辑操作','Choose a textile edit'))}
-      ${items.map((v,i)=>panel('design',i,`<h3>${v.title}</h3><p class="ts-copy">${v.body}</p>
-      ${wipe(lang,i,v,labels)}`,lang,v.title)).join('')}
-      </div>`;
+    const comparison=(i,id='')=>designItem(items[i].title,items[i].body,wipe(lang,i,items[i]),id);
+    return `<ol class="ts-design-list" id="development" role="list">
+      ${construction(lang)}${comparison(1,'ts-design-1')}${comparison(0,'editing-sewn-piece')}${reuse(lang)}${comparison(2,'ts-design-2')}
+      <li class="ts-design-item ts-pattern-study" id="case-pattern"><h3>${t('色格与织物','Colour charts')}</h3>${pattern(lang,sketch)}</li>
+    </ol>
+    <div class="ts-iterations"><div><h4>${t('拖动预览','Drag preview')}</h4><p>${t('拖动时移动轮廓，松手后更新相邻缝线。','The outline moves during a drag. Adjacent seams rebuild on release.')}</p></div><div><h4>${t('网格复用','Mesh reuse')}</h4><p>${t('26 层作品改色后，保存时间从 8.63 秒降至 0.51 秒，新增网格为零。','Reusing meshes after a colour edit cut save time for a 26-layer piece from 8.63 s to 0.51 s.')}</p></div></div>`;
   }
 
   function trial(lang) {
@@ -271,9 +279,9 @@
       ['crossing-portholes',t('穿出舷窗','Thread the portholes'),t('直径 9 mm，间隔 26 mm。','9 mm pearls, 26 mm apart.')],
       ['crossing-layers',t('重开作品','Reopen the scene'),t('七个可编辑工艺层。','Seven editable craft layers.')]
     ];
-    return `<div class="sequence-spread crossing-study"><section class="ts-session"><div><h3>${t('一个可以重新打开的抱枕','A cushion to make and reopen')}</h3><p>${t('同学设计了一只星夜帆船抱枕。试用任务是保存、重开并单独移动一片帆。','A classmate designed a boat cushion. The task was to save, reopen and move one sail.')}</p>
+    return `<div class="sequence-spread crossing-study"><section class="ts-session"><div><h3>${t('《夜航》抱枕','Night Crossing')}</h3><p>${t('同学设计了一只星夜帆船抱枕。试用任务是保存、重开并单独移动一片帆。','A classmate designed a boat cushion. The task was to save, reopen and move one sail.')}</p>
       <h4>${t('由此修改的教学','Changes to the tutorial')}</h4><ul><li>${t('选布前检查两个材质槽。','Check both material slots first.')}</li><li>${t('完整示范按住、描边、松开。','Demonstrate hold, trace and release.')}</li></ul></div><div>${plateFigure('crossing-session',t('用 Textile Studio 试作抱枕','Trying Textile Studio during the cushion session'))}</div></section>
-       <section class="ts-trial-process"><h3>${t('这艘船是怎样缝出来的','How Night Crossing was made')}</h3><p>${t('同学设计图案与顺序。以下是 AI 在 Unity 中复现的操作。','Design and sequence by the classmate. Screens show an AI reconstruction in Unity.')}</p>
+       <section class="ts-trial-process"><h3>${t('帆船制作步骤','Night Crossing workflow')}</h3><p>${t('同学设计图案与顺序。以下是 AI 在 Unity 中复现的操作。','Design and sequence by the classmate. Screens show an AI reconstruction in Unity.')}</p>
        <ol class="illustrated-steps">${checkpoints.map(([asset,name,copy])=>`<li>${zoom(asset,name)}<div><h4>${name}</h4><p>${copy}</p></div></li>`).join('')}</ol></section>
       <section class="ts-night" aria-label="${t('探索抱枕上的工艺','Explore the cushion by craft')}">
         <div class="ts-night-hero"><div class="ts-night-figure" role="group" aria-label="${t('选择图中部位','Choose a part of the cushion')}">
@@ -292,7 +300,7 @@
       ['Stitch Meshes',t('服装面片上的针法','Stitch types on garment faces'),t('生成相连的纱线曲线并松弛成形。','Relax connected yarn curves into shape.'),'https://www.cs.cornell.edu/projects/stitchmeshes/'],
       ['Textile Studio',t('Unity 道具上的色格','Colour cells on a Unity prop'),t('一格生成一线圈或一颗珠，珠动时线穿孔随动。','One loop or bead per cell. Move a bead and the thread follows.'),'#development']
     ];
-    return `<article class="ts-research"><h3>${t('绘制之后，哪些部分还能改？','What can still change after drawing?')}</h3><table><thead><tr>${[t('工具','Tool'),t('起点','Starting point'),t('可编辑的部分','Editable result')].map(l=>`<th scope="col">${l}</th>`).join('')}</tr></thead><tbody>${rows.map(([tool,start,edit,url])=>`<tr><th scope="row"><a href="${url}">${tool}</a></th><td>${start}</td><td>${edit}</td></tr>`).join('')}</tbody></table></article>`;
+    return `<article class="ts-research"><h3>${t('可编辑参数','Editable parameters')}</h3><table><thead><tr>${[t('工具','Tool'),t('起点','Starting point'),t('可编辑的部分','Editable result')].map(l=>`<th scope="col">${l}</th>`).join('')}</tr></thead><tbody>${rows.map(([tool,start,edit,url])=>`<tr><th scope="row"><a href="${url}">${tool}</a></th><td>${start}</td><td>${edit}</td></tr>`).join('')}</tbody></table></article>`;
   }
 
   function results(lang) {
@@ -303,13 +311,13 @@
       {name:t('首次同步','First sync'),unit:'ms',left:'32.89',right:'48.04',note:t('首次合批多用 15.15 ms，后续拖动复用批次。','Preparing the batches cost 15.15 ms upfront. Later drags reuse them.')},
       {name:t('渲染组件','Renderers'),unit:'',left:'1,001',right:'6',note:t('六个组件绘制全部预览，每串珠仍可单独编辑。','Six renderers draw the preview. Each strand stays editable.')}
     ];
-    return `<div class="ts-results">${resultsComparison(lang)}<h3>${t('拖动 200 颗珠子的一整行','Moving a row of 200 beads')}</h3>
+    return `<div class="ts-results">${resultsComparison(lang)}<h3>${t('串珠性能','Bead performance')}</h3>
        <p class="ts-intro">${t('Unity 预览 900 × 650。五行各 200 颗珠，预热 4 帧后测量拖动 20 帧。','Unity preview, 900 × 650. Five rows of 200 beads. Four warm-up frames, then 20 measured drag frames.')}</p>
        <table class="ts-readings"><thead><tr><th scope="col">${t('实测指标','Measured in Unity')}</th><th scope="col">${t('逐项绘制','Individual')}</th><th scope="col">${t('合并绘制','Batched')}</th></tr></thead><tbody>${metrics.map((v,i)=>`<tr><th scope="row"><button type="button" data-ts-choice="timing" data-ts-index="${i}" aria-controls="ts-timing-${i}" aria-pressed="${selected.timing===i}">${v.name}</button></th><td>${v.left} ${v.unit}</td><td>${v.right} ${v.unit}</td></tr>`).join('')}</tbody></table>
        ${metrics.map((v,i)=>{const nums=[v.left,v.right].map(n=>Number(n.replaceAll(',','')));return panel('timing',i,`<div class="ts-metric"><h4>${v.name}</h4>${[t('逐项绘制','Individual'),t('合并绘制','Batched')].map((label,j)=>`<div class="ts-bar"><span>${label}</span><div aria-hidden="true"><i style="width:${Math.max(.5,100*nums[j]/Math.max(...nums))}%"></i></div><b>${[v.left,v.right][j]}${v.unit?' '+v.unit:''}</b></div>`).join('')}<p>${v.note}</p></div>`,lang,v.name)}).join('')}
-       <section class="ts-evidence"><div><h3>${t('合并后，珠子的轮廓还在吗？','Did batching change the bead outlines?')}</h3><p>${t('24 颗珠，10 个视图。9 张逐像素一致。远景有 0.0275% 的像素至少一个 RGB 通道相差超过 3 级。','24 beads, 10 views. Nine matched pixel for pixel. In the distant view, 0.0275% of pixels differed by over three RGB levels in any channel.')}</p>
+       <section class="ts-evidence"><div><h3>${t('串珠轮廓对照','Bead outlines')}</h3><p>${t('24 颗珠，10 个视图。9 张逐像素一致。远景有 0.0275% 的像素至少一个 RGB 通道相差超过 3 级。','24 beads, 10 views. Nine matched pixel for pixel. In the distant view, 0.0275% of pixels differed by over three RGB levels in any channel.')}</p>
        <div class="ts-records">${['before','after','visual'].map((f,i)=>`<a href="${directory}beads-${f}.json" download>${[t('逐项绘制记录','Individual run'),t('合批记录','Batched run'),t('图像检查','Image checks')][i]} ↓</a>`).join('')}</div></div><div>${zoom('bead-edges',t('靠近与交叠的 24 颗彩珠，保留各自轮廓','Twenty-four beads retain their outlines where they approach and overlap'))}</div></section>
-       <section class="ts-review"><h3>${t('在游戏里验证一件道具','Taking one prop into the game')}</h3><p class="ts-copy">${t('保留布封面、松紧带和 15 道回针绣成的标题。把收纳内页换成五个针法教程，玩家就能在桌边学针。','The cloth cover kept its elastic and 15 backstitched title paths. Five stitch guides replaced the storage pages for players at the repair desk.')}</p>
+       <section class="ts-review"><h3>${t('道具验证','Prop validation')}</h3><p class="ts-copy">${t('保留布封面、松紧带和 15 道回针绣成的标题。把收纳内页换成五个针法教程，玩家就能在桌边学针。','The cloth cover kept its elastic and 15 backstitched title paths. Five stitch guides replaced the storage pages for players at the repair desk.')}</p>
        <div class="ts-book">${[['book-early',t('收纳针线的旧内页','The original needle case')],['book-revised',t('改成针法手册的内页','The revised stitch handbook')],['book-on-desk',t('在桌边翻开手册学习针法','Open the stitch guide at the desk')]].map(([k,c])=>`<figure>${zoom(k,c)}<figcaption>${c}</figcaption></figure>`).join('')}</div>
        <a class="text-link" href="#bridge">${t('看这些道具在工坊里的位置','See the props in the workshop')} →</a></section></div>`;
   }
@@ -438,20 +446,18 @@
         });
         const units=[['sample-cell', t('取样颜色','Sample the cell')], ['map-cloth',t('投射到布面','Project onto cloth')], [craft.key==='strawberry'?'knit-loop':'thread-bead',craft.label]];
         const route=`<ol class="ts-unit-flow">${units.map(([icon,label])=>`<li>${sketch(icon)}<span>${label}</span></li>`).join('')}</ol>`;
-        const canvas=`<div class="ts-chart-frame"><canvas tabindex="0" role="group" aria-label="${t('逐格查看，方向键移动','Inspect cells using the arrow keys')} · ${craft.title}" aria-describedby="loom-help-${i}"></canvas></div>`;
+        const canvas=`<div class="ts-chart-frame"><canvas tabindex="0" role="group" aria-label="${t('逐格查看，方向键移动','Inspect cells using the arrow keys')} · ${craft.title}"></canvas></div>`;
         return panel('loom',i,`
           ${route}<div class="ts-chart-study">
           <alice-loom-chart data-chart="${craft.key}" lang="${lang}">
             ${browseImage('loom',i,labels,lang,'ts-loom-patterns',canvas,true)}
-            <p class="ts-chart-help" id="loom-help-${i}">${t('点选色格，或用方向键移动。','Click a cell or use the arrow keys.')}</p>
             <div class="ts-colour-keys" role="group" aria-label="${t('选择图案颜色','Select a pattern colour')}">${chart.palette.map(([rgb,zh,en],index)=>`<button type="button" data-tone="${index}" style="--tone:${rgb}" aria-label="${t(zh,en)}" title="${t(zh,en)}" aria-pressed="false"><i></i></button>`).join('')}</div>
             <label class="ts-isolate"><input type="checkbox"> ${t('只看这一色','Isolate this colour')}</label>
-            <output aria-live="polite" aria-atomic="true"></output>
           </alice-loom-chart>
           <div class="ts-chart-build"><div class="ts-chart-pictures">
             ${detailComparison}${plateFigure(craft.result,craft.title)}
           </div><p>${craft.element} ${i?t('62 × 35 格，共 2,170 颗。','62 × 35 cells · 2,170 beads.'):t('34 × 42 格，共 1,428 针。','34 × 42 cells · 1,428 stitches.')}</p>
-          <div class="ts-pattern-files">${[[craft.key+'-chart',t('放大色格原图','Enlarge chart')],[craft.key+'-loom',t('查看织机参数','Loom settings')]].map(([asset,label])=>`<button type="button" data-story-image="${path(asset)}" data-caption="${escape(craft.title+' · '+label)}">${label} ↗</button>`).join('')}</div></div></div>`,lang,craft.title);
+          </div></div>`,lang,craft.title);
       }).join('')}</div>`;
   }
 
@@ -463,17 +469,13 @@
       this.events=new AbortController();
       const on=(target,event,handler)=>target.addEventListener(event,handler,{signal:this.events.signal});
       const {rows,palette}=loomCharts[this.dataset.chart];
-      const en=this.lang==='en';
-      const unit=this.dataset.chart==='sheep' ? tr(this.lang,'颗珠','beads') : tr(this.lang,'针','stitches');
       const canvas=this.querySelector('canvas');
       const ctx=canvas.getContext('2d');
       const isolation=this.querySelector('input');
       const keys=[...this.querySelectorAll('[data-tone]')];
-      const output=this.querySelector('output');
       const width=rows[0].length,height=rows.length,cell=12;
       canvas.width=width*cell;
       canvas.height=height*cell;
-      const counts=palette.map((_,index)=>rows.reduce((sum,row)=>sum+row.split(String(index)).length-1,0));
       let col=Math.floor(width/2),row=Math.floor(height/2);
       function draw() {
         const tone=Number(rows[row][col]);
@@ -491,8 +493,6 @@
         ctx.strokeStyle='#162b21';ctx.lineWidth=3;ctx.strokeRect(x+.5,y+.5,cell-1,cell-1);
         ctx.strokeStyle='#fff';ctx.lineWidth=1;ctx.strokeRect(x+2.5,y+2.5,cell-5,cell-5);
         keys.forEach((button,i)=>button.setAttribute('aria-pressed',String(i===tone)));
-        const name=palette[tone][en?2:1], amount=counts[tone].toLocaleString(en?'en-US':'zh-CN');
-        output.textContent=en?`Row ${row+1} · Column ${col+1} · ${name} · ${amount} ${unit}`:`第 ${row+1} 行 · 第 ${col+1} 列 · ${name} · ${amount} ${unit}`;
       }
       on(canvas,'click',event=>{
         const rect=canvas.getBoundingClientRect();
@@ -556,9 +556,6 @@
       browseFrom(arrow,Number(arrow.dataset.browseStep));
       return;
     }
-    if(event.target.closest('a[href="#editing-sewn-piece"]') && !event.metaKey && !event.ctrlKey && !event.shiftKey && !event.altKey){
-      document.querySelector('[data-ts-choice="design"][data-ts-index="0"]')?.click();
-    }
     const stepLink = event.target.closest('.ts-route a');
     if (stepLink && !event.metaKey && !event.ctrlKey && !event.shiftKey && !event.altKey) {
       window.AliceSequences?.reveal(document.getElementById(stepLink.hash.slice(1)));
@@ -581,5 +578,5 @@
     splits[Number(group.dataset.tsDiff)] = Number(event.target.value);
     group.style.setProperty('--ts-split',event.target.value+'%');
   });
-  window.AliceToolStory = { ellipse, suzanne, fabricBreakdown, cushionRoute, construction, design, reuse, trial, results, pattern, featuredWorks };
+  window.AliceToolStory = { ellipse, suzanne, fabricBreakdown, cushionRoute, design, trial, results, pattern, featuredWorks };
 })();

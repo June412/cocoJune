@@ -200,14 +200,6 @@
       }
     }, { rootMargin: '0px 0px -5% 0px' });
     article.querySelectorAll('h2, .story-lead, .section-head + .section-body > .prose:first-child').forEach(node => reveal.observe(node));
-    let folded = [];
-    function printNotes() {
-      folded = [...article.querySelectorAll('.case-notes details:not([open])')];
-      folded.forEach(note => { note.open = true; });
-    }
-    function restoreNotes() { folded.forEach(note => { note.open = false; }); folded = []; }
-    window.addEventListener('beforeprint', printNotes);
-    window.addEventListener('afterprint', restoreNotes);
     const inputEvents = ['wheel', 'touchstart', 'pointerdown', 'keydown'];
     inputEvents.forEach(type => window.addEventListener(type, release, { passive: true, capture: true }));
     window.addEventListener('scrollend', settle);
@@ -218,8 +210,6 @@
     paint();
     const initial = route ? requestAnimationFrame(bookmark) : 0;
     return () => {
-      window.removeEventListener('beforeprint', printNotes);
-      window.removeEventListener('afterprint', restoreNotes);
       cancelAnimationFrame(initial);
       cancelAnimationFrame(frame);
       inputEvents.forEach(type => window.removeEventListener(type, release, true));

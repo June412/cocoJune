@@ -121,7 +121,7 @@
         }
 
         function ribbon() {
-            return `<section id="alice-ribbon" class="mending-ribbon"><h3>${t('为什么修好眼睛，却留下旧缎带？','Why replace the eye and keep the ribbon?')}</h3>
+            return `<section id="alice-ribbon" class="mending-ribbon"><h3>${t('眼睛与旧缎带','The eye and ribbon')}</h3>
                 <div class="mending-triptych">
                 ${figure('ribbon-original','手缝原作。蓝结垂在 Alice 的毛线头发旁。','On my hand-sewn doll, the blue bow falls across Alice’s yarn hair.')}
                 ${figure('ribbon-at-desk','检查裂口时，玩家读到缎带褪色的折痕。它被解开又系上过许多次。','Examining the tear reveals a note about a faded fold. Someone has retied the ribbon many times.')}
@@ -191,7 +191,7 @@
         function finishing() {
             const makeButton = crossed => `<svg viewBox="0 0 64 64" aria-hidden="true" focusable="false"><circle cx="32" cy="32" r="29" fill="#f4dfab" stroke="#946e34" stroke-width="1.5"/><circle cx="32" cy="32" r="24" fill="none" stroke="#b99051"/>${[[22,22],[42,22],[22,42],[42,42]].map(([x,y])=>`<circle cx="${x}" cy="${y}" r="3.7" fill="#493f30"/>`).join('')}<path d="${crossed?'M22 22L42 42 M42 22L22 42':'M22 22L22 42 M42 22L42 42'}" fill="none" stroke="#95422e" stroke-width="3.3" stroke-linecap="round"/></svg>`;
             const pairing = `<figure class="story-figure"><div class="story-button-options"><div>${makeButton(true)}<small>${t('对角孔','Opposite holes')}</small></div><div>${makeButton(false)}<small>${t('相邻孔','Adjacent holes')}</small></div></div><figcaption>${t('第一对孔决定交叉或平行走线','The first pair sets a cross or parallel bars.')}</figcaption></figure>`;
-            return `<section class="story-finishing"><h3>${t('Alice 的新纽扣眼','How Alice gets her new eye')}</h3><div class="story-buttons">${figure('button-tin','从盒里选一颗纽扣','Pick a button from the tin')}${pairing}${figure('button-set','每对孔缝四次，轻拉检查','Sew each pair four times and gently tug.')}</div>
+            return `<section class="story-finishing"><h3>${t('纽扣眼','Button eye')}</h3><div class="story-buttons">${figure('button-tin','从盒里选一颗纽扣','Pick a button from the tin')}${pairing}${figure('button-set','每对孔缝四次，轻拉检查','Sew each pair four times and gently tug.')}</div>
             ${row('repair-fasteners',t('缝回熊猫的旧配饰','Refit Panda’s original trimmings'),t("沿帽边缝四圈。亮片从中心向外缘缝三针。","Loop the crown hem four times. Anchor the sequin with three centre-to-rim stitches."),
                 figures(figure('crown','皇冠底边与头顶布面','Crown hem against the head fabric'),figure('cheek-sequin','亮片中心孔与外缘布面','Sequin centre and outer fabric')))}</section>`;
         }
@@ -205,7 +205,7 @@
                  <tr><th scope="row">${t('工作台全景','Desk view')}</th><td>47.1 ms</td><td>47.9 ms</td><td>0</td></tr></tbody></table>`;
             return `<div class="story-block"><h3>${t('近景渲染','Close-up rendering')}</h3>
             ${row('panda-knit',t('熊猫耳缘的毛线','Yarn along Panda’s ear'),t("薄层随耳朵变形。镜头拉远，纱线厚度小于一像素时停绘。","Shells follow the ear mesh. They stop drawing when yarn thickness falls below one pixel."),figures(surface,ear)+timing)}
-            ${row('feedback-knit',t('退到桌边，针脚仍然清楚','Keep the knit legible from the desk'),t("距离拉远时先淡去纱线捻纹，再减弱 V 形针脚的起伏。","At a distance, fine yarn twists fade first, followed by the relief of each V stitch."),figures(figure('knit-near','1,000 × 1,000 渲染的局部','Detail from a 1,000 × 1,000 render'),figure('knit-far','256 × 256 渲染的同一区域','Same area from a 256 × 256 render')))}
+            ${row('feedback-knit',t('远近针纹','Knit detail at distance'),t("距离拉远时先淡去纱线捻纹，再减弱 V 形针脚的起伏。","At a distance, fine yarn twists fade first, followed by the relief of each V stitch."),figures(figure('knit-near','1,000 × 1,000 渲染的局部','Detail from a 1,000 × 1,000 render'),figure('knit-far','256 × 256 渲染的同一区域','Same area from a 256 × 256 render')))}
             ${row('dress-weave',t('蓝裙的 V 形线圈','V stitches in the blue dress'),t("把近似帆布的方格换成交扣的 V 形线圈。","Interlocking V stitches replace the canvas-like grid."),figures(figure('dress-grid','原来的方格织纹','Original square weave'),figure('dress-knit','交扣的 V 形线圈','Interlocking V stitches')))}
             ${row('thread-simulation',t('一根活动线的三个状态','A working thread in three states'),t("针尖与布面固定两端，中间用 28 个节点模拟下垂。82 个采样点绘出六边形线管。","Needle and cloth anchor the ends. Gravity bends 28 nodes. An 82-point tube renders the strand."),figures(figure('seam-thread','线连着针与布','Thread between needle and cloth'),figure('seam-cut','剪出工作线尾','Tail after the cut'),figure('seam-closed','收紧后的布边','Edges drawn together')))}
             ${row('cloth-hatching',t('浅色布面上的铅笔排线','Pencil hatching on pale cloth'),t("暗处出现斜向排线，亮处保留原布纹。","Diagonal strokes deepen the shade. The lit cheek keeps its weave."),figures(figure('cheek-before','调整前的下巴阴影','Chin shadow before adjustment'),figure('cheek-after','调整后的斜向排线','Diagonal strokes after adjustment')))}
@@ -213,7 +213,7 @@
         }
 
         function reflection() {
-            return row('window-reflection',t('跟着窗扇转动的倒影','A reflection that turns with the pane'),t("用三块色标检查转动的倒影。反射相机以半分辨率绘制，最长边 1,024 px。","Three markers track the turning reflection. The mirrored camera renders at half resolution, capped at 1,024 px."),figures(figure('pane-closed','关闭窗扇的测试画面','Test markers with the pane closed'),figure('pane-turned','窗扇转开后的倒影','Reflections as the pane turns')));
+            return row('window-reflection',t('窗面倒影','Window reflections'),t("用三块色标检查转动的倒影。反射相机以半分辨率绘制，最长边 1,024 px。","Three markers track the turning reflection. The mirrored camera renders at half resolution, capped at 1,024 px."),figures(figure('pane-closed','关闭窗扇的测试画面','Test markers with the pane closed'),figure('pane-turned','窗扇转开后的倒影','Reflections as the pane turns')));
         }
 
         function feedback() {
@@ -229,8 +229,8 @@
             const room=figures(figure('scissor-pocket','剪刀放回布袋','Scissors in the tool pocket'),figure('window-sound','雨中的工坊窗户','Workshop window in the rain'),figure('speaker','窗台音箱','Speaker on the sill'));
             return `<div class="story-feedback">
             ${row('feedback-hole',t('让一个扣孔亮起来','Guide one buttonhole at a time'),t("每次只亮一个孔。点击最近的孔，或用键盘分别确认入针、出针。","One rim lights up. Click the nearest hole or confirm entry and exit on the keyboard."),holes)}
-            ${row('feedback-timing',t('放大文字，仍看得见对准时机','Keep the timing cue in sight'),t("提示字号可调至 100%、125%、150%。从容模式会在对准时停住，等待确认。","Choose 100%, 125% or 150% text. Relaxed mode waits for confirmation once the target aligns."),prompts)}
-            ${row('feedback-input',t('跟着手里的设备换键名','Match the prompt to the input device'),t("按实际输入切换键名，忽略摇杆漂移。F2 暂停并保留最近 40 条提示。","Prompts follow deliberate inputs and ignore stick drift. F2 pauses the repair and recalls 40 cues."),inputs)}
+            ${row('feedback-timing',t('时机提示','Timing cues'),t("提示字号可调至 100%、125%、150%。从容模式会在对准时停住，等待确认。","Choose 100%, 125% or 150% text. Relaxed mode waits for confirmation once the target aligns."),prompts)}
+            ${row('feedback-input',t('设备提示','Device prompts'),t("按实际输入切换键名，忽略摇杆漂移。F2 暂停并保留最近 40 条提示。","Prompts follow deliberate inputs and ignore stick drift. F2 pauses the repair and recalls 40 cues."),inputs)}
             ${row('feedback-foley',t('听针落下、棉花受压和剪刀合拢','Hear the stitch, press and snip'),'',foleyLinks)}
             ${row('feedback-room',t('分辨桌边与窗外的声音','Listen beyond the work mat'),t("拿放剪刀有独立音效。做针线时音箱降低音量。","The scissors sound on pickup and return. The speaker quietens during needlework."),room+link('window-video','试听同一场雨的三种窗扇状态','Hear the rain through three window positions'))}
             </div>`;

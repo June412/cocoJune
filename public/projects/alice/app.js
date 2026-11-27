@@ -25,7 +25,7 @@ function section(id,zh,en,subzh,suben,body) {
 const compare=(a,b,zh,en)=>`<figure class="study"><div class="compare" style="--split:50%">${img(M[b],t(zh,en)+' · '+t('调整后','After'))}<div class="compare-top">${img(M[a],t(zh,en)+' · '+t('调整前','Before'))}</div><span class="compare-line"></span><span class="compare-handle">↔</span><span class="compare-label before">${t('调整前','Before')}</span><span class="compare-label after">${t('调整后','After')}</span><input type="range" min="0" max="100" value="50" aria-label="${esc(t('拖动比较：','Compare: ')+t(zh,en))}"></div><figcaption class="caption">${t(zh,en)}<span>${t('拖动分界线','Drag to compare')}</span></figcaption></figure>`;
 const sectionOrder = page === 'game'
     ? ['overview','arrival','alice','panda','play','mechanics','doll','workshop','thread-state','history','making-credits']
-    : ['overview','development','materials','workflow','cushion','cases','delivery','trial','results','bridge','works','making-credits'];
+    : ['overview','workflow','cushion','cases','works','bridge','trial','results','making-credits'];
 const legacyViews = {design:'overview', interaction:'play', technology:'doll', guide:'workflow', archive:'trial'};
 const projectName = page === 'game' ? 'Alice · Mending Workshop' : 'Textile Studio';
 let unmountThread;
@@ -48,20 +48,6 @@ function mountView() {
     main.append(...sectionOrder.map(id => sections.get(id)));
     const film = main.querySelector('.opening-media video');
     window.AliceAdmissions.addOpeningCaptions(film, lang, page);
-    if (page === 'toolkit') {
-        const report = document.createElement('section');
-        report.id = 'technical-report';
-        report.dataset.threadChapter = '';
-        report.className = 'case-notes';
-        const heading = document.createElement('h2');
-        heading.textContent = t('技术详解','Technical notes');
-        const notes = document.createElement('div');
-        notes.lang = lang === 'zh' ? 'zh-CN' : 'en';
-        notes.append(document.getElementById('report-source').content.cloneNode(true));
-        if (lang === 'zh') window.bindProjectTranslation(notes, window.AliceNotesChinese)('zh');
-        report.append(heading, notes);
-        main.append(report);
-    }
     main.insertAdjacentHTML('beforeend', `<footer class="reader-footer"><button type="button" class="case-print" data-print>${t('打印项目 / PDF','Print project / PDF')}</button></footer>`);
     unmountThread = window.ProjectThread.mount(document.querySelector('.thread-host'), main, lang);
 }
@@ -125,7 +111,7 @@ function toolkit(){return `
 
 ${section('workflow','工作台','Workbench','','',`
 ${window.AliceWorkbenchGuide.render(lang)}
-<section class="project-notes" id="workbench-notes"><h3>${t('画一道针脚','Draw a stitch path')}</h3>
+<section class="project-notes" id="workbench-notes"><h3>${t('针迹绘制','Stitch paths')}</h3>
 <ol class="ts-path-flow">
 <li><b class="sketched-label">${sketch('set-scale')}${t('标定尺寸','Set the scale')}</b><span>${t('导入模型副本，按实物毫米数标定。','Import a working copy and set its size in millimetres.')}</span></li>
 <li><b class="sketched-label">${sketch('cloth-region')}${t('指定布面','Choose the cloth')}</b><span>${t('选中材质槽，或逐面圈出局部。','Choose a material region or select individual faces.')}</span></li>
@@ -165,7 +151,6 @@ ${craftRow('绣一根枝茎和五片叶','Stitch the stem and five leaves',
     photo('cushionEmbroidery',t('五片缎面绣叶分别成层，可以单独转动绣线方向。','Each satin leaf is a separate layer with its own thread direction.')))}
 <figure class="ts-gesture-film"><video controls playsinline preload="none" width="950" height="680" poster="assets/story-tool/botanical-leaf-gesture.webp" aria-describedby="leaf-gesture-caption"><source src="assets/story-tool/botanical-leaf-gesture.mp4" type="video/mp4"><a href="assets/story-tool/botanical-leaf-gesture.mp4">${t('播放绣叶过程','Play the embroidery clip')}</a></video>
 <figcaption id="leaf-gesture-caption">${t('描出叶形，松手生成一层缎面绣。工作台实录，3 倍速。','Trace a leaf and release to create a satin-stitch layer. Workbench recording at 3× speed.')} <a href="#editing-sewn-piece">${t('看移动毛毡后的效果','See what moves with the felt')} ↗</a></figcaption></figure>
-${photo('cushionLeafDetail',t('叶片近景可见一排排斜向绣线，以及枝茎高出毛毡的轮廓。','At close range, the angled rows of satin thread and the raised cord stem stand out from the felt.'))}
 ${craftRow('缝好内外两道边','Finish the felt and cushion edges',
     para('在毛毡边缝锁边针，再沿抱枕外圈铺布条包边。','Blanket-stitch the felt, then bind the cushion edge with a fabric strip.'),
     capture('edging',656,275,'毛毡针距 4.5 mm · 外包边宽 4.5 mm、厚 1 mm。','4.5 mm stitch spacing · outer binding 4.5 × 1 mm.'),
@@ -180,49 +165,40 @@ ${craftRow('导出并重新打开成品','Export and reopen the cushion',
     para('将抱枕导出为 Unity 资源包，再载入静态预制体检查外观。','Export the cushion as a Unity package and reopen its static prefab to check the finish.'),
     capture('formats',650,483,'Unity 包、OBJ 或 PNG。','Unity package, OBJ or PNG.'),
     photo('cushionExport',t('从导出资源重新打开的静态预制体，保留了叶片、毛毡和两道封边。','The exported static prefab reopened with its leaves, felt and both finished edges.')))}
-`;
-})())}
-
-${section('delivery','资产导出','Asset export','','',`
+<section id="delivery" class="tool-substudy"><h3>${t('资产导出','Asset export')}</h3>
 <div class="ts-export-images">
 ${photo('uiExportDetail',t('工作台里的可编辑场景。','Editable scene in the workbench.'))}
 ${photo('cushionExport',t('从资源包载入的静态抱枕。','Static cushion reloaded from the package.'))}</div>
-${table([t('用途','Goal'),t('保存或导出','Format'),t('保留什么','What travels')],[
+${table([t('用途','Goal'),t('保存或导出','Format'),t('保留内容','Saved content')],[
 [t('下次继续缝','Resume sewing'),t('场景','Scene'),t('控制点、针脚、图层与依附关系。','Control points, stitches, layers and attachments.')],
 [t('换一张布复用','Reuse on another surface'),t('组合 / 外观','Motif / Look'),t('组合重投图案；外观恢复指定区域的材质。','Motif projects the pattern. Look restores mapped materials.')],
 [t('导入游戏','Use in a game'),'Unity package',t('静态 Prefab、网格、材质、贴图和着色器。','Static prefab, meshes, materials, textures and shaders.')],
 [t('交给建模软件','Share geometry'),'OBJ + MTL',t('网格与基础色。','Mesh and base colours.')],
 [t('展示成品','Show the finished piece'),'PNG',t('可选透明背景，1200–4096 px。','Optional transparency, 1200–4096 px.')]])}
-<article id="export-implementation" class="ts-pack-flow"><h3>${t('独立资源包','Building the Unity package')}</h3><ol class="ts-path-flow">
+<article id="export-implementation" class="ts-pack-flow"><h3>${t('独立资源包','Unity package')}</h3><ol class="ts-path-flow">
 <li><b class="sketched-label">${sketch('clone-mesh')}${t('复制静态模型','Clone the mesh')}</b></li><li><b class="sketched-label">${sketch('group-assets')}${t('收集材质与依赖','Collect dependencies')}</b></li><li><b class="sketched-label">${sketch('reopen-check')}${t('重开核对外观','Reopen and verify')}</b></li></ol></article>
-`)}
+</section>
+`;
+})())}
 
-${section('development','图层编辑','Layer editing','','',`
-${window.AliceToolStory.design(lang)}
-${window.AliceToolStory.suzanne(lang)}
-${window.AliceToolStory.construction(lang)}
-${window.AliceToolStory.reuse(lang)}
-
-`)}
-
-${section('cases','布艺工艺','Textile techniques','','',`
-${craftNavigation()}
-${passage('case-pattern','色格如何变成织物','From colour cells to cloth','',window.AliceToolStory.pattern(lang,sketch))}
+${section('cases','细节设计','Detail design','','',`
+${window.AliceToolStory.design(lang,sketch)}
+<div class="ts-craft-samples">
 ${passage('case-stitches','曲面针脚与区域刺绣','Surface stitches and filled embroidery',para('回针沿布面勾出房屋。调针距改变疏密；调线径改变笔画粗细。','Backstitch traces the houses. Stitch spacing sets the gaps and yarn diameter sets the line weight.'),pair(wfig('reference-1','蓝棉布：回针沿房屋轮廓贴合布面。','Blue cotton: backstitch follows the house outlines across the fabric.'),photo('threadAfter',t('线材细节：三股绞合与表面细纤维。','Thread detail: three-ply construction and fine surface fibres.'))))}
 ${passage('case-patches','贴布、共享缝边与图层依附','Patchwork, shared seams and attached layers',para('六片衣物贴在同一件 T 恤上，各有自己的厚度。相邻布片可以共用一条缝。','Six appliqués share one shirt. Each has its own thickness. Neighbouring patches can share a seam.'),pair(wfig('reference-2','短袖上的六片晾衣绳布贴。','Six washing-line patches on the shirt.'),wfig('edging','封边样板：逐项比较跨边、环线与连接方式。','Edging sampler: comparing edge crossings, loops and connections.')))}
 ${passage('case-accessories','纽扣、亮片与连续串珠','Buttons, sequins and continuous beadwork',para('库里有 22 款纽扣。固定线穿过双孔或四孔，珠串则沿一条可编辑的路径连续穿线。','The library has 22 button designs. Thread passes through two or four holes; a bead strand follows one editable path.'),pair(wfig('craft-10','材料卡：真实孔道、配件表面与固定针线。','Sample card: physical holes, accessory surfaces and securing threads.'),wfig('motif-0','珠绣花环：路径排珠与连续穿线。','Bead wreath: a path-based array with continuous thread.')))}
 
-${passage('case-yarn','绒线体积与参数化缎带','Yarn volume and parametric ribbons',para('点一下生成绒簇，拖出路径排一行。蝴蝶结两条尾带可以分别画，花形结可用 3–16 个结环。','Click for a tuft or drag to plant a row. Draw each bow tail separately. Rosettes use 3–16 loops.'),pair(wfig('craft-8','绒线溪谷：多种成簇与成排绒线结构。','Yarn valley: clustered and path-based yarn structures.'),wfig('ribbon-0','缎面蝴蝶结：结环与尾带分别可调，点击查看侧面。','Satin bow: editable loops and tails; open to inspect the oblique view.')))}
-`)}
-
-${section('materials','织物材质','Fabric materials','','',`
+${passage('case-yarn','绒线体积与参数化缎带','Yarn volume and parametric ribbons',para('点一下生成绒簇，拖出路径排一行。蝴蝶结两条尾带可以分别画，花形结可用 3–16 个结环。','Click for a tuft or drag to plant a row. Draw each bow tail separately. Rosettes use 3–16 loops.'),pair(wfig('craft-8','绒线溪谷：多种成簇与成排绒线结构。','Yarn valley: clustered and path-based yarn structures.'),wfig('ribbon-0','缎面蝴蝶结：结环与尾带分别可调，点击查看侧面。','Satin bow: editable loops and tails; open to inspect the oblique view.')))}</div>
+${window.AliceToolStory.suzanne(lang)}
+<section id="materials" class="tool-substudy"><h3>${t('织物材质','Fabric materials')}</h3>
 <p class="ts-copy">${t('用两侧箭头换布，拖动样球看织纹和反光。','Use the arrows to change fabrics. Drag the sphere to inspect the weave and sheen.')}</p>
 <div class="material-layout"><div><div class="material-view"><div class="material-stage" id="material-stage"></div>
     <div class="material-nav browse-frame">${window.AliceBrowse.arrows(t('上一种材质','Previous fabric'), t('下一种材质','Next fabric'),'material-stage')}</div>
     </div><h3 class="material-name" aria-live="polite" aria-atomic="true"><span id="material-name"></span> <span class="material-position"></span></h3></div><div><div class="material-buttons" aria-label="${t('材质样本','Material samples')}">${D.materials.map((m,i)=>`<button class="material-btn" data-material="${i}" aria-pressed="${i===0}">${img({...m.image,src:m.image.thumb},materialNames[i][lang==='en'?1:0])}${materialNames[i][lang==='en'?1:0]}</button>`).join('')}</div></div></div>
 ${window.AliceToolStory.fabricBreakdown(lang)}
-<h3 class="ts-history-title">${t('布面变形时','When cloth takes a crease')}</h3>
-${compare('wrinkleBefore','wrinkleAfter','褶皱带动贴布与针脚。刚性配件随表面转向。','The patch and stitches follow the crease. Rigid trims rotate with the surface.')}
+<div class="fold-study"><div><h4>${t('布面褶皱','Cloth folds')}</h4><p>${t('拖动分界线，对照褶皱前后的针脚与配件。','Slide the divider to follow the stitches and trims across the fold.')}</p></div>
+${compare('wrinkleBefore','wrinkleAfter','褶皱带动贴布与针脚。刚性配件随表面转向。','The patch and stitches follow the crease. Rigid trims rotate with the surface.')}</div>
+</section>
 `)}
 
 ${section('works','作品集','Gallery','','',`
@@ -233,7 +209,7 @@ ${window.AliceToolStory.featuredWorks(lang)}
 <div class="gallery-toolbar"><div class="filter-row" aria-label="${t('作品类别','Work categories')}"><button class="filter" data-filter="all" aria-pressed="true">${t('全部','All')}</button>${[...new Set(W.map(w=>w.category))].map(c=>`<button class="filter" data-filter="${esc(c)}" aria-pressed="false">${esc(category(W.find(w=>w.category===c)))}</button>`).join('')}</div><div class="search-row"><input type="search" id="work-search" placeholder="${t('搜索作品或工艺','Search works or crafts')}" aria-label="${t('搜索作品','Search works')}"><span class="gallery-count" aria-live="polite"></span></div></div><div class="gallery" id="work-gallery"></div><nav class="gallery-pager" aria-label="${t('目录翻页','Catalogue pages')}"></nav></div>
 `)}
 
-${section('trial','复测','Workbench tests','','',window.AliceToolStory.trial(lang))}
+${section('trial','用户测试','User testing','','',window.AliceToolStory.trial(lang))}
 
 ${section('results','测试结果','Results','','',window.AliceToolStory.results(lang)+`
 <h3 class="ts-history-title">${t('工具的演变','Tool development')}</h3>
@@ -398,10 +374,8 @@ function switchLanguage(nextLanguage) {
     try { history.replaceState(null, '', nextUrl.href); }
     catch { location.replace(nextUrl.href); return; }
     const material = document.querySelector('[data-material][aria-pressed="true"]')?.dataset.material;
-    const openNotes = [...document.querySelectorAll('.case-notes details[open]')].map(note => note.id);
     lang = nextLanguage;
     render();
-    openNotes.forEach(id => { document.getElementById(id).open = true; });
     if(Number(material)>0)showMaterial(Number(material));
     const anchor = oldAnchor && document.getElementById(oldAnchor.id);
     if(atStart)window.scrollTo(0,0);
@@ -472,16 +446,6 @@ function renderGallery(){
         first?.scrollIntoView({behavior:'instant',block:'start'});
     });
     bindImages();
-}
-
-function craftNavigation() {
-    const cases = [
-        ['case-pattern','像素图案','Pixel patterns'], ['case-stitches','曲面刺绣','Embroidery'],
-        ['case-patches','贴布与缝边','Appliqué'], ['case-accessories','纽扣与串珠','Fastenings'],
-        ['case-yarn','绒线与缎带','Yarn and ribbon']
-    ];
-    return `<nav class="filter-row" aria-label="${t('工艺案例','Craft examples')}">
-        ${cases.map(([id,zh,en]) => `<a class="text-link" href="#${id}">${t(zh,en)}</a>`).join('')}</nav>`;
 }
 
 function repairMethod(mechanic, index) {
@@ -635,10 +599,16 @@ const gameReportChapters = {
     overview:'overview', 'game-design':'arrival', commissions:'arrival', interaction:'play',
     character:'doll', rendering:'doll', 'window-sound':'workshop', 'window-video':'workshop', validation:'thread-state'
 };
+const toolkitReportChapters = {
+    overview:'overview', design:'cases', workflow:'workflow', 'technical-art':'materials',
+    'craft-library':'cases', 'reuse-delivery':'delivery', validation:'results'
+};
 function openFragment(initial=false){
     let id=location.hash.slice(1);
-    if (page === 'game' && (id === 'technical-report' || id.startsWith('report-'))) {
-        id = gameReportChapters[id.replace(/^report-(heading-)?/, '')] || 'doll';
+    if (page === 'toolkit' && id === 'ts-design-0') id = 'editing-sewn-piece';
+    if (id === 'technical-report' || id.startsWith('report-')) {
+        const chapters = page === 'game' ? gameReportChapters : toolkitReportChapters;
+        id = chapters[id.replace(/^report-(heading-)?/, '')] || (page === 'game' ? 'doll' : 'workflow');
         try { history.replaceState(history.state, '', '#' + id); } catch { /* Some file readers restrict history. */ }
         initial = true;
     }

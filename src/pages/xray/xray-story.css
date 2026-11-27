@@ -32,3 +32,10 @@
 @media (max-width: 380px) {
   .xray-detector-control { gap: 7px; }
 }
+.xray-source-study > * { min-width: 0; }
+.xray-story .study-spread > div > h3:first-child { margin-top: 0; }
+.xray-story .xray-source-study { align-items: center; }
+.xray-page .xray-story section > .xray-story-plate {
+  width: min(100%, 680px); margin: 16px auto 24px;
+}
+.xray-page .xray-story .xray-data-table { margin-block: 12px 20px; }

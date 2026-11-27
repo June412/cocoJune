@@ -22,6 +22,24 @@
 .thread-copy .opening-media { width: min(100%, 1100px); min-width: 0; margin: 0 auto; }
 .thread-copy .opening-copy { width: 100%; min-width: 0; }
 .thread-copy .opening-copy p { max-width: 74ch; }
+@media screen {
+  @container project-content (min-width: 710px) {
+    .thread-copy :is(#main,.graphics-report) :is(.project-opening,.hero-layout) {
+      display: grid;
+      grid-template: "title film" auto "intro film" auto / minmax(0, .96fr) minmax(0, 1.12fr);
+      column-gap: clamp(24px, 3.6cqi, 40px);
+      row-gap: 10px;
+      align-items: start;
+    }
+    .thread-copy .project-title-row { grid-area: title; align-self: end; gap: clamp(10px, 1.5cqi, 20px); margin: 0; }
+    .thread-copy .project-title-row img { width: clamp(76px, 9.5cqi, 104px); }
+    .thread-copy .project-title-row h1 { font-size: clamp(40px, 5.4cqi, 60px); line-height: 1.05; }
+    .thread-copy .opening-copy { grid-area: intro; align-self: start; }
+    .thread-copy .opening-media { grid-area: film; align-self: center; width: 100%; margin: 0; }
+    .thread-copy .opening-media .project-demo { width: 100%; margin: 0; }
+    .thread-copy .xray-film .alice-video-cues { margin-top: 12px; gap: 8px; font-size: 14px; }
+  }
+}
 :is(#main, .thread-copy) table {
   border-collapse: collapse;
   border: 1px solid var(--table-rule);

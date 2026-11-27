@@ -8,9 +8,10 @@
     --right-gutter: var(--rail-space);
     width: min(1580px, calc(100% - 40px)); margin-inline: auto;
     display: grid; grid-template-columns: var(--rail-space) minmax(0, 1fr) var(--right-gutter); align-items: start;
+    column-gap: clamp(12px, 1.6vw, 26px);
   }
   .thread-copy, .thread-host { min-width: 0; }
-  .thread-copy { container: project-content / inline-size; }
+  .thread-copy { container: project-content / inline-size; width: min(100%, 1080px); justify-self: center; }
   .thread-host { width: calc(100% - 14px); height: 1px; }
   .personal-alice .reader-column.thread-copy #main { width: 100%; --alice-wide: min(100%, 100cqi); --alice-spread: var(--alice-wide); }
   .thread-nav { position: fixed; top: 0; z-index: 4; box-sizing: border-box; pointer-events: none; --fibre-width: clamp(35px, 3.8vw, 53px); }
@@ -25,7 +26,7 @@
   .thread-nav a, .personal-roomies .thread-nav a {
     color: var(--link, #007697); text-decoration: none; background: none; border: 0; padding: 4px 0; margin: 0;
     display: inline-flex; align-items: center; min-width: 0; max-width: 100%; min-height: 30px; box-sizing: border-box; pointer-events: auto; overflow-wrap: anywhere;
-    font: 400 clamp(18px, 1.85vw, 25px)/1.12 'Rail handwriting', 'Rail brush', 'Kaiti SC', cursive;
+    font: 400 clamp(18px, 1.85vw, 25px)/1.12 'Rail handwriting', 'Rail brush', 'Portfolio brush', 'Kaiti SC', cursive;
     transition: color .28s, transform .35s cubic-bezier(.2,.7,.2,1); text-align: left;
   }
   .thread-nav a:hover, .thread-nav a:focus-visible { text-decoration: underline; text-underline-offset: .18em; }
@@ -36,25 +37,10 @@
   .personal-alice .thread-copy #main > .section.thread-chapter { margin-block-start: clamp(48px, 7vh, 88px); }
   .thread-copy [id] { scroll-margin-block-start: min(17vh, 120px); }
   .roomies-case .thread-layout #main { min-width: 0; width: 100%; --story-gutter: 0px; }
-  .thread-copy .case-notes { margin: clamp(55px, 7vw, 96px) auto 28px; max-width: 720px; }
-  .thread-copy .case-notes > h2 { margin-bottom: 1em; }
-  .thread-copy .case-notes details { margin: 16px 0; padding: 12px 0; border-block-start: 1px dashed var(--line); }
-  .thread-copy .case-notes summary { cursor: pointer; font-size: 1.15em; color: var(--link); }
-  .thread-copy .case-notes :is(figure, pre, table, svg, video, img) { max-width: 100%; }
-  .thread-copy .case-notes pre, .thread-copy .case-notes .table-wrap { overflow-x: auto; }
-  .thread-copy .case-notes table { border-collapse: collapse; font-size: .93em; }
-  .thread-copy .case-notes :is(th, td) { padding: .45em; border-bottom: 1px solid var(--line); vertical-align: top; }
-  .thread-copy .case-notes figure { margin: 1.2em 0; }
-  .thread-copy .case-notes img { height: auto; }
-  .thread-copy .case-notes :is(.pin,.report-heading,.document-footer,.chapter-end,.research-contents) { display: none; }
-  .thread-copy .case-notes .picture { position: relative; }
-  .thread-copy .case-notes .pin { display:block; position:absolute; transform:translate(-50%,-50%); border-radius:50%; padding:0 .4em; background:#fff4df; font-weight:bold; }
-  .thread-copy .case-notes .picture button { border:0; padding:0; background:transparent; cursor:zoom-in; }
-  .thread-copy .case-notes .annotations { margin-block: 1em; }
   .thread-copy .report-transcript > section, .thread-copy .report-transcript h2 { margin-top: clamp(48px, 6vw, 84px); }
 }
 @media screen and (max-width:1120px) {
-  .thread-layout { --rail-space: 134px; --right-gutter: clamp(8px, 5vw, 55px); }
+  .thread-layout { --rail-space: 128px; --right-gutter: clamp(44px, 9vw, 112px); }
 }
 @media screen and (max-width:960px) {
   .thread-layout { --rail-space: 118px; --right-gutter: 12px; width: calc(100% - 24px); }
@@ -63,7 +49,7 @@
   .thread-nav a, .personal-roomies .thread-nav a { font-size: clamp(15px, 1.9vw, 18px); overflow-wrap: anywhere; }
 }
 @media screen and (max-width:720px) {
-  .thread-layout { --rail-space: clamp(85px,24vw,113px); --right-gutter: 0px; width: calc(100% - 16px); }
+  .thread-layout { --rail-space: clamp(85px,24vw,113px); --right-gutter: 0px; width: calc(100% - 16px); grid-template-columns: var(--rail-space) minmax(0,1fr); column-gap: 8px; }
   .thread-host { width: calc(100% - 6px); }
   .site-shell.is-work:has(.thread-layout) > .site-header { width: auto; margin-inline: clamp(90px,25vw,118px) 15px; }
   body:has(.thread-layout) > .personal-site-chrome:first-child { margin-inline-start: clamp(90px,25vw,118px); }
@@ -72,7 +58,6 @@
   .thread-strand::before { filter: drop-shadow(.55px 0 .25px #9e7954) drop-shadow(0 1px .5px #81674f44); }
   .thread-nav a, .personal-roomies .thread-nav a { font-size: 15px; line-height: 1.04; overflow-wrap: anywhere; }
   .thread-nav .thread-button { width: 14px; }
-  .thread-copy .case-notes { max-width: 100%; }
 }
 @media screen and (max-height:480px) { .thread-nav a, .personal-roomies .thread-nav a { min-height: 20px; padding: 1px 0; font-size: 14px; } }
 @media screen and (max-width:380px) {

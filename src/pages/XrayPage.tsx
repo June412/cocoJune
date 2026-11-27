@@ -55,21 +55,18 @@ export default function XrayPage() {
       <a className="eyebrow" href="#/projects/category/tools">← {t('Graphics & tools', '图形与工具')}</a>
       <ProjectOpening id="xray-overview" project="x-ray" title="Volumetric X-ray" film={<XrayFilm />}>
         <p className="xray-intro">{t(
-          'Turn a body sideways and ribs that were separate in a front view begin to overlap. This Unity project recreates that change from a CT scan or a 3D anatomy model. For each pixel, it follows a ray through the body and calculates the fraction of the beam that reaches the detector.',
-          '把人体从正面转到侧面，原本分开的肋骨就会在投影里叠到一起。这个 Unity 项目用 CT 数据或三维解剖模型重现这个过程：对图像上的每个像素，追踪一条穿过身体的 X 射线，算出有多少射线抵达探测器。',
+          'A Unity renderer turns CT slices or an anatomical mesh into an X-ray projection. Rotate the body to see the ribs overlap, or change the exposure to compare the grain.',
+          '这个 Unity 渲染器把 CT 切片或解剖网格转成 X 光投影。旋转人体可以观察肋骨重叠，改变曝光可以比较图像颗粒。',
         )}</p>
       </ProjectOpening>
       <div className="report-transcript coursework-prose xray-prose">
         <section className="xray-contributions" aria-labelledby="xray-role">
           <h2 id="xray-role" data-thread-chapter>{t('My role', '我的职责')}</h2>
-          <p>{t(
-            'I wrote the HLSL compute shader that integrates attenuation along each ray, and built the Unity tools for importing DICOM slices, positioning the detector and exporting the resulting images and raw values. I checked the GPU output against a CPU reference and test objects with known thicknesses.',
-            '我写了沿射线累积材料衰减的 HLSL 计算着色器，也在 Unity 里做了从导入 DICOM 切片、调整投影几何，到导出图像和原始数值的一套工具。我用 CPU 参考计算和厚度已知的测试体模，逐项核对 GPU 的输出。',
-          )}</p>
-          <p>{t(
-            'One detail took me back to the anatomy. My first long bones looked solid from edge to edge. I gave them a dense outer shell and a less dense core, so the bright rim follows the bone as the view turns.',
-            '早期的长骨从边缘到中央都是一片实白。对照影像后，我把骨骼改为致密外壳和低密度内芯，让亮边随着视角沿骨缘移动。',
-          )}</p>
+          <ul>
+            <li><strong>{t('Rendering', '渲染')}</strong> · {t('Wrote the HLSL compute shader for ray integration and modelled the dense shell around long bones.', '编写沿射线积分的 HLSL 计算着色器，为长骨建立致密外壳与低密度内芯。')}</li>
+            <li><strong>{t('Unity tools', 'Unity 工具')}</strong> · {t('Built DICOM import, detector positioning and image and raw-data export.', '实现 DICOM 导入、探测器定位和图像与原始数据导出。')}</li>
+            <li><strong>{t('Verification', '验证')}</strong> · {t('Checked GPU output against CPU calculations and objects of known thickness.', '用 CPU 参考计算和已知厚度的体模核对 GPU 输出。')}</li>
+          </ul>
         </section>
         <XrayModels />
         <XrayProcess />

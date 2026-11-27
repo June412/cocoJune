@@ -342,18 +342,21 @@ a.research-row h3 { color: var(--link); text-decoration: underline; text-underli
     margin-block: 0 10px; padding-top: 0; border: 0;
   }
   .thread-copy .study-spread > :is(figure,.project-process) { margin-block: 0; }
-  .coursework-report .report-body > .report-figure { margin-block: clamp(22px, 4cqi, 42px); }
+  .thread-copy .coursework-report .report-transcript {
+    width: min(100%, 55rem); margin-inline: auto;
+  }
+  .thread-copy .coursework-report .report-transcript :where(p, ul:not([class])) { max-width: 100%; }
+  .coursework-report .report-body > .report-figure {
+    width: fit-content; max-width: 100%; margin: clamp(18px,3cqi,30px) auto; text-align:start;
+  }
+  .coursework-report .report-figure figcaption { max-width:70ch; margin:6px auto 0; }
+  .coursework-report .report-figure--compact { width:min(100%,30rem); }
+  .coursework-report .report-plates small { text-align:center; }
   .coursework-report .report-body .report-plates img { max-height: min(66svh, 590px); object-fit: contain; }
   @container project-content (min-width: 720px) {
     .graphics-report .study-spread {
       grid-template-columns: minmax(0,.86fr) minmax(0,1.14fr);
       column-gap: clamp(24px, 4cqi, 52px);
     }
-    .coursework-report .report-body > .report-figure {
-      display: grid; grid-template-columns: minmax(0,2.8fr) minmax(0,1fr);
-      align-items: center; gap: 24px; text-align: start;
-    }
-    .coursework-report .report-body > .report-figure .report-plates { margin-inline: 0; }
-    .coursework-report .report-body > .report-figure figcaption { padding-inline-start: 14px; border-inline-start: 2px solid var(--line); }
   }
 }

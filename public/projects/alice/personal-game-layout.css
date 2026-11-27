@@ -201,3 +201,7 @@
 .cheek-pointer { stroke: #007697; stroke-width: 1; fill: none; paint-order: stroke; filter: drop-shadow(0 0 .6px #fff6df); }
 .cheek-comparison figure:first-child .cheek-window::after { content: ''; position: absolute; left: 100%; top: 16.51%; width: var(--comparison-gap); border-top: 1px solid #007697; pointer-events: none; }
 .cheek-study > p { margin: .5em 0 0; }
+@container project-content (max-width: 300px) {
+  .personal-alice #commission-skills table { table-layout: fixed; width: 100%; }
+  .personal-alice #commission-skills :is(th,td) { padding-inline: .25em; overflow-wrap: anywhere; }
+}
