@@ -108,7 +108,7 @@
                 [image('mina-note',t('Mina 写给修补师的来信','Mina’s letter to the mender')),t('Mina 的来信','Mina’s letter'),t('“请让她保留那一点歪歪的笑。”把来信钉上毛毡板。','“Please keep her crooked little smile.” Pin the request above the work mat.')],
                 [`<div class="story-damage-pair">${image('torn-cheek',t('Alice 缺失的眼睛','Alice’s missing eye'))}${image('loose-ear',t('熊猫脱线的耳朵','Panda’s unravelling ear'))}</div>`,t('检查损伤','Inspect the damage'),t("找到脸颊裂口或掉针的耳朵。","Find the torn cheek or unravelled ear.")]
             ];
-            return `<div class="story-arrival"><h3>${t('从窗边的包裹到修补清单','From parcel to repair list')}</h3><ol>${cards.map(([visual,title,body],i)=>`<li${i===2?' id="mina-letter"':''}>${visual}<h4>${title}</h4><p>${body}</p></li>`).join('')}</ol></div>`;
+            return `<div class="story-arrival"><h3>${t('从窗边的包裹到修补清单','From parcel to repair list')}</h3><ol class="illustrated-steps">${cards.map(([visual,title,body],i)=>`<li${i===2?' id="mina-letter"':''}>${visual}<div><h4>${title}</h4><p>${body}</p></div></li>`).join('')}</ol></div>`;
         }
 
         function transfer() {

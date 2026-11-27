@@ -43,15 +43,21 @@ export default function CyberTravelReport() {
       </tbody>
     </table></div>
     <h2 id="architecture">{t("III. DESIGN", "三、设计")}</h2>
-    <h3>{t("A. Overall Architecture", "A. 整体架构")}</h3>
-    <p>{t('A finite state machine manages the two playable worlds and the transitions into each one.', '有限状态机（FSM）管理两个可操作的场景，以及进入它们的两次过渡。')}</p>
-    <ol className="project-process" aria-label={t('Scene sequence', '场景顺序')}>
-      <li>{t('Intro dialogue', '开场对话')}</li><li>{t('Explore the room', '探索现实房间')}</li>
-      <li>{t('Enter the vortex', '穿过漩涡')}</li><li>{t('Explore Cyber City', '探索赛博城市')}</li>
-    </ol>
-    <h3>{t("B. Scene 1: Intro UI (Transition Interface 1)", "B. 开始界面 · 第一次过渡")}</h3>
-    <p>{t("This interface is used to introduce the world setting, and it is a transition scene that is completely 2D-based. I use flat rectangles to draw the dialogue box and the buttons, without enabling lighting and without any 3D modeling. The purpose of this scene is simply to introduce the world background, as illustrated in Fig. 2.", "开场是纯二维界面，以平面矩形绘制对话框和按钮，不启用灯光或三维模型，集中交代世界背景。见图 2。")}</p>
-    <ReportFigure folder="travel" files={["Im3.jpg"]} caption={t("Fig. 2. Intro UI layout and transition screen combining the initial dialogue interface and the vortex transition.", "图 2 · 开场对话界面与漩涡转场。")} />
+    <div className="study-spread">
+      <div>
+        <h3>{t("A. Overall Architecture", "A. 整体架构")}</h3>
+        <p>{t('A finite state machine manages the two playable worlds and the transitions into each one.', '有限状态机（FSM）管理两个可操作的场景，以及进入它们的两次过渡。')}</p>
+        <ol className="project-process" aria-label={t('Scene sequence', '场景顺序')}>
+          <li>{t('Intro dialogue', '开场对话')}</li><li>{t('Explore the room', '探索现实房间')}</li>
+          <li>{t('Enter the vortex', '穿过漩涡')}</li><li>{t('Explore Cyber City', '探索赛博城市')}</li>
+        </ol>
+      </div>
+      <div>
+        <h3>{t("B. Scene 1: Intro UI (Transition Interface 1)", "B. 开始界面 · 第一次过渡")}</h3>
+        <p>{t("This interface is used to introduce the world setting, and it is a transition scene that is completely 2D-based. I use flat rectangles to draw the dialogue box and the buttons, without enabling lighting and without any 3D modeling. The purpose of this scene is simply to introduce the world background, as illustrated in Fig. 2.", "开场是纯二维界面，以平面矩形绘制对话框和按钮，不启用灯光或三维模型，集中交代世界背景。见图 2。")}</p>
+        <ReportFigure folder="travel" files={["Im3.jpg"]} caption={t("Fig. 2. Intro UI layout and transition screen combining the initial dialogue interface and the vortex transition.", "图 2 · 开场对话界面与漩涡转场。")} />
+      </div>
+    </div>
     <h3>{t("C. Scene 2: Reality Room (Main Interdace 1)", "C. 现实房间 · 第一个主场景")}</h3>
     <p><strong>{t("1) Overall Design and Camera Control:", "1）整体设计与镜头")}</strong> {t("The Room scene is the “reality space” before entering the cyber world.", "进入赛博世界前，玩家先停留在这个现实空间里。")}</p>
     <p>{t("In STATE_ROOM, the camera is fixed slightly above the desk, and yaw/pitch are updated from mouse input to create a first-person look-around experience, as shown in Fig. 3.", "在 STATE_ROOM 中，相机固定在书桌稍上方，鼠标输入更新偏航和俯仰，形成第一人称环视。见图 3。")}</p>

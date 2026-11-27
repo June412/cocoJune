@@ -251,7 +251,7 @@ return `
 </div>
 <div class="mending-first-look"><div class="mending-first-frame">${img(M[D.clips.stitch.poster],t('玩家正沿 Alice 眼旁的裂口落针。','The player places a stitch beside Alice’s missing eye.'),'',false)}${window.AliceAdmissions.film(lang,'game')}</div>${window.AliceAdmissions.download(lang)}</div></header>
 
-${section('arrival','两份委托怎样递进','How the two commissions build on each other','','',story.commissions()+story.transfer()+story.arrival())}
+${section('arrival','两份委托怎样递进','How the two commissions build on each other','','',`<div class="sequence-spread"><div>${story.commissions()}${story.transfer()}</div>${story.arrival()}</div>`)}
 
 ${section('alice','第一份委托 · 修补 Alice','First commission · Mending Alice','先填平脸颊，再沿裂口缝六组藏针。缝牢纽扣眼后，轻拉检查。','Pack the cheek, close the tear with six ladder stitches, then tug the new button eye to check it holds.',`
 ${story.route('alice')}

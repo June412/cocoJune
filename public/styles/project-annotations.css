@@ -27,9 +27,10 @@
 :is(#main, .thread-copy) :is(.report-table,.table-scroll,.table-wrap) { min-width: 0; max-width: 100%; overflow-x: auto; }
 :is(#main, .thread-copy) :is(.report-transcript,.case-notes,.section-body,.xray-story,.story-chapter) ul:not([class]) { list-style-type: disc; }
 :is(#main, .thread-copy) :is(.report-transcript,.case-notes,.section-body,.xray-story,.story-chapter) ul > li::marker { color: var(--note-blue); font-size:1.08em; }
-:is(#main, .thread-copy) :is(.player-loop,.ts-path-flow,.ts-unit-flow,.project-process,.voice-steps,.repair-actions,.craft-sequence) { counter-reset: step; }
-:is(#main, .thread-copy) :is(.player-loop,.ts-path-flow,.ts-unit-flow,.project-process,.voice-steps,.repair-actions,.craft-sequence) > li { counter-increment: step; }
+:is(#main, .thread-copy) :is(.player-loop,.ts-path-flow,.ts-unit-flow,.project-process,.voice-steps,.repair-actions,.craft-sequence,.illustrated-steps) { counter-reset: step; }
+:is(#main, .thread-copy) :is(.player-loop,.ts-path-flow,.ts-unit-flow,.project-process,.voice-steps,.repair-actions,.craft-sequence,.illustrated-steps) > li { counter-increment: step; }
 :is(#main, .thread-copy) :is(.player-loop > li > strong,.ts-path-flow > li > b,.ts-unit-flow > li,.project-process > li,.voice-steps > li,.repair-actions > li)::before,
+:is(#main, .thread-copy) .illustrated-steps h4::before,
 .roomies-case #assembly .craft-sequence h3::before,
 .roomies-case #workshop .workshop-key strong::before,
 .thread-copy .gc-state .gc-step {
@@ -52,7 +53,17 @@
 .roomies-case .joint-principles figcaption strong::before { color:var(--note-blue); }
 .thread-copy .gc-state .gc-step { content:normal; font-size:15px; margin:auto; }
 .thread-copy .project-process {
-  display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,110px),1fr));
-  list-style:none; margin:12px 0 20px; padding:0; gap:6px 15px;
+  display:grid; grid-template-columns:minmax(0,1fr);
+  list-style:none; margin:12px 0 20px; padding:0;
 }
-.thread-copy .project-process li { margin:0; padding:.35em 0; border-top:1px solid #ae9780; font-weight:600; }
+.thread-copy .project-process > li {
+  position:relative; display:grid; grid-template-columns:1.55em minmax(0,1fr);
+  align-items:baseline; gap:0 .7em; margin:0; padding:.55em 0;
+  font-weight:600; line-height:1.4;
+}
+.thread-copy .project-process > li::before { margin:0; }
+.thread-copy .project-process > li:not(:last-child)::after {
+  content:""; position:absolute; inset-inline-start:.70em;
+  top:2em; bottom:-.5em; border-inline-start:1px dashed var(--table-rule);
+}
+.thread-copy .project-process > li > span { grid-column:2; font-weight:400; }

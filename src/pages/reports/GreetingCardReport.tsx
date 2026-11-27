@@ -12,15 +12,19 @@ export default function GreetingCardReport() {
     <p>{t("My card is designed with three main stages (or scenes): the Cover, the Campus, and the Celebration(The viewport in the third scene is larger), which are controlled by the global state variable gStage in coordination with time. The following sections first present the README of the system,which includes explanations of some code functions, interaction instructions, and key state transitions, followed by the design and transitions of the three scenes are discussed in detail. Subsequently, the hint system are described. Finally, the report concludes with a summary of the existing issues and potential improvements of the code.", "贺卡分为封面、校园和庆典三个阶段，庆典阶段会展开更大的视野。全局状态 gStage 与计时共同控制切换。下文先交代函数、操作和状态，再拆解三个场景、提示系统以及当前实现的局限。")}</p>
     <h2 id="system">{t("2. System Overview (README)", "2. 系统概览（README）")}</h2>
     <p>{t("To provide a quick visual reference of the system layout, figure 1 illustrates the overall composition used in the README.", "图 1 展示了程序入口、回调与视图之间的关系。")}</p>
-    <SystemOverviewDiagram />
-    <h3>{t("2.1. Overview", "2.1 系统组成")}</h3>
-    <p>{t("This project is a single-file interactive greeting card built with FreeGLUT + Core OpenGL. It consists of three major scenes:", "贺卡在一个源文件内使用 FreeGLUT 和 OpenGL 实现，包含三个主要场景。")}</p>
-    <ul>
-      <li>{t("Cover Scene:The scene shows a bright starburst background, rows of flags and balloons, a cat walking back and forth, and a fish-shaped cursor.", "封面：放射星光、彩旗和气球组成背景，小猫来回走动，鼠标变成一条鱼。")}</li>
-      <li>{t("Main Scene:The scene shows a striped gradient sky, flat-topped cloud clusters, campus buildings, a soft flashlight made with five stencil layers, and a cat the player can control.", "主场景：条带渐变天空、切平底边的云、校园建筑，以五层模板构成的柔光手电，以及玩家可以控制的小猫。")}</li>
-      <li>{t("Celebration Scene: displays fireworks, colorful particle dots, and a double-stroked title text.", "庆典：烟花、彩色粒子和双层描边标题。")}</li>
-    </ul>
-    <p>{t("The transition between the Cover and Main scenes is implemented with a black fade-in/fade-out effect.", "封面进入校园时，先淡出到黑色，再淡入新场景。")}</p>
+    <div className="study-spread">
+      <div>
+        <h3>{t("2.1. Overview", "2.1 系统组成")}</h3>
+        <p>{t("The card runs three scenes from one FreeGLUT and OpenGL source file.", "贺卡在一个源文件内使用 FreeGLUT 和 OpenGL 实现，包含三个场景。")}</p>
+        <ol className="project-process" aria-label={t("Card scenes", "贺卡场景")}>
+          <li><strong>{t("Cover", "封面")}</strong><span>{t("The cat walks under starbursts, flags and balloons. The cursor becomes a fish.", "小猫在星光、彩旗和气球下来回走动，鼠标变成一条鱼。")}</span></li>
+          <li><strong>{t("Campus", "校园")}</strong><span>{t("Move the cat past campus buildings beneath a striped sky and flat-bottomed clouds. Five stencil layers soften the flashlight beam.", "条带天空和平底云下，玩家控制小猫穿过校园建筑。五层模板让手电光束的边缘变柔和。")}</span></li>
+          <li><strong>{t("Celebration", "庆典")}</strong><span>{t("Fireworks and coloured particles surround the double-stroked title.", "烟花与彩色粒子围绕着双描边标题。")}</span></li>
+        </ol>
+        <p>{t("The cover fades to black before the campus appears.", "封面淡出到黑色，再淡入校园。")}</p>
+      </div>
+      <SystemOverviewDiagram />
+    </div>
     <h3>{t("2.2. Code Map (Functions & Data)", "2.2 函数与数据结构")}</h3>
     <p>{t("Only core interfaces are listed below, for details, refer to functions with the same names in the source code.", "这里只列出核心接口，具体实现可在源码中按函数名查找。")}</p>
     <ul>

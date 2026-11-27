@@ -92,6 +92,8 @@ img { height: auto; }
 .is-work #main-content { width: min(800px, calc(100% - 64px)); padding-top: 52px; }
 .is-home #main-content { width: min(760px, calc(100% - 64px)); padding-top: 52px; }
 .page-transition { width: 100%; animation: content-enter var(--motion-page) var(--motion-ease) backwards; }
+.page-transition:has(> .thread-layout) { animation: none; }
+.page-transition > .thread-layout > .thread-copy { animation: content-enter var(--motion-page) var(--motion-ease) backwards; }
 .visually-hidden { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
 .skip-link { position: fixed; top: -100px; left: 20px; background: var(--paper); padding: 8px 12px; z-index: 20; }
 .skip-link:focus { top: 12px; }
@@ -113,7 +115,6 @@ img { height: auto; }
 .graphics-report { max-width: 720px; margin: auto; }
 .graphics-report header { margin-bottom: 22px; }
 .graphics-report h1 { font: 700 clamp(38px, 7vw, 64px)/1.1 var(--font-hand); margin: 18px 0 12px; }
-.graphics-report .coursework-title { font-size: clamp(19px, 3.5vw, 32px); }
 .report-video { aspect-ratio: 16 / 9; display: flex; align-items: center; justify-content: center; flex-direction: column; border: 2px dashed var(--line); background: #fcf4df; border-radius: 6px; font-size: var(--label-size); color: var(--muted); }
 .report-transcript { margin: 40px auto; max-width: 70ch; font: 400 17px/1.7 var(--font-body); color: var(--prose-ink); overflow-wrap: anywhere; }
 .coursework-prose:lang(en), .coursework-prose > [lang="en"] { font-family: 'Alegreya', Georgia, serif; }
@@ -124,7 +125,7 @@ img { height: auto; }
 .coursework-prose :is(h3, h4):lang(en) { font-family: inherit; }
 .report-transcript p { line-height: inherit; margin: 0 0 12px; }
 .report-transcript .report-handoff { margin-top: 24px; color: var(--muted); }
-.holdlight-page header { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; }
+.holdlight-identity { display: flex; align-items: center; gap: 18px; }
 .holdlight-climber { width: clamp(56px, 10vw, 82px); }
 .holdlight-resources { grid-column: 1 / -1; display: flex; align-items: center; flex-wrap: wrap; gap: 8px 32px; margin-top: 12px; }
 .holdlight-resource { display: inline-flex; align-items: center; gap: 8px; font-size: var(--label-size); }
@@ -136,7 +137,7 @@ img { height: auto; }
 @media (max-width: 380px) {
   .holdlight-resources { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 12px; }
 }
-.project-demo { position: relative; width: 94%; margin: 24px auto 0; }
+.project-demo { position: relative; width: 90%; margin: 24px auto 0; }
 .project-demo[data-border='red'] { --stitch-color: #de4d3a; }
 .project-demo[data-border='blue'] { --stitch-color: #2086f9; }
 .project-demo[data-border='yellow'] { --stitch-color: #fccb15; }
@@ -319,4 +320,48 @@ a.research-row h3 { color: var(--link); text-decoration: underline; text-underli
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; animation: none !important; }
+}
+
+/* Project detail pages use the full reading column; prose keeps a shorter measure. */
+@media screen {
+  .thread-copy > .graphics-report, .thread-copy .report-transcript { max-width: none; }
+  .graphics-report .report-transcript :where(p, ul:not([class])) { max-width: 74ch; }
+  .graphics-report .project-opening, .graphics-report .study-spread {
+    display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px;
+  }
+  .graphics-report .project-opening { align-items: center; margin: 10px 0 24px; }
+  .project-opening > *, .study-spread > * { min-width: 0; }
+  .graphics-report .project-opening p {
+    margin: 0 0 .75em; color: var(--prose-ink); font: 400 18px/1.6 var(--font-body);
+  }
+  .graphics-report .project-opening p:lang(en) { font-family: 'Alegreya', Georgia, serif; }
+  .graphics-report .project-opening .project-meta { color: var(--muted); font-size: 15px; }
+  .project-opening .project-demo { margin: 14px auto; }
+  .project-opening .brief-film { width: 100%; height: auto; display: block; }
+  .project-opening .brief-illustration { justify-self: center; width: min(56%, 250px); filter: var(--line-art-filter); }
+  .holdlight-resources { gap: 8px 18px; }
+  .graphics-report .study-spread { align-items: start; margin-block: 20px; }
+  .graphics-report .report-transcript > .study-spread {
+    margin-block-start: clamp(30px, 5cqi, 60px); padding-top: 18px; border-top: 1px solid var(--line);
+  }
+  .thread-copy .study-spread > h2:first-child,
+  .thread-copy .study-spread > div > :is(h2,h3):first-child {
+    margin-block: 0 10px; padding-top: 0; border: 0;
+  }
+  .thread-copy .study-spread > :is(figure,.project-process) { margin-block: 0; }
+  .coursework-report .report-body > .report-figure { margin-block: clamp(22px, 4cqi, 42px); }
+  .coursework-report .report-body .report-plates img { max-height: min(66svh, 590px); object-fit: contain; }
+  @container project-content (min-width: 720px) {
+    .graphics-report .project-opening, .graphics-report .study-spread {
+      grid-template-columns: minmax(0,.86fr) minmax(0,1.14fr);
+      column-gap: clamp(24px, 4cqi, 52px);
+    }
+    .project-opening .brief-illustration { width: min(70%, 310px); }
+    .coursework-report .report-body > .report-figure {
+      display: grid; grid-template-columns: minmax(0,2.8fr) minmax(0,1fr);
+      align-items: center; gap: 24px; text-align: start;
+    }
+    .coursework-report .report-body > .report-figure .report-plates { margin-inline: 0; }
+    .coursework-report .report-body > .report-figure figcaption { padding-inline-start: 14px; border-inline-start: 2px solid var(--line); }
+  }
 }

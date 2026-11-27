@@ -100,17 +100,23 @@ export function XrayProcess() {
       <h3>{t('Preparing the volume', '准备三维衰减体')}</h3>
       <p>{t('For CT input, I sorted the slices by spatial position, rebuilt the three-dimensional Hounsfield-unit field and mapped those values to attenuation. For the anatomical model, I filled the body surface slice by slice with water-equivalent tissue, then assigned bone material to the occupied voxels. The resulting grid held 340 × 152 × 866 voxels at 2 mm spacing.', '导入 CT 时，我按空间位置排列切片，重建三维 HU 场，再按参考曲线把 HU 转成衰减系数。对解剖网格，我逐层填充水等效软组织，将骨骼占据的体素替换为骨材料。最终衰减体为 340 × 152 × 866 个体素，间距 2 mm。')}</p>
       <Plate image="attenuation-slices" caption={t('Coronal, sagittal and enlarged lower-leg cross-sections share a display range of 0–0.08145 mm⁻¹. Brighter voxels have higher attenuation.', '冠状面、矢状面和放大的小腿横断面采用同一显示范围 0–0.08145 mm⁻¹。越亮的体素衰减系数越大。')} />
-      <h3>{t('Following one ray', '跟随一条射线')}</h3>
-      <p>{t('Each detector pixel receives a ray from the point source. The GPU samples the attenuation coefficient μ at the midpoint of each step and adds μ × step length to the optical depth τ. A ray that spends more of its path in dense material reaches the detector with lower transmission, T = exp(−τ).', '点光源向每个探测器像素的中心发出一条射线。GPU 在每段的中点采样衰减系数 μ，将 μ 与该段长度的乘积累加为光学厚度 τ。射线在致密材料中走得越长，抵达探测器时的透射率 T = exp(−τ) 就越低。')}</p>
-      <ProjectionDiagram />
-      <h3>{t('From import to export', '从导入到导出')}</h3>
-      <ol className="project-process" aria-label={t('Projection workflow', '投影流程')}>
-        <li>{t('Import a CT series or phantom', '导入 CT 序列或内置体模')}</li>
-        <li>{t('Validate and auto-frame', '校验数据并自动取景')}</li>
-        <li>{t('Set the projection in a separate preview', '在独立预览中调整投影方向')}</li>
-        <li>{t('Export PNG, raw EXR and an anonymised report', '导出 PNG、原始 EXR 与匿名参数报告')}</li>
-      </ol>
-      <p>{t('The PNG stores the displayed image. The EXR preserves the original optical depth and transmission.', 'PNG 保存显示图像，EXR 保留原始光学厚度和透射率。')}</p>
+      <div className="study-spread">
+        <div>
+          <h3>{t('Following one ray', '跟随一条射线')}</h3>
+          <p>{t('Each detector pixel receives a ray from the point source. The GPU samples the attenuation coefficient μ at the midpoint of each step and adds μ × step length to the optical depth τ. A ray that spends more of its path in dense material reaches the detector with lower transmission, T = exp(−τ).', '点光源向每个探测器像素的中心发出一条射线。GPU 在每段的中点采样衰减系数 μ，将 μ 与该段长度的乘积累加为光学厚度 τ。射线在致密材料中走得越长，抵达探测器时的透射率 T = exp(−τ) 就越低。')}</p>
+          <ProjectionDiagram />
+        </div>
+        <div>
+          <h3>{t('From import to export', '从导入到导出')}</h3>
+          <ol className="project-process" aria-label={t('Projection workflow', '投影流程')}>
+            <li>{t('Import a CT series or phantom', '导入 CT 序列或内置体模')}</li>
+            <li>{t('Validate and auto-frame', '校验数据并自动取景')}</li>
+            <li>{t('Set the projection in a separate preview', '在独立预览中调整投影方向')}</li>
+            <li>{t('Export PNG, raw EXR and an anonymised report', '导出 PNG、原始 EXR 与匿名参数报告')}</li>
+          </ol>
+          <p>{t('The PNG stores the displayed image. The EXR preserves the original optical depth and transmission.', 'PNG 保存显示图像，EXR 保留原始光学厚度和透射率。')}</p>
+        </div>
+      </div>
     </section>
 
     <section aria-labelledby="xray-iteration">

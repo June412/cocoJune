@@ -1,13 +1,6 @@
 /* TinyRoomies uses broad, illustrated spreads inside the portfolio's reading rail. */
 @media screen {
   .roomies-case > .personal-site-chrome:first-child { margin-bottom: clamp(20px, 3vh, 32px); }
-  .roomies-case .thread-layout {
-    width: min(1580px, calc(100% - 40px));
-    --rail-space: clamp(130px, 11.7vw, 176px);
-    --rail-inset: 0px;
-    grid-template-columns: var(--rail-space) minmax(0, 1fr) var(--rail-space);
-  }
-  .roomies-case .thread-host { width: calc(100% - 14px); }
   .roomies-case .thread-nav { --fibre-width: clamp(26px, 2.5vw, 40px); }
   .roomies-case .thread-nav a { padding-block: 1px; min-height: 20px; font-size: clamp(17px, 1.45vw, 21px); }
   .roomies-case #main.casebook > .case-return { width: fit-content; margin: 0 0 9px; }
@@ -55,17 +48,11 @@
 .casebook .case-notes summary { font-weight: 700; cursor: pointer; }
 .casebook .case-notes [lang="zh-CN"] { font: 16px/1.7 var(--body); }
 .casebook .case-notes [lang="zh-CN"] :is(h2,h3,summary) { font-family: var(--body); }
-@media screen and (max-width: 1120px) {
-  .roomies-case .thread-layout { --rail-space: 134px; grid-template-columns: var(--rail-space) minmax(0, 1fr) clamp(8px, 5vw, 55px); }
-}
 @media screen and (max-width: 960px) {
-  .roomies-case .thread-layout { --rail-space: 88px; width: calc(100% - 24px); grid-template-columns: var(--rail-space) minmax(0, 1fr) 12px; }
   .roomies-case .thread-nav { --fibre-width: 21px; }
   .roomies-case .thread-nav a { font-size: 17px; }
 }
 @media screen and (max-width: 720px) {
-  .roomies-case .thread-layout { --rail-space: 68px; width: calc(100% - 16px); grid-template-columns: var(--rail-space) minmax(0,1fr); }
-  .roomies-case .thread-host { width: calc(100% - 6px); }
   .roomies-case .thread-nav { --fibre-width: 16px; }
   .roomies-case .thread-nav ol { left: 20px; }
   .roomies-case .thread-nav a { font-size: 14px; min-height: 17px; line-height: 1; padding: 1px 0; }

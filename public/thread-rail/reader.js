@@ -65,13 +65,13 @@
     nav.append(strand, list);
     host.replaceChildren(nav);
     let active = -1, frame = 0, measureNeeded = true, stops = [], positions = [], end = 0;
-    let destination, lastAim = 0, settleTimer = 0;
+    let destination, lastAim = 0, settleTimer = 0, selectedChapter = 0;
     function release() {
       destination = null;
       clearTimeout(settleTimer);
     }
     function aimAt(entry) {
-      return entry === entries[0] ? 0 : Math.max(0, entry.node.getBoundingClientRect().top + scrollY - Math.min(126, innerHeight * .18 - 2));
+      return Math.min(end, Math.ceil(stops[entries.indexOf(entry)]));
     }
     // A model or gallery above the destination may acquire its dimensions during the jump.
     // Correct that displacement only while the reader is still following the chosen link.
@@ -107,40 +107,52 @@
         const rect = link.getBoundingClientRect();
         return clamp((rect.top + rect.height / 2 - railBox.top) / railBox.height, 0, 1);
       });
-      strand.style.setProperty('--thread-start', (positions[0] * 100).toFixed(2) + '%');
       const readingLine = Math.min(128, availableHeight * .18);
       stops = entries.map(({ node }) => Math.max(0, node.getBoundingClientRect().top + scrollY - readingLine));
       stops[0] = 0;
-      end = Math.max(1, document.documentElement.scrollHeight - availableHeight);
+      end = Math.max(0, document.documentElement.scrollHeight - availableHeight);
+      // A short final chapter may already be on screen at maximum scroll.
+      // Space the last chapter stops over the reachable part of the page.
+      const last = stops[stops.length - 1];
+      if (last > end) {
+        const start = Math.max(0, end - availableHeight * .8);
+        const scale = (end - start) / (last - start);
+        stops = stops.map(stop => stop <= start ? stop : start + (stop - start) * scale);
+      }
       settle();
     }
     function paint() {
       frame = 0;
       if (measureNeeded) { measure(); measureNeeded = false; }
       const y = Math.max(0, scrollY);
-      let i = 0;
-      while (i + 1 < stops.length && y + 2 >= stops[i + 1]) i++;
-      if (y > 0 && y >= end - 2) i = entries.length - 1;
+      let i = end <= 2 ? selectedChapter : 0;
+      if (end > 2 && y > 0) {
+        while (i + 1 < stops.length && y + .5 >= stops[i + 1]) i++;
+        if (y >= end - 1) i = entries.length - 1;
+      }
       if (i !== active) {
         if (active >= 0) links[active].removeAttribute('aria-current');
         links[i].setAttribute('aria-current', 'location');
         active = i;
       }
       const nextY = Math.min(end, stops[i + 1] ?? end);
-      const fraction = y >= end - 1 ? 1 : clamp((y - stops[i]) / Math.max(1, nextY - stops[i]), 0, 1);
+      let fraction = clamp((y - stops[i]) / Math.max(1, nextY - stops[i]), 0, 1);
+      if (end > 2 && y >= end - 1) fraction = 1;
       const p = positions[i] + ((positions[i + 1] ?? .986) - positions[i]) * fraction;
       const index = clamp(p * (sample.length - 1), 0, sample.length - 1);
       const left = Math.floor(index);
       const x = sample[left] + (sample[Math.min(left + 1, sample.length - 1)] - sample[left]) * (index - left);
       strand.style.setProperty('--thread-y', (p * 100).toFixed(2) + '%');
       strand.style.setProperty('--thread-x', x.toFixed(2) + '%');
-      const percent = String(Math.round(clamp(y / end, 0, 1) * 100));
+      const progress = end <= 2 ? i / Math.max(1, entries.length - 1) : y / end;
+      const percent = String(Math.round(clamp(progress, 0, 1) * 100));
       if (strand.getAttribute('aria-valuenow') !== percent) strand.setAttribute('aria-valuenow', percent);
     }
     function queue() { if (!frame) frame = requestAnimationFrame(paint); }
     function resize() { measureNeeded = true; queue(); }
     function follow(link, smooth) {
-      const entry = entries[links.indexOf(link)];
+      selectedChapter = links.indexOf(link);
+      const entry = entries[selectedChapter];
       entry.node.setAttribute('tabindex', '-1');
       entry.node.focus({ preventScroll: true });
       destination = entry;
@@ -148,6 +160,7 @@
       clearTimeout(settleTimer);
       settleTimer = setTimeout(release, 2200);
       scrollTo({ top: lastAim, behavior: smooth && !reduced.matches ? 'smooth' : 'instant' });
+      queue();
     }
     nav.addEventListener('click', event => {
       const link = event.target.closest('a');

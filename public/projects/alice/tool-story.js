@@ -264,16 +264,16 @@
       ['crossing-portholes',t('穿出舷窗','Thread the portholes'),t('直径 9 mm，间隔 26 mm。','9 mm pearls, 26 mm apart.')],
       ['crossing-layers',t('重开作品','Reopen the scene'),t('七个可编辑工艺层。','Seven editable craft layers.')]
     ];
-    return `<section class="ts-session"><div><h3>${t('一个可以重新打开的抱枕','A cushion to make and reopen')}</h3><p>${t('同学设计了一只星夜帆船抱枕。试用任务是保存、重开并单独移动一片帆。','A classmate designed a boat cushion. The task was to save, reopen and move one sail.')}</p>
+    return `<div class="sequence-spread crossing-study"><section class="ts-session"><div><h3>${t('一个可以重新打开的抱枕','A cushion to make and reopen')}</h3><p>${t('同学设计了一只星夜帆船抱枕。试用任务是保存、重开并单独移动一片帆。','A classmate designed a boat cushion. The task was to save, reopen and move one sail.')}</p>
       <h4>${t('由此修改的教学','Changes to the tutorial')}</h4><ul><li>${t('选布前检查两个材质槽。','Check both material slots first.')}</li><li>${t('完整示范按住、描边、松开。','Demonstrate hold, trace and release.')}</li></ul></div><div>${plateFigure('crossing-session',t('用 Textile Studio 试作抱枕','Trying Textile Studio during the cushion session'))}</div></section>
        <section class="ts-trial-process"><h3>${t('这艘船是怎样缝出来的','How Night Crossing was made')}</h3><p>${t('同学设计图案与顺序。以下是 AI 在 Unity 中复现的操作。','Design and sequence by the classmate. Screens show an AI reconstruction in Unity.')}</p>
-       <ol>${checkpoints.map(([asset,name,copy],i)=>`<li>${zoom(asset,name)}<span>${String(i+1).padStart(2,'0')}</span><h4>${name}</h4><p>${copy}</p></li>`).join('')}</ol></section>
+       <ol class="illustrated-steps">${checkpoints.map(([asset,name,copy])=>`<li>${zoom(asset,name)}<div><h4>${name}</h4><p>${copy}</p></div></li>`).join('')}</ol></section>
       <section class="ts-night" aria-label="${t('探索抱枕上的工艺','Explore the cushion by craft')}">
         <div class="ts-night-hero"><div class="ts-night-figure" role="group" aria-label="${t('选择图中部位','Choose a part of the cushion')}">
           ${image('crossing-reopened',t('低矮红船身、双帆和四颗珍珠舷窗，背后是蓝绿色星空','A low red hull, two sails and four pearl portholes on a field of blue-green linen and stars'))}
           ${parts.map((v,i)=>`<button type="button" class="ts-pin" style="--x:${v.pos[0]}%;--y:${v.pos[1]}%" data-ts-choice="night" data-ts-index="${i}" aria-controls="ts-night-${i}" aria-pressed="${i===selected.night}">${v.short}</button>`).join('')}
         </div><button class="ts-zoom-link" type="button" data-story-image="${path('crossing-reopened')}" data-caption="${t('《夜航》抱枕完整外观','The complete Night Crossing cushion')}">${t('放大整件抱枕','Enlarge the cushion')} ↗</button></div>
-        <div class="ts-night-details" id="ts-night-details">${parts.map((v,i)=>panel('night',i,`<h3>${v.title}</h3><p>${v.body}</p>${browseImage('night',i,parts.map(part=>part.short),lang,'ts-night-details',zoom(v.img,v.title,'ts-night',i))}`,lang,v.title)).join('')}</div></section>
+        <div class="ts-night-details" id="ts-night-details">${parts.map((v,i)=>panel('night',i,`<h3>${v.title}</h3><p>${v.body}</p>${browseImage('night',i,parts.map(part=>part.short),lang,'ts-night-details',zoom(v.img,v.title,'ts-night',i))}`,lang,v.title)).join('')}</div></section></div>
       `;
   }
 

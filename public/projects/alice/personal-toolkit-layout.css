@@ -219,3 +219,22 @@
   }
   [data-page="toolkit"] #editing-sewn-piece .browse-next { justify-self: end; }
 }
+
+@media screen {
+  [data-page="toolkit"] #main .ts-path-flow {
+    grid-template-columns: minmax(0,1fr); gap: 0; max-width: 78ch;
+  }
+  [data-page="toolkit"] #main .ts-path-flow > li {
+    display: grid; grid-template-columns: minmax(0,.8fr) minmax(0,1.2fr); gap: 2px 20px;
+    border: 0; border-top: 1px dashed var(--line); padding: .65em 0;
+  }
+  [data-page="toolkit"] #main .ts-path-flow > li::after { content: none; }
+  @container project-content (min-width: 720px) {
+    [data-page="toolkit"] #main .crossing-study { grid-template-rows: auto 1fr; }
+    [data-page="toolkit"] #main .crossing-study .ts-trial-process { grid-area: 1 / 2 / span 2; }
+    [data-page="toolkit"] #main .crossing-study .ts-night { grid-area: 2 / 1; grid-template-columns: minmax(0,1fr); }
+  }
+  @container project-content (max-width: 500px) {
+    [data-page="toolkit"] #main .ts-path-flow > li { grid-template-columns: minmax(0,1fr); }
+  }
+}

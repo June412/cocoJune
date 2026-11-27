@@ -121,7 +121,6 @@
     width: min(100%, var(--reader-width), calc(100vw - 2 * var(--reader-gutter)));
     margin-inline: auto;
   }
-  .personal-alice[data-page="game"] #main .story-arrival ol { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .personal-alice[data-page="game"] #main .story-arrival li + li::before { display: none; }
   .personal-alice[data-page="game"] #main :is(.window-film, .repair-methods, .story-workmat) {
     /* The painted seam reaches past the image on each side. */

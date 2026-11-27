@@ -144,7 +144,7 @@ body.personal-alice {
   .personal-alice #main .hero-intro { max-width: none; }
   .personal-alice #main .hero-intro .lead { max-width: 70ch; }
   .personal-alice #main :is(.mending-first-look, .tool-opening-piece) { grid-column: 1; grid-row: auto; width: 100%; max-width: 100%; }
-  .personal-alice #main .mending-first-frame { width: 94%; margin: clamp(12px, 2vw, 22px) auto; }
+  .personal-alice #main .mending-first-frame { width: 90%; margin: clamp(12px, 2vw, 22px) auto; }
   .personal-alice .mending-first-frame::before {
     content: '';
     position: absolute;
@@ -297,3 +297,45 @@ body.personal-alice {
 }
 
 @media print { .personal-alice :is(.project-pages, .reader-footer) { display: none; } }
+
+@media screen {
+  .personal-alice #main .sequence-spread {
+    display: grid; grid-template-columns: minmax(0,1fr); gap: 18px; align-items: start;
+  }
+  .personal-alice #main .sequence-spread > * { min-width: 0; margin-block: 0; }
+  .personal-alice #main .sequence-spread :is(.ts-trial-process,.story-arrival) { container: illustrated-steps / inline-size; }
+  .personal-alice #main .sequence-spread .illustrated-steps {
+    display: grid; grid-template-columns: minmax(0,1fr); width: 100%;
+    gap: 0; margin: 10px 0 0; padding: 0; list-style: none;
+  }
+  .personal-alice #main .illustrated-steps > li {
+    display: grid; grid-template-columns: minmax(0,.8fr) minmax(0,1.2fr);
+    gap: clamp(10px,3cqi,22px); align-items: center;
+    border-block-start: 1px dashed var(--line); padding-block: 10px;
+  }
+  .personal-alice #main .illustrated-steps > li::before { content: none; }
+  .personal-alice #main .illustrated-steps :is(h4,p,.ts-image) { margin: 0; }
+  .personal-alice #main .illustrated-steps h4 { display: block; margin-bottom: 4px; }
+  .personal-alice #main .sequence-spread .ts-session { grid-template-columns: minmax(0,1fr); gap: 16px; }
+  .personal-alice #main .sequence-spread .story-commissions { width: 100%; margin: 0; }
+  .personal-alice #main .sequence-spread .mending-transfer table { table-layout: auto; }
+  .personal-alice #main .sequence-spread .mending-transfer :is(td,th) { padding-inline: .45em; }
+  .personal-alice .reader-column #main > .case-return { width: fit-content; margin: 0 0 9px; }
+  .personal-alice #main .personal-video-host:not(dialog) > :is(video,.personal-video-tools) { width: 90%; }
+  .personal-alice #main :is(.section-body > p,.section-head p,.case-notes p) { max-width: 74ch; }
+  .personal-alice #main .case-notes { max-width: none; }
+
+  @container project-content (min-width: 720px) {
+    .personal-alice #main :is(.overview-game,.overview-tool,.sequence-spread) {
+      grid-template-columns: minmax(0,.86fr) minmax(0,1.14fr);
+      column-gap: clamp(24px,4cqi,52px);
+    }
+    .personal-alice #main :is(.overview-game,.overview-tool) { align-items: center; }
+    .personal-alice #main :is(.mending-first-look,.tool-opening-piece) { grid-column: 2; grid-row: 1; }
+    .personal-alice #main .sequence-spread .story-commissions { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  }
+  @container illustrated-steps (max-width: 310px) {
+    .personal-alice #main .illustrated-steps > li { grid-template-columns: minmax(0,1fr); gap: 6px; }
+    .personal-alice #main .illustrated-steps > li > :first-child { width: min(100%, 210px); }
+  }
+}
