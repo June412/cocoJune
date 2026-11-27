@@ -347,8 +347,9 @@ a.research-row h3 { color: var(--link); text-decoration: underline; text-underli
   }
   .thread-copy .coursework-report .report-transcript :where(p, ul:not([class])) { max-width: 100%; }
   .coursework-report .report-body > .report-figure {
-    width: fit-content; max-width: 100%; margin: clamp(18px,3cqi,30px) auto; text-align:start;
+    max-width: 100%; margin: clamp(18px,3cqi,30px) auto; text-align:start;
   }
+  .coursework-report .report-body > .report-figure:has(> .report-plates) { width: fit-content; }
   .coursework-report .report-figure figcaption { max-width:70ch; margin:6px auto 0; }
   .coursework-report .report-figure--compact { width:min(100%,30rem); }
   .coursework-report .report-plates small { text-align:center; }

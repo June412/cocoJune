@@ -2,13 +2,12 @@
   --gc-stroke: var(--muted);
   --down-arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 36'%3E%3Cpath d='M9 2v31m-6-7 6 7 6-7' fill='none' stroke='black' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
   --gc-tint: #f7f0d9;
-  container-type: inline-size;
   color: var(--prose-ink);
   font-size: 16px;
   line-height: 1.35;
 }
 
-.gc-sheet { padding: 8px 0; }
+.gc-sheet { container-type: inline-size; padding: 8px 0; }
 .gc-node {
   display: block;
   width: fit-content;
@@ -47,7 +46,8 @@
 .gc-group dt { font-weight: 700; color: var(--ink); }
 .gc-group dd { margin: 2px 0 0; }
 
-.gc-states { width: min(100%, 22rem); margin: 0 auto; padding: 0; list-style: none; }
+.report-figure.gc-state-flow { width: min(100%, 28rem); margin-inline: auto; }
+.gc-states { margin: 0; padding: 0; list-style: none; }
 .gc-states > li:nth-child(n) { margin: 0; }
 .gc-state { display: grid; grid-template-columns: auto auto minmax(0,1fr); align-items: center; gap: clamp(5px,1vw,12px); width: 100%; padding: 8px clamp(5px,1vw,14px); text-align: left; }
 .gc-state strong { display: block; letter-spacing: .035em; }

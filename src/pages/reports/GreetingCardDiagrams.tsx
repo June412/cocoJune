@@ -55,7 +55,7 @@ export function GameStateDiagram() {
     ['CELEBRATE', 'firework', t('Fireworks and camera pan','烟花绽放，镜头平移')],
     ['DONE', 'campus-panorama', t('Final celebration view','庆典全景')],
   ]
-  return <figure className="report-figure gc-diagram" aria-labelledby="gc-state-caption">
+  return <figure id="game-state-flow" className="report-figure gc-diagram gc-state-flow" aria-labelledby="gc-state-caption">
     <ol className="gc-states" role="list">
       {states.map(([name, sketch, description], index) => <li key={name}>
         <div className="gc-state gc-node">
