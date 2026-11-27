@@ -1,4 +1,5 @@
 import { useSite } from '../../lib/SiteContext'
+import { ProjectSketch } from '../../components/ProjectProcess'
 import './greeting-card-diagrams.css'
 
 function DownArrow() {
@@ -47,18 +48,19 @@ export function SystemOverviewDiagram() {
 export function GameStateDiagram() {
   const { t } = useSite()
   const states = [
-    ['SEARCHING', t('Find the cat using the light','用灯光寻找小猫')],
-    ['FOUND', t('Short waving animation','播放挥手动画')],
-    ['GUIDING', t('Move toward the switch','走向开关')],
-    ['AT_SWITCH', t('Press SPACE to pull the switch','按空格拉动开关')],
-    ['CELEBRATE', t('Fireworks and camera pan','烟花绽放，镜头平移')],
-    ['DONE', t('Final celebration view','庆典全景')],
+    ['SEARCHING', 'find-light', t('Find the cat using the light','用灯光寻找小猫')],
+    ['FOUND', 'wave-paw', t('Short waving animation','播放挥手动画')],
+    ['GUIDING', 'follow-paws', t('Move toward the switch','走向开关')],
+    ['AT_SWITCH', 'pull-switch', t('Press SPACE to pull the switch','按空格拉动开关')],
+    ['CELEBRATE', 'firework', t('Fireworks and camera pan','烟花绽放，镜头平移')],
+    ['DONE', 'campus-panorama', t('Final celebration view','庆典全景')],
   ]
   return <figure className="report-figure gc-diagram" aria-labelledby="gc-state-caption">
     <ol className="gc-states" role="list">
-      {states.map(([name, description], index) => <li key={name}>
+      {states.map(([name, sketch, description], index) => <li key={name}>
         <div className="gc-state gc-node">
           <span className="gc-step" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+          <ProjectSketch name={sketch} />
           <div><strong>{name}</strong><span>{description}</span></div>
         </div>
         {index < states.length - 1 && <DownArrow />}

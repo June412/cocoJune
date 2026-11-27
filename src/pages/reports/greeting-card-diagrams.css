@@ -63,7 +63,7 @@
 
 .gc-states { width: min(100%, 22rem); margin: 0 auto; padding: 0; list-style: none; }
 .gc-states > li:nth-child(n) { margin: 0; }
-.gc-state { display: grid; grid-template-columns: 2.25rem 1fr; align-items: center; gap: 12px; width: 100%; padding: 8px 14px; text-align: left; }
+.gc-state { display: grid; grid-template-columns: auto auto minmax(0,1fr); align-items: center; gap: clamp(5px,1vw,12px); width: 100%; padding: 8px clamp(5px,1vw,14px); text-align: left; }
 .gc-state strong { display: block; letter-spacing: .035em; }
 .gc-state strong + span { color: var(--prose-ink); }
 .gc-step { border-right: 1px dashed var(--gc-stroke); color: var(--link); font: 700 23px/1.35 var(--font-hand); }

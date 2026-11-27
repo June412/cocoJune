@@ -1,6 +1,7 @@
 import { copy, projects } from '../data/content'
 import { assetUrl, projectVisuals } from '../data/projectVisuals'
 import { useSite } from '../lib/SiteContext'
+import ProjectProcess from '../components/ProjectProcess'
 
 export default function ProjectBrief({ id }: { id: 'between-sips' | 'perspective-freeze' }) {
   const { language, t } = useSite()
@@ -27,12 +28,16 @@ export default function ProjectBrief({ id }: { id: 'between-sips' | 'perspective
           <p>{contributions[0]}</p>
           {game && <p>{t('Weighted scores from brewing unlock new areas and clues to the character’s memories.', '各道泡茶工序的加权得分会解锁新区域与记忆线索。')}</p>}
         </div>
-        <ol className="project-process" aria-label={game ? t('Brewing sequence','泡茶工序') : t('Viewpoint interaction','视角交互步骤')}>
-          {(game
-            ? [t('Warm the cups','温器'),t('Pour water','注水'),t('Decant','出汤'),t('Serve tea','奉茶')]
-            : [t('Move your viewpoint','移动观察位置'),t('Align the shape','对齐目标形状'),t('Freeze the mesh','冻结网格')]
-          ).map(label => <li key={label}>{label}</li>)}
-        </ol>
+        <ProjectProcess layout="strip" label={game ? t('Brewing sequence', '泡茶工序') : t('Viewpoint interaction', '视角交互步骤')} steps={game ? [
+          { sketch: 'warm-cup', title: t('Warm the cups', '温器') },
+          { sketch: 'pour-water', title: t('Pour water', '注水') },
+          { sketch: 'decant-tea', title: t('Decant', '出汤') },
+          { sketch: 'serve-tea', title: t('Serve tea', '奉茶') },
+        ] : [
+          { sketch: 'move-viewpoint', title: t('Move your viewpoint', '移动观察位置') },
+          { sketch: 'align-shape', title: t('Align the shape', '对齐目标形状') },
+          { sketch: 'freeze-mesh', title: t('Freeze the mesh', '冻结网格') },
+        ]} />
       </section>
       <section id="production" data-thread-chapter className="study-spread">
         <h2>{game ? t('Art and animation', '美术与动画') : t('Planned evaluation', '评估计划')}</h2>

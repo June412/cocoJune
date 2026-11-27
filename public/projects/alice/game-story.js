@@ -74,7 +74,7 @@
     };
     const escape = value => String(value).replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
 
-    function forLanguage(lang) {
+    function forLanguage(lang, sketch) {
         const t = (zh,en) => lang === 'en' ? en : zh;
         const image = (id, description) => {
             const [width,height,full] = pictures[id];
@@ -131,12 +131,12 @@
 
         function keyboardCheck() {
             const checks=[
-                [t('已有三针','Three stitches'),t('再次入针，针位等待确认。','Enter the next hole. The entry is pending.')],
-                [t('取消，仍是三针','Cancel · still three'),t('撤回这一针，可以重新找孔。','Withdraw and try the hole again.')],
-                [t('出针，成为四针','Exit · four'),t('重新入针并出针，这一针才记入。','Enter again and exit to commit the fourth stitch.')],
-                [t('暂停，回来仍是四针','Pause · still four'),t('打开提示记录再返回，继续缝。','Open the cue log, return and continue.')]
+                ['needle-entry',t('已有三针','Three stitches'),t('再次入针，针位等待确认。','Enter the next hole. The entry is pending.')],
+                ['undo-stitch',t('取消，仍是三针','Cancel · still three'),t('撤回这一针，可以重新找孔。','Withdraw and try the hole again.')],
+                ['set-stitch',t('出针，成为四针','Exit · four'),t('重新入针并出针，这一针才记入。','Enter again and exit to commit the fourth stitch.')],
+                ['pause-thread',t('暂停，回来仍是四针','Pause · still four'),t('打开提示记录再返回，继续缝。','Open the cue log, return and continue.')]
             ];
-            return `<p>${t('两份委托都用原生键盘输入完成了这项检查。','Native keyboard input was checked on both commissions.')}</p><ol class="mending-flow">${checks.map(([name,result])=>`<li><strong>${name}</strong><span>${result}</span></li>`).join('')}</ol>`;
+            return `<p>${t('两份委托都用原生键盘输入完成了这项检查。','Native keyboard input was checked on both commissions.')}</p><ol class="mending-flow">${checks.map(([icon,name,result])=>`<li>${sketch(icon)}<div><strong>${name}</strong><span>${result}</span></div></li>`).join('')}</ol>`;
         }
 
         function trimming() {

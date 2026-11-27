@@ -170,15 +170,22 @@
   }
   customElements.define('alice-ellipse-demo',EllipseDemo);
 
-  function cushionRoute(lang) {
+  function cushionRoute(lang, sketch) {
     const t=translator(lang);
     const groups=[
-      [t('铺设底布与毛毡','Building the cushion'), [t('导入白模','Import the mesh'),t('标定尺寸','Set its size'),t('织出底布','Weave the base'),t('铺上毛毡','Lay the felt')]],
-      [t('刺绣、封边与交付','Stitching and export'), [t('绣出枝叶','Stitch the sprig'),t('缝合两道边','Finish both edges'),t('保存图层','Save the layers'),t('导出道具','Export the prop')]]
+      [t('铺设底布与毛毡','Building the cushion'), [
+        ['blank-cushion',t('导入白模','Import the mesh')], ['set-scale',t('标定尺寸','Set its size')],
+        ['woven-swatch',t('织出底布','Weave the base')], ['felt-patch',t('铺上毛毡','Lay the felt')]
+      ]],
+      [t('刺绣、封边与交付','Stitching and export'), [
+        ['embroidered-sprig',t('绣出枝叶','Stitch the sprig')], ['bound-edge',t('缝合两道边','Finish both edges')],
+        ['save-layers',t('保存图层','Save the layers')], ['export-sheet',t('导出道具','Export the prop')]
+      ]]
     ];
     return `<nav class="ts-route" aria-label="${t('抱枕制作步骤','Cushion making steps')}">${groups.map(([title,steps],group)=>{
       const asset=window.ALICE_MEDIA.media[group?'cushionComplete':'cushionPatch'];
-      return `<div><h3>${title}</h3><div class="ts-route-phase"><button type="button" class="ts-image" data-story-image="${asset.src}" data-caption="${escape(title)}" aria-label="${escape(t('放大','Enlarge')+' · '+title)}"><img loading="lazy" width="${asset.width}" height="${asset.height}" src="${asset.thumb||asset.src}" alt="${escape(title)}"></button><ol start="${group*4+1}">${steps.map((label,i)=>`<li><a href="#cushion-step-${group*4+i+1}">${label}</a></li>`).join('')}</ol></div></div>`;
+      const links=steps.map(([icon,label],i)=>`<li><a href="#cushion-step-${group*4+i+1}">${sketch(icon)}${label}</a></li>`).join('');
+      return `<div><h3>${title}</h3><div class="ts-route-phase"><button type="button" class="ts-image" data-story-image="${asset.src}" data-caption="${escape(title)}" aria-label="${escape(t('放大','Enlarge')+' · '+title)}"><img loading="lazy" width="${asset.width}" height="${asset.height}" src="${asset.thumb||asset.src}" alt="${escape(title)}"></button><ol start="${group*4+1}">${links}</ol></div></div>`;
     }).join('')}</nav>`;
   }
   function construction(lang) {
@@ -412,7 +419,7 @@
     },
   };
 
-  function pattern(lang) {
+  function pattern(lang, sketch) {
     const t=translator(lang);
     const crafts=[
       {key:'strawberry',title:t('草莓针织','Strawberry knit'),element:t('七个点构成一只 V 形线圈。','Seven points form one V-shaped loop.'),source:'knit-cells',detail:'knit-detail',result:'strawberry-finished',label:t('针织线圈','Knitted loop')},
@@ -429,7 +436,8 @@
           before:craft.source, after:craft.detail, a:cell, b:craft.label, tab:craft.title,
           alt1:craft.title+' · '+cell, alt2:craft.title+' · '+craft.label
         });
-        const route=`<ol class="ts-unit-flow"><li>${t('取样颜色','Sample the cell')}</li><li>${t('投射到布面','Project onto cloth')}</li><li>${craft.label}</li></ol>`;
+        const units=[['sample-cell', t('取样颜色','Sample the cell')], ['map-cloth',t('投射到布面','Project onto cloth')], [craft.key==='strawberry'?'knit-loop':'thread-bead',craft.label]];
+        const route=`<ol class="ts-unit-flow">${units.map(([icon,label])=>`<li>${sketch(icon)}<span>${label}</span></li>`).join('')}</ol>`;
         const canvas=`<div class="ts-chart-frame"><canvas tabindex="0" role="group" aria-label="${t('逐格查看，方向键移动','Inspect cells using the arrow keys')} · ${craft.title}" aria-describedby="loom-help-${i}"></canvas></div>`;
         return panel('loom',i,`
           ${route}<div class="ts-chart-study">

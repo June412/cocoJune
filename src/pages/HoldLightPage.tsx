@@ -1,6 +1,7 @@
 import { holdLightPaper } from '../data/content'
 import { assetUrl, projectVisuals } from '../data/projectVisuals'
 import ProjectDemoVideo from '../components/ProjectDemoVideo'
+import ProjectProcess, { ProjectSketch } from '../components/ProjectProcess'
 import { useSite } from '../lib/SiteContext'
 
 export default function HoldLightPage() {
@@ -30,20 +31,11 @@ export default function HoldLightPage() {
               <span>{t('Portfolio', '作品集')}</span>
             </a>
             <a className="holdlight-resource" href={assetUrl('projects/holdlight/poster.pdf')} download="HoldLight-Poster.pdf" aria-label={t('Download poster (PDF)', '下载海报（PDF）')}>
-              <svg viewBox="0 0 48 48" width="48" height="48" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M11 13q6-3 12-8 6 5 13 7M8 13q15 .5 31-1l1 26-5 5q-14-1-26 0Z" />
-                <path d="m34 43 .5-5.5L40 38M14 18l13-.4M14 21l7-.3" />
-                <path d="M14 36q5-2 6-6t7-3 7-6" strokeDasharray="1 3" />
-                <path d="m13 34 2-1 1.5 2-3 1Zm11-6 1-2 2 .5.4 2ZM32 21l2-2 2 1-1 2Z" fill="currentColor" strokeWidth=".8" />
-                <circle cx="23" cy="5" r="1.5" fill="currentColor" />
-              </svg>
+              <ProjectSketch name="poster-sheet" />
               <span>{t('Poster (PDF)', '海报（PDF）')}</span>
             </a>
             <a className="holdlight-resource" href={holdLightPaper.url} target="_blank" rel="noreferrer">
-              <svg viewBox="0 0 48 48" width="48" height="48" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                <path d="m8 11-1 31 26 1M12 6l18-1 9 8-1 25-27 1Z" />
-                <path d="m30 5 .3 9 8.7-1M16 14l9-.5M16 19l17-.7M16 25l6-.2M16 29l6-.2M16 33l5-.2M26 24v8l7-.3M28 28.5l2-2 2 1 2-4" />
-              </svg>
+              <ProjectSketch name="research-paper" />
               <span>{t('View paper', '查看论文')}</span>
             </a>
           </nav>
@@ -60,11 +52,11 @@ export default function HoldLightPage() {
             )}</p>
             <p>{t('Climbers preview the route on the ground, then hear cues through headphones on the wall. Human safety support and requests for help remain available throughout.', '攀岩者在地面先熟悉路线，上墙后用耳机听取提示。人工安全保护和求助渠道贯穿全程。')}</p>
           </div>
-          <ol className="project-process" aria-label={t('Route guidance sequence','路线引导流程')}>
-            <li>{t('Scan the wall','扫描岩壁')}</li>
-            <li>{t('Preview the route in layers','分层预览路线')}</li>
-            <li>{t('Hear the next hold','听取下一岩点提示')}</li>
-          </ol>
+          <ProjectProcess label={t('Route guidance sequence', '路线引导流程')} steps={[
+            { sketch: 'scan-holds', title: t('Scan the wall', '扫描岩壁') },
+            { sketch: 'hold-route', title: t('Preview the route in layers', '分层预览路线') },
+            { sketch: 'audio-cue', title: t('Hear the next hold', '听取下一岩点提示') },
+          ]} />
         </section>
         <section aria-labelledby="holdlight-role" className="study-spread">
           <h2 id="holdlight-role" data-thread-chapter>{t('My role', '我的职责')}</h2>

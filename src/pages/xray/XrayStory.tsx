@@ -1,6 +1,7 @@
 import { useState, type ReactNode } from 'react'
 import { assetUrl } from '../../data/projectVisuals'
 import { useSite } from '../../lib/SiteContext'
+import ProjectProcess from '../../components/ProjectProcess'
 import { XrayZoomButton } from './XrayImageZoom'
 import SphereTransmissionFigure from './SphereTransmissionFigure'
 import './xray-story.css'
@@ -108,12 +109,12 @@ export function XrayProcess() {
         </div>
         <div>
           <h3>{t('From import to export', '从导入到导出')}</h3>
-          <ol className="project-process" aria-label={t('Projection workflow', '投影流程')}>
-            <li>{t('Import a CT series or phantom', '导入 CT 序列或内置体模')}</li>
-            <li>{t('Validate and auto-frame', '校验数据并自动取景')}</li>
-            <li>{t('Set the projection in a separate preview', '在独立预览中调整投影方向')}</li>
-            <li>{t('Export PNG, raw EXR and an anonymised report', '导出 PNG、原始 EXR 与匿名参数报告')}</li>
-          </ol>
+          <ProjectProcess label={t('Projection workflow', '投影流程')} steps={[
+            { sketch: 'volume-slices', title: t('Import a CT series or phantom', '导入 CT 序列或内置体模') },
+            { sketch: 'frame-volume', title: t('Validate and auto-frame', '校验数据并自动取景') },
+            { sketch: 'project-ray', title: t('Set the projection in a separate preview', '在独立预览中调整投影方向') },
+            { sketch: 'export-sheet', title: t('Export PNG, raw EXR and an anonymised report', '导出 PNG、原始 EXR 与匿名参数报告') },
+          ]} />
           <p>{t('The PNG stores the displayed image. The EXR preserves the original optical depth and transmission.', 'PNG 保存显示图像，EXR 保留原始光学厚度和透射率。')}</p>
         </div>
       </div>

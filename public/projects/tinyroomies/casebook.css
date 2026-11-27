@@ -94,10 +94,12 @@
 .casebook .drawing-stills figure { min-width: 0; margin: 0; }
 .roomies-case #main .drawing-stills :is(img,button) { display: block; width: 100%; height: auto; max-height: none; padding: 0; }
 .roomies-case #main .drawing-stills figcaption { margin-top: 6px; text-align: start; }
-.casebook .encounter-loop { display: flex; flex-wrap: wrap; align-items: center; gap: .45em; padding: 0; margin: 0; list-style: none; counter-reset: encounter; }
-.casebook .encounter-loop li { display: inline-flex; align-items: center; gap: .3em; counter-increment: encounter; }
+.casebook .encounter-loop { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,7.8em),1fr)); gap:.45em .8em; padding:0; margin:0; list-style:none; counter-reset:encounter; }
+.casebook .encounter-loop li { position:relative; display:grid; grid-template-columns:auto minmax(0,1fr); align-content:start; align-items:baseline; gap:.1em .35em; counter-increment:encounter; }
+.casebook .encounter-loop .project-sketch { grid-area:1 / 1 / 2 / -1; }
+.casebook .encounter-loop li::before, .casebook .encounter-loop li > span { grid-row:2; }
 .casebook .encounter-loop li::before { content: counter(encounter); display: grid; place-items: center; width: 1.5em; height: 1.5em; border: 1px solid #b58b34; border-radius: 50%; background: #ffce48; color: #503620; font-size: .85em; font-weight: bold; }
-.casebook .encounter-loop li:not(:last-child)::after { content: '→'; color: var(--link); margin-inline-start: .12em; }
+.casebook .encounter-loop li:not(:last-child)::after { content:'→'; position:absolute; inset:.6em .25em auto auto; color:var(--link); }
 .casebook .encounter-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(min(100%,225px),1fr)); gap: clamp(16px,2.5vw,36px); }
 .casebook .encounter-grid article { min-width: 0; padding-block: 12px; border-block-start: 1px solid var(--line,#bcad94); }
 .casebook .encounter-grid :is(h3,p,figure) { margin: 0; }
@@ -140,7 +142,7 @@
 }
 @media (max-width: 720px) {
   .casebook .player-loop { grid-template-columns: 1fr; gap: 3px; }
-  .casebook .player-loop li { display: grid; grid-template-columns: 5.3em 1fr; padding: 4px 0; }
+  .casebook .player-loop li { display:grid; grid-template-columns:auto minmax(0,1fr); align-items:center; gap:.6em; padding:4px 0; }
   .casebook .player-loop li:not(:last-child)::after { content: none; }
   .casebook .workshop-key { grid-template-columns: repeat(2,minmax(0,1fr)); }
   .roomies-case #main #iteration .pp-history { grid-template-columns: repeat(3,minmax(137px,1fr)); overflow-x: auto; scroll-snap-type: x proximity; padding-bottom: 6px; }

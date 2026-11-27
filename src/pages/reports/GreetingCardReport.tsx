@@ -1,4 +1,5 @@
 import { useSite } from '../../lib/SiteContext'
+import ProjectProcess from '../../components/ProjectProcess'
 import ReportFigure from './ReportFigure'
 import { GameStateDiagram, SystemOverviewDiagram } from './GreetingCardDiagrams'
 
@@ -16,11 +17,11 @@ export default function GreetingCardReport() {
       <div>
         <h3>{t("2.1. Overview", "2.1 系统组成")}</h3>
         <p>{t("The card runs three scenes from one FreeGLUT and OpenGL source file.", "贺卡在一个源文件内使用 FreeGLUT 和 OpenGL 实现，包含三个场景。")}</p>
-        <ol className="project-process" aria-label={t("Card scenes", "贺卡场景")}>
-          <li><strong>{t("Cover", "封面")}</strong><span>{t("The cat walks under starbursts, flags and balloons. The cursor becomes a fish.", "小猫在星光、彩旗和气球下来回走动，鼠标变成一条鱼。")}</span></li>
-          <li><strong>{t("Campus", "校园")}</strong><span>{t("Move the cat past campus buildings beneath a striped sky and flat-bottomed clouds. Five stencil layers soften the flashlight beam.", "条带天空和平底云下，玩家控制小猫穿过校园建筑。五层模板让手电光束的边缘变柔和。")}</span></li>
-          <li><strong>{t("Celebration", "庆典")}</strong><span>{t("Fireworks and coloured particles surround the double-stroked title.", "烟花与彩色粒子围绕着双描边标题。")}</span></li>
-        </ol>
+        <ProjectProcess label={t("Card scenes", "贺卡场景")} steps={[
+          { sketch: 'feed-fish', title: t("Cover", "封面"), detail: t("The cat walks under starbursts, flags and balloons. The cursor becomes a fish.", "小猫在星光、彩旗和气球下来回走动，鼠标变成一条鱼。") },
+          { sketch: 'find-light', title: t("Campus", "校园"), detail: t("Move the cat past campus buildings beneath a striped sky and flat-bottomed clouds. Five stencil layers soften the flashlight beam.", "条带天空和平底云下，玩家控制小猫穿过校园建筑。五层模板让手电光束的边缘变柔和。") },
+          { sketch: 'firework', title: t("Celebration", "庆典"), detail: t("Fireworks and coloured particles surround the double-stroked title.", "烟花与彩色粒子围绕着双描边标题。") },
+        ]} />
         <p>{t("The cover fades to black before the campus appears.", "封面淡出到黑色，再淡入校园。")}</p>
       </div>
       <SystemOverviewDiagram />

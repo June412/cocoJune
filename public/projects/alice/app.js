@@ -1,4 +1,4 @@
-/* Alice portfolio — all visual work is sourced from the actual Unity projects. */
+/* Unity captures document the projects. Small hand-drawn icons identify the steps. */
 (() => {
 'use strict';
 const D=window.ALICE_MEDIA, M=D.media, W=D.works;
@@ -13,6 +13,7 @@ const title=w=>lang==='en'?w.titleEn:w.title;
 const desc=w=>lang==='en'?w.descriptionEn:w.description;
 const category=w=>lang==='en'?w.categoryEn:w.category;
 const work=id=>W.find(w=>w.id===id);
+const sketch=(name,directory='../../illustrations/project-sketches')=>`<img class="project-sketch" src="${directory}/${name}.png" width="48" height="48" alt="" loading="lazy" decoding="async">`;
 const img=(a,alt,cls='',lazy=true)=>`<img src="${a.src}" ${lazy?'loading="lazy"':'fetchpriority="high"'} decoding="async" width="${a.width}" height="${a.height}" alt="${esc(alt)}" class="${cls}">`;
 const photo=(key,caption,cl='')=>`<figure class="${cl}"><button class="image-button" data-image="${key}" aria-label="${esc(t('放大：','Enlarge: ')+caption)}">${img(M[key],caption)}</button><figcaption class="caption">${caption}<span>↗</span></figcaption></figure>`;
 const href=(p,hash='')=>`${p}.html?lang=${lang}${hash?'#'+hash:''}`;
@@ -118,9 +119,9 @@ ${section('workflow','工作台','Workbench','','',`
 ${window.AliceWorkbenchGuide.render(lang)}
 <section class="project-notes" id="workbench-notes"><h3>${t('画一道针脚','Draw a stitch path')}</h3>
 <ol class="ts-path-flow">
-<li><b>${t('标定尺寸','Set the scale')}</b><span>${t('导入模型副本，按实物毫米数标定。','Import a working copy and set its size in millimetres.')}</span></li>
-<li><b>${t('指定布面','Choose the cloth')}</b><span>${t('选中材质槽，或逐面圈出局部。','Choose a material region or select individual faces.')}</span></li>
-<li><b>${t('沿曲面绘制','Draw on the surface')}</b><span>${t('自由绘制松手收笔；逐点绘制按 Enter。','Release a freehand stroke, or press Enter to finish a point path.')}</span></li></ol>
+<li><b class="sketched-label">${sketch('set-scale')}${t('标定尺寸','Set the scale')}</b><span>${t('导入模型副本，按实物毫米数标定。','Import a working copy and set its size in millimetres.')}</span></li>
+<li><b class="sketched-label">${sketch('cloth-region')}${t('指定布面','Choose the cloth')}</b><span>${t('选中材质槽，或逐面圈出局部。','Choose a material region or select individual faces.')}</span></li>
+<li><b class="sketched-label">${sketch('stitch-path')}${t('沿曲面绘制','Draw on the surface')}</b><span>${t('自由绘制松手收笔；逐点绘制按 Enter。','Release a freehand stroke, or press Enter to finish a point path.')}</span></li></ol>
 ${window.AliceToolStory.ellipse(lang)}
 </section>
 `)}
@@ -133,7 +134,7 @@ ${section('cushion','刺绣抱枕','Cushion study','','',(() => {
         return `<figure class="botanical-capture"><button class="image-button" data-story-image="${full}" data-caption="${esc(caption)}" aria-label="${esc(t('放大图片','Enlarge image')+' · '+caption)}">${img({src:source,width,height},caption)}</button><figcaption class="caption">${caption}<span aria-hidden="true">↗</span></figcaption></figure>`;
     }
     return `
-${window.AliceToolStory.cushionRoute(lang)}
+${window.AliceToolStory.cushionRoute(lang,sketch)}
 ${craftRow('导入抱枕白模','Import the blank cushion',
     para('把模型拖入「模型资源」，命名后点「导入并开始」。','Drop the model into Model asset, name it and choose Import and start.'),
     capture('import',656,189,'模型资源与名称。','Model asset and name.'),
@@ -183,7 +184,7 @@ ${table([t('用途','Goal'),t('保存或导出','Format'),t('保留什么','What
 [t('交给建模软件','Share geometry'),'OBJ + MTL',t('网格与基础色。','Mesh and base colours.')],
 [t('展示成品','Show the finished piece'),'PNG',t('可选透明背景，1200–4096 px。','Optional transparency, 1200–4096 px.')]])}
 <article id="export-implementation" class="ts-pack-flow"><h3>${t('独立资源包','Building the Unity package')}</h3><ol class="ts-path-flow">
-<li><b>${t('复制静态模型','Clone the mesh')}</b></li><li><b>${t('收集材质与依赖','Collect dependencies')}</b></li><li><b>${t('重开核对外观','Reopen and verify')}</b></li></ol></article>
+<li><b class="sketched-label">${sketch('clone-mesh')}${t('复制静态模型','Clone the mesh')}</b></li><li><b class="sketched-label">${sketch('group-assets')}${t('收集材质与依赖','Collect dependencies')}</b></li><li><b class="sketched-label">${sketch('reopen-check')}${t('重开核对外观','Reopen and verify')}</b></li></ol></article>
 `)}
 
 ${section('development','图层编辑','Layer editing','','',`
@@ -196,7 +197,7 @@ ${window.AliceToolStory.reuse(lang)}
 
 ${section('cases','布艺工艺','Textile techniques','','',`
 ${craftNavigation()}
-${passage('case-pattern','色格如何变成织物','From colour cells to cloth','',window.AliceToolStory.pattern(lang))}
+${passage('case-pattern','色格如何变成织物','From colour cells to cloth','',window.AliceToolStory.pattern(lang,sketch))}
 ${passage('case-stitches','曲面针脚与区域刺绣','Surface stitches and filled embroidery',para('回针沿布面勾出房屋。调针距改变疏密；调线径改变笔画粗细。','Backstitch traces the houses. Stitch spacing sets the gaps and yarn diameter sets the line weight.'),pair(wfig('reference-1','蓝棉布：回针沿房屋轮廓贴合布面。','Blue cotton: backstitch follows the house outlines across the fabric.'),photo('threadAfter',t('线材细节：三股绞合与表面细纤维。','Thread detail: three-ply construction and fine surface fibres.'))))}
 ${passage('case-patches','贴布、共享缝边与图层依附','Patchwork, shared seams and attached layers',para('六片衣物贴在同一件 T 恤上，各有自己的厚度。相邻布片可以共用一条缝。','Six appliqués share one shirt. Each has its own thickness. Neighbouring patches can share a seam.'),pair(wfig('reference-2','短袖上的六片晾衣绳布贴。','Six washing-line patches on the shirt.'),wfig('edging','封边样板：逐项比较跨边、环线与连接方式。','Edging sampler: comparing edge crossings, loops and connections.')))}
 ${passage('case-accessories','纽扣、亮片与连续串珠','Buttons, sequins and continuous beadwork',para('库里有 22 款纽扣。固定线穿过双孔或四孔，珠串则沿一条可编辑的路径连续穿线。','The library has 22 button designs. Thread passes through two or four holes; a bead strand follows one editable path.'),pair(wfig('craft-10','材料卡：真实孔道、配件表面与固定针线。','Sample card: physical holes, accessory surfaces and securing threads.'),wfig('motif-0','珠绣花环：路径排珠与连续穿线。','Bead wreath: a path-based array with continuous thread.')))}
@@ -239,7 +240,7 @@ ${window.AliceWorkshopProps.render('toolkit',lang)}
 `}
 
 function game(){
-const story = window.AliceGameStory.forLanguage(lang);
+const story = window.AliceGameStory.forLanguage(lang,sketch);
 const points=(...items)=>`<ul class="mending-points">${items.map(([zh,en])=>`<li>${t(zh,en)}</li>`).join('')}</ul>`;
 return `
 <header id="overview" data-thread-chapter data-thread-start class="overview-game"><div class="hero-intro"><h1>Alice · Mending Workshop</h1><h2 class="project-overview-title">${t('项目概览','Overview')}</h2><p class="lead">${t('我把手缝玩偶 Alice 做成了一款修补游戏。第一份委托教玩家补棉、交替落针、收紧缝线。第二份换成脱线的熊猫耳朵，让玩家认出可以沿用的针法，再学会逐行挑回线圈。','I turned Alice, a doll I sewed by hand, into a repair game. The first commission teaches stuffing, alternating needle placement and thread tension. On Panda’s unravelled ear, players recognise the stitch they already know and learn to recover dropped loops row by row.')}</p>
@@ -326,11 +327,11 @@ ${passage('future','尚未实现的委托构想','Unimplemented commission conce
 
 const materialNames=[['细棉','Fine cotton'],['粗麻','Coarse linen'],['平针','Jersey'],['罗纹','Rib knit'],['粗毛线','Bulky yarn'],['毛毡','Felt'],['短绒','Short pile'],['缎面','Satin'],['Alice 身体','Alice body'],['Alice 包边','Alice binding'],['游戏头发','Game hair'],['金色头发','Golden hair']];
 const mechanics=[
-    {id:'stitch',foley:'needle',still:'aliceSew',name:['梯形藏针','Ladder stitch'],actions:[['入针','Enter'],['出针','Exit'],['换边','Cross sides']],sound:['入针时轻响，随后是线穿布声。','A prick on entry, then the thread sliding through.']},
-    {id:'tension',foley:'scissors',still:'aliceTension',name:['慢拉收线','Gentle tension'],actions:[['慢拉','Pull slowly'],['在蓝区稳住','Hold in blue'],['松手','Release']],sound:['听剪线声和松手时短促的抽线声。','A snip, then a short slide as the thread settles.']},
-    {id:'fill',foley:'packing',still:'aliceFill',name:['填棉整形','Stuffing and shaping'],actions:[['取棉','Take a tuft'],['塞入','Fill'],['轻压','Press']],sound:['工具碰桌轻响，压进棉花时变沉。','A tap on the desk, a muffled press into cotton.']},
-    {id:'loops',still:'pandaLoops',name:['挑回线圈','Recovering loops'],actions:[['固定活线圈','Clip the loops'],['W / S 对准','Align with W / S'],['空格转钩','Turn with Space']],sound:['竹钩拿起时轻响，每行收好后线轻轻滑动。','A click as the hook lifts, then yarn sliding at each row.']},
-    {id:'button',still:'aliceButton',name:['缝纽扣','Sewing a button'],actions:[['穿过一对孔','Sew the pair'],['打结','Knot'],['轻拉检查','Tug to test']],sound:['听针入孔和拉线穿出的两个声音。','Listen for the needle entering and the thread pulling through.']}
+    {id:'stitch',sketch:'ladder-entry',foley:'needle',still:'aliceSew',name:['梯形藏针','Ladder stitch'],actions:[['入针','Enter'],['出针','Exit'],['换边','Cross sides']],sound:['入针时轻响，随后是线穿布声。','A prick on entry, then the thread sliding through.']},
+    {id:'tension',sketch:'return-check',foley:'scissors',still:'aliceTension',name:['慢拉收线','Gentle tension'],actions:[['慢拉','Pull slowly'],['在蓝区稳住','Hold in blue'],['松手','Release']],sound:['听剪线声和松手时短促的抽线声。','A snip, then a short slide as the thread settles.']},
+    {id:'fill',sketch:'fill-cheek',foley:'packing',still:'aliceFill',name:['填棉整形','Stuffing and shaping'],actions:[['取棉','Take a tuft'],['塞入','Fill'],['轻压','Press']],sound:['工具碰桌轻响，压进棉花时变沉。','A tap on the desk, a muffled press into cotton.']},
+    {id:'loops',sketch:'loop-check',still:'pandaLoops',name:['挑回线圈','Recovering loops'],actions:[['固定活线圈','Clip the loops'],['W / S 对准','Align with W / S'],['空格转钩','Turn with Space']],sound:['竹钩拿起时轻响，每行收好后线轻轻滑动。','A click as the hook lifts, then yarn sliding at each row.']},
+    {id:'button',sketch:'button-set',still:'aliceButton',name:['缝纽扣','Sewing a button'],actions:[['穿过一对孔','Sew the pair'],['打结','Knot'],['轻拉检查','Tug to test']],sound:['听针入孔和拉线穿出的两个声音。','Listen for the needle entering and the thread pulling through.']}
 ];
 let galleryFilter='all', query='', activeModal=null, modalIndex=0, lastFocus=null, galleryPage=0;
 const worksPerPage=9;
@@ -480,7 +481,7 @@ function repairMethod(mechanic, index) {
         ? `<video controls playsinline preload="none" poster="${M[clip.poster].src}" aria-label="${esc(label)}" aria-describedby="sound-${id}"><source src="${clip.src}" type="video/mp4"><a href="${clip.src}">${label}</a></video><div class="print-only">${img(M[still],label)}</div>`
         : `<button class="image-button" data-image="${still}" aria-label="${esc(label)}">${img(M[still],label)}</button>`;
     return `<article class="repair-method" id="repair-${id}" aria-labelledby="mechanic-${index}">
-        <h3 id="mechanic-${index}">${label}</h3><div class="video-layout"><div class="video-copy">
+        <h3 id="mechanic-${index}" class="sketched-label">${sketch(mechanic.sketch,'assets/repair-sketches')}${label}</h3><div class="video-layout"><div class="video-copy">
             <ol class="repair-actions">${actions.map(words=>`<li>${t(...words)}</li>`).join('')}</ol>
             ${clip?`<p class="repair-sound" id="sound-${id}">${t(...sound)}</p>`:''}
             ${foley?`<audio class="repair-sample" controls preload="none" aria-label="${esc(label+' · '+t('游戏原声','Game sound'))}" aria-describedby="sound-${id}"><source src="assets/story-game/${foley}.m4a" type="audio/mp4"><a href="assets/story-game/${foley}.m4a">${t('播放原声','Play game sound')}</a></audio>`:''}

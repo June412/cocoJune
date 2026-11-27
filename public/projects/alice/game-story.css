@@ -180,6 +180,10 @@ alice-tail-rule { display:block; max-width:530px; padding:.4rem 0 .5rem; }
 .mending-flow strong,.mending-flow span { display:block; line-height:1.5; }
 .mending-flow strong { font-weight:600; color:var(--sewing-ink); margin:0 0 .25rem; }
 .mending-flow span { font-size:.94rem; }
+.mending-flow .project-sketch { margin-block:0 .3em; }
+@media (max-width:640px) {
+  .mending-flow li { display:grid; grid-template-columns:auto minmax(0,1fr); gap:.6em; align-items:center; }
+}
 .story-foley-links { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:clamp(6px,1.1vw,12px); }
 .story-foley-links img { display:block; width:100%; height:auto; aspect-ratio:1.6; object-fit:cover; }
 .story-foley-links a { color:var(--sewing-ink); text-underline-offset:3px; line-height:1.3; }

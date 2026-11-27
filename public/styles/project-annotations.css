@@ -29,7 +29,7 @@
 :is(#main, .thread-copy) :is(.report-transcript,.case-notes,.section-body,.xray-story,.story-chapter) ul > li::marker { color: var(--note-blue); font-size:1.08em; }
 :is(#main, .thread-copy) :is(.player-loop,.ts-path-flow,.ts-unit-flow,.project-process,.voice-steps,.repair-actions,.craft-sequence,.illustrated-steps) { counter-reset: step; }
 :is(#main, .thread-copy) :is(.player-loop,.ts-path-flow,.ts-unit-flow,.project-process,.voice-steps,.repair-actions,.craft-sequence,.illustrated-steps) > li { counter-increment: step; }
-:is(#main, .thread-copy) :is(.player-loop > li > strong,.ts-path-flow > li > b,.ts-unit-flow > li,.project-process > li,.voice-steps > li,.repair-actions > li)::before,
+:is(#main, .thread-copy) :is(.player-loop li strong,.ts-path-flow > li > b,.ts-unit-flow > li,.project-process > li,.voice-steps > li,.repair-actions > li)::before,
 :is(#main, .thread-copy) .illustrated-steps h4::before,
 .roomies-case #assembly .craft-sequence h3::before,
 .roomies-case #workshop .workshop-key strong::before,
@@ -52,18 +52,48 @@
 :is(#main, .thread-copy) .voice-steps { list-style:none; padding:0; }
 .roomies-case .joint-principles figcaption strong::before { color:var(--note-blue); }
 .thread-copy .gc-state .gc-step { content:normal; font-size:15px; margin:auto; }
-.thread-copy .project-process {
+.project-sketch {
+  --sketch-size: clamp(38px, 3.9vw, 54px);
+  display: block;
+  width: var(--sketch-size); height: var(--sketch-size);
+  object-fit: contain; flex: none;
+  filter: var(--line-art-filter, grayscale(1));
+}
+.sketched-label, .mode-sketch { display: inline-flex; align-items: center; gap: .45em; }
+.mode-sketch { flex-wrap: wrap; }
+.mode-sketch .project-sketch { --sketch-size: 36px; }
+:is(.thread-copy, .casebook) .project-process {
   display:grid; grid-template-columns:minmax(0,1fr);
   list-style:none; margin:12px 0 20px; padding:0;
 }
-.thread-copy .project-process > li {
-  position:relative; display:grid; grid-template-columns:1.55em minmax(0,1fr);
-  align-items:baseline; gap:0 .7em; margin:0; padding:.55em 0;
+:is(.thread-copy, .casebook) .project-process > li {
+  position:relative; display:grid; grid-template-columns:1.55em auto minmax(0,1fr);
+  align-items:center; column-gap:clamp(5px,.7em,12px); margin:0; padding:.35em 0;
   font-weight:600; line-height:1.4;
 }
-.thread-copy .project-process > li::before { margin:0; }
-.thread-copy .project-process > li:not(:last-child)::after {
+:is(.thread-copy, .casebook) .project-process > li::before { margin:0; position:relative; z-index:1; }
+:is(.thread-copy, .casebook) .project-process > li::after {
   content:""; position:absolute; inset-inline-start:.70em;
-  top:2em; bottom:-.5em; border-inline-start:1px dashed var(--table-rule);
+  inset-block:0; border-inline-start:1px dashed var(--table-rule);
 }
-.thread-copy .project-process > li > span { grid-column:2; font-weight:400; }
+.project-process > li:first-child::after { inset-block-start:50%; }
+.project-process > li:last-child::after { inset-block-end:50%; }
+.project-process .process-caption { min-width: 0; }
+:is(.thread-copy, .casebook) .project-process .process-caption p { margin:.15em 0 0; font-weight:400; }
+@container project-content (min-width: 38rem) {
+  .thread-copy .sketch-strip {
+    grid-auto-flow:column; grid-auto-columns:minmax(0,1fr); grid-template-columns:none;
+    align-content:center; gap:clamp(6px,1vw,16px);
+  }
+  .thread-copy .sketch-strip > li {
+    grid-template-columns:auto minmax(0,1fr); align-content:start; align-items:baseline;
+    gap:.2em .35em; padding:0;
+  }
+  .sketch-strip .project-sketch { grid-area:1 / 1 / 2 / -1; }
+  .thread-copy .sketch-strip > li::before, .sketch-strip .process-caption { grid-row:2; }
+  .thread-copy .sketch-strip > li:not(:last-child)::after {
+    inset:clamp(19px,1.95vw,27px) 0 auto clamp(40px,4.2vw,58px);
+    border-inline-start:0; border-block-start:1px dashed var(--table-rule);
+  }
+  .thread-copy .sketch-strip > li:last-child::after { content:none; }
+}
