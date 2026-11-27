@@ -249,8 +249,10 @@
     reportDrawing();
   }
   get('piece').onchange = event => chooseDrawing(event.target.value);
+  get('piece').disabled = false;
   for (const button of document.querySelectorAll('[data-piece]')) {
     button.onclick = () => chooseDrawing(button.dataset.piece);
+    button.disabled = false;
   }
   get('previous').onclick = () => go(index - 1);
   get('next').onclick = () => go(index + 1);
