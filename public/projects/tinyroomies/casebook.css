@@ -82,3 +82,58 @@
   .casebook .model-stage img { visibility: visible; }
   .casebook .model-stage canvas { display: none; }
 }
+
+/* Short illustrated sequences keep the process readable in one pass. */
+.casebook .player-loop { display: grid; grid-template-columns: repeat(5,minmax(0,1fr)); gap: 14px; margin: 12px 0; padding: 0; list-style: none; }
+.casebook .player-loop li { position: relative; border-top: 1px solid var(--link); padding: 8px 16px 0 0; }
+.casebook .player-loop strong, .casebook .player-loop span { display: block; }
+.casebook .player-loop li:not(:last-child)::after { content: "→"; position: absolute; right: 0; top: 7px; color: var(--link); }
+.casebook .joint-principles { list-style: none; padding: 0; }
+.casebook .joint-principles figcaption strong::before { content: "• "; color: var(--link); }
+.casebook .workshop-map { position: relative; aspect-ratio: 1816 / 712; }
+.casebook .workshop-model { position: absolute; margin: 0; inset: 0 16.41%; }
+.roomies-case #main .workshop-model :is(a,img) { display: block; width: 100%; height: 100%; object-fit: contain; }
+.casebook .workshop-leaders { position: absolute; inset: 0; width: 100%; height: 100%; fill: none; stroke: var(--link); stroke-width: 2; pointer-events: none; }
+.casebook .workshop-leaders rect { stroke-dasharray: 8 6; }
+.casebook .workshop-key { list-style: none; counter-reset: station; padding: 0; margin: 0; }
+.casebook .workshop-key li { position: absolute; top: var(--label-top); left: 0; width: 15%; counter-increment: station; }
+.casebook .workshop-key li:nth-child(n+4) { left: auto; right: 0; }
+.casebook .workshop-key strong { display: block; font-size: clamp(16px,1.15vw,20px); line-height: 1.18; }
+.casebook .workshop-key strong::before { content: counter(station) ". "; color: var(--link); }
+.casebook .workshop-key li span { display: block; font-size: clamp(14px,1vw,17px); line-height: 1.25; margin-top: 4px; }
+.casebook .workshop-pins { display: none; }
+.casebook .drawing-exhibit { width: min(100%, 790px); margin-inline: auto; }
+.casebook .drawing-guide { display: block; width: 100%; border: 1px solid var(--line, #cbbca6); border-radius: 5px; background: #f4f0e5; box-sizing: border-box; }
+.casebook .drawing-stills { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: clamp(6px,1.2vw,16px); margin: 12px auto 0; max-width: 660px; }
+.roomies-case #main .drawing-stills :is(img,button) { width: 100%; height: clamp(64px,9vw,110px); display: block; object-fit: contain; }
+.roomies-case #main .drawing-stills figcaption { text-align: center; }
+.roomies-case #main #iteration .pp-history { list-style: none; padding: 0; margin: 0 auto 20px; width: min(100%,940px); display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: clamp(10px,2vw,26px); }
+.roomies-case #main #iteration .pp-history li { display: flex; flex-direction: column; gap: 5px; padding: 6px 0 0; border-top: 1px solid var(--link); }
+.roomies-case #main #iteration .pp-history :is(h3,p,figure) { margin: 0; }
+.roomies-case #main #iteration .pp-history :is(button,img) { display: block; width: 100%; height: clamp(84px,11vw,145px); object-fit: cover; }
+.casebook .pp-history time { font: 700 16px/1.4 var(--body); color: var(--link); }
+.casebook .case-table { width: 100%; border-collapse: collapse; margin-block: 10px 20px; }
+.casebook .case-table :is(td,th) { text-align: left; vertical-align: top; padding: 7px clamp(6px,1vw,14px); border-bottom: 1px solid var(--line,#d4c6af); }
+.casebook .case-table thead { background: rgb(91 64 53 / 6%); }
+.casebook .case-table tbody th { width: 28%; }
+.casebook .trn-evidence ul { margin: .3em 0; padding-inline-start: 1.12em; }
+.casebook .trn-evidence li + li { margin-top: .25em; }
+@media (max-width: 1000px) {
+  .casebook .workshop-map { aspect-ratio: auto; }
+  .casebook .workshop-model { position: relative; inset: auto; max-width: 620px; margin-inline: auto; }
+  .casebook .workshop-leaders { display: none; }
+  .casebook .workshop-pins { display: block; pointer-events: none; }
+  .casebook .workshop-pins span { position: absolute; transform: translate(-50%,-50%); display: grid; place-items: center; width: 21px; height: 21px; border-radius: 50%; border: 1px solid var(--link); background: var(--paper,#fff6e5); color: var(--link); font: bold 13px/1 var(--body); }
+  .casebook .workshop-key { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 10px 14px; }
+  .casebook .workshop-key li { position: static; width: auto; }
+}
+@media (max-width: 720px) {
+  .casebook .player-loop { grid-template-columns: 1fr; gap: 3px; }
+  .casebook .player-loop li { display: grid; grid-template-columns: 5.3em 1fr; padding: 4px 0; }
+  .casebook .player-loop li:not(:last-child)::after { content: none; }
+  .casebook .workshop-key { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .roomies-case #main #iteration .pp-history { grid-template-columns: repeat(3,minmax(137px,1fr)); overflow-x: auto; scroll-snap-type: x proximity; padding-bottom: 6px; }
+  .casebook .pp-history li { scroll-snap-align: start; }
+}
+.casebook :is(.voice-steps,.credit-points) { padding-inline-start: 1.3em; margin: 6px 0; }
+.casebook :is(.voice-steps,.credit-points) li + li { margin-top: .25em; }

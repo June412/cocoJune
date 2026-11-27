@@ -151,12 +151,23 @@ for (const study of document.querySelectorAll("[data-posture]")) {
 // Direct links also reveal exhibits and credits inside a closed disclosure.
 function revealLinkedContent() {
   const id = location.hash.slice(1);
-  const aliases = { "save-recovery": "spec-persistence", "furniture-model": "furniture-collection",
-    "furniture-choice": "furniture-collection", "furniture-room": "furniture-collection" };
+  const aliases = {
+    "save-recovery": "results", "furniture-model": "furniture-collection", "furniture-choice": "furniture-collection",
+    "furniture-room": "furniture-collection", "design-document": "game-design", "joinery-survey": "research",
+    "repair-guide": "assembly", "bench-model": "piece-bench", "experience-film": "results",
+    "spec-collection": "household", "spec-crafting": "assembly", "spec-decoration": "assembly",
+    "spec-residents": "residents", "spec-care": "shared-life", "spec-life": "shared-life",
+    "spec-space": "space", "spec-persistence": "results", "spec-production": "results"
+  };
   let target = document.getElementById(id);
-  if (!target && aliases[id]) {
-    target = document.getElementById(aliases[id]);
-    if (target) target.scrollIntoView({ block: "start" });
+  if (!target) {
+    const chapter = aliases[id] || (id.startsWith("survey-") && "research")
+      || (id.startsWith("op-") && "assembly") || (id.startsWith("spec-") && "game-design");
+    target = chapter && document.getElementById(chapter);
+    if (target) {
+      history.replaceState(history.state, "", "#" + chapter);
+      target.scrollIntoView({ block: "start" });
+    }
   }
   if (!target) return;
   for (let node = target; node; node = node.parentElement) {
@@ -172,3 +183,12 @@ document.addEventListener("play", event => {
     if (player !== event.target && !player.paused) player.pause();
   }
 }, true);
+
+const drawingGuide = document.querySelector(".drawing-guide");
+window.addEventListener("message", event => {
+  if (!drawingGuide || event.source !== drawingGuide.contentWindow || event.origin !== location.origin) return;
+  const message = event.data;
+  if (message?.type === "tinyroomies-guide-size" && Number.isFinite(message.height) && message.height > 0) {
+    drawingGuide.height = String(Math.ceil(message.height) + 2);
+  }
+});
