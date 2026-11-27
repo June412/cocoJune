@@ -4,39 +4,49 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Workshop manual · TinyRoomies</title>
-  <link rel="stylesheet" href="manual.css?v=84b044d131">
+  <link rel="stylesheet" href="manual.css?v=bf55c9ca9c">
   <script defer src="models.js?v=34a7764b72"></script>
-  <script defer src="manual.js?v=053e3aa979"></script>
+  <script defer src="manual.js?v=fcd763bbac"></script>
 </head>
 <body>
-  <main class="book">
-    <section class="leaf whole">
-      <label for="piece" data-copy="piece">Furniture drawing</label>
-      <select id="piece"></select>
-      <canvas id="whole" tabindex="0" role="img" aria-describedby="gesture"></canvas>
-      <div class="view-tools" data-view="whole">
-        <button type="button" data-zoom="out">−</button><button type="button" data-zoom="in">+</button>
-      </div>
-      <p id="gesture" data-copy="gesture">Drag to rotate · + / − to zoom</p>
-    </section>
-    <section class="leaf instruction">
-      <header aria-live="polite"><small id="count"></small><h1 id="step"></h1></header>
-      <canvas id="detail" tabindex="0" role="img" aria-describedby="gesture"></canvas>
-      <div class="view-tools" data-view="detail">
-        <button type="button" data-zoom="out">−</button><button type="button" data-zoom="in">+</button>
-      </div>
-      <div class="modes">
-        <button type="button" id="focus" aria-pressed="false" data-copy="focus">Joint detail</button>
-        <button type="button" id="xray" aria-pressed="false" data-copy="xray">X-ray</button>
-        <label id="opacity-row" hidden><span data-copy="opacity">Opacity</span><input id="opacity" type="range" min="35" max="80" value="42"></label>
-      </div>
-      <input id="travel" type="range" min="0" max="100" value="0">
-      <div class="controls">
-        <button type="button" id="previous" data-copy="previous">Previous</button>
-        <button type="button" id="replay" data-copy="replay">Replay</button>
-        <button type="button" id="next" data-copy="next">Next</button>
-      </div>
-    </section>
+  <main class="drawing-reader">
+    <div class="book" id="book">
+      <section class="leaf whole">
+        <label for="piece" data-copy="piece">Choose a drawing</label>
+        <select id="piece"></select>
+        <p id="load-status" role="status" hidden></p>
+        <canvas id="whole" tabindex="0" role="img" aria-describedby="gesture"></canvas>
+        <div class="view-tools" data-view="whole">
+          <button type="button" data-zoom="out">−</button><button type="button" data-zoom="in">+</button>
+        </div>
+        <p id="gesture" data-copy="gesture">Drag to rotate · + / − to zoom</p>
+      </section>
+      <section class="leaf instruction">
+        <header aria-live="polite"><small id="count"></small><h1 id="step"></h1></header>
+        <canvas id="detail" tabindex="0" role="img" aria-describedby="gesture"></canvas>
+        <div class="view-tools" data-view="detail">
+          <button type="button" data-zoom="out">−</button><button type="button" data-zoom="in">+</button>
+        </div>
+        <div class="modes">
+          <button type="button" id="focus" aria-pressed="false" data-copy="focus">Joint detail</button>
+          <button type="button" id="xray" aria-pressed="false" data-copy="xray">X-ray</button>
+          <label id="opacity-row" hidden><span data-copy="opacity">Opacity</span><input id="opacity" type="range" min="35" max="80" value="42"></label>
+        </div>
+        <input id="travel" type="range" min="0" max="100" value="0">
+        <div class="controls">
+          <button type="button" id="previous" data-copy="previous">Previous</button>
+          <button type="button" id="replay" data-copy="replay">Replay</button>
+          <button type="button" id="next" data-copy="next">Next</button>
+        </div>
+      </section>
+    </div>
+    <nav class="piece-samples" aria-label="Furniture drawings">
+      <button type="button" data-piece="04_LeafShelf"><img src="../making/shelf.webp" alt=""><span data-copy="shelf">Reading shelf</span></button>
+      <button type="button" data-piece="01_PageCabinet"><img src="../making/collection-cabinet-cutout.webp" alt=""><span data-copy="cabinet">Display cabinet</span></button>
+      <button type="button" data-piece="02_KeeperFoldDesk"><img src="../making/folding-workdesk-cutout.webp" alt=""><span data-copy="worktable">Folding worktable</span></button>
+      <button type="button" data-piece="03_PlantReadingShelf"><img src="../making/plant-reading-rack-cutout.webp" alt=""><span data-copy="planter">Planter shelf</span></button>
+      <button type="button" data-piece="10_RecordPlayer"><img src="../making/record-player.webp" alt=""><span data-copy="record">Record player</span></button>
+    </nav>
   </main>
 </body>
 </html>

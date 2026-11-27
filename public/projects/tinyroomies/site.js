@@ -190,11 +190,32 @@ document.addEventListener("play", event => {
 }, true);
 
 const drawingGuide = document.querySelector(".drawing-guide");
+const referenceStill = document.querySelector("[data-manual-still]");
+const referencePages = {
+  "01_PageCabinet": ["display-cabinet", "Display cabinet · in-game manual", "收藏柜 · 游戏内图纸"],
+  "02_KeeperFoldDesk": ["folding-worktable", "Folding worktable · in-game manual", "折叠工作桌 · 游戏内图纸"],
+  "02_KeeperBench": ["knock-down-bench", "Knock-down bench · in-game manual", "可拆长凳 · 游戏内图纸"]
+};
+let openDrawing = "04_LeafShelf";
+function updateManualStill() {
+  const study = referencePages[openDrawing];
+  const image = referenceStill.querySelector("img");
+  const caption = study ? study[inChinese() ? 2 : 1] : localText("Reading shelf · in-game manual");
+  const src = study ? "drawings/pieces/" + study[0] + (inChinese() ? "-zh.webp" : "-en.webp") : "narrative/manual-main.webp";
+  if (image.getAttribute("src") !== src) image.src = src;
+  image.alt = study ? caption : localText("The assembled shelf on the left page and the current insertion step on the right");
+  referenceStill.querySelector("figcaption").textContent = caption;
+  referenceStill.querySelector("button")?.setAttribute("aria-label", (inChinese() ? "放大图片：" : "Enlarge image: ") + image.alt);
+}
 window.addEventListener("message", event => {
   if (!drawingGuide || event.source !== drawingGuide.contentWindow || event.origin !== location.origin) return;
   const message = event.data;
   if (message?.type === "tinyroomies-guide-size" && Number.isFinite(message.height) && message.height > 0) {
     drawingGuide.height = String(Math.ceil(message.height) + 2);
+  }
+  if (message?.type === "tinyroomies-guide-piece") {
+    openDrawing = message.piece;
+    updateManualStill();
   }
 });
 
@@ -254,4 +275,5 @@ document.addEventListener("tinyroomies-language-change", event => {
       : ". Drag to rotate, or use the arrow keys. Home resets the view."));
   }
   notifyManualLanguage();
+  updateManualStill();
 });

@@ -12,7 +12,6 @@
   .roomies-case .thread-nav a { padding-block: 1px; min-height: 20px; font-size: clamp(17px, 1.45vw, 21px); }
   .roomies-case #main.casebook > .case-return { width: fit-content; margin: 0 0 9px; }
 }
-.roomies-case .thread-nav li { display: flex; align-items: center; }
 .roomies-case .casebook { --reading-width: 100%; --gallery-width: 100%; }
 .roomies-case .casebook :is(.case-story, .case-notes, .opening) { width: 100%; max-width: none; }
 .casebook :is(section, article, details, figure, .grid, .table-wrap) { min-width: 0; }
@@ -75,7 +74,6 @@
   .casebook #tool-models { grid-template-columns: repeat(3,minmax(0,1fr)); }
 }
 @media screen and (max-height: 650px) {
-  .roomies-case .thread-nav { top: 7px !important; height: min(calc(100dvh - 14px), 420px) !important; }
   .roomies-case .thread-nav a { min-height: 14px; font-size: 14px; padding: 0; }
 }
 @media print {
@@ -102,8 +100,9 @@
 .casebook .workshop-key strong::before { content: counter(station) ". "; color: var(--link); }
 .casebook .workshop-key li span { display: block; font-size: clamp(14px,1vw,17px); line-height: 1.25; margin-top: 4px; }
 .casebook .workshop-pins { display: none; }
-.casebook .drawing-exhibit { width: min(100%, 790px); margin-inline: auto; }
-.casebook .drawing-guide { display: block; width: 100%; border: 1px solid var(--line, #cbbca6); border-radius: 5px; background: #f4f0e5; box-sizing: border-box; }
+.roomies-case #main .trn-geometry { background:transparent; }
+.casebook .drawing-exhibit { width: min(100%, 1080px); margin-inline: auto; }
+.casebook .drawing-guide { display: block; width: 100%; border: 0; background: transparent; box-sizing: border-box; }
 .casebook .drawing-stills { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: clamp(6px,1.2vw,16px); margin: 12px auto 0; max-width: 660px; }
 .roomies-case #main .drawing-stills :is(img,button) { width: 100%; height: clamp(64px,9vw,110px); display: block; object-fit: contain; }
 .roomies-case #main .drawing-stills figcaption { text-align: center; }

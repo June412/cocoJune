@@ -169,7 +169,7 @@ window.TinyRoomiesChinese = {
   "Drawing design": "图纸设计",
   "An interactive assembly manual": "可操作的装配手册",
   "The left page keeps the finished piece in view. On the right, follow the next part into its joint. Rotate either drawing, replay the movement or look through the wood.": "左页始终保留家具全貌；右页演示当前零件如何入榫。两页都可以单独旋转，也能重播动作或透视接头。",
-  "Whole piece and current step": "成品与当前步骤",
+  "Reading shelf · in-game manual": "阅读架 · 游戏内图纸",
   "X-ray of the shelf joint": "书架接头透视",
   "In-game progress sheet": "游戏内工序单",
   "Furniture design": "家具设计",

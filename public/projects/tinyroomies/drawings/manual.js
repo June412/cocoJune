@@ -1,8 +1,21 @@
 (() => {
-  const { lessons, parts } = window.JoineryModels;
+  const { parts } = window.JoineryModels;
+  const lessons = [...window.JoineryModels.lessons,
+    { id: '01_PageCabinet', name: ['Page’s Display Cabinet', '页栖的双门收藏柜'], file: 'pieces/display-cabinet.js?v=c36156f70' },
+    { id: '02_KeeperFoldDesk', name: ['Keeper’s Folding Worktable', '槛的折叠工作桌'], file: 'pieces/folding-worktable.js?v=2b4e8bc25' },
+    { id: '03_PlantReadingShelf', name: ['Sprout & Archivist’s Planter Shelf', '晨芽与步册的种植阅读架'], file: 'pieces/planter-shelf.js?v=bb0add1ee' },
+    { id: '10_RecordPlayer', name: ['Wooden Record Player', '木制唱片机'], file: 'pieces/record-player.js?v=5039fbd94' }
+  ];
+  window.JoineryModels.additions = Object.create(null);
+  const loads = new Map();
   const get = id => document.getElementById(id);
   const phrases = {
-    piece: ['Furniture drawing', '家具图纸'],
+    piece: ['Choose a drawing', '选择图纸'], examples: ['Furniture drawings', '家具图纸'],
+    furniture: ['Furniture', '家具'], joints: ['Joinery studies', '榫卯练习'],
+    shelf: ['Reading shelf', '阅读架'], cabinet: ['Display cabinet', '收藏柜'],
+    worktable: ['Folding worktable', '折叠工作桌'], planter: ['Planter shelf', '种植阅读架'],
+    record: ['Record player', '唱片机'], loading: ['Loading drawing…', '正在载入图纸…'],
+    unavailable: ['Drawing unavailable. Select it again to retry.', '图纸未能载入，可重新选择。'],
     gesture: ['Drag or use the arrow keys to rotate', '拖动模型或用方向键旋转'],
     focus: ['Joint detail', '接头特写'], xray: ['X-ray', '透视'], opacity: ['Opacity', '不透明度'],
     previous: ['Previous', '上一步'], next: ['Next', '下一步'], replay: ['Replay', '重播'], pause: ['Pause', '暂停'],
@@ -15,6 +28,7 @@
   let language = Number(new URLSearchParams(location.search).get('lang') === 'zh');
   let lesson = lessons.find(item => item.id === '04_LeafShelf');
   let index = 2, travel = .4, animation = 0;
+  let requested = lesson.id, loadMessage = '';
   let focused = false, xray = false;
 
   function localize() {
@@ -26,7 +40,17 @@
       const target = button.parentElement.dataset.view;
       button.setAttribute('aria-label', phrases[button.dataset.zoom][language] + ' · ' + phrases[target][language]);
     }
-    get('piece').replaceChildren(...lessons.map(item => new Option(item.name[language], item.id, false, item === lesson)));
+    const groups = ['furniture', 'joints'].map(key => {
+      const group = document.createElement('optgroup');
+      group.label = phrases[key][language];
+      for (const item of lessons.filter(drawing => drawing.id.startsWith('F') === (key === 'joints'))) {
+        group.append(new Option(item.name[language], item.id, false, item.id === requested));
+      }
+      return group;
+    });
+    get('piece').replaceChildren(...groups);
+    document.querySelector('.piece-samples').setAttribute('aria-label', phrases.examples[language]);
+    setLoadMessage(loadMessage);
     update();
   }
 
@@ -36,6 +60,9 @@
     get('step').textContent = lesson.steps[index].title[language];
     get('previous').disabled = index === 0;
     get('next').disabled = index === lesson.steps.length - 1;
+    for (const button of document.querySelectorAll('[data-piece]')) {
+      button.setAttribute('aria-pressed', String(button.dataset.piece === lesson.id));
+    }
     get('focus').setAttribute('aria-pressed', focused);
     get('xray').setAttribute('aria-pressed', xray);
     get('opacity-row').hidden = !xray;
@@ -63,7 +90,9 @@
     let ids = full ? lesson.parts : [...new Set([...step.fixed, ...step.moving])];
     if (!full && focused) ids = ids.filter(id => step.contact.includes(id) || step.moving.includes(id));
     const sy = Math.sin(yaw), cy = Math.cos(yaw), sp = Math.sin(pitch), cp = Math.cos(pitch);
-    const project = ([x, y, z]) => [-x * sy + y * cy, (x * cy + y * sy) * sp - z * cp, (x * cy + y * sy) * cp + z * sp];
+    // The production manual turns some workpieces upside down on the right page.
+    const flip = !full && step.flipped ? -1 : 1;
+    const project = ([x, y, z]) => [-x * flip * sy + y * cy, (x * flip * cy + y * sy) * sp - z * flip * cp, (x * flip * cy + y * sy) * cp + z * flip * sp];
     let left = Infinity, right = -Infinity, top = Infinity, bottom = -Infinity;
     const faces = [];
     for (const id of ids) {
@@ -161,12 +190,68 @@
     };
     new ResizeObserver(() => draw(view)).observe(canvas);
   }
-  get('piece').onchange = event => {
-    lesson = lessons.find(item => item.id === event.target.value);
+  function setLoadMessage(key) {
+    loadMessage = key;
+    const status = get('load-status');
+    status.hidden = !key;
+    status.textContent = key ? phrases[key][language] : '';
+    get('book').setAttribute('aria-busy', String(key === 'loading'));
+  }
+
+  function loadParts(item) {
+    if (loads.has(item.id)) return loads.get(item.id);
+    const script = document.createElement('script');
+    const pending = new Promise((resolve, reject) => {
+      script.src = item.file;
+      script.onload = () => {
+        const data = window.JoineryModels.additions[item.id];
+        if (!data) { reject(new Error('Incomplete drawing')); return; }
+        Object.assign(parts, data.parts);
+        Object.assign(item, { parts: data.order, steps: data.steps });
+        delete window.JoineryModels.additions[item.id];
+        resolve();
+      };
+      script.onerror = () => reject(new Error('Drawing file unavailable'));
+      document.head.append(script);
+    }).finally(() => { loads.delete(item.id); script.remove(); });
+    loads.set(item.id, pending);
+    return pending;
+  }
+  function reportDrawing() {
+    if (parent !== window) parent.postMessage({ type: 'tinyroomies-guide-piece', piece: lesson.id }, location.origin === 'null' ? '*' : location.origin);
+  }
+  async function chooseDrawing(id) {
+    const item = lessons.find(drawing => drawing.id === id);
+    if (!item) return;
+    requested = id;
+    get('piece').value = id;
+    if (item === lesson) { setLoadMessage(''); return; }
+    stop();
+    get('replay').textContent = phrases.replay[language];
+    if (!item.steps) {
+      setLoadMessage('loading');
+      try { await loadParts(item); }
+      catch {
+        if (requested === id) {
+          requested = lesson.id;
+          get('piece').value = lesson.id;
+          setLoadMessage('unavailable');
+        }
+        return;
+      }
+    }
+    if (requested !== id || lesson === item) return;
+    setLoadMessage('');
+    lesson = item;
     focused = xray = false;
     views.forEach(view => Object.assign(view, home));
     go(0);
-  };
+    reportDrawing();
+  }
+  get('piece').onchange = event => chooseDrawing(event.target.value);
+  for (const button of document.querySelectorAll('[data-piece]')) {
+    button.onclick = () => chooseDrawing(button.dataset.piece);
+  }
   get('previous').onclick = () => go(index - 1);
   get('next').onclick = () => go(index + 1);
   get('focus').onclick = () => { focused = !focused; update(); };
@@ -195,6 +280,7 @@
     localize();
   });
   localize();
+  reportDrawing();
   const book = document.querySelector('main');
   new ResizeObserver(() => {
     if (parent !== window) parent.postMessage({ type: 'tinyroomies-guide-size', height: book.offsetHeight }, location.origin === 'null' ? '*' : location.origin);

@@ -1,0 +1,11 @@
+{
+  "mode": "Built-in ImageGen, transparent background",
+  "reference": "public/thread-rail/yarn-02.webp",
+  "outputs": [
+    "public/thread-rail/yarn-01-long.webp",
+    "public/thread-rail/yarn-02-long.webp",
+    "public/thread-rail/yarn-04-long.webp",
+    "public/thread-rail/yarn-06-long.webp"
+  ],
+  "prompt": "Use case: precise-object-edit. Create the extra length above the existing cotton thread for a portfolio reading progress rail. The input is the physical material and scale reference: fine, softly twisted, warm flax-tan cotton, a few tiny fibres, soft natural side lighting. Make ONE very long slender continuous strand in a tall portrait image on genuine transparent alpha. Front-on flat lay. The strand enters through the exact top edge near the horizontal centre and exits through the exact bottom edge near the horizontal centre, almost vertically at both joins, cut off by the frame at both edges so it can extend a longer cord. In between it drifts gently out and back in two different shallow, widely spaced bends, like yarn laid down by hand. Visually continuous throughout; no coils or crossings. Its diameter should be about 1/90 of the image HEIGHT, even through the curves. Keep the bends within a narrow central vertical strip. Preserve the warm muted fibre colour and photographic twisted texture in the input. Only the cutout fibre, no button, no writing, no textile backing and no cast shadow."
+}

@@ -13,17 +13,17 @@
   .is-work #main-content .thread-layout { width: 100%; }
   .thread-copy, .thread-host { min-width: 0; }
   .thread-host { width: calc(100% - var(--rail-inset) - clamp(8px, 1.5vw, 24px)); margin: 24px 0 0 var(--rail-inset); height: 1px; }
-  .thread-nav { position: fixed; z-index: 4; box-sizing: border-box; --fibre-width: clamp(32px, 3.7vw, 50px); }
+  .thread-nav { position: fixed; top: 0; z-index: 4; box-sizing: border-box; pointer-events: none; --fibre-width: clamp(35px, 3.8vw, 53px); }
   .thread-strand { position: absolute; inset: 0 auto 0 0; width: var(--fibre-width); pointer-events: none; }
   .thread-strand::before, .thread-strand::after { content: ''; position: absolute; inset: 0; background: var(--yarn-art) center / 100% 100% no-repeat; }
   .thread-strand::before { filter: drop-shadow(.5px 1px .55px #72553170); }
-  .thread-strand::after { filter: sepia(1) saturate(6) hue-rotate(145deg) brightness(.65) drop-shadow(.35px 0 .3px #146989); clip-path: inset(0 0 calc(100% - var(--thread-y)) 0); }
+  .thread-strand::after { filter: sepia(1) saturate(6) hue-rotate(145deg) brightness(.65) drop-shadow(.35px 0 .3px #146989); clip-path: inset(var(--thread-start, 0%) 0 calc(100% - var(--thread-y)) 0); }
   .thread-nav .thread-button { position: absolute; z-index: 1; width: clamp(18px, 2vw, 27px); height: auto; max-width: none; left: var(--thread-x); top: var(--thread-y); transform: translate(-50%, -50%) rotate(-4deg); filter: drop-shadow(0 2px 1px #51352459); }
-  .thread-nav ol { position: absolute; inset: 0 0 7% calc(var(--fibre-width) + 11px); display: flex; flex-direction: column; justify-content: space-between; padding: 0; margin: 0; list-style: none; }
-  .thread-nav li { margin: 0; padding: 0; list-style: none; }
+  .thread-nav ol { position: absolute; inset: 8% 0 4.5% calc(var(--fibre-width) + 9px); display: flex; flex-direction: column; justify-content: space-between; padding: 0; margin: 0; list-style: none; }
+  .thread-nav li { display: flex; align-items: center; margin: 0; padding: 0; list-style: none; }
   .thread-nav a, .personal-roomies .thread-nav a {
     color: var(--link, #007697); text-decoration: none; background: none; border: 0; padding: 4px 0; margin: 0;
-    display: inline-flex; align-items: center; min-height: 30px; box-sizing: border-box;
+    display: inline-flex; align-items: center; min-height: 30px; box-sizing: border-box; pointer-events: auto;
     font: 400 clamp(18px, 1.85vw, 25px)/1.12 'Rail handwriting', 'Rail brush', 'Kaiti SC', cursive;
     transition: color .28s, transform .35s cubic-bezier(.2,.7,.2,1); text-align: left;
   }
@@ -63,6 +63,8 @@
   .thread-short { display: inline; }
 }
 @media screen and (max-width:700px) {
+  .site-shell.is-work:has(.thread-layout) > .site-header { width: calc(100% - 90px); margin-inline: 75px 15px; }
+  body:has(.thread-layout) > .personal-site-chrome:first-child { margin-inline-start: 70px; }
   .thread-layout, .personal-alice .thread-layout { width: calc(100% - 22px); --rail-space: 68px; }
   .is-work #main-content:has(.thread-layout) { width: calc(100% - 22px); }
   .thread-nav { --fibre-width: 19px; }
@@ -73,5 +75,8 @@
   .thread-copy .case-notes { max-width: 100%; }
 }
 @media screen and (max-height:480px) { .thread-nav a, .personal-roomies .thread-nav a { min-height: 20px; padding: 1px 0; font-size: 14px; } }
+@media screen and (max-width:380px) {
+  .personal-alice #main .story-metrics :is(th, td) { padding-inline: .3em; overflow-wrap: anywhere; }
+}
 @media (prefers-reduced-motion:reduce) { .thread-nav a { transition: none; } }
 @media print { .thread-host { display: none; } .thread-layout, .thread-copy { display: block; width: 100%; } }
