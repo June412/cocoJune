@@ -87,7 +87,7 @@ export function XrayProcess() {
   const { t } = useSite()
   return <div className="xray-story">
     <section aria-labelledby="xray-research">
-      <h2 id="xray-research">{t('Choosing anatomy and materials', '选择人体数据与材料')}</h2>
+      <h2 id="xray-research" data-thread-chapter>{t('Data & materials', '数据与材质')}</h2>
       <p>{t('I initially designed a common volume and coordinate system for X-ray and ultrasound. When I focused on X-ray, I needed a model whose tissues I could identify individually and assign different attenuation values.', '最初，我为 X 光和超声设计了一套共用的体数据与坐标系统。把重心转到 X 光后，我需要一份能逐一辨认组织、分别设置衰减系数的人体模型。')}</p>
       <p>{t('Z-Anatomy grouped its models by anatomical system, and the Human Reference Atlas provided organ-level references. BodyParts3D also supplied a name for each mesh. I checked its 2,234 OBJ files against the name map and selected one body surface and 203 bone meshes.', 'Z-Anatomy 按解剖系统整理模型，Human Reference Atlas 提供器官级三维参考。BodyParts3D 为网格提供了组织名称。我核对了它的 2,234 个 OBJ 与名称映射，选出一份体表网格和 203 个骨组织网格。')}</p>
       <Plate image="anatomy-mesh-audit" caption={t('The source geometry before voxelisation. The body surface is on the left, with the selected skeletal meshes viewed head-on and at an angle beside it.', '体素化之前的网格核对图。左侧是体表，旁边是筛选后骨骼的正位与斜位。')} />
@@ -96,7 +96,7 @@ export function XrayProcess() {
     </section>
 
     <section aria-labelledby="xray-projection">
-      <h2 id="xray-projection">{t('From a volume to a projection', '从体数据到投影')}</h2>
+      <h2 id="xray-projection" data-thread-chapter>{t('Volume rendering', '体积渲染')}</h2>
       <h3>{t('Preparing the volume', '准备三维衰减体')}</h3>
       <p>{t('For CT input, I sorted the slices by spatial position, rebuilt the three-dimensional Hounsfield-unit field and mapped those values to attenuation. For the anatomical model, I filled the body surface slice by slice with water-equivalent tissue, then assigned bone material to the occupied voxels. The resulting grid held 340 × 152 × 866 voxels at 2 mm spacing.', '导入 CT 时，我按空间位置排列切片，重建三维 HU 场，再按参考曲线把 HU 转成衰减系数。对解剖网格，我逐层填充水等效软组织，将骨骼占据的体素替换为骨材料。最终衰减体为 340 × 152 × 866 个体素，间距 2 mm。')}</p>
       <Plate image="attenuation-slices" caption={t('Coronal, sagittal and enlarged lower-leg cross-sections share a display range of 0–0.08145 mm⁻¹. Brighter voxels have higher attenuation.', '冠状面、矢状面和放大的小腿横断面采用同一显示范围 0–0.08145 mm⁻¹。越亮的体素衰减系数越大。')} />
@@ -120,7 +120,7 @@ export function XrayProcess() {
     </section>
 
     <section aria-labelledby="xray-iteration">
-      <h2 id="xray-iteration">{t('What changed in testing', '测试中做出的改动')}</h2>
+      <h2 id="xray-iteration" data-thread-chapter>{t('Iteration', '设计迭代')}</h2>
       <h3>{t('A fair reference at the sphere boundary', '为体素球选对积分基准')}</h3>
       <p>{t('The sphere failed its first two acceptance runs near the edge. The analytic sphere had a sharp boundary, while trilinear interpolation gave the voxel sphere a transition band. For the third run I used the exact integral of the same interpolated voxel field as the reference. That let me measure the integration error separately.', '球体的前两轮验收都在边缘出了问题。连续球面的边界锐利，而体素球经过三线性插值后有一段过渡带。第三轮，我改用同一插值体素场的精确积分作参考，才得以单独测量积分误差。')}</p>
       <h3>{t('An independent CT preview', '隔离 CT 预览场景')}</h3>
@@ -138,7 +138,7 @@ export function XrayFindings() {
   const { t } = useSite()
   return <div className="xray-story">
     <section aria-labelledby="xray-validation">
-      <h2 id="xray-validation">{t('Validation and performance', '验证与性能')}</h2>
+      <h2 id="xray-validation" data-thread-chapter>{t('Validation', '性能验证')}</h2>
       <p>{t('I wanted a numerical check on what I was seeing. With simple test objects of known geometry and materials, I could predict a value first, then check the renderer.', '要判断数值是否准确，单看骨骼图像还不够。我使用形状和材料已知的简单体模，先算出预期值，再检查渲染结果。')}</p>
       <div className="xray-phantom-plates">
         <Plate image="sphere-phantom" caption={t('Uniform sphere. The central ray travels the longest path.', '均匀球体。经过球心的射线路径最长。')} />
@@ -168,14 +168,14 @@ export function XrayFindings() {
     </section>
 
     <section aria-labelledby="xray-outlook">
-      <h2 id="xray-outlook">{t('Uses, limits and next experiments', '应用、局限与后续实验')}</h2>
+      <h2 id="xray-outlook" data-thread-chapter>{t('Applications & limits', '应用与局限')}</h2>
       <p>{t('Rotating the body makes skeletal overlap visible. A known phantom helps check projection geometry, while locking the view makes exposure grain easier to compare. These are teaching and engineering uses of the prototype.', '旋转人体可以展示骨骼重叠，用已知材料的体模可以检查投影几何，固定姿态则便于比较曝光颗粒。这些是原型在教学和工程研究中的用途。')}</p>
       <p>{t('The human volume uses water-equivalent soft tissue and estimated cortical shells. Lung parenchyma and trabecular bone are absent. The renderer simulates primary rays at a single energy. Scatter simulation and device calibration are still open.', '人体模型采用水等效软组织和估计厚度的骨壳，缺少肺实质和骨小梁。目前仅模拟单能直达射线，散射模拟和设备标定尚未完成。')}</p>
       <p>{t('Next I would use identical CT data and source–detector geometry in an independent digitally reconstructed radiograph renderer and map the pixel-by-pixel differences. I would also measure full-frame median and P95 times during continuous rotation, with and without photon noise.', '下一步，我想使用相同 CT 和源–探测器几何，与独立的数字重建射线影像（DRR）实现绘制逐像素误差图。我也想分别测量连续旋转时理想与含噪模式的整帧中位耗时和 P95 耗时。')}</p>
     </section>
 
     <section aria-labelledby="xray-sources">
-      <h2 id="xray-sources">{t('Data and references', '数据与参考资料')}</h2>
+      <h2 id="xray-sources" data-thread-chapter>{t('References', '参考资料')}</h2>
       <p>{t('Human geometry from BodyParts3D, © The Database Center for Life Science. I selected and simplified the meshes, voxelised them and assigned materials. The browser projection uses 8-bit quantisation. The raw Unity output uses 32-bit floating point.', '人体几何来自 BodyParts3D，© The Database Center for Life Science。我对网格进行了筛选、简化、体素化和材料赋值。网页投影采用 8 位量化，Unity 原始输出为 32 位浮点。')} <a href={links.bodyParts}>BodyParts3D</a> · <a href={links.license}>CC BY 4.0</a></p>
       <ul className="xray-references">
         <li>{t('Anatomy libraries considered', '调研过的解剖图库')} · <a href={links.zAnatomy}>Z-Anatomy</a> · <a href={links.humanAtlas}>Human Reference Atlas</a></li>

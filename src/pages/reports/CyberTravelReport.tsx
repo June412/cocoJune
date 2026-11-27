@@ -4,11 +4,11 @@ import ReportFigure from './ReportFigure'
 export default function CyberTravelReport() {
   const { t } = useSite()
   return <>
-    <h2>{t("I. INTRODUCTION", "一、项目介绍")}</h2>
+    <h2 id="introduction" data-thread-chapter>{t("I. INTRODUCTION", "一、项目介绍")}</h2>
     <p>{t("The project aims to build a small interactive world with a futuristic atmosphere using a narrative structure. The user enters the application through a simple “Play” interface, which introduces the backstory and leads into the Room scene. The room functions as the entry point to the cyber world and therefore remains intentionally minimal, using holographic elements and texture-mapped props to create a technological mood.", "我用叙事串联起一个小型未来世界。玩家在开始界面读到背景，进入现实房间，再从房间通往赛博城市。房间布置刻意简洁，用全息元素和贴图道具建立科技氛围。")}</p>
     <p>{t("Following the on-screen instruction, the user presses the space bar to activate the transition sequence. Two texture-based transitions are used: an screen displayed on the computer, followed by a rotating vortex texture that transports the user into the cyber world.", "按照屏幕提示按空格，电脑先切换画面，随后旋转的漩涡贴图把玩家带进赛博世界。")}</p>
     <p>{t("The cyber city serves as the main scene, continuing the cat model I designed in the 2D assignment, and the cat is fixed at the lower part of the viewport. By shifting the world itself, I let the city streets continuously appear and disappear as the character moves forward. This design is inspired by the looped structure from Lab8’s train system. To present richer world layers, I built multiple subsystems in the cyber city, including a weather system, traffic system, building system, and holographic advertisement system. I also focused on the overall color tone, so different skyboxes and palettes are used for daytime, dusk, and night.", "城市是主要场景。沿用二维作业里的小猫，将它固定在视口下部，通过移动世界，让街道随着前进不断出现和消失。这种循环结构来自实验八的列车系统。天气、交通、建筑、全息广告分层组织；白天、黄昏和夜晚分别使用不同的天空盒和配色。")}</p>
-    <h2 id="controls">{t("II. README", "二、操作说明")}</h2>
+    <h2 id="controls" data-thread-chapter>{t("II. README", "二、操作说明")}</h2>
     <h3>{t("A. Intro", "A. 开始界面")}</h3>
     <p>{t("This section introduces the world setting. The user selects a button to enter the world, and the program first enters the Room scene, as shown in Fig. 1.", "开场介绍世界设定，点击按钮后先进入房间，整体路线见图 1。")}</p>
     <ReportFigure folder="travel" files={["Im2.jpg"]} caption={t("Fig. 1. Overall interaction flow between the Intro, Room and Cyber City scenes.", "图 1 · 从开场、现实房间到赛博城市的交互流程。")} />
@@ -42,7 +42,7 @@ export default function CyberTravelReport() {
         <tr><td>{t("ESC", "Esc")}</td><td>{t("Exit the program", "退出程序")}</td></tr>
       </tbody>
     </table></div>
-    <h2 id="architecture">{t("III. DESIGN", "三、设计")}</h2>
+    <h2 id="architecture" data-thread-chapter>{t("III. DESIGN", "三、设计")}</h2>
     <div className="study-spread">
       <div>
         <h3>{t("A. Overall Architecture", "A. 整体架构")}</h3>
@@ -233,7 +233,7 @@ export default function CyberTravelReport() {
       <li>{t("C / c: toggle HUD visibility (showCyberHUD = !showCyberHUD)", "C / c：显示或隐藏 HUD（showCyberHUD）。")}</li>
       <li>{t("ESC: call exit(0) to immediately exit the program", "Esc：调用 exit(0) 退出程序。")}</li>
     </ul>
-    <h2 id="conclusion">{t("IV. CONCLUSION", "四、总结")}</h2>
+    <h2 id="conclusion" data-thread-chapter>{t("IV. CONCLUSION", "四、总结")}</h2>
     <p>{t("This project builds a compact interactive 3D world by combining narrative transitions with real-time rendering. The Room scene, vortex transition, and Cyber City are integrated through an FSM structure, enabling smooth scene switching and consistent user interaction. The looped-city system, time-of-day lighting, weather and particle effects, and layered traffic contribute to a dynamic cyberpunk environment with controlled computational cost. The cube-cat character and its mount modes provide varied viewpoints and enhance user engagement.", "项目将叙事转场与实时渲染组合成一个可探索的小型三维世界。有限状态机连接房间、漩涡和城市，维持一致的操作方式。循环街区、分时光照、天气粒子和分层交通丰富了城市，也控制了绘制开销。方块猫及两种坐骑让玩家能从地面到空中换角度观察。")}</p>
   </>
 }

@@ -208,7 +208,8 @@ function updateManualStill() {
   referenceStill.querySelector("button")?.setAttribute("aria-label", (inChinese() ? "放大图片：" : "Enlarge image: ") + image.alt);
 }
 window.addEventListener("message", event => {
-  if (!drawingGuide || event.source !== drawingGuide.contentWindow || event.origin !== location.origin) return;
+  if (!drawingGuide || event.source !== drawingGuide.contentWindow) return;
+  if (event.origin !== location.origin && !(location.protocol === "file:" && event.origin === "null")) return;
   const message = event.data;
   if (message?.type === "tinyroomies-guide-size" && Number.isFinite(message.height) && message.height > 0) {
     drawingGuide.height = String(Math.ceil(message.height) + 2);
@@ -256,11 +257,18 @@ new IntersectionObserver(([entry], observer) => {
   }
 }, {threshold:.2}).observe(workshopMap);
 
-function notifyManualLanguage() {
-  drawingGuide.contentWindow?.postMessage({
-    type: "tinyroomies-language", language: inChinese() ? "zh" : "en"
-  }, location.origin === "null" ? "*" : location.origin);
+function tellManual(message) {
+  drawingGuide.contentWindow?.postMessage(message, location.protocol === "file:" ? "*" : location.origin);
 }
+function notifyManualLanguage() {
+  tellManual({ type: "tinyroomies-language", language: inChinese() ? "zh" : "en" });
+}
+let lastGuideWidth;
+new ResizeObserver(([entry]) => {
+  if (entry.contentRect.width === lastGuideWidth) return;
+  lastGuideWidth = entry.contentRect.width;
+  tellManual({ type: "tinyroomies-guide-measure" });
+}).observe(drawingGuide);
 drawingGuide.addEventListener("load", notifyManualLanguage);
 document.addEventListener("tinyroomies-language-change", event => {
   translatePage(event.detail);

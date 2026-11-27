@@ -17,11 +17,11 @@
   };
   const clamp = (value, lo, hi) => Math.min(hi, Math.max(lo, value));
 
-  function mount(host, article, chapters, language, route = '') {
-    const entries = chapters.map(([id, en, zh, shortEn, shortZh]) => ({
-      id, node: document.getElementById(id), label: language === 'zh' ? zh : en,
-      short: language === 'zh' ? shortZh || zh : shortEn || en
-    })).filter(entry => entry.node && article.contains(entry.node));
+  function mount(host, article, language, route = '') {
+    const entries = [...article.querySelectorAll('[data-thread-chapter][id]')].map(node => {
+      const heading = node.matches('h1,h2') ? node : node.querySelector('h2');
+      return { id: node.id, node, label: heading?.textContent.trim() };
+    }).filter(entry => entry.label);
     if (!entries.length) return () => {};
     entries.forEach(entry => entry.node.classList.add('thread-chapter'));
     const variant = projectYarns[host.dataset.project] || '01';
@@ -52,12 +52,7 @@
       link.href = route + '#' + entry.id;
       link.setAttribute('aria-label', entry.label);
       link.title = entry.label;
-      for (const [className, label] of [['thread-full', entry.label], ['thread-short', entry.short]]) {
-        const span = document.createElement('span');
-        span.className = className;
-        span.textContent = label;
-        link.append(span);
-      }
+      link.textContent = entry.label;
       item.append(link);
       list.append(item);
       return link;
@@ -72,6 +67,15 @@
     }
     function aimAt(entry) {
       return Math.min(end, Math.ceil(stops[entries.indexOf(entry)]));
+    }
+    function measureLabels() {
+      const rail = strand.getBoundingClientRect();
+      const menu = list.getBoundingClientRect();
+      positions = links.map(link => {
+        const rect = link.getBoundingClientRect();
+        const centre = clamp(rect.top + rect.height / 2, menu.top, menu.bottom);
+        return clamp((centre - rail.top) / rail.height, 0, 1);
+      });
     }
     // A model or gallery above the destination may acquire its dimensions during the jump.
     // Correct that displacement only while the reader is still following the chosen link.
@@ -102,14 +106,11 @@
       nav.style.height = height + 'px';
       list.style.top = lead + 'px';
       list.style.bottom = tail + 'px';
-      const railBox = strand.getBoundingClientRect();
-      positions = links.map(link => {
-        const rect = link.getBoundingClientRect();
-        return clamp((rect.top + rect.height / 2 - railBox.top) / railBox.height, 0, 1);
-      });
+      nav.classList.toggle('thread-overflow', rowHeight > height - lead - tail + 1);
+      measureLabels();
       const readingLine = Math.min(128, availableHeight * .18);
       stops = entries.map(({ node }) => Math.max(0, node.getBoundingClientRect().top + scrollY - readingLine));
-      stops[0] = 0;
+      if (entries[0].node.hasAttribute('data-thread-start')) stops[0] = 0;
       end = Math.max(0, document.documentElement.scrollHeight - availableHeight);
       // A short final chapter may already be on screen at maximum scroll.
       // Space the last chapter stops over the reachable part of the page.
@@ -134,6 +135,13 @@
         if (active >= 0) links[active].removeAttribute('aria-current');
         links[i].setAttribute('aria-current', 'location');
         active = i;
+        if (list.scrollHeight > list.clientHeight) {
+          const rect = links[i].getBoundingClientRect();
+          const menu = list.getBoundingClientRect();
+          if (rect.top < menu.top) list.scrollTop += rect.top - menu.top;
+          else if (rect.bottom > menu.bottom) list.scrollTop += rect.bottom - menu.bottom;
+          measureLabels();
+        }
       }
       const nextY = Math.min(end, stops[i + 1] ?? end);
       let fraction = clamp((y - stops[i]) / Math.max(1, nextY - stops[i]), 0, 1);
@@ -150,6 +158,7 @@
     }
     function queue() { if (!frame) frame = requestAnimationFrame(paint); }
     function resize() { measureNeeded = true; queue(); }
+    list.addEventListener('scroll', () => { measureLabels(); queue(); }, { passive: true });
     function follow(link, smooth) {
       selectedChapter = links.indexOf(link);
       const entry = entries[selectedChapter];

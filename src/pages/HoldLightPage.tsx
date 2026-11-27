@@ -9,7 +9,7 @@ export default function HoldLightPage() {
   return (
     <article className="graphics-report holdlight-page">
       <a className="eyebrow" href="#/projects/category/research">← {t('Interaction', '交互设计')}</a>
-      <header id="holdlight-demo" className="project-opening">
+      <header id="holdlight-demo" data-thread-chapter data-thread-start className="project-opening">
         <div>
           <div className="holdlight-identity">
             <h1 lang="en">HoldLight</h1>
@@ -19,6 +19,7 @@ export default function HoldLightPage() {
             'HoldLight began as a group project for CPT208, the human–computer interaction course I took in the second semester of my third year. It was where I first began to think seriously about accessibility.',
             'HoldLight 最初是我大三下学期人机交互课程 CPT208 的小组作业。我也是从这门课开始认真关注无障碍设计的。',
           )}</p>
+          <h2 className="project-overview-title">{t('Project resources', '项目资料')}</h2>
           <nav className="holdlight-resources" aria-label={t('Project resources', '项目资料')}>
             <a className="holdlight-resource" href="https://github.com/Yuuu-05/HoldLight" target="_blank" rel="noreferrer">
               <img src={assetUrl('illustrations/home-github-line-v1.png')} alt="" width="48" height="48" />
@@ -52,7 +53,7 @@ export default function HoldLightPage() {
       <div className="report-transcript">
         <section aria-labelledby="holdlight-overview" className="study-spread">
           <div>
-            <h2 id="holdlight-overview">{t('About the project', '项目介绍')}</h2>
+            <h2 id="holdlight-overview" data-thread-chapter>{t('Route guidance', '路线引导')}</h2>
             <p>{t(
               'With guidance from our instructor, we focused on blind and low-vision (BLV) climbers. If you can’t see the whole wall, how do you get to know a route before you climb? Once you’re on the wall, how do you know which hold to reach for next?',
               '在老师的指导下，我们把注意力放在盲人和低视力（BLV）攀岩者身上。如果看不清整面岩壁，怎样在上墙前了解路线？上墙后，又怎样知道下一步该找哪个岩点？',
@@ -66,7 +67,7 @@ export default function HoldLightPage() {
           </ol>
         </section>
         <section aria-labelledby="holdlight-role" className="study-spread">
-          <h2 id="holdlight-role">{t('My role', '我的职责')}</h2>
+          <h2 id="holdlight-role" data-thread-chapter>{t('My role', '我的职责')}</h2>
           <div>
             <p>{t(
               'I designed the UI from the first prototype through the final interface and built the platform’s front end. As I connected scanning, preview and guidance, I considered what a low-vision climber could see on screen and what someone relying on voice cues needed to hear at each step.',

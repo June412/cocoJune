@@ -30,7 +30,7 @@
   document.body.prepend(header)
   document.body.append(footer)
   const shellSheet = tinyRoot ? tinyRoot + '../alice/personal-shell.css' : 'personal-shell.css'
-  const shellStyles = `<link rel="stylesheet" href="${shellSheet}"><link rel="stylesheet" href="${projectRoot}../../styles/site-chrome.css">`
+  const shellStyles = `<link rel="stylesheet" href="${shellSheet}"><link rel="stylesheet" href="${projectRoot}../../styles/site-chrome.css?v=c4f4ecc4d8">`
   bottom.innerHTML = shellStyles + `<footer class="site-footer"><span>© Junyan He</span>
     <span class="font-credit"><a href="https://www.dafont.com/cardenio-modern.font" target="_blank" rel="noreferrer">Cardenio Modern by Nils Cordes</a>
     · <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noreferrer">CC BY-SA 4.0</a></span></footer>`
@@ -73,21 +73,7 @@
       document.documentElement.lang = zh ? 'zh-CN' : 'en'
       document.dispatchEvent(new CustomEvent('tinyroomies-language-change', { detail: next }))
       unmountThread?.()
-      unmountThread = window.ProjectThread.mount(document.querySelector('.thread-host'), document.getElementById('main'), [
-        ['overview', 'Overview', '项目概览', 'Intro', '概览'],
-        ['game-design', 'Game design', '游戏设计', 'Design', '设计'],
-        ['research', 'Research', '设计调研', 'Study', '调研'],
-        ['workshop', 'Workshop', '工坊布局', 'Bench', '工坊'],
-        ['assembly', 'Crafting', '制作流程', 'Craft', '制作'],
-        ['drawing-design', 'Drawings', '图纸设计', 'Plans', '图纸'],
-        ['household', 'Furniture', '家具设计', 'Pieces', '家具'],
-        ['space', 'MR & space', '混合现实空间', 'Space', '空间'],
-        ['residents', 'Characters', '角色设计', 'Cast', '角色'],
-        ['shared-life', 'Shared life', '日常互动', 'Life', '日常'],
-        ['iteration', 'Iteration', '原型迭代', 'Tests', '迭代'],
-        ['accessibility', 'Accessibility', '无障碍设计', 'Access', '辅助'],
-        ['results', 'Results', '技术成果', 'Build', '成果']
-      ], next)
+      unmountThread = window.ProjectThread.mount(document.querySelector('.thread-host'), document.getElementById('main'), next)
     }
     remember(next)
   }

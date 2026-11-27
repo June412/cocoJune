@@ -32,8 +32,8 @@ function XrayModels() {
     setActive(next)
     document.getElementById('xray-tab-' + models[next].id)?.focus()
   }
-  return <section id="xray-models" className="xray-models" aria-labelledby="xray-models-heading">
-    <h2 id="xray-models-heading">{t('Rotate the models', '旋转模型')}</h2>
+  return <section id="xray-models" data-thread-chapter className="xray-models" aria-labelledby="xray-models-heading">
+    <h2 id="xray-models-heading">{t('Anatomy models', '解剖模型')}</h2>
     <p>{t(
       'Start with the ribs in a front view, then turn the body sideways to see them overlap. Switch to the surface model to find the same bones beneath the skin.',
       '先从正面看肋骨，再把人体转到侧面，观察肋骨和脊柱怎样叠在一起。切换到「体表与骨架」，可以找到这些骨头在皮肤下面的位置。',
@@ -54,16 +54,17 @@ export default function XrayPage() {
     <article className="graphics-report xray-page">
       <a className="eyebrow" href="#/projects/category/tools">← {t('Graphics & tools', '图形与工具')}</a>
       <header className="xray-heading">
-        <h1 id="xray-overview" lang="en">Volumetric X-ray</h1>
+        <h1 lang="en">Volumetric X-ray</h1>
         <img src={assetUrl(projectVisuals['x-ray'].illustration!)} width="84" height="84" alt="" />
       </header>
       <div className="report-transcript coursework-prose xray-prose">
+        <h2 id="xray-overview" className="project-overview-title" data-thread-chapter data-thread-start>{t('Overview', '项目概览')}</h2>
         <p className="xray-intro">{t(
           'Turn a body sideways and ribs that were separate in a front view begin to overlap. This Unity project recreates that change from a CT scan or a 3D anatomy model. For each pixel, it follows a ray through the body and calculates the fraction of the beam that reaches the detector.',
           '把人体从正面转到侧面，原本分开的肋骨就会在投影里叠到一起。这个 Unity 项目用 CT 数据或三维解剖模型重现这个过程：对图像上的每个像素，追踪一条穿过身体的 X 射线，算出有多少射线抵达探测器。',
         )}</p>
         <section className="xray-contributions" aria-labelledby="xray-role">
-          <h2 id="xray-role">{t('My contribution', '我做了什么')}</h2>
+          <h2 id="xray-role" data-thread-chapter>{t('My role', '我的职责')}</h2>
           <p>{t(
             'I wrote the HLSL compute shader that integrates attenuation along each ray, and built the Unity tools for importing DICOM slices, positioning the detector and exporting the resulting images and raw values. I checked the GPU output against a CPU reference and test objects with known thicknesses.',
             '我写了沿射线累积材料衰减的 HLSL 计算着色器，也在 Unity 里做了从导入 DICOM 切片、调整投影几何，到导出图像和原始数值的一套工具。我用 CPU 参考计算和厚度已知的测试体模，逐项核对 GPU 的输出。',

@@ -47,7 +47,7 @@ npm run preview   # 预览构建结果，需先运行 build
 
 使用 hash 路由，静态托管不需要单独配置页面重写。构建后的资源使用相对路径，可部署到根目录或子目录。
 
-「游戏与 XR」里的 Alice 直接打开修补游戏。「图形与工具」里的 Textile Studio 直接打开布艺工具。两页在简介中通过布面针法手册互相引用。Alice 按游戏设计、修补机制、技术实现分页，Textile Studio 按工具设计、制作教程、测试与作品分页。分页使用同一项目地址的 `view` 参数，原有章节书签会打开对应分页。两篇双语案例、各自的英文技术详解及素材位于 `public/projects/alice/`。内容沿用作者更新后的原站，包括 77 秒分章短片、中英文字幕、制作署名、交互演示与可下载的 Mac 试玩包。个人站适配使用同目录的 `personal-shell`、`personal-theme` 和 `personal-media` 文件；全站导航样式共用 `public/styles/site-chrome.css`。Alice、Textile Studio 和 TinyRoomies 的详情页先显示返回分类、项目标题和简介，再给出文档或章节入口。正文共用最大 720px 的阅读栏，复杂图表、模型和工作台可展开至 920px。游戏使用蓝色缝线，布艺工具使用红色缝线。模型和材质球以透明背景展示。部分 Unity 渲染自带纯色背景，网页使用与原机位一致的轮廓遮罩；界面和场景截图按原图展示。试玩 ZIP 由 Git LFS 管理。
+「游戏与 XR」里的 Alice 直接打开修补游戏。「图形与工具」里的 Textile Studio 直接打开布艺工具。两页在简介中通过布面针法手册互相引用。两个项目各用一个连续阅读页，左侧索引取自当前语言的正文章节标题。旧分页链接和章节书签指向对应内容。双语案例、Textile Studio 的技术附录和项目素材位于 `public/projects/alice/`。内容沿用作者更新后的原站，包括 77 秒分章短片、中英文字幕、制作署名、交互演示与可下载的 Mac 试玩包。个人站适配使用同目录的 `personal-shell`、`personal-theme` 和 `personal-media` 文件；全站导航样式共用 `public/styles/site-chrome.css`。Alice、Textile Studio 和 TinyRoomies 的详情页先显示返回分类、项目标题和简介，左侧棉线索引可跳转到各章。项目页共用 TinyRoomies 的自适应正文宽度。游戏使用蓝色缝线，布艺工具使用红色缝线。模型和材质球以透明背景展示。部分 Unity 渲染自带纯色背景，网页使用与原机位一致的轮廓遮罩；界面和场景截图按原图展示。试玩 ZIP 由 Git LFS 管理。
 
 ## 布局检查
 

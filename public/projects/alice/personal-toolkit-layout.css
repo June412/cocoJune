@@ -238,3 +238,9 @@
     [data-page="toolkit"] #main .ts-path-flow > li { grid-template-columns: minmax(0,1fr); }
   }
 }
+
+@container project-content (max-width: 310px) {
+  .personal-alice #main .ts-readings { table-layout: fixed; width: 100%; }
+  .personal-alice #main .ts-readings :is(th,td) { padding-inline: .23em; overflow-wrap: anywhere; }
+  .personal-alice #main .ts-readings th:first-child { width: 40%; }
+}

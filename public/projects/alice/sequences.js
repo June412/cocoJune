@@ -98,6 +98,9 @@
                 return panel;
             }
             const frame = node('div','sequence-picture browse-frame');
+            if ((section.id === 'alice' || section.id === 'panda') && image.dataset.storyImage) {
+                image.querySelector('img').src = image.dataset.storyImage;
+            }
             image.before(frame);
             frame.append(image);
             return frame;

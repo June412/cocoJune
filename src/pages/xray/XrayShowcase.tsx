@@ -94,7 +94,7 @@ export function XrayShowcase() {
   const { t } = useSite()
   const [subject, setSubject] = useState(0)
   const [view, setView] = useState(0)
-  return <section className="xray-showcase" id="xray-showcase" aria-labelledby="xray-showcase-title">
+  return <section className="xray-showcase" data-thread-chapter id="xray-showcase" aria-labelledby="xray-showcase-title">
     <h2 id="xray-showcase-title">{t('Projection studies', '投影对照')}</h2>
     <Choices label={t('Choose a projection study', '选择对照对象')} options={subjects} value={subject} onChange={setSubject} />
     <div className="xray-study-panel" key={subject}>
@@ -124,8 +124,8 @@ export function XrayShowcase() {
 
 export function XrayFilm() {
   const { t } = useSite()
-  return <section id="xray-film" className="xray-film" aria-labelledby="xray-film-title">
-    <h2 id="xray-film-title">{t('Unity recording', 'Unity 运行演示')}</h2>
+  return <section data-thread-chapter id="xray-film" className="xray-film" aria-labelledby="xray-film-title">
+    <h2 id="xray-film-title">{t('Unity demo', 'Unity 演示')}</h2>
     <p>{t('This two-minute silent recording moves from the surface model to the X-ray projection, then follows the chest and legs before adjusting the display window at a fixed pose.', '这段两分钟的无声录屏从实体切换到 X 光投影，依次环绕胸廓、拉近下肢，最后在固定姿态下调整显示窗。')}</p>
     <StitchedVideo
       src={media('demo.mp4')} poster={media('demo.webp')} aspect="16 / 9" border="blue" muted

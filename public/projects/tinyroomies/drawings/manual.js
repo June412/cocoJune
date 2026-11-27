@@ -218,7 +218,10 @@
     return pending;
   }
   function reportDrawing() {
-    if (parent !== window) parent.postMessage({ type: 'tinyroomies-guide-piece', piece: lesson.id }, location.origin === 'null' ? '*' : location.origin);
+    notifyReader({ type: 'tinyroomies-guide-piece', piece: lesson.id });
+  }
+  function notifyReader(message) {
+    if (parent !== window) parent.postMessage(message, location.protocol === 'file:' ? '*' : location.origin);
   }
   async function chooseDrawing(id) {
     const item = lessons.find(drawing => drawing.id === id);
@@ -276,15 +279,19 @@
     update();
   };
   document.addEventListener('visibilitychange', () => { if (document.hidden) { stop(); update(); } });
+  const book = document.querySelector('main');
+  const reportSize = () => notifyReader({ type: 'tinyroomies-guide-size', height: book.offsetHeight });
   window.addEventListener('message', event => {
-    if (event.source !== parent || event.origin !== location.origin || event.data?.type !== 'tinyroomies-language') return;
+    if (event.source !== parent) return;
+    if (event.origin !== location.origin && !(location.protocol === 'file:' && event.origin === 'null')) return;
+    if (event.data?.type === 'tinyroomies-guide-measure') { reportSize(); return; }
+    if (event.data?.type !== 'tinyroomies-language') return;
     language = Number(event.data.language === 'zh');
     localize();
+    reportSize();
+    reportDrawing();
   });
   localize();
   reportDrawing();
-  const book = document.querySelector('main');
-  new ResizeObserver(() => {
-    if (parent !== window) parent.postMessage({ type: 'tinyroomies-guide-size', height: book.offsetHeight }, location.origin === 'null' ? '*' : location.origin);
-  }).observe(book);
+  new ResizeObserver(reportSize).observe(book);
 })();

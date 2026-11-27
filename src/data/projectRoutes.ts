@@ -20,7 +20,7 @@ export function portfolioDocumentUrl(route: string, language: Language): string 
   else if (route === '/projects/textile-toolkit') documentName = 'toolkit'
   else if (route === '/projects/alice/technical') {
     documentName = 'game'
-    fragment = '#technical-report'
+    fragment = '#doll'
   }
   else if (route.startsWith('/projects/alice/')) {
     const topic = route.slice('/projects/alice/'.length)

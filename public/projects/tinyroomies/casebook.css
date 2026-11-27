@@ -90,9 +90,34 @@
 .roomies-case #main .trn-geometry { background:transparent; }
 .casebook .drawing-exhibit { width: min(100%, 1080px); margin-inline: auto; }
 .casebook .drawing-guide { display: block; width: 100%; border: 0; background: transparent; box-sizing: border-box; }
-.casebook .drawing-stills { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: clamp(6px,1.2vw,16px); margin: 12px auto 0; max-width: 660px; }
-.roomies-case #main .drawing-stills :is(img,button) { width: 100%; height: clamp(64px,9vw,110px); display: block; object-fit: contain; }
-.roomies-case #main .drawing-stills figcaption { text-align: center; }
+.casebook .drawing-stills { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); align-items: start; gap: clamp(12px,2vw,24px); margin: 22px 0 0; }
+.casebook .drawing-stills figure { min-width: 0; margin: 0; }
+.roomies-case #main .drawing-stills :is(img,button) { display: block; width: 100%; height: auto; max-height: none; padding: 0; }
+.roomies-case #main .drawing-stills figcaption { margin-top: 6px; text-align: start; }
+.casebook .encounter-loop { display: flex; flex-wrap: wrap; align-items: center; gap: .45em; padding: 0; margin: 0; list-style: none; counter-reset: encounter; }
+.casebook .encounter-loop li { display: inline-flex; align-items: center; gap: .3em; counter-increment: encounter; }
+.casebook .encounter-loop li::before { content: counter(encounter); display: grid; place-items: center; width: 1.5em; height: 1.5em; border: 1px solid #b58b34; border-radius: 50%; background: #ffce48; color: #503620; font-size: .85em; font-weight: bold; }
+.casebook .encounter-loop li:not(:last-child)::after { content: '→'; color: var(--link); margin-inline-start: .12em; }
+.casebook .encounter-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(min(100%,225px),1fr)); gap: clamp(16px,2.5vw,36px); }
+.casebook .encounter-grid article { min-width: 0; padding-block: 12px; border-block-start: 1px solid var(--line,#bcad94); }
+.casebook .encounter-grid :is(h3,p,figure) { margin: 0; }
+.casebook .encounter-grid .pp-byline { color: var(--link); font-size: .9em; }
+.casebook .encounter-grid figure { margin-block: 7px 12px; }
+.casebook .encounter-grid img { display: block; width: 100%; height: auto; }
+.casebook .encounter-cue { font-weight: bold; }
+.casebook :is(.encounter-route,.encounter-choices) { padding: 0; margin: .55em 0 0 .35em; list-style: none; }
+.casebook :is(.encounter-route,.encounter-choices) li { position: relative; margin: 0; padding: 0 0 .65em 1.1em; border-inline-start: 1px solid #3d929e; }
+.casebook :is(.encounter-route,.encounter-choices) li:last-child { border-color: transparent; padding-bottom: 0; }
+.casebook :is(.encounter-route,.encounter-choices) li::before { content: ''; position: absolute; left: -.24em; top: .5em; width: .42em; height: .42em; border-radius: 50%; background: var(--link); }
+.casebook .encounter-choices li::before { left: -1px; width: .72em; height: .48em; top: 0; border: solid #3d929e; border-width: 0 0 1px 1px; border-radius: 0 0 0 3px; background: transparent; }
+.casebook .encounter-grid li span { display: block; }
+.casebook .encounter-grid .encounter-memory { margin-top: .65em; font-style: italic; }
+@container project-content (max-width: 520px) {
+  .roomies-case #main .project-heading { gap: 6px; }
+  .roomies-case #main .project-heading img { width: clamp(34px,17cqi,62px); }
+  .casebook .drawing-stills { grid-template-columns: minmax(0,1fr); width: min(100%,350px); margin-inline: auto; }
+  .casebook .encounter-loop { align-items: start; }
+}
 .roomies-case #main #iteration .pp-history { list-style: none; padding: 0; margin: 0 auto 20px; width: min(100%,940px); display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: clamp(10px,2vw,26px); }
 .roomies-case #main #iteration .pp-history li { display: flex; flex-direction: column; gap: 5px; padding: 6px 0 0; border-top: 1px solid var(--link); }
 .roomies-case #main #iteration .pp-history :is(h3,p,figure) { margin: 0; }
