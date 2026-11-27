@@ -39,7 +39,7 @@ alice-weather-comparison { display:block; max-width:780px; margin-inline:auto; }
 .repair-sample { display:block; width:100%; max-width:22rem; height:34px; margin-top:.65rem; }
 .repair-actions { display:flex; flex-wrap:wrap; align-items:baseline; margin:0; padding:0; gap:.2rem .45rem; list-style:none; color:var(--sewing-ink); font-size:1rem; line-height:1.55; }
 .repair-actions li { display:flex; gap:.45rem; align-items:baseline; }
-.repair-actions li:not(:last-child)::after { content:'→'; color:var(--sewing-thread); }
+.repair-actions li:not(:last-child)::after { content:''; flex:none; align-self:center; width:1.6em; height:1em; background:var(--link); mask:var(--process-arrow) center / contain no-repeat; }
 @media (max-width:480px) {
     .climate-choices { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); }
     .climate-choices button { min-height:44px; padding:.3rem; }

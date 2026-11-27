@@ -2,8 +2,8 @@
    and responsive breakpoints are shared with the React pages. */
 :host {
   display: block;
-  --font-hand: 'Cardenio Modern', 'PingFang SC', 'Microsoft YaHei', sans-serif;
-  --font-body: 'Helvetica Neue', Helvetica, Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  --font-hand: var(--portfolio-heading);
+  --font-body: var(--portfolio-prose);
   --nav-size: 24px;
   --small-size: 18px;
   font: 700 30px/1.5 var(--font-hand);

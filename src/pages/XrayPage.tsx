@@ -1,5 +1,5 @@
 import { useState, type KeyboardEvent } from 'react'
-import { assetUrl, projectVisuals } from '../data/projectVisuals'
+import ProjectOpening from '../components/ProjectOpening'
 import { useSite } from '../lib/SiteContext'
 import { XrayImageZoomProvider } from './xray/XrayImageZoom'
 import { XrayAnatomyViewer, XrayVolumeViewer } from './xray/XrayViewers'
@@ -53,16 +53,13 @@ export default function XrayPage() {
   return <XrayImageZoomProvider>
     <article className="graphics-report xray-page">
       <a className="eyebrow" href="#/projects/category/tools">← {t('Graphics & tools', '图形与工具')}</a>
-      <header className="xray-heading">
-        <h1 lang="en">Volumetric X-ray</h1>
-        <img src={assetUrl(projectVisuals['x-ray'].illustration!)} width="84" height="84" alt="" />
-      </header>
-      <div className="report-transcript coursework-prose xray-prose">
-        <h2 id="xray-overview" className="project-overview-title" data-thread-chapter data-thread-start>{t('Overview', '项目概览')}</h2>
+      <ProjectOpening id="xray-overview" project="x-ray" title="Volumetric X-ray" film={<XrayFilm />}>
         <p className="xray-intro">{t(
           'Turn a body sideways and ribs that were separate in a front view begin to overlap. This Unity project recreates that change from a CT scan or a 3D anatomy model. For each pixel, it follows a ray through the body and calculates the fraction of the beam that reaches the detector.',
           '把人体从正面转到侧面，原本分开的肋骨就会在投影里叠到一起。这个 Unity 项目用 CT 数据或三维解剖模型重现这个过程：对图像上的每个像素，追踪一条穿过身体的 X 射线，算出有多少射线抵达探测器。',
         )}</p>
+      </ProjectOpening>
+      <div className="report-transcript coursework-prose xray-prose">
         <section className="xray-contributions" aria-labelledby="xray-role">
           <h2 id="xray-role" data-thread-chapter>{t('My role', '我的职责')}</h2>
           <p>{t(
@@ -75,7 +72,6 @@ export default function XrayPage() {
           )}</p>
         </section>
         <XrayModels />
-        <XrayFilm />
         <XrayProcess />
         <XrayShowcase />
         <XrayFindings />

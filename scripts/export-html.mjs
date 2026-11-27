@@ -40,6 +40,7 @@ const css = String(styles[0].source)
 const template = await readFile(resolve(root, 'index.html'), 'utf8')
 const html = template
   .replaceAll('="/thread-rail/', '="./public/thread-rail/')
+  .replaceAll('="/styles/', '="./public/styles/')
   .replace('href="/favicon.svg"', 'href="./public/favicon.svg"')
   .replace('</head>', () => `<style>${css}</style>\n  </head>`)
   .replace(/<script type="module" src="\/src\/main\.tsx"><\/script>/, () => `<script>${script}</script>`)

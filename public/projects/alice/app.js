@@ -46,6 +46,8 @@ function mountView() {
     document.getElementById('app').innerHTML = shell();
     const main = document.getElementById('main');
     main.append(...sectionOrder.map(id => sections.get(id)));
+    const film = main.querySelector('.opening-media video');
+    window.AliceAdmissions.addOpeningCaptions(film, lang, page);
     if (page === 'toolkit') {
         const report = document.createElement('section');
         report.id = 'technical-report';
@@ -103,16 +105,22 @@ const row=(zh,en,text,visual)=>`<article class="process-row"><div class="prose">
 const craftRow=(zh,en,text,controls,result)=>`<article class="process-row craft-step"><div class="prose"><h3>${t(zh,en)}</h3>${text}</div><div class="craft-evidence">${controls}${result}</div></article>`;
 const table=(heads,rows)=>`<div class="table-scroll"><table class="content-table"><thead><tr>${heads.map(h=>`<th scope="col">${h}</th>`).join('')}</tr></thead><tbody>${rows.map(r=>`<tr>${r.map((v,i)=>i?`<td>${v}</td>`:`<th scope="row">${v}</th>`).join('')}</tr>`).join('')}</tbody></table></div>`;
 
+function openingMedia(kind, name, artwork) {
+    const clip = 'assets/admissions/' + kind + '-overview';
+    const label = t(name + ' 项目短片', name + ' project film');
+    return `<div class="project-title-row"><h1 lang="en">${name}</h1><img src="../../illustrations/${artwork}.png" width="152" height="152" alt=""></div>
+        <figure class="opening-media"><video width="1280" height="720" controls playsinline preload="none" poster="${clip}.webp" aria-label="${label}"><source src="${clip}.mp4" type="video/mp4"><a href="${clip}.mp4">${label}</a></video></figure>`;
+}
+
 function toolkit(){return `
-<header id="overview" data-thread-chapter data-thread-start class="overview-tool"><div class="hero-intro"><h1>Textile Studio</h1><h2 class="project-overview-title">${t('项目概览','Overview')}</h2>
+<header id="overview" data-thread-chapter data-thread-start class="project-opening">${openingMedia('textile','Textile Studio','textile-toolkit-line-v3')}<div class="hero-intro opening-copy"><h2 class="project-overview-title">${t('项目概览','Overview')}</h2>
 <p class="lead">${t('我想让道具制作者能直接在 Unity 模型上缝纫。这个工作台把贴布、绣线和包边留在各自的图层，成品可以导出给游戏使用。','I wanted prop artists to be able to sew directly on a Unity model. This workbench keeps felt, embroidery and binding on editable layers and exports the finished piece.')}</p>
 <p class="project-connection">${t(
     `我用这个工作台制作了游戏《<a href="${href('game')}">Alice · Mending Workshop</a>》里的布面针法手册。`,
     `I used this workbench to make the cloth-bound stitch guide that players open in <a href="${href('game')}">Alice · Mending Workshop</a>.`
 )}</p>
 </div>
-<figure class="tool-opening-piece ts-gesture-film"><video controls playsinline preload="none" width="950" height="680" poster="assets/story-tool/botanical-leaf-gesture.webp" aria-describedby="leaf-gesture-caption"><source src="assets/story-tool/botanical-leaf-gesture.mp4" type="video/mp4"><a href="assets/story-tool/botanical-leaf-gesture.mp4">${t('播放绣叶过程','Play the embroidery clip')}</a></video>
-<figcaption id="leaf-gesture-caption">${t('描出叶形，松手生成一层缎面绣。工作台实录，3 倍速。','Trace a leaf and release to create a satin-stitch layer. Workbench recording at 3× speed.')} <a href="#editing-sewn-piece">${t('看移动毛毡后的效果','See what moves with the felt')} ↗</a></figcaption></figure>
+
 </header>
 
 ${section('workflow','工作台','Workbench','','',`
@@ -155,6 +163,8 @@ ${craftRow('绣一根枝茎和五片叶','Stitch the stem and five leaves',
     para('用滚绳画枝茎，用缎面绣填五片叶。六层都附在毛毡上。','Draw the stem with cord piping and the five leaves with satin fill. Attach all six to the felt.'),
     capture('satin',640,383,'中叶：针距 0.6 mm · 线径 0.54 mm · 方向 58°。','Centre leaf · 0.6 mm spacing · 0.54 mm yarn · 58°.','uiLeafDetail'),
     photo('cushionEmbroidery',t('五片缎面绣叶分别成层，可以单独转动绣线方向。','Each satin leaf is a separate layer with its own thread direction.')))}
+<figure class="ts-gesture-film"><video controls playsinline preload="none" width="950" height="680" poster="assets/story-tool/botanical-leaf-gesture.webp" aria-describedby="leaf-gesture-caption"><source src="assets/story-tool/botanical-leaf-gesture.mp4" type="video/mp4"><a href="assets/story-tool/botanical-leaf-gesture.mp4">${t('播放绣叶过程','Play the embroidery clip')}</a></video>
+<figcaption id="leaf-gesture-caption">${t('描出叶形，松手生成一层缎面绣。工作台实录，3 倍速。','Trace a leaf and release to create a satin-stitch layer. Workbench recording at 3× speed.')} <a href="#editing-sewn-piece">${t('看移动毛毡后的效果','See what moves with the felt')} ↗</a></figcaption></figure>
 ${photo('cushionLeafDetail',t('叶片近景可见一排排斜向绣线，以及枝茎高出毛毡的轮廓。','At close range, the angled rows of satin thread and the raised cord stem stand out from the felt.'))}
 ${craftRow('缝好内外两道边','Finish the felt and cushion edges',
     para('在毛毡边缝锁边针，再沿抱枕外圈铺布条包边。','Blanket-stitch the felt, then bind the cushion edge with a fabric strip.'),
@@ -243,13 +253,13 @@ function game(){
 const story = window.AliceGameStory.forLanguage(lang,sketch);
 const points=(...items)=>`<ul class="mending-points">${items.map(([zh,en])=>`<li>${t(zh,en)}</li>`).join('')}</ul>`;
 return `
-<header id="overview" data-thread-chapter data-thread-start class="overview-game"><div class="hero-intro"><h1>Alice · Mending Workshop</h1><h2 class="project-overview-title">${t('项目概览','Overview')}</h2><p class="lead">${t('我把手缝玩偶 Alice 做成了一款修补游戏。第一份委托教玩家补棉、交替落针、收紧缝线。第二份换成脱线的熊猫耳朵，让玩家认出可以沿用的针法，再学会逐行挑回线圈。','I turned Alice, a doll I sewed by hand, into a repair game. The first commission teaches stuffing, alternating needle placement and thread tension. On Panda’s unravelled ear, players recognise the stitch they already know and learn to recover dropped loops row by row.')}</p>
+<header id="overview" data-thread-chapter data-thread-start class="project-opening">${openingMedia('alice','Alice · Mending Workshop','alice-line-v7')}<div class="hero-intro opening-copy"><h2 class="project-overview-title">${t('项目概览','Overview')}</h2><p class="lead">${t('我把手缝玩偶 Alice 做成了一款修补游戏。第一份委托教玩家补棉、交替落针、收紧缝线。第二份换成脱线的熊猫耳朵，让玩家认出可以沿用的针法，再学会逐行挑回线圈。','I turned Alice, a doll I sewed by hand, into a repair game. The first commission teaches stuffing, alternating needle placement and thread tension. On Panda’s unravelled ear, players recognise the stitch they already know and learn to recover dropped loops row by row.')}</p>
 <p class="project-connection">${t(
     `玩家翻开的布面针法手册，是我用自己开发的 Unity 布艺工具 <a href="${href('toolkit')}">Textile Studio</a> 制作的。`,
     `I made the cloth-bound guide that teaches players their first stitch with <a href="${href('toolkit')}">Textile Studio</a>, my textile tool for Unity.`
 )}</p>
-</div>
-<div class="mending-first-look"><div class="mending-first-frame">${img(M[D.clips.stitch.poster],t('玩家正沿 Alice 眼旁的裂口落针。','The player places a stitch beside Alice’s missing eye.'),'',false)}${window.AliceAdmissions.film(lang,'game')}</div>${window.AliceAdmissions.download(lang)}</div></header>
+<div class="opening-resources">${window.AliceAdmissions.download(lang)}${window.AliceAdmissions.film(lang,'game')}</div>
+</div></header>
 
 ${section('arrival','修补委托','Commissions','','',`<div class="sequence-spread"><div>${story.commissions()}${story.transfer()}</div>${story.arrival()}</div>`)}
 

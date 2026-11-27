@@ -1,6 +1,7 @@
 import { copy, type ProjectEntry } from '../data/content'
 import { projectVisuals } from '../data/projectVisuals'
 import { useSite } from '../lib/SiteContext'
+import { Arrow } from './Icons'
 import ProjectIllustration from './ProjectIllustration'
 import ProjectPreview from './ProjectPreview'
 import { isReportId } from '../data/graphicsReports'
@@ -20,8 +21,8 @@ export default function ProjectCard({ project }: { project: ProjectEntry }) {
         </a>
       ) : <ProjectPreview id={project.id} title={project.title} />}
       <div className="project-caption">
-        <h3 id={`project-${project.id}`} lang="en">{detailUrl && !isReport ? <a className="report-title-link" href={detailUrl}>{project.title}</a> : project.title}</h3>
-        {detailUrl && <a className="project-action" href={detailUrl}>{detailLabel} →</a>}
+        <h3 id={`project-${project.id}`} lang="en">{project.title}</h3>
+        {detailUrl && <a className="project-action" href={detailUrl}>{detailLabel} <Arrow className="project-action-arrow" /></a>}
         {!isReport && link && <a className="project-action" href={link.href} target="_blank" rel="noreferrer">{copy(link.label, language)}</a>}
         {!link && !detailUrl && <span className="project-action project-action-pending">{t('Link coming soon', '项目链接待补充')}</span>}
       </div>

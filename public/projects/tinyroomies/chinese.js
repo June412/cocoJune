@@ -1,4 +1,7 @@
 window.TinyRoomiesChinese = {
+  "Five tiny residents pack the furniture from their old woodshop into a second-hand suitcase. As their Room Host, you restore each piece and find a place for it in your home.": "五位微型居民把旧木工坊的家具装进了一只二手行李箱。作为新家的主人，你会修好每一件家具，再为它找到合适的位置。",
+  "TinyRoomies project film": "TinyRoomies 项目短片",
+  "Open the project film": "打开项目短片",
   "Keeper remembers how you served the tea.": "槛会记得这次奉茶的方式。",
   "Pour the excess into a serving cup.": "把多出的茶倒进小公杯。",
   "Keeper drinks down to the line.": "槛抿一口，让茶面回到刻度。",

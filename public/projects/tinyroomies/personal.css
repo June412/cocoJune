@@ -1,4 +1,4 @@
-@import '../../styles/site-palette.css' screen;
+@import '../../styles/site-palette.css?v=5bea0c0cf3';
 
 @font-face {
   font-family: 'Cardenio Modern';
@@ -16,8 +16,8 @@
   :root {
     color-scheme: light;
     --paper: #fff8e8;
-    --hand: 'Cardenio Modern', 'PingFang SC', sans-serif;
-    --prose: Alegreya, Georgia, serif;
+    --hand: var(--portfolio-heading);
+    --prose: var(--portfolio-prose);
     --body: 'Helvetica Neue', Helvetica, Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif;
     --linen: url('../../textures/wrinkled-linen-v1.png') center top / 840px repeat;
     --sans: var(--prose);
@@ -106,15 +106,6 @@
   }
   .roomies-case .hero-layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: 22px; }
   .roomies-case .hero-text { padding: 0; }
-  .roomies-case .project-heading {
-    display: flex; align-items: center; justify-content: space-between; gap: 20px;
-    margin: 12px 0;
-  }
-  .roomies-case .project-heading h1 { margin: 0; }
-  .roomies-case .project-heading img {
-    width: clamp(58px, 10vw, 84px); height: auto; flex: none;
-    filter: var(--line-art-filter);
-  }
   .roomies-case .kicker, .roomies-case .story-kicker, .roomies-case .project-facts dt {
     font: 600 14px/1.4 var(--prose); color: var(--muted); letter-spacing: normal; text-transform: none;
   }
@@ -368,7 +359,7 @@
   .roomies-case .tm-resident:is(:hover,:focus-visible) img { transform: rotate(-3deg) translateY(-2px); }
 }
 @media print {
-  .personal-roomies :is(.personal-site-chrome, .personal-project-bar, .document-print, .project-heading img) { display: none; }
+  .personal-roomies :is(.personal-site-chrome, .personal-project-bar, .document-print, .project-title-row img) { display: none; }
 }
 
 @media screen {

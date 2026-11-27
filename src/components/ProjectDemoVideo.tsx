@@ -11,9 +11,10 @@ type VideoProps = {
   border?: ProjectVisual['previewBorder']
   muted?: boolean
   cues?: { seconds: number; label: string; thumbnail?: string }[]
+  captionTrack?: { src: string; language: string; label: string }
 }
 
-export function StitchedVideo({ src, poster, aspect, title, border, muted = false, cues }: VideoProps) {
+export function StitchedVideo({ src, poster, aspect, title, border, muted = false, cues, captionTrack }: VideoProps) {
   const { t } = useSite()
   const yarnColor = border ?? 'blue'
   const videoRef = useRef<HTMLVideoElement>(null)
@@ -51,7 +52,7 @@ export function StitchedVideo({ src, poster, aspect, title, border, muted = fals
         onPlay={() => { setStarted(true); setPlaying(true) }}
         onPause={() => setPlaying(false)} onEnded={() => setPlaying(false)}
         onError={() => setFailed(true)}
-      />
+      >{captionTrack && <track key={captionTrack.language} kind="captions" src={captionTrack.src} srcLang={captionTrack.language} label={captionTrack.label} default />}</video>
       {border && <img className="project-preview-border" data-color={border} src={previewBorderUrl(border)} alt="" />}
       {failed ? <a className="project-demo-fallback" href={src}>{t('Open video', '打开视频')} ↗</a> :
         !playing && <button type="button" className="project-demo-play" onClick={() => void play()} aria-label={`${t('Play video', '播放视频')} — ${title}`}>
@@ -69,9 +70,12 @@ export function StitchedVideo({ src, poster, aspect, title, border, muted = fals
 }
 
 export default function ProjectDemoVideo({ id, title }: { id: ProjectId; title: string }) {
-  const { t } = useSite()
+  const { language, t } = useSite()
   const { demo, previewBorder } = projectVisuals[id]
   if (!demo) return <div className="report-video">{t('Demo video · coming soon', '演示视频 · 待补充')}</div>
+  const vtt = demo.captions && 'WEBVTT\n\n' + demo.captions.map(cue => cue.timing + '\n' + cue.text[language]).join('\n\n') + '\n'
   return <StitchedVideo key={demo.video} src={assetUrl(demo.video)} poster={assetUrl(demo.poster)}
-    aspect={demo.aspect} border={previewBorder} title={`${title} — ${t('project demo', '项目演示')}`} muted />
+    aspect={demo.aspect} border={previewBorder} title={`${title} — ${t('project demo', '项目演示')}`}
+    captionTrack={vtt ? { src: 'data:text/vtt;charset=utf-8,' + encodeURIComponent(vtt), language, label: t('English', '中文') } : undefined}
+    muted={id !== 'between-sips'} />
 }

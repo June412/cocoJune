@@ -1,47 +1,39 @@
 import { holdLightPaper } from '../data/content'
-import { assetUrl, projectVisuals } from '../data/projectVisuals'
-import ProjectDemoVideo from '../components/ProjectDemoVideo'
+import { assetUrl } from '../data/projectVisuals'
+import ProjectOpening from '../components/ProjectOpening'
 import ProjectProcess, { ProjectSketch } from '../components/ProjectProcess'
 import { useSite } from '../lib/SiteContext'
 
 export default function HoldLightPage() {
   const { t } = useSite()
-  const visual = projectVisuals.holdlight
   return (
     <article className="graphics-report holdlight-page">
       <a className="eyebrow" href="#/projects/category/research">← {t('Interaction', '交互设计')}</a>
-      <header id="holdlight-demo" data-thread-chapter data-thread-start className="project-opening">
-        <div>
-          <div className="holdlight-identity">
-            <h1 lang="en">HoldLight</h1>
-            {visual.illustration && <img className="holdlight-climber" src={assetUrl(visual.illustration)} alt="" width="82" height="82" />}
-          </div>
-          <p>{t(
-            'HoldLight began as a group project for CPT208, the human–computer interaction course I took in the second semester of my third year. It was where I first began to think seriously about accessibility.',
-            'HoldLight 最初是我大三下学期人机交互课程 CPT208 的小组作业。我也是从这门课开始认真关注无障碍设计的。',
-          )}</p>
-          <h2 className="project-overview-title">{t('Project resources', '项目资料')}</h2>
-          <nav className="holdlight-resources" aria-label={t('Project resources', '项目资料')}>
-            <a className="holdlight-resource" href="https://github.com/Yuuu-05/HoldLight" target="_blank" rel="noreferrer">
-              <img src={assetUrl('illustrations/home-github-line-v1.png')} alt="" width="48" height="48" />
-              <span>GitHub</span>
-            </a>
-            <a className="holdlight-resource" href="https://yuuu-05.github.io/CPT208-ClimbProject-C2-4/" target="_blank" rel="noreferrer">
-              <img src={assetUrl('illustrations/home-research-line-v1.png')} alt="" width="48" height="48" />
-              <span>{t('Portfolio', '作品集')}</span>
-            </a>
-            <a className="holdlight-resource" href={assetUrl('projects/holdlight/poster.pdf')} download="HoldLight-Poster.pdf" aria-label={t('Download poster (PDF)', '下载海报（PDF）')}>
-              <ProjectSketch name="poster-sheet" />
-              <span>{t('Poster (PDF)', '海报（PDF）')}</span>
-            </a>
-            <a className="holdlight-resource" href={holdLightPaper.url} target="_blank" rel="noreferrer">
-              <ProjectSketch name="research-paper" />
-              <span>{t('View paper', '查看论文')}</span>
-            </a>
-          </nav>
-        </div>
-        <ProjectDemoVideo id="holdlight" title="HoldLight" />
-      </header>
+      <ProjectOpening id="holdlight-demo" project="holdlight" title="HoldLight">
+        <p>{t(
+          'HoldLight began as a group project for CPT208, the human–computer interaction course I took in the second semester of my third year. It was where I first began to think seriously about accessibility.',
+          'HoldLight 最初是我大三下学期人机交互课程 CPT208 的小组作业。我也是从这门课开始认真关注无障碍设计的。',
+        )}</p>
+        <h3>{t('Project resources', '项目资料')}</h3>
+        <nav className="holdlight-resources" aria-label={t('Project resources', '项目资料')}>
+          <a className="holdlight-resource" href="https://github.com/Yuuu-05/HoldLight" target="_blank" rel="noreferrer">
+            <img src={assetUrl('illustrations/home-github-line-v1.png')} alt="" width="48" height="48" />
+            <span>GitHub</span>
+          </a>
+          <a className="holdlight-resource" href="https://yuuu-05.github.io/CPT208-ClimbProject-C2-4/" target="_blank" rel="noreferrer">
+            <img src={assetUrl('illustrations/home-research-line-v1.png')} alt="" width="48" height="48" />
+            <span>{t('Portfolio', '作品集')}</span>
+          </a>
+          <a className="holdlight-resource" href={assetUrl('projects/holdlight/poster.pdf')} download="HoldLight-Poster.pdf" aria-label={t('Download poster (PDF)', '下载海报（PDF）')}>
+            <ProjectSketch name="poster-sheet" />
+            <span>{t('Poster (PDF)', '海报（PDF）')}</span>
+          </a>
+          <a className="holdlight-resource" href={holdLightPaper.url} target="_blank" rel="noreferrer">
+            <ProjectSketch name="research-paper" />
+            <span>{t('View paper', '查看论文')}</span>
+          </a>
+        </nav>
+      </ProjectOpening>
       <div className="report-transcript">
         <section aria-labelledby="holdlight-overview" className="study-spread">
           <div>
@@ -58,7 +50,19 @@ export default function HoldLightPage() {
             { sketch: 'audio-cue', title: t('Hear the next hold', '听取下一岩点提示') },
           ]} />
         </section>
-        <section aria-labelledby="holdlight-role" className="study-spread">
+        <section id="holdlight-abstract" data-thread-chapter aria-labelledby="paper-heading" className="study-section">
+          <h2 id="paper-heading">{t('Paper abstract', '论文摘要')}</h2>
+          <p>{t(
+            'Blind and low-vision climbers often rely on others to describe a route and locate the next hold. We designed HoldLight with input from climbers, then used pilot sessions to refine its layered route preview, spoken cues on the wall and option to ask a person for help.',
+            '盲人和低视力攀岩者常常需要同伴描述路线、指出下一个岩点。我们从攀岩者的经验出发，通过预试改进了 HoldLight 的三个环节：上墙前分层预览路线、攀爬时听取语音提示，以及在提示不确定时请求人工协助。',
+          )}</p>
+          <p>{t(
+            'In a controlled study, the same participants tried HoldLight and on-demand human guidance. The results suggest that HoldLight helped climbers understand the route before climbing, find their bearings when unsure of the next hold, and resolve routine questions with fewer calls for human help. People continued to oversee safety throughout.',
+            '在受控研究中，同一批参与者分别体验了 HoldLight 和按需求助的人工引导。初步结果表明，HoldLight 有助于攀岩者在上墙前理解路线，找不到下一岩点时重新定位，并减少为确认常规路线信息而求助的次数。安全保护始终由现场人员负责。',
+          )}</p>
+          <a href={holdLightPaper.url} target="_blank" rel="noreferrer">{t('Read the paper at ACM ASSETS', '阅读 ACM ASSETS 论文')} ↗</a>
+        </section>
+        <section aria-labelledby="holdlight-role" className="study-section">
           <h2 id="holdlight-role" data-thread-chapter>{t('My role', '我的职责')}</h2>
           <div>
             <p>{t(

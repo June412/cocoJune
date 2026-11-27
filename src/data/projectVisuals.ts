@@ -4,7 +4,7 @@ export type ProjectVisual = {
   // Paths are relative to public/, e.g. 'illustrations/alice.png'.
   illustration?: string
   video?: string
-  demo?: { video: string; poster: string; aspect: string }
+  demo?: { video: string; poster: string; aspect: string; captions?: { timing: string; text: Localized }[] }
   // Hover previews wait for the pointer before playing and stay non-interactive.
   hoverPlay?: boolean
   // Video scale knob. Change this number (1 = base size, 1.2 = 20% larger).
@@ -59,6 +59,7 @@ export const projectVisuals: Record<ProjectId, ProjectVisual> = {
   },
   'between-sips': {
     illustration: 'illustrations/between-sips-line-v3.png',
+    demo: { video: 'projects/between-sips/overview.mp4', poster: 'projects/between-sips/overview.webp', aspect: '16 / 9' },
     video: 'projects/between-sips-preview.mp4',
     hoverPlay: true,
     previewScale: 1.2,
@@ -82,6 +83,16 @@ export const projectVisuals: Record<ProjectId, ProjectVisual> = {
   },
   'perspective-freeze': {
     illustration: 'illustrations/perspective-freeze-line-v1.png',
+    demo: {
+      video: 'projects/perspective-freeze/overview.mp4', poster: 'projects/perspective-freeze/overview.webp', aspect: '16 / 9',
+      captions: [
+        { timing: '00:00:00.000 --> 00:00:03.000', text: { en: 'Original board from the chosen viewpoint', zh: '从选定视点观察原板' } },
+        { timing: '00:00:03.000 --> 00:00:06.000', text: { en: 'Freeze here. The silhouette stays aligned.', zh: '在这里冻结，轮廓仍然对齐。' } },
+        { timing: '00:00:06.000 --> 00:00:09.000', text: { en: 'Move sideways to see the shift in depth.', zh: '平移视点，观察深度变化。' } },
+        { timing: '00:00:09.000 --> 00:00:12.000', text: { en: 'Side view of the original board', zh: '从侧面观察原板' } },
+        { timing: '00:00:12.000 --> 00:00:15.000', text: { en: 'Frozen board from the same side view', zh: '在同一侧面视点观察冻结后的板' } },
+      ],
+    },
     previewBorder: 'blue',
     illustrationAlt: { en: 'A small figure looking at a cube through a frame', zh: '透过取景框看方块的小人' },
     coverAlt: { en: 'Perspective Freeze VR interaction', zh: 'Perspective Freeze 的 VR 交互' },

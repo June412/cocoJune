@@ -30,7 +30,7 @@
   document.body.prepend(header)
   document.body.append(footer)
   const shellSheet = tinyRoot ? tinyRoot + '../alice/personal-shell.css' : 'personal-shell.css'
-  const shellStyles = `<link rel="stylesheet" href="${shellSheet}"><link rel="stylesheet" href="${projectRoot}../../styles/site-chrome.css?v=c4f4ecc4d8">`
+  const shellStyles = `<link rel="stylesheet" href="${shellSheet}?v=972c52c988"><link rel="stylesheet" href="${projectRoot}../../styles/site-chrome.css?v=c4f4ecc4d8">`
   bottom.innerHTML = shellStyles + `<footer class="site-footer"><span>© Junyan He</span>
     <span class="font-credit"><a href="https://www.dafont.com/cardenio-modern.font" target="_blank" rel="noreferrer">Cardenio Modern by Nils Cordes</a>
     · <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noreferrer">CC BY-SA 4.0</a></span></footer>`
@@ -56,6 +56,11 @@
     const category = categories.find(([route]) => route.endsWith('/' + section))
     backLink.href = url(category[0])
     backLink.textContent = '← ' + category[zh ? 2 : 1]
+    const endLink = document.querySelector('[data-project-return]')
+    if (endLink) {
+      endLink.href = backLink.href
+      endLink.textContent = zh ? '← 返回游戏与 XR' : '← Back to games & XR'
+    }
     const link = ([route, en, cn], current) =>
       `<a href="${url(route)}"${current ? ' aria-current="location"' : ''}>${zh ? cn : en}</a>`
     top.innerHTML = shellStyles + `<a class="chrome-skip" href="#main">${zh ? '跳到正文' : 'Skip to content'}</a>

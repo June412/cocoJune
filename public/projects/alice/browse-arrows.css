@@ -24,13 +24,12 @@ button.browse-prev { left:var(--browse-inset,8px); }
 button.browse-next { right:var(--browse-inset,8px); }
 button.browse-arrow::before {
     content:"";
-    width:10px;
-    height:10px;
-    border:solid currentColor;
-    border-width:0 2px 2px 0;
-    transform:translateX(-2px) rotate(-45deg);
+    width:24px;
+    height:16px;
+    background:currentColor;
+    mask:var(--process-arrow) center / contain no-repeat;
 }
-button.browse-prev::before { transform:translateX(2px) rotate(135deg); }
+button.browse-prev::before { transform:rotate(180deg); }
 @media (hover:hover) {
     button.browse-arrow:enabled:not([aria-disabled=true]):hover { color:#fff; background:#304637; border-color:#304637; }
 }

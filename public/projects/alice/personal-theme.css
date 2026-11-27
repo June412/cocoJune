@@ -1,4 +1,4 @@
-@import '../../styles/site-palette.css';
+@import '../../styles/site-palette.css?v=5bea0c0cf3';
 
 @font-face {
   font-family: 'Patrick Hand';
@@ -28,9 +28,9 @@
 }
 
 body.personal-alice {
-  --font-hand: 'Cardenio Modern', 'PingFang SC', 'Microsoft YaHei', sans-serif;
-  --font-body: 'Helvetica Neue', Helvetica, Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif;
-  --font-prose: 'Alegreya', Georgia, serif;
+  --font-hand: var(--portfolio-heading);
+  --font-body: var(--portfolio-prose);
+  --font-prose: var(--portfolio-prose);
   --paper: #fff8e8;
   --panel: #faf2df;
   --accent: var(--ink);
@@ -139,7 +139,9 @@ body.personal-alice {
   .personal-alice #main .making-credits h2 { margin-bottom: 14px; }
   .personal-alice #main .making-credits p { margin: 0 0 12px; }
   .personal-alice #main .case-print { padding: 4px 0; border: 0; background: transparent; color: var(--link); font: inherit; text-decoration: underline; text-underline-offset: .16em; cursor: pointer; }
-  .personal-alice #main :is(.overview-game, .overview-tool) { grid-template-columns: minmax(0,1fr); gap: 14px; }
+  .personal-alice #main .project-opening { display: grid; grid-template-columns: minmax(0,1fr); gap: clamp(10px, 2.5cqi, 26px); }
+  .personal-alice #main .opening-resources { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 36px; }
+  .personal-alice #main .opening-resources .admission-film-launch { position: static; margin: 0; }
   .personal-alice #main .hero-intro h1 { margin: 18px 0 12px; }
   .personal-alice #main .hero-intro { max-width: none; }
   .personal-alice #main .hero-intro .lead { max-width: 70ch; }
@@ -326,12 +328,10 @@ body.personal-alice {
   .personal-alice #main .case-notes { max-width: none; }
 
   @container project-content (min-width: 720px) {
-    .personal-alice #main :is(.overview-game,.overview-tool,.sequence-spread) {
+    .personal-alice #main .sequence-spread {
       grid-template-columns: minmax(0,.86fr) minmax(0,1.14fr);
       column-gap: clamp(24px,4cqi,52px);
     }
-    .personal-alice #main :is(.overview-game,.overview-tool) { align-items: center; }
-    .personal-alice #main :is(.mending-first-look,.tool-opening-piece) { grid-column: 2; grid-row: 1; }
     .personal-alice #main .sequence-spread .story-commissions { grid-template-columns: repeat(2,minmax(0,1fr)); }
   }
   @container illustrated-steps (max-width: 310px) {

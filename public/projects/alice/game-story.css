@@ -176,7 +176,8 @@ alice-tail-rule { display:block; max-width:530px; padding:.4rem 0 .5rem; }
 .mending-points li::marker { color:var(--sewing-thread); }
 .mending-flow { display:flex; list-style:none; padding:0; margin:.4rem 0 1.4rem; gap:clamp(18px,3vw,36px); }
 .mending-flow li { flex:1; position:relative; min-width:0; padding-top:.65rem; border-top:1px solid var(--sewing-rule); }
-.mending-flow li:not(:last-child)::after { content:'→'; position:absolute; right:calc(0px - clamp(17px,2.8vw,32px)); top:.55rem; color:var(--sewing-thread); }
+.mending-flow li:not(:last-child)::after { content:''; position:absolute; right:calc(0px - clamp(17px,2.8vw,32px)); top:.85rem;
+  width:clamp(17px,2.8vw,32px); height:16px; background:var(--link); mask:var(--process-arrow) center / contain no-repeat; }
 .mending-flow strong,.mending-flow span { display:block; line-height:1.5; }
 .mending-flow strong { font-weight:600; color:var(--sewing-ink); margin:0 0 .25rem; }
 .mending-flow span { font-size:.94rem; }
@@ -203,7 +204,7 @@ alice-tail-rule { display:block; max-width:530px; padding:.4rem 0 .5rem; }
     .mending-influences { grid-template-columns:minmax(0,1fr); gap:.85rem; }
     .mending-influences dl { grid-template-columns:minmax(82px,.8fr) minmax(0,1.5fr); }
     .mending-flow { display:grid; gap:1.25rem; }
-    .mending-flow li:not(:last-child)::after { content:'↓'; top:100%; right:auto; left:0; }
+    .mending-flow li:not(:last-child)::after { top:100%; right:auto; left:0; transform:rotate(90deg); width:20px; }
 }
 @media print {
     .cut-track,.cut-options,.cut-result,.mending-trim .story-link,.mending-first-look .admission-film-launch { display:none; }

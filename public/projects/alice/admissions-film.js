@@ -40,13 +40,15 @@
         return `<div class="admission-game-download"><a href="${gameBuild}" download>${en ? 'Download the Mac demo' : '下载 Mac 试玩版'} <span aria-hidden="true">↓</span></a><span>${en ? '456 MiB · macOS 12+ · Intel / Apple silicon · 5 Nov 2026, unnotarized build' : '456 MiB · macOS 12 或更高版本 · Intel / Apple 芯片 · 2026 年 11 月 5 日构建，未经 Apple 公证'}</span></div>`;
     }
 
-    function addCaptions(video, lang) {
+    function addCaptions(video, lang, start = 0, end = Infinity) {
         const languages = [['zh', '中文'], ['en', 'English']];
         for (const [index, [code, label]] of languages.entries()) {
-            if (location.protocol === 'file:' && typeof VTTCue === 'function') {
+            if ((Number.isFinite(end) || location.protocol === 'file:') && typeof VTTCue === 'function') {
                 const track = video.addTextTrack('subtitles', label, code);
                 for (const [from, to, zh, en] of subtitles) {
-                    track.addCue(new VTTCue(from, to, index === 0 ? zh : en));
+                    if (to > start && from < end) {
+                        track.addCue(new VTTCue(Math.max(from, start) - start, Math.min(to, end) - start, index === 0 ? zh : en));
+                    }
                 }
                 track.mode = code === lang ? 'showing' : 'disabled';
             } else {
@@ -161,5 +163,9 @@
         const trigger = event.target.closest('[data-admission-film]');
         if (trigger && !document.querySelector('.admission-film-dialog[open]')) openFilm(trigger);
     });
-    window.AliceAdmissions = {film, download};
+    function addOpeningCaptions(video, lang, page) {
+        if (page === 'game') addCaptions(video, lang, 25, 77);
+        else addCaptions(video, lang, 0, 34);
+    }
+    window.AliceAdmissions = {film, download, addOpeningCaptions};
 })();

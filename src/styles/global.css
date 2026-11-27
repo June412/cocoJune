@@ -1,4 +1,3 @@
-@import '/styles/site-palette.css';
 @import '/styles/site-chrome.css';
 @import '/styles/project-annotations.css';
 
@@ -31,9 +30,9 @@
   font-display: swap;
 }
 :root {
-  --font-hand: 'Cardenio Modern', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  --font-hand: var(--portfolio-heading);
   --font-hand-text: 'Patrick Hand', 'PingFang SC', 'Microsoft YaHei', sans-serif;
-  --font-body: 'Helvetica Neue', Helvetica, Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  --font-body: var(--portfolio-prose);
   --paper: #fff8e8;
   --body-size: 30px;
   --nav-size: 24px;
@@ -109,24 +108,18 @@ img { height: auto; }
 .category-heading { margin-bottom: 30px; }
 .project-entry { display: grid; grid-template-columns: 260px minmax(0, 1fr) 104px; gap: 30px; align-items: center; width: 100%; }
 .project-caption { min-width: 0; text-align: center; }
-.report-title-link { color: inherit; text-decoration: none; }
-.report-title-link:hover { text-decoration: underline; }
 .report-cover-link { display: block; }
 .graphics-report { max-width: 720px; margin: auto; }
 .graphics-report header { margin-bottom: 22px; }
 .graphics-report h1 { font: 700 clamp(38px, 7vw, 64px)/1.1 var(--font-hand); margin: 18px 0 12px; }
 .report-video { aspect-ratio: 16 / 9; display: flex; align-items: center; justify-content: center; flex-direction: column; border: 2px dashed var(--line); background: #fcf4df; border-radius: 6px; font-size: var(--label-size); color: var(--muted); }
 .report-transcript { margin: 40px auto; max-width: 70ch; font: 400 17px/1.7 var(--font-body); color: var(--prose-ink); overflow-wrap: anywhere; }
-.coursework-prose:lang(en), .coursework-prose > [lang="en"] { font-family: 'Alegreya', Georgia, serif; }
 .report-transcript h2, .report-transcript h3, .report-transcript h4 { color: var(--ink); }
 .report-transcript h2 { margin: 38px 0 14px; padding-top: 18px; border-top: 1px solid var(--line); font: 700 32px/1.2 var(--font-hand); }
 .report-transcript h3, .report-transcript h4 { font: 700 20px/1.4 var(--font-body); margin: 24px 0 8px; }
 .report-transcript h4 { font-size: 18px; }
-.coursework-prose :is(h3, h4):lang(en) { font-family: inherit; }
 .report-transcript p { line-height: inherit; margin: 0 0 12px; }
 .report-transcript .report-handoff { margin-top: 24px; color: var(--muted); }
-.holdlight-identity { display: flex; align-items: center; gap: 18px; }
-.holdlight-climber { width: clamp(56px, 10vw, 82px); }
 .holdlight-resources { grid-column: 1 / -1; display: flex; align-items: center; flex-wrap: wrap; gap: 8px 32px; margin-top: 12px; }
 .holdlight-resource { display: inline-flex; align-items: center; gap: 8px; font-size: var(--label-size); }
 .holdlight-resource img, .holdlight-resource svg { width: 46px; height: 46px; flex: none; object-fit: contain; color: var(--ink); }
@@ -164,9 +157,10 @@ img { height: auto; }
 .report-table table { width: 100%; border-collapse: collapse; font-size: 15px; }
 .report-table caption { text-align: left; font-weight: 700; padding-bottom: 6px; }
 .report-table td, .report-table th { border-bottom: 1px solid var(--line); padding: 7px 10px; vertical-align: top; text-align: left; }
-.report-table th { background: #fcf4df; color: var(--ink); }
+.report-table th { color: var(--ink); }
 .project-entry h3 { font-family: var(--font-hand); font-weight: 700; font-size: 30px; line-height: 1.5; overflow-wrap: break-word; }
 .project-action { display: block; width: fit-content; max-width: 100%; margin: 5px auto 0; font-size: var(--body-size); line-height: 1.5; }
+.project-action .project-action-arrow { display: inline-block; width: .95em; height: .78em; vertical-align: -.02em; }
 .project-action-pending { color: var(--link); text-decoration: underline dotted; text-underline-offset: 0.16em; cursor: default; }
 .project-preview { width: 100%; aspect-ratio: 8 / 5; overflow: hidden; }
 .project-preview-media { width: 100%; height: 100%; overflow: hidden; }
@@ -255,7 +249,7 @@ a.research-row h3 { color: var(--link); text-decoration: underline; text-underli
 .about-biography { max-width: 640px; margin: 0 auto 60px; text-align: center; }
 .about-biography h1 { margin-bottom: 22px; }
 .about-biography p { font-size: var(--label-size); margin-top: 16px; }
-.about-biography p:lang(en) { font-family: var(--font-hand-text); font-weight: 400; font-size: 24px; line-height: 1.55; }
+.about-biography p { font: 400 21px/1.55 var(--font-body); }
 .about-biography p:lang(zh-CN) { line-height: 1.9; }
 .about-link-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 24px; }
 .about-link-list li { display: grid; grid-template-columns: 76px minmax(0, 1fr); align-items: center; gap: 34px; min-height: 76px; }
@@ -263,7 +257,7 @@ a.research-row h3 { color: var(--link); text-decoration: underline; text-underli
 .about-link-list a[lang='en'] { font-family: var(--font-hand); font-weight: 700; font-size: 30px; }
 .about-illustration { display: block; width: 76px; color: var(--ink); }
 .about-illustration svg, .about-illustration img { width: 100%; aspect-ratio: 1; object-fit: contain; }
-.about-illustration img, .project-illustration img, .holdlight-climber, .holdlight-resource img { filter: var(--line-art-filter); }
+.about-illustration img, .project-illustration img, .holdlight-resource img { filter: var(--line-art-filter); }
 .not-found h1 { margin-block: 20px; }
 @media (hover: hover) and (pointer: fine) {
   a:hover { color: var(--link-hover); }
@@ -307,7 +301,7 @@ a.research-row h3 { color: var(--link); text-decoration: underline; text-underli
   }
   .gallery-item { margin-bottom: 26px; }
   .about-biography { margin-bottom: 44px; }
-  .about-biography p:lang(en) { font-size: 22px; }
+  .about-biography p { font-size: 19px; }
   .about-link-list { gap: 28px; }
   .about-link-list li { grid-template-columns: 54px minmax(0, 1fr); gap: 18px; min-height: 60px; }
   .about-illustration { width: 54px; }
@@ -329,22 +323,21 @@ a.research-row h3 { color: var(--link); text-decoration: underline; text-underli
   .graphics-report .project-opening, .graphics-report .study-spread {
     display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px;
   }
-  .graphics-report .project-opening { align-items: center; margin: 10px 0 24px; }
+  .graphics-report .project-opening { margin: 10px 0 24px; gap: clamp(10px, 2.5cqi, 26px); }
   .project-opening > *, .study-spread > * { min-width: 0; }
   .graphics-report .project-opening p {
     margin: 0 0 .75em; color: var(--prose-ink); font: 400 18px/1.6 var(--font-body);
   }
-  .graphics-report .project-opening p:lang(en) { font-family: 'Alegreya', Georgia, serif; }
   .graphics-report .project-opening .project-meta { color: var(--muted); font-size: 15px; }
   .project-opening .project-demo { margin: 14px auto; }
-  .project-opening .brief-film { width: 100%; height: auto; display: block; }
-  .project-opening .brief-illustration { justify-self: center; width: min(56%, 250px); filter: var(--line-art-filter); }
+  .project-opening .opening-copy h3 { margin: 18px 0 6px; font-size: 23px; }
+  .project-opening .opening-media figcaption { margin-block: 8px 0; font-size: 15px; font-weight: 400; color: var(--muted); }
   .holdlight-resources { gap: 8px 18px; }
   .graphics-report .study-spread { align-items: start; margin-block: 20px; }
-  .graphics-report .report-transcript > .study-spread {
+  .graphics-report .report-transcript > :is(.study-spread,.study-section) {
     margin-block-start: clamp(30px, 5cqi, 60px); padding-top: 18px; border-top: 1px solid var(--line);
   }
-  .thread-copy .study-spread > h2:first-child,
+  .thread-copy :is(.study-spread,.study-section) > h2:first-child,
   .thread-copy .study-spread > div > :is(h2,h3):first-child {
     margin-block: 0 10px; padding-top: 0; border: 0;
   }
@@ -352,11 +345,10 @@ a.research-row h3 { color: var(--link); text-decoration: underline; text-underli
   .coursework-report .report-body > .report-figure { margin-block: clamp(22px, 4cqi, 42px); }
   .coursework-report .report-body .report-plates img { max-height: min(66svh, 590px); object-fit: contain; }
   @container project-content (min-width: 720px) {
-    .graphics-report .project-opening, .graphics-report .study-spread {
+    .graphics-report .study-spread {
       grid-template-columns: minmax(0,.86fr) minmax(0,1.14fr);
       column-gap: clamp(24px, 4cqi, 52px);
     }
-    .project-opening .brief-illustration { width: min(70%, 310px); }
     .coursework-report .report-body > .report-figure {
       display: grid; grid-template-columns: minmax(0,2.8fr) minmax(0,1fr);
       align-items: center; gap: 24px; text-align: start;

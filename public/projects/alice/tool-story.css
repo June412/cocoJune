@@ -216,7 +216,7 @@
 .ts-export-images .image-button img { width:100%; height:clamp(140px,18vw,216px); object-fit:contain; background:#f5f5ef; }
 .ts-path-flow,.ts-unit-flow { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:1.45rem; margin:1.1rem 0; padding:0; list-style:none; }
 .ts-path-flow li,.ts-unit-flow li { position:relative; padding-top:.7rem; border-top:1px solid var(--line); }
-.ts-path-flow li:not(:last-child)::after,.ts-unit-flow li:not(:last-child)::after { content:'→'; position:absolute; right:-1.15rem; top:.55rem; color:#947143; }
+.ts-path-flow li:not(:last-child)::after,.ts-unit-flow li:not(:last-child)::after { content:''; position:absolute; right:-1.4rem; top:1rem; width:1.4rem; height:1rem; background:var(--link); mask:var(--process-arrow) center / contain no-repeat; }
 .ts-path-flow b,.ts-unit-flow li { color:#304b39; font-weight:550; font-size:1rem; }
 .ts-path-flow span { display:block; margin:.35rem 0 0; font-size:.96rem; line-height:1.55; }
 .ts-path-flow .sketched-label { align-self:center; }
@@ -264,10 +264,10 @@ alice-loom-chart output { display:block; margin-top:.25rem; font-size:.93rem; li
 @media(max-width:480px) {
   .ts-path-flow { grid-template-columns:1fr; gap:.5rem; }
   .ts-path-flow li { padding:.5rem 0 .5rem 1rem; border:0; border-left:1px solid #a7895e; }
-  .ts-path-flow li:not(:last-child)::after { content:''; }
+  .ts-path-flow li:not(:last-child)::after { top:100%; left:-.55rem; right:auto; width:1rem; height:.6rem; transform:rotate(90deg); }
   .ts-unit-flow { gap:1rem; }
   .ts-unit-flow li { font-size:.9rem; }
-  .ts-unit-flow li:not(:last-child)::after { right:-.9rem; }
+  .ts-unit-flow li:not(:last-child)::after { right:-1rem; width:1rem; }
 }
 @media print {
   .ts-colour-keys,.ts-isolate,.ts-chart-help { display:none; }

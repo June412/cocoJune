@@ -15,9 +15,9 @@ export function Arrow({
       aria-hidden="true"
     >
       <path
-        d={diagonal ? 'M6 18 18 6M6 6h12v12' : 'M4 12h16m-6-6 6 6-6 6'}
+        d={diagonal ? 'M4 20 20 4M7 4h13v13' : 'M2 12h20m-7-6 7 6-7 6'}
         stroke="currentColor"
-        strokeWidth="1.4"
+        strokeWidth="2.4"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
