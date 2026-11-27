@@ -1,5 +1,6 @@
 @import '/styles/site-palette.css';
 @import '/styles/site-chrome.css';
+@import '/styles/project-annotations.css';
 
 @font-face {
   font-family: 'Cardenio Modern';

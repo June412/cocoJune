@@ -12,7 +12,7 @@ export default function ProjectBrief({ id }: { id: 'between-sips' | 'perspective
     <a className="eyebrow" href={'#/projects/category/' + project.category}>← {game ? t('Games & XR', '游戏与 XR') : t('Interaction', '交互设计')}</a>
     <header id="overview">
       <h1 lang="en">{project.title}</h1>
-      <p>{copy(project.discipline, language)} · {project.period}</p>
+      <p>{copy(project.discipline, language)} · {language === 'zh' ? project.period.replace('Present', '至今') : project.period}</p>
     </header>
     {visual.video ? <video className="brief-film" src={assetUrl(visual.video)} controls playsInline preload="metadata" aria-label={project.title} />
       : visual.illustration && <img className="brief-illustration" src={assetUrl(visual.illustration)} alt={visual.illustrationAlt ? copy(visual.illustrationAlt, language) : ''} />}
@@ -21,7 +21,13 @@ export default function ProjectBrief({ id }: { id: 'between-sips' | 'perspective
       <section id="mechanics">
         <h2>{game ? t('Focus and tea brewing', '专注力与泡茶') : t('Building the interaction', '交互原型')}</h2>
         <p>{contributions[0]}</p>
-        {game && <p>{contributions[1]}</p>}
+        {game && <p>{t('Weighted scores from brewing unlock new areas and clues to the character’s memories.', '各道泡茶工序的加权得分会解锁新区域与记忆线索。')}</p>}
+        <ol className="project-process" aria-label={game ? t('Brewing sequence','泡茶工序') : t('Viewpoint interaction','视角交互步骤')}>
+          {(game
+            ? [t('Warm the cups','温器'),t('Pour water','注水'),t('Decant','出汤'),t('Serve tea','奉茶')]
+            : [t('Move your viewpoint','移动观察位置'),t('Align the shape','对齐目标形状'),t('Freeze the mesh','冻结网格')]
+          ).map(label => <li key={label}>{label}</li>)}
+        </ol>
       </section>
       <section id="production">
         <h2>{game ? t('Art and animation', '美术与动画') : t('Planned evaluation', '评估计划')}</h2>

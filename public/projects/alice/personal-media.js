@@ -8,6 +8,7 @@
   document.body.classList.toggle('personal-textile-media', textilePage);
 
   function dressVideo(video) {
+    if (video.matches('.workshop-motion')) return;
     const host = video.parentElement;
     if (!host || host.classList.contains('personal-video-host')) return;
 
@@ -18,9 +19,16 @@
     const play = document.createElement('button');
     play.type = 'button';
     play.className = 'personal-yarn-play';
-    const caption = video.getAttribute('aria-label') ||
-      host.querySelector('figcaption')?.textContent.trim() || '';
-    play.setAttribute('aria-label', [chinese() ? '播放视频' : 'Play video', caption].filter(Boolean).join(' · '));
+    const label = () => {
+      const caption = video.getAttribute('aria-label') || host.querySelector('figcaption')?.textContent.trim() || '';
+      play.setAttribute('aria-label', [chinese() ? '播放视频' : 'Play video', caption].filter(Boolean).join(' · '));
+      const fallback = frame.querySelector('a');
+      if (fallback) fallback.textContent = chinese() ? '打开视频' : 'Open video';
+    };
+    label();
+    if (document.body.classList.contains('roomies-case')) {
+      document.addEventListener('tinyroomies-language-change', label);
+    }
     frame.append(play);
     video.after(frame);
 

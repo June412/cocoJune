@@ -70,6 +70,8 @@
           <span aria-hidden="true">/</span><button type="button" lang="zh-CN" data-language="zh" aria-label="中文" aria-pressed="${zh}">中文</button>
         </div></header>`
     if (tinyRoot) {
+      document.documentElement.lang = zh ? 'zh-CN' : 'en'
+      document.dispatchEvent(new CustomEvent('tinyroomies-language-change', { detail: next }))
       unmountThread?.()
       unmountThread = window.ProjectThread.mount(document.querySelector('.thread-host'), document.getElementById('main'), [
         ['overview', 'Overview', '项目概览', 'Intro', '概览'],
@@ -97,6 +99,14 @@
   }
 
   function setLanguage(next) {
+    // Keep the same passage in view when the translated chapter reflows.
+    const readingLine = Math.min(160, innerHeight * .2)
+    const chapter = tinyRoot && scrollY > 0 && [...document.querySelectorAll('#main > section')].find(section => {
+      const box = section.getBoundingClientRect()
+      return box.top <= readingLine && box.bottom > readingLine
+    })
+    const box = chapter && chapter.getBoundingClientRect()
+    const fraction = box && (readingLine - box.top) / box.height
     if (technical) {
       const url = new URL(location.href)
       url.searchParams.set('lang', next)
@@ -107,6 +117,10 @@
     }
     drawChrome(next)
     localizeLinks()
+    if (chapter) {
+      const translated = chapter.getBoundingClientRect()
+      window.scrollBy({ top: translated.top + translated.height * fraction - readingLine, behavior: 'instant' })
+    }
   }
 
   top.addEventListener('click', event => {
@@ -152,7 +166,7 @@
     if (!technicalLanguage && isLanguage(preferred) && preferred !== language) setLanguage(preferred)
   }
   localizeLinks()
-  if (technical) document.title += ' — Junyan He'
+  if (technical && !tinyRoot) document.title += ' — Junyan He'
 
   // The source reader may have followed a deep link before the site header
   // acquired its fonts and final size. Only finish the initial jump if the

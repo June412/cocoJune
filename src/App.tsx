@@ -62,8 +62,8 @@ export default function App() {
   }, [])
   useEffect(() => {
     const address = new URL(window.location.href)
-    if (address.searchParams.has('lang')) {
-      address.searchParams.delete('lang')
+    if (address.searchParams.get('lang') !== language) {
+      address.searchParams.set('lang', language)
       try { window.history.replaceState(null, '', address.href) } catch { /* Some file URLs restrict history changes. */ }
     }
     document.documentElement.lang = language === 'zh' ? 'zh-CN' : 'en'

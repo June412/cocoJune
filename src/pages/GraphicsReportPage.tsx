@@ -20,8 +20,8 @@ export default function GraphicsReportPage({ id, title }: { id: ReportId; title:
     <ProjectDemoVideo key={id} id={id} title={title} />
     <div className="report-transcript coursework-prose">
       {reportIntroductions[id].map(paragraph => <p key={paragraph.en}>{copy(paragraph, language)}</p>)}
-      <p className="report-handoff">{t('Below is my original project report, with the figures from the submission.', '下面是我的项目报告原文，配图保留自提交版本。')}</p>
-      <div lang="en">{isCard ? <GreetingCardReport /> : <CyberTravelReport />}</div>
+      <p className="report-handoff">{t('Below is my original project report, with the figures from the submission.', '以下是我的项目报告，配图沿用提交时的版本。')}</p>
+      <div lang={language === 'zh' ? 'zh-CN' : 'en'}>{isCard ? <GreetingCardReport /> : <CyberTravelReport />}</div>
     </div>
     <a className="text-link" href="#/projects/category/tools">← {t('Back to graphics & tools', '返回图形与工具')}</a>
   </article>

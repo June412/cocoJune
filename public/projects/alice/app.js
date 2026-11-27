@@ -4,7 +4,7 @@
 const D=window.ALICE_MEDIA, M=D.media, W=D.works;
 const page=document.body.dataset.page;
 const requestedLanguage=new URLSearchParams(location.search).get('lang');
-const savedLanguage=(()=>{try{return localStorage.getItem('alice-language')}catch{return null}})();
+const savedLanguage=(()=>{try{return localStorage.getItem('cocojune-language') || localStorage.getItem('alice-language')}catch{return null}})();
 const browserLanguage=navigator.language.toLowerCase().startsWith('zh')?'zh':'en';
 let lang=[requestedLanguage,savedLanguage,browserLanguage].find(choice=>choice==='zh'||choice==='en');
 const t=(zh,en)=>lang==='en'?en:zh;
@@ -66,10 +66,11 @@ function mountView() {
     report.id = 'technical-report';
     report.className = 'case-notes';
     const heading = document.createElement('h2');
-    heading.textContent = t('技术详解（英文）','Technical notes');
+    heading.textContent = t('技术详解','Technical notes');
     const notes = document.createElement('div');
-    notes.lang = 'en';
+    notes.lang = lang === 'zh' ? 'zh-CN' : 'en';
     notes.append(document.getElementById('report-source').content.cloneNode(true));
+    if (lang === 'zh') window.bindProjectTranslation(notes, window.AliceNotesChinese)('zh');
     report.append(heading, notes);
     main.append(report);
     main.insertAdjacentHTML('beforeend', `<footer class="reader-footer"><button type="button" class="case-print" data-print>${t('打印项目 / PDF','Print project / PDF')}</button></footer>`);
@@ -313,7 +314,7 @@ ${table([t('阶段','Stage'),t('交付','Milestone')],[
  ['2026.04–06',t('布艺材质与 Alice 数字原型','Textile materials and the digital Alice')],
  ['2026.09–10',t('窗边工坊、两份委托和针线操作','Workshop, two commissions and hand-operated stitches')],
  ['2026.11',t('工坊加入五件布艺道具，验证中途读档与寄回','Five textile props integrated. Mid-repair saves and return journeys checked.')]])}
-<a class="text-link mending-validation" href="#report-validation">${t('查看两份委托从收件、存档到寄回的技术验证（英文）','Read the technical checks from parcel to dispatch (English)')} ↗</a>
+<a class="text-link mending-validation" href="#report-validation">${t('查看两份委托从收件、存档到寄回的技术验证','Read the technical checks from parcel to dispatch')} ↗</a>
 ${passage('future','尚未实现的委托构想','Unimplemented commission concepts','',table([t('委托构想','Concept'),t('新问题与技法','New problem and technique'),t('保留的物件线索','Object details to preserve')],[
 [t('围巾狐狸','Scarf fox'),t('前臂磨破 → 补布、毛毯针','Worn forearm → patch and blanket stitch'),t('送信人的旧邮袋、围巾','Courier’s old satchel and scarf')],
 [t('条纹针织熊','Striped knitted bear'),t('腹部缺纱 → 托底、交错织补','Missing belly yarn → supported darning'),t('旧毛衣的晒痕、园丁的纸花','Sun-faded wool and gardener’s paper flower')],

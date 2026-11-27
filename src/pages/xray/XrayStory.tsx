@@ -104,7 +104,13 @@ export function XrayProcess() {
       <p>{t('Each detector pixel receives a ray from the point source. The GPU samples the attenuation coefficient μ at the midpoint of each step and adds μ × step length to the optical depth τ. A ray that spends more of its path in dense material reaches the detector with lower transmission, T = exp(−τ).', '点光源向每个探测器像素的中心发出一条射线。GPU 在每段的中点采样衰减系数 μ，将 μ 与该段长度的乘积累加为光学厚度 τ。射线在致密材料中走得越长，抵达探测器时的透射率 T = exp(−τ) 就越低。')}</p>
       <ProjectionDiagram />
       <h3>{t('From import to export', '从导入到导出')}</h3>
-      <p>{t('In the Toolkit, choosing a local CT series or a built-in phantom starts validation and automatic framing. An isolated preview scene lets me change projection direction. The export includes a display PNG, raw optical depth and transmission in EXR, and an anonymised parameter report.', '在 Toolkit 中选取本地 CT 序列或内置体模后，工具会校验数据并自动取景。我可以在独立预览场景中切换投影方向，再导出显示用 PNG、保存原始光学厚度和透射率的 EXR，以及匿名参数报告。')}</p>
+      <ol className="project-process" aria-label={t('Projection workflow', '投影流程')}>
+        <li>{t('Import a CT series or phantom', '导入 CT 序列或内置体模')}</li>
+        <li>{t('Validate and auto-frame', '校验数据并自动取景')}</li>
+        <li>{t('Set the projection in a separate preview', '在独立预览中调整投影方向')}</li>
+        <li>{t('Export PNG, raw EXR and an anonymised report', '导出 PNG、原始 EXR 与匿名参数报告')}</li>
+      </ol>
+      <p>{t('The PNG stores the displayed image. The EXR preserves the original optical depth and transmission.', 'PNG 保存显示图像，EXR 保留原始光学厚度和透射率。')}</p>
     </section>
 
     <section aria-labelledby="xray-iteration">

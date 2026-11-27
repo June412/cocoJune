@@ -1,5 +1,9 @@
 "use strict";
 
+const translatePage = window.bindProjectTranslation(document.body, window.TinyRoomiesChinese);
+const inChinese = () => document.documentElement.lang.startsWith("zh");
+const localText = text => inChinese() ? (window.TinyRoomiesChinese[text] ?? text) : text;
+
 const gallery = [
   { path: "edition/arrival", sizes: [630, 1157], name: "Arrival at the new home", target: "#game-design", action: "Explore how the five residents arrive", alt: "The five residents sit inside an open wooden suitcase lined with green felt." },
   { path: "images/gallery/workshop", name: "The unfolded workshop", target: "#workshop", action: "Explore the suitcase workshop", alt: "Unity simulator view of the open suitcase, with its turntable between two fold-out work areas." },
@@ -8,15 +12,15 @@ const gallery = [
 ];
 
 let currentPlate = 0;
-function setPlate(step) {
+function setPlate(step, animate = true) {
   currentPlate = (currentPlate + step + gallery.length) % gallery.length;
   const item = gallery[currentPlate];
   const [small, large] = item.sizes || [720, 1440];
   const img = document.getElementById("plate");
   img.srcset = item.path + "-sm.webp " + small + "w, " + item.path + ".webp " + large + "w";
   img.src = item.path + ".webp";
-  img.alt = item.alt;
-  if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
+  img.alt = localText(item.alt);
+  if (animate && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
     const incoming = currentPlate;
     img.decode().then(() => {
       if (incoming !== currentPlate) return;
@@ -28,8 +32,8 @@ function setPlate(step) {
   }
   const link = document.getElementById("plate-target");
   link.href = item.target;
-  link.setAttribute("aria-label", item.action);
-  document.getElementById("plate-name").textContent = item.name;
+  link.setAttribute("aria-label", localText(item.action));
+  document.getElementById("plate-name").textContent = localText(item.name);
   document.querySelector(".plate-count").textContent = String(currentPlate + 1).padStart(2, "0") + " / 04";
 }
 document.getElementById("prev-plate").addEventListener("click", () => setPlate(-1));
@@ -54,7 +58,7 @@ if (detailDialog) {
   function fitImage() {
     viewport.classList.remove("magnified", "panning");
     detailImage.style.removeProperty("width");
-    zoom.textContent = "Magnify 2×";
+    zoom.textContent = localText("Magnify 2×");
     zoom.setAttribute("aria-pressed", "false");
     viewport.scrollTo(0, 0);
     dragging = null;
@@ -79,7 +83,7 @@ if (detailDialog) {
     if (!Number.isFinite(width) || !width) return;
     detailImage.style.width = width * 2 + "px";
     viewport.classList.add("magnified");
-    zoom.textContent = "Fit image";
+    zoom.textContent = localText("Fit image");
     zoom.setAttribute("aria-pressed", "true");
     viewport.scrollTo((viewport.scrollWidth - viewport.clientWidth) / 2, (viewport.scrollHeight - viewport.clientHeight) / 2);
     viewport.focus({ preventScroll: true });
@@ -134,13 +138,14 @@ for (const study of document.querySelectorAll("[data-posture]")) {
   function setPosition() {
     const share = Number(slider.value);
     study.style.setProperty("--standing-share", share + "%");
-    slider.setAttribute("aria-valuetext", share + "% standing, " + (100 - share) + "% seated");
+    slider.setAttribute("aria-valuetext", inChinese() ? "站姿 " + share + "%，坐姿 " + (100 - share) + "%" : share + "% standing, " + (100 - share) + "% seated");
     for (const button of presets) button.setAttribute("aria-pressed", String(share === Number(button.dataset.position)));
   }
   for (const button of presets) button.addEventListener("click", () => {
     slider.value = button.dataset.position;
     setPosition();
   });
+  document.addEventListener("tinyroomies-language-change", setPosition);
   slider.addEventListener("input", setPosition);
   setPosition();
   study.classList.add("interactive");
@@ -191,4 +196,62 @@ window.addEventListener("message", event => {
   if (message?.type === "tinyroomies-guide-size" && Number.isFinite(message.height) && message.height > 0) {
     drawingGuide.height = String(Math.ceil(message.height) + 2);
   }
+});
+
+const workshopMap = document.querySelector("[data-workshop-map]");
+const workshopMovie = workshopMap.querySelector("video");
+const views = document.querySelectorAll("[data-workshop-view]");
+const diagram = workshopMap.querySelector(".workshop-model > a");
+let workshopView = "map";
+
+function showWorkshop(view) {
+  workshopView = view;
+  const playing = view !== "map";
+  workshopMap.classList.toggle("is-playing", playing);
+  workshopMovie.hidden = !playing;
+  diagram.inert = playing;
+  views.forEach(button => button.setAttribute("aria-pressed", String(button.dataset.workshopView === view)));
+  if (!playing) {
+    workshopMovie.pause();
+    return;
+  }
+  workshopMovie.src = "media/" + view + ".mp4";
+  workshopMovie.play().catch(() => { if (workshopView === view) showWorkshop("map"); });
+}
+views.forEach(button => button.addEventListener("click", () => showWorkshop(button.dataset.workshopView)));
+workshopMovie.addEventListener("ended", () => showWorkshop("map"));
+workshopMovie.addEventListener("error", () => showWorkshop("map"));
+workshopMap.querySelectorAll(".workshop-leaders path").forEach((path,index) => {
+  path.setAttribute("pathLength", "1");
+  path.style.setProperty("--order", index);
+});
+for (const selector of [".workshop-key li", ".workshop-leaders rect", ".workshop-pins span"]) {
+  workshopMap.querySelectorAll(selector).forEach((element, index) => element.style.setProperty("--order", index));
+}
+new IntersectionObserver(([entry], observer) => {
+  if (entry.isIntersecting) {
+    workshopMap.classList.add("arrived");
+    observer.disconnect();
+  }
+}, {threshold:.2}).observe(workshopMap);
+
+function notifyManualLanguage() {
+  drawingGuide.contentWindow?.postMessage({
+    type: "tinyroomies-language", language: inChinese() ? "zh" : "en"
+  }, location.origin === "null" ? "*" : location.origin);
+}
+drawingGuide.addEventListener("load", notifyManualLanguage);
+document.addEventListener("tinyroomies-language-change", event => {
+  translatePage(event.detail);
+  document.title = localText("TinyRoomies — Game design portfolio") + " — Junyan He";
+  setPlate(0, false);
+  for (const button of document.querySelectorAll(".enlarge-art")) {
+    button.setAttribute("aria-label", (inChinese() ? "放大图片：" : "Enlarge image: ") + button.querySelector("img").alt);
+  }
+  for (const stage of document.querySelectorAll(".model-stage[aria-keyshortcuts]")) {
+    stage.setAttribute("aria-label", stage.querySelector("img").alt + (inChinese()
+      ? "。拖动或用方向键旋转，按 Home 复位。"
+      : ". Drag to rotate, or use the arrow keys. Home resets the view."));
+  }
+  notifyManualLanguage();
 });

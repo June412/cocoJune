@@ -52,10 +52,12 @@ export default function HoldLightPage() {
             'With guidance from our instructor, we focused on blind and low-vision (BLV) climbers. If you can’t see the whole wall, how do you get to know a route before you climb? Once you’re on the wall, how do you know which hold to reach for next?',
             '在老师的指导下，我们把注意力放在盲人和低视力（BLV）攀岩者身上。如果看不清整面岩壁，怎样在上墙前了解路线？上墙后，又怎样知道下一步该找哪个岩点？',
           )}</p>
-          <p>{t(
-            'We connected wall scanning with a layered route preview so climbers could explore the route before leaving the ground. On the wall, they could hear cues for the next hold through headphones. People still provided safety support, and climbers could ask for help throughout.',
-            '我们把岩壁扫描和分层路线预览连起来，让攀岩者在地面上先熟悉路线。上墙后，他们可以通过耳机听取下一个岩点的提示。整个过程都保留了人工安全保护和求助渠道。',
-          )}</p>
+          <ol className="project-process" aria-label={t('Route guidance sequence','路线引导流程')}>
+            <li>{t('Scan the wall','扫描岩壁')}</li>
+            <li>{t('Preview the route in layers','分层预览路线')}</li>
+            <li>{t('Hear the next hold','听取下一岩点提示')}</li>
+          </ol>
+          <p>{t('Climbers preview the route on the ground, then hear cues through headphones on the wall. Human safety support and requests for help remain available throughout.', '攀岩者在地面先熟悉路线，上墙后用耳机听取提示。人工安全保护和求助渠道贯穿全程。')}</p>
         </section>
         <section aria-labelledby="holdlight-role">
           <h2 id="holdlight-role">{t('My role', '我的职责')}</h2>
