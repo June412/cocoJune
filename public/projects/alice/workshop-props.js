@@ -41,7 +41,7 @@
             </div>`;
         }).join('');
         const scene=window.ALICE_MEDIA.media.gameRoom;
-        const map=isGame?`<div class="prop-map" role="group" aria-label="${t('工坊内的道具位置','Prop locations in the workshop')}"><img width="${scene.width}" height="${scene.height}" alt="${t('窗左侧的帘、桌面的工作垫和手册、右墙的工具袋。','The curtain at the window, mat and book on the desk, and tool pockets on the right wall.')}" src="${scene.src}" loading="lazy">${pieces.map((piece,n)=>select(piece,n,true)).join('')}</div>`:'';
+        const map=isGame?`<div class="prop-map" role="group" aria-label="${t('工坊内的道具位置','Prop locations in the workshop')}"><img width="${scene.width}" height="${scene.height}" alt="${t('窗左侧的帘、桌面的工作垫和手册、右墙的工具袋。','The curtain at the window, mat and book on the desk, and tool pockets on the right wall.')}" src="${scene.thumb}" srcset="${scene.thumb} 720w, ${scene.src} ${scene.width}w" sizes="auto, (max-width: 660px) 90vw, 600px" loading="lazy">${pieces.map((piece,n)=>select(piece,n,true)).join('')}</div>`:'';
         return `<alice-prop-atlas class="prop-atlas ${isGame?'prop-at-desk':'prop-in-studio'}" data-language="${lang}">
             ${map}<div class="prop-choices" role="group" aria-label="${groupName}">${pieces.map((piece,n)=>select(piece,n)).join('')}</div>
             <div class="prop-details" id="workshop-prop-gallery">${panels}</div><span class="prop-announcement" aria-live="polite"></span>

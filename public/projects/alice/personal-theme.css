@@ -1,8 +1,8 @@
-@import '../../styles/site-palette.css?v=5bea0c0cf3';
+@import '../../styles/site-palette.css?v=f302b94db3';
 
 @font-face {
   font-family: 'Patrick Hand';
-  src: url('../../fonts/PatrickHand-Regular.ttf') format('truetype');
+  src: url('../../fonts/PatrickHand-Regular.woff2') format('woff2');
   font-display: swap;
 }
 @font-face {
@@ -21,7 +21,7 @@
 }
 @font-face {
   font-family: 'Alegreya';
-  src: url('../../fonts/Alegreya.ttf') format('truetype');
+  src: url('../../fonts/Alegreya.woff2') format('woff2');
   font-weight: 400 900;
   font-style: normal;
   font-display: swap;
@@ -50,7 +50,7 @@ body.personal-alice {
   --alice-wide: min(800px, calc(100vw - 2 * var(--alice-edge)));
   margin: 0;
   min-height: 100svh;
-  background: var(--paper) url('../../textures/wrinkled-linen-v1.png') repeat center top / 840px;
+  background: var(--paper) url('../../textures/wrinkled-linen-v1.webp') repeat center top / 840px;
   font: 400 17px/1.7 var(--font-prose);
   color: var(--prose-ink);
   font-synthesis: none;
@@ -183,7 +183,7 @@ body.personal-alice {
   .personal-alice .admission-film-launch:lang(zh-CN) { font: 600 16px/1.5 var(--font-body); }
   .personal-alice .admission-film-launch:hover { color: var(--link); background: var(--paper); }
   .personal-alice .admission-film-dialog, .personal-alice .lightbox {
-    background: var(--paper) url('../../textures/wrinkled-linen-v1.png') repeat center top / 840px;
+    background: var(--paper) url('../../textures/wrinkled-linen-v1.webp') repeat center top / 840px;
     color: var(--prose-ink);
   }
   .personal-alice .admission-film-dialog::backdrop, .personal-alice .lightbox::backdrop { background: #293b35a8; }
@@ -235,7 +235,7 @@ body.personal-alice {
   .alice-technical-doc.personal-alice > nav {
     border: 0;
     border-bottom: 1px dashed var(--line);
-    background: var(--paper) url('../../textures/wrinkled-linen-v1.png') repeat center top / 840px;
+    background: var(--paper) url('../../textures/wrinkled-linen-v1.webp') repeat center top / 840px;
     padding-inline: max(var(--reader-gutter), calc((100% - var(--reader-width)) / 2));
     font: 400 16px/1.4 var(--font-prose);
     color: var(--ink);

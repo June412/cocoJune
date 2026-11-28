@@ -33,7 +33,7 @@ export type ProjectVisual = {
 // Unset illustration paths fall back to the original inline composition studies.
 export const projectVisuals: Record<ProjectId, ProjectVisual> = {
   tinyroomies: {
-    illustration: 'illustrations/tinyroomies-line-v2.png',
+    illustration: 'illustrations/tinyroomies-line-v2.webp',
     video: 'projects/tinyroomies/narrative/experience-overview.mp4',
     cover: 'projects/tinyroomies/narrative/film-poster.webp',
     hoverPlay: true,
@@ -45,8 +45,9 @@ export const projectVisuals: Record<ProjectId, ProjectVisual> = {
     coverAlt: { en: 'TinyRoomies mixed-reality workshop', zh: 'TinyRoomies 混合现实工坊' },
   },
   alice: {
-    illustration: 'illustrations/alice-line-v7.png',
+    illustration: 'illustrations/alice-line-v7.webp',
     video: 'projects/alice-preview.mp4',
+    cover: 'projects/alice-preview.webp',
     hoverPlay: true,
     previewScale: 1.2, // 外框尺寸与 HoldLight 一致
     previewBorderScale: 1.03, // 外框尺寸与 HoldLight 一致
@@ -58,9 +59,10 @@ export const projectVisuals: Record<ProjectId, ProjectVisual> = {
     coverAlt: { en: 'Alice doll-repair workshop', zh: 'Alice 玩偶修复工坊' },
   },
   'between-sips': {
-    illustration: 'illustrations/between-sips-line-v3.png',
+    illustration: 'illustrations/between-sips-line-v3.webp',
     demo: { video: 'projects/between-sips/overview.mp4', poster: 'projects/between-sips/overview.webp', aspect: '16 / 9' },
     video: 'projects/between-sips-preview.mp4',
+    cover: 'projects/between-sips-preview.webp',
     hoverPlay: true,
     previewScale: 1.2,
     previewBorderScale: 1.03,
@@ -70,8 +72,9 @@ export const projectVisuals: Record<ProjectId, ProjectVisual> = {
     coverAlt: { en: 'The hand-painted world of Between Sips', zh: 'Between Sips 的手绘世界' },
   },
   'textile-toolkit': {
-    illustration: 'illustrations/textile-toolkit-line-v3.png',
+    illustration: 'illustrations/textile-toolkit-line-v3.webp',
     video: 'projects/textile-toolkit-preview.mp4',
+    cover: 'projects/textile-toolkit-preview.webp',
     hoverPlay: true,
     previewScale: 1.2,
     previewBorderScale: 1.03,
@@ -82,7 +85,7 @@ export const projectVisuals: Record<ProjectId, ProjectVisual> = {
     coverAlt: { en: 'Textile Toolkit materials and authoring tools', zh: 'Textile Toolkit 的织物材质与创作工具' },
   },
   'perspective-freeze': {
-    illustration: 'illustrations/perspective-freeze-line-v1.png',
+    illustration: 'illustrations/perspective-freeze-line-v1.webp',
     demo: {
       video: 'projects/perspective-freeze/overview.mp4', poster: 'projects/perspective-freeze/overview.webp', aspect: '16 / 9',
       captions: [
@@ -98,8 +101,9 @@ export const projectVisuals: Record<ProjectId, ProjectVisual> = {
     coverAlt: { en: 'Perspective Freeze VR interaction', zh: 'Perspective Freeze 的 VR 交互' },
   },
   'x-ray': {
-    illustration: 'illustrations/x-ray-line-v2.png',
+    illustration: 'illustrations/x-ray-line-v2.webp',
     video: 'projects/x-ray-preview.mp4',
+    cover: 'projects/x-ray-preview.webp',
     hoverPlay: true,
     previewScale: 1.2,
     previewBorderScale: 1.03,
@@ -109,7 +113,7 @@ export const projectVisuals: Record<ProjectId, ProjectVisual> = {
     coverAlt: { en: 'Volumetric X-ray rendering', zh: '体数据 X 射线渲染' },
   },
   'opengl-2d-greeting-card': {
-    illustration: 'illustrations/greeting-lantern-line-v1.png',
+    illustration: 'illustrations/greeting-lantern-line-v1.webp',
     illustrationAlt: { en: 'A light bulb tilts to the right inside two rings of light', zh: '一盏向右倾斜的小灯，四周泛着两圈光晕' },
     cover: 'projects/reports/card/preview.jpg',
     video: 'projects/reports/card/preview.mp4',
@@ -123,7 +127,7 @@ export const projectVisuals: Record<ProjectId, ProjectVisual> = {
     coverAlt: { en: 'Interactive campus greeting card', zh: '校园互动贺卡' },
   },
   'reality-link-cyber-travel': {
-    illustration: 'illustrations/cyber-cloud-cat-line-v3.png',
+    illustration: 'illustrations/cyber-cloud-cat-line-v3.webp',
     illustrationAlt: { en: 'A cyber cat faces away with its beaded tail raised. A tilted ring circles its cloud mount. Two long rays shine beneath it, and a few irregular specks float alongside.', zh: '小猫背对着我们站在云上，翘着珠串尾巴。光环斜绕云身，两条长长的光线从云下散开，旁边浮着几颗大小不一的粒子。' },
     cover: 'projects/reports/travel/preview.jpg',
     video: 'projects/reports/travel/preview.mp4',
@@ -138,8 +142,9 @@ export const projectVisuals: Record<ProjectId, ProjectVisual> = {
   },
   holdlight: {
     demo: { video: 'projects/holdlight/demo.mp4', poster: 'projects/holdlight/route-guidance.png', aspect: '16 / 9' },
-    illustration: 'illustrations/holdlight-line-v2.png',
+    illustration: 'illustrations/holdlight-line-v2.webp',
     video: 'projects/holdlight-preview.mp4',
+    cover: 'projects/holdlight-preview.webp',
     hoverPlay: true,
     previewScale: 1.2, // 调视频尺寸：改这里，例如 1.1 / 1.25
     previewBorderScale: 1.03, // 调缝线框尺寸：改这里
@@ -154,4 +159,4 @@ export const projectVisuals: Record<ProjectId, ProjectVisual> = {
 export const assetUrl = (path: string) => `${import.meta.env.BASE_URL}${path}`
 
 export const previewBorderUrl = (border: NonNullable<ProjectVisual['previewBorder']>) =>
-  assetUrl(`borders/knit-border-${border}-v4.png`)
+  assetUrl(`borders/knit-border-${border}-v4.webp`)

@@ -18,7 +18,7 @@
                     const mesh=window.AliceDollMeshes?.[id];
                     if(mesh)resolve(mesh);else reject(new Error('Missing mesh'));
                 };
-                script.onerror=()=>reject(new Error('Mesh file unavailable'));
+                script.onerror=()=>{scripts.delete(id);script.remove();reject(new Error('Mesh file unavailable'));};
                 document.head.append(script);
             });
             scripts.set(id,ready);
@@ -124,6 +124,8 @@
             this.life=new AbortController();
             const signal=this.life.signal;
             this.frameId=0;this.lastFrame=-1;
+            this.meshRequested=false;
+            this.dataset.mode='turntable';
             this.pointers=new Map();
             this.surface=this.querySelector('.doll-stage');
             this.poster=this.querySelector('.doll-poster');
@@ -133,6 +135,7 @@
             const on=(el,type,fn)=>el.addEventListener(type,fn,{signal});
             on(this.surface,'pointerdown',e=>{
                 if(e.button!==0)return;
+                this.initialize();
                 this.surface.focus({preventScroll:true});
                 this.surface.setPointerCapture(e.pointerId);
                 this.pointers.set(e.pointerId,{x:e.clientX,y:e.clientY});
@@ -163,19 +166,13 @@
             on(this.canvas,'webglcontextlost',e=>{
                 e.preventDefault();this.renderer=null;this.dataset.mode='turntable';this.draw();
             });
-            on(this.canvas,'webglcontextrestored',()=>this.initialize());
+            on(this.canvas,'webglcontextrestored',()=>{this.meshRequested=false;this.initialize();});
             this.sizeObserver=new ResizeObserver(()=>this.schedule());
             this.sizeObserver.observe(this.surface);
-            this.visibility=new IntersectionObserver(entries=>{
-                if(entries.some(e=>e.isIntersecting)){
-                    this.visibility.disconnect();this.initialize();
-                }
-            },{rootMargin:'100px'});
-            this.visibility.observe(this.surface);
             this.draw();
         }
         disconnectedCallback(){
-            this.life?.abort();this.visibility?.disconnect();this.sizeObserver?.disconnect();
+            this.life?.abort();this.sizeObserver?.disconnect();
             cancelAnimationFrame(this.frameId);
             this.renderer?.dispose();this.renderer=null;
             // Release both contexts on a language change instead of relying on the
@@ -183,6 +180,8 @@
             this.context?.getExtension('WEBGL_lose_context')?.loseContext();
         }
         async initialize(){
+            if(this.meshRequested)return;
+            this.meshRequested=true;
             const life=this.life;
             try{
                 const ready=await meshRenderer(this.canvas,this.idKey,()=>!life.signal.aborted,gl=>{this.context=gl;});
@@ -194,6 +193,7 @@
             }
         }
         change(yaw,pitch,zoom=1){
+            this.initialize();
             this.state.yaw=wrap(this.state.yaw+yaw);
             this.state.pitch=clamp(this.state.pitch+pitch,-89,89);
             this.state.zoom=clamp(this.state.zoom*zoom,.7,2.2);

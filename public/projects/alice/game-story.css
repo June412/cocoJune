@@ -1,6 +1,6 @@
 /* Paired models, a parcel storyboard and the tool path from the workshop presentation. */
 body[data-page="game"] { --sewing-ink:#293e34; --sewing-thread:#8b643b; --sewing-rule:#c3ad8d; }
-.story-brief,.story-props,.story-arrival,.story-prep,.story-block,.story-feedback,.story-row,alice-commission-route { min-width:0; }
+.story-brief,.story-props,.story-arrival,.story-prep,.story-block,.cue-studies,.story-row,alice-commission-route { min-width:0; }
 :is(.story-brief,.story-props,.story-arrival,.story-prep,.story-block,.story-finishing) > :is(h2,h3),.story-description h3,.prep-description h4 {
     color:var(--sewing-ink); font-family:Georgia,"Songti SC","Noto Serif CJK SC",serif; letter-spacing:-.025em; font-weight:600; line-height:1.18;
 }
@@ -66,7 +66,7 @@ alice-commission-route button span { display:block; margin-top:.45rem; font-size
 .story-gestures strong { font-weight:600; font-size:1rem; line-height:1.32; }
 .story-gestures a:hover strong { text-decoration:underline; text-underline-offset:3px; }
 
-.story-block,.story-feedback { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:clamp(1.2rem,3vw,2.7rem); margin:clamp(24px,4vw,48px) 0; }
+.story-block { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:clamp(1.2rem,3vw,2.7rem); margin:clamp(24px,4vw,48px) 0; }
 .story-block > h3,.story-block > #panda-knit { grid-column:1/-1; }
 .story-block > h3 { margin:0; }
 .story-row { min-width:0; border-top:1px solid var(--line); padding-block:clamp(12px,2vw,24px) 0; }
@@ -78,14 +78,6 @@ alice-commission-route button span { display:block; margin-top:.45rem; font-size
 .story-figures { display:grid; grid-template-columns:repeat(var(--views),minmax(0,1fr)); gap:clamp(7px,1.25vw,15px); align-items:start; }
 figure.story-figure { margin:0; min-width:0; }
 .story-figure figcaption { margin:.4rem 0 0; color:#49554b; font-size:.84rem; line-height:1.44; }
-.story-feedback .story-row { display:flex; flex-direction:column; }
-.story-feedback .story-evidence { order:1; }
-.story-feedback .story-description { display:contents; }
-.story-feedback .story-description h3 { order:0; margin-bottom:0; }
-.story-feedback .story-description p { order:2; margin-top:.8rem; }
-#feedback-timing .story-figures { grid-template-columns:1fr; max-width:23rem; }
-#feedback-timing .story-image img { height:62px; object-fit:contain; object-position:left; }
-#feedback-input .story-evidence > .story-figure { max-width:26rem; margin-top:.75rem; }
 .story-link { display:inline-block; margin-top:1rem; padding:.2rem 0; color:#344d3c; text-decoration:underline; text-underline-offset:4px; }
 .story-metrics { width:100%; margin:1rem 0 0; border-collapse:collapse; font-variant-numeric:tabular-nums; font-size:.85rem; line-height:1.43; }
 .story-metrics caption { padding:0 0 .3rem; color:#525c53; font-size:.82rem; text-align:left; }
@@ -112,9 +104,8 @@ figure.story-figure { margin:0; min-width:0; }
     .story-arrival ol { grid-template-columns:1fr 1fr; gap:22px 17px; }
     .story-arrival li + li::before { display:none; }
     alice-commission-route ol { grid-template-columns:repeat(3,minmax(0,1fr)); }
-    .story-block,.story-feedback { grid-template-columns:minmax(0,1fr); }
+    .story-block { grid-template-columns:minmax(0,1fr); }
     #panda-knit,.story-finishing .story-row { grid-template-columns:minmax(0,1fr); gap:1rem; }
-    .story-feedback .story-row { max-width:38rem; }
 }
 @media(max-width:420px) {
     .prep-object { height:81px; }
@@ -186,7 +177,7 @@ figure.story-figure { margin:0; min-width:0; }
 }
 @media print {
     .mending-needle,.mending-ribbon,.mending-transfer { break-inside:avoid; }
-    .story-workmat,.story-at-mat,.story-feedback,.story-block { display:block; }
+    .story-workmat,.story-at-mat,.cue-studies,.story-block { display:block; }
     .story-gestures,.repair-sample,.story-link { display:none; }
     .story-arrival ol { grid-template-columns:repeat(4,minmax(0,1fr)); }
     .tool-thread li,.story-row,.story-prep,.story-props,.story-arrival,.story-buttons { break-inside:avoid; }

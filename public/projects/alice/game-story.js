@@ -68,6 +68,8 @@
         "hook-tip": [280, 116, "hook-tip"],
         "manual-two-holes": [1600, 1072, "manual-two-holes"],
         "manual-four-holes": [1600, 1072, "manual-four-holes"],
+        "manual-two-holes-en": [1600, 1072, "manual-two-holes-en"],
+        "manual-four-holes-en": [1600, 1072, "manual-four-holes-en"],
         "ear-desk-off": [652, 318, "ear-desk-off"],
         "ear-desk-on": [652, 318, "ear-desk-on"],
         "needle-unlit": [312, 202, "needle-unlit-full"],
@@ -92,7 +94,9 @@
             const plate = (id,label) => `<img src="${root}${id}.webp" width="${pictures[id][0]}" height="${pictures[id][1]}" alt="${escape(label)}" loading="lazy" decoding="async">`;
             return captureWipe(plate(before,left),plate(after,right),left,right,width+'/'+height);
         };
-        const row = (id,title,body,media) => `<article class="story-row" id="${id}"><div class="story-description"><h3>${title}</h3>${body?`<p>${body}</p>`:''}</div><div class="story-evidence">${media}</div></article>`;
+        const bullets = (...items) => `<ul class="mending-points">${items.map(item => `<li>${item}</li>`).join('')}</ul>`;
+        const row = (id,title,body,media) => `<article class="story-row" id="${id}"><div class="story-description"><h3>${title}</h3>${Array.isArray(body) ? bullets(...body) : `<p>${body}</p>`}</div><div class="story-evidence">${media}</div></article>`;
+        const settingsTable = (headings, rows) => `<table class="mending-table"><thead><tr>${headings.map(label => `<th scope="col">${label}</th>`).join('')}</tr></thead><tbody>${rows.map(([key,value]) => `<tr><th scope="row">${key}</th><td>${value}</td></tr>`).join('')}</tbody></table>`;
 
         function overview(originals) {
             const refs = [
@@ -134,7 +138,7 @@
                 ['set-stitch',t('出针，成为四针','Exit · four'),t('重新入针并出针，这一针才记入。','Enter again and exit to commit the fourth stitch.')],
                 ['pause-thread',t('暂停，回来仍是四针','Pause · still four'),t('打开提示记录再返回，继续缝。','Open the cue log, return and continue.')]
             ];
-            return `<p>${t('两份委托都用原生键盘输入完成了这项检查。','Native keyboard input was checked on both commissions.')}</p><ol class="mending-flow">${checks.map(([icon,name,result])=>`<li>${sketch(icon)}<div><strong>${name}</strong><span>${result}</span></div></li>`).join('')}</ol>`;
+            return `<ol class="mending-flow">${checks.map(([icon,name,result])=>`<li>${sketch(icon)}<div><strong>${name}</strong><span>${result}</span></div></li>`).join('')}</ol>`;
         }
 
         function route(toy) {
@@ -166,11 +170,12 @@
         function finishing(buttonFilm) {
             const makeButton = crossed => `<svg viewBox="0 0 64 64" aria-hidden="true" focusable="false"><circle cx="32" cy="32" r="29" fill="#f4dfab" stroke="#946e34" stroke-width="1.5"/><circle cx="32" cy="32" r="24" fill="none" stroke="#b99051"/>${[[22,22],[42,22],[22,42],[42,42]].map(([x,y])=>`<circle cx="${x}" cy="${y}" r="3.7" fill="#493f30"/>`).join('')}<path d="${crossed?'M22 22L42 42 M42 22L22 42':'M22 22L22 42 M42 22L42 42'}" fill="none" stroke="#95422e" stroke-width="3.3" stroke-linecap="round"/></svg>`;
             const pairing = `<figure class="story-figure"><div class="story-button-options"><div>${makeButton(true)}<small>${t('对角孔','Opposite holes')}</small></div><div>${makeButton(false)}<small>${t('相邻孔','Adjacent holes')}</small></div></div><figcaption>${t('第一对孔决定交叉或平行走线','The first pair sets a cross or parallel bars.')}</figcaption></figure>`;
-            return `<section class="story-finishing"><h3>${t('为 Alice 缝上新眼睛','How Alice gets her new eye')}</h3>
+            const edition = lang === 'en' ? '-en' : '';
+            return `<section class="story-finishing"><h3>${t('纽扣眼','Button eyes')}</h3>
                 <div class="story-buttons">${figure('button-tin','从盒里选一颗纽扣','Pick a button')}${pairing}${figure('button-set','每对孔缝四次，再轻拉检查','Check the stitches after four passes per pair')}</div>
                 <div class="manual-spreads"><h4>${t('缝补小册','Mending Notes')}</h4>
-                ${figure('manual-two-holes','双孔纽扣 · 一组孔。沿同一路径来回穿线四次。','Two-hole button · Sew four passes through the same pair.')}
-                ${figure('manual-four-holes','四孔纽扣 · 两组孔。第一组决定交叉或平行，两组各穿四次。','Four-hole button · Sew each pair four times. The first pair sets a cross or parallel bars.')}</div>
+                ${figure('manual-two-holes'+edition,'双孔纽扣 · 沿同一对孔穿线四次。','Two-hole button · Four passes through one pair.')}
+                ${figure('manual-four-holes'+edition,'四孔纽扣 · 每对孔各缝四次，可交叉或平行。','Four-hole button · Four passes per pair, crossed or parallel.')}</div>
                 ${buttonFilm}
                 ${row('repair-fasteners',t('缝回熊猫的皇冠与亮片','Refit Panda’s crown and sequin'),t('沿帽边缝四圈。亮片从中心向外缘缝三针，最后分别轻拉检查。','Loop the crown hem four times. Sew three centre-to-rim stitches on the sequin, then tug each repair.'),
                     figures(figure('crown','皇冠底边与头顶布面','Crown hem against the head fabric'),figure('cheek-sequin','亮片中心孔与外缘布面','Sequin centre and outer fabric')))}</section>`;
@@ -188,41 +193,73 @@
             const hatching = compare('cheek-before','cheek-after',t('调整前 · 柔和阴影','Before, soft shadow'),t('调整后 · 铅笔排线','After, pencil strokes'));
             const needle = compare('needle-unlit','needle-bounce',t('仅调节钢材','Steel adjustment'),t('开启针眼补光','Local threading light'));
             return `<div class="story-block technical-plates">
-            ${row('panda-knit',t('01 熊猫的针织耳朵','01 Panda’s knitted ear'),t('薄层沿耳缘勾出毛线轮廓。纱线厚度小于一像素时，薄层淡出，只保留基础织纹。','Shells cut from the knit height map break up the ear’s silhouette. Below one screen pixel, they fade into the base knit.'),`<div class="compare-pair">${closeEar}${deskEar}</div>${timing}`)}
-            ${row('dress-weave',t('02 针织连衣裙','02 A knit dress'),t('把近似帆布的方格换成交扣的 V 形线圈。','Interlocking V stitches replace the canvas-like grid.'),knit)}
-            ${row('thread-simulation',t('03 工作线','03 The working thread'),t('布面与针固定两端，重力使 28 个模拟节点下垂。用 82 个采样点绘制立体线管。','Cloth and needle pin the ends. Gravity bends 28 simulated points. An 82-point tube keeps the strand clear of the fabric.'),figures(figure('seam-thread','工作线','Working thread'),figure('seam-cut','剪出的线尾','Cut tail'),figure('seam-closed','合拢的缝口','Seam drawn in')))}
-            ${row('window-reflection',t('04 转动的倒影','04 Moving reflections'),t('窗扇转动时，用三块色标追踪倒影。镜像相机以半分辨率绘制，最长边为 1,024 像素。','Three coloured blocks track the reflection as the pane turns. A mirrored camera follows it at half resolution, up to 1,024 px.'),reflection)}
-            ${row('cloth-hatching',t('05 浅色布面上的排线','05 Hatching on pale cloth'),t('光照保留脸颊布纹，下巴的暗部叠加稳定的铅笔线。缝口针位记录在未形变的布面上，填棉后仍与裂口吻合。','The lit cheek keeps its weave, with steady pencil lines under the chin. Needle contacts stay on the undeformed cloth so the seam still lines up after stuffing.'),hatching)}
+            ${row('panda-knit',t('01 熊猫的针织耳朵','01 Panda’s knitted ear'),[
+                t('近景：从针织高度图裁出薄层，画出耳缘的毛线。','Close-up · Shells cut from the knit height map give the ear a fuzzy edge.'),
+                t('远景：纱线细于一个屏幕像素时，薄层淡出，露出基础织纹。','Desk view · Below one pixel, the shells fade into the underlying knit.')
+            ],`<div class="compare-pair">${closeEar}${deskEar}</div>${timing}`)}
+            ${row('dress-weave',t('02 针织连衣裙','02 A knit dress'),[
+                t('近看能分辨交扣的 V 形针脚和纱线捻纹。','Up close, the interlocking V stitches show the twist of the yarn.'),
+                t('拉远时先淡去捻纹，再减弱针脚起伏。','At a distance, yarn twist fades first, then stitch relief.')
+            ],`<div class="compare-pair">${knit}<div id="feedback-knit">${compare('knit-near','knit-far','1,000 × 1,000','256 × 256')}</div></div>`)}
+            ${row('thread-simulation',t('03 工作线','03 The working thread'),[
+                t('两端固定在布面和针上，28 个节点随重力下垂。','Between cloth and needle, 28 points sag under gravity.'),
+                t('沿线取 82 个采样点，绘制一根立体线管。','An 82-point tube gives the strand its visible thickness.')
+            ],figures(figure('seam-thread','工作线','Working thread'),figure('seam-cut','剪出的线尾','Cut tail'),figure('seam-closed','合拢的缝口','Seam drawn in')))}
+            ${row('window-reflection',t('04 转动的倒影','04 Moving reflections'),[
+                t('用三块色标观察倒影是否跟随窗扇。','Three colour markers track the reflection as the pane turns.'),
+                t('镜像相机使用半分辨率，最长边 1,024 像素。','The mirror camera renders at half resolution, up to 1,024 px.')
+            ],reflection)}
+            ${row('cloth-hatching',t('05 浅色布面上的排线','05 Hatching on pale cloth'),[
+                t('脸颊亮部保留织纹，下巴暗部叠加铅笔排线。','The lit cheek shows the weave. Pencil hatching follows the shadow under the chin.'),
+                t('针位记在未形变的布面上，填棉后仍能沿裂口落针。','Needle contacts stay on the undeformed cloth so stitches follow the seam after stuffing.')
+            ],hatching)}
             </div><div class="lighting-studies" id="workshop">${cheek}
             <section id="needle-at-night"><h4>${t('针眼补光','Needle lighting')}</h4>${needle}<p>${t('雨夜 22:00，只在穿针时补一盏中性光，让黑线与钢针分开。','At 22:00 on a rainy night, a local fill separates dark thread from steel during threading.')}</p></section></div>${weather}`;
         }
 
-        function feedback(keyboard, comfort, recording) {
+        function feedback(recording) {
             const holes=figures(figure('hole-entry','从下方亮起的扣孔入针','Enter the highlighted lower hole'),figure('hole-exit','从上方亮起的扣孔出针','Exit through the highlighted upper hole'),figure('hole-route','手册里的四孔交叉走线','Crossed four-hole path in the handbook'));
-            const prompts=figures(figure('prompt-upper','150% 提示字号的上层动作卡','Upper action card at 150% prompt size'),figure('prompt-lower','下层时机卡里的“已对准”','“Aligned” on the lower timing card'));
-            const inputs=figures(figure('controller-a','Xbox 的 A 键提示','Xbox A prompt'),figure('controller-cross','PlayStation 的叉号键提示','PlayStation Cross prompt'))+figure('feedback-log','F2 展开刚才的穿针提示。','F2 recalls the recent threading cues.');
-            function soundRow(id,title,body,visual,players) {
-                return `<article class="sound-study" id="${id}"><div><h3>${title}</h3><p>${body}</p>${visual}</div><div class="audio-stack">${players}</div></article>`;
+            function soundRow(id,title,visual,players) {
+                return `<article class="sound-study" id="${id}"><div><h3>${title}</h3>${visual}</div><div class="audio-stack">${players}</div></article>`;
             }
             const mat = soundRow('feedback-foley',t('工作垫上的声音','Sounds at the work mat'),
-                t('入针有轻响，拉线时听见线擦过布面。填充棒压下去是闷声，剪刀只在刀刃碰到线时响。','A prick gives way to the rub of thread through cloth. Cotton muffles the packing stick. The snip lands as the blades meet the strand.'),
-                figures(figure('felt-prick','针与线','Needle and thread'),figure('press-sound','填充棒','Packing stick'),figure('snip-sound','剪刀','Scissors')),
+                figures(figure('felt-prick','针尖入布，随后是线的摩擦声','A prick, then thread rubbing on cloth'),figure('press-sound','棉花让敲击声变闷','Cotton muffles the tap'),figure('snip-sound','刀刃碰到线时发出剪切声','A snip as the blades meet the thread')),
                 gameSound('needle-prick','针尖入布','Needle prick')+gameSound('cotton-press','填充棒压棉','Packing stick')+gameSound('scissor-snip','剪线','Scissor snip'));
             const desk = soundRow('feedback-room',t('工坊里的声音','Sounds around the desk'),
-                t('工具归袋、盒盖落下，各有不同的轻响。推开窗扇，雨声变亮。做针线时，窗台音箱会降低音量。','Tools returning to their pocket and the tin lid have distinct sounds. Opening the panes brings the rain closer. Music from the speaker dips during needlework.'),
-                figures(figure('scissor-pocket','工具收纳袋','Tool pocket'),figure('window-sound','窗扇','Window'),figure('speaker','窗台音箱','Speaker')),
+                figures(figure('scissor-pocket','工具归袋和盒盖合上各有轻响','Pocket and tin make distinct clicks'),figure('window-sound','推开窗扇，雨声更近','Open the panes to bring the rain closer'),figure('speaker','做针线时，音乐自动变轻','Music dips during needlework')),
                 gameSound('tool-return','工具归袋','Tool return')+gameSound('button-tin','纽扣盒盖','Button tin lid')+gameSound('rain-window','窗扇开合时的雨声','Rain through the window')+gameSound('speaker-simplicity','音箱 · Simplicity（节选）','Speaker · Simplicity (excerpt)')+
                 `<small class="sound-credit">Scott Buckley · CC BY 4.0 · <a href="credits.txt">${t('录音署名','Recording credits')}</a></small>`);
-            return `<div class="story-feedback">
-            ${row('feedback-hole',t('逐孔引导','Guide one buttonhole at a time'),t('每次只亮一个孔。点击最近的孔，或用键盘分别确认入针、出针。减少动态模式会直接切换近景，手册同时显示两条走线。','One rim lights up. Click the nearest hole or confirm entry and exit separately on the keyboard. With reduced motion, the camera cuts to the close-up and both handbook paths appear together.'),holes)}
-            ${row('feedback-timing',t('两张提示卡始终可见','Keep both prompts visible'),t('字号可选 100%、125% 或 150%。动作卡留在时机卡上方。从容模式下，对准后会等玩家确认。','At 100%, 125% or 150%, the action card stays above the timing card. Relaxed mode waits for confirmation when the needle or hook aligns.'),prompts)}
-            ${row('feedback-input',t('输入提示与反馈记录','Input cues and the feedback log'),t('按实际输入切换键名，忽略摇杆漂移。F2 暂停并显示最近 40 条提示。关闭记录后，继续同一针。','Button names follow deliberate controller input and ignore stick drift. F2 pauses the repair and recalls 40 cues. Close the log to resume the same stitch.'),inputs)}
-            <div class="input-checks" id="thread-state">${keyboard}${comfort}</div>
-            ${mat}${desk}<div class="desk-recording">${recording}</div>
-            ${row('feedback-knit',t('远处的针织细节','Knit detail at a distance'),t('距离拉远时先淡去纱线捻纹，再减弱 V 形针脚的起伏。','At a distance, the shader fades the yarn twist first, then softens the relief of each V stitch.'),compare('knit-near','knit-far','1,000 × 1,000','256 × 256'))}
+            return `<div class="cue-studies">
+                <article class="cue-panel" id="feedback-hole"><div><h3>${t('扣孔提示','Buttonhole cues')}</h3>${bullets(
+                    t('亮起的孔缘标出下一针。点击最近的孔即可落针。','The lit rim marks the next hole. Click the nearest hole to stitch.'),
+                    t('键盘分别确认入针和出针，手册显示两孔之间的走线。','On the keyboard, confirm entry and exit separately. The handbook shows the path between them.')
+                )}</div>${holes}</article>
+                ${mat}${desk}<div class="desk-recording">${recording}</div></div>`;
+        }
+
+        function accessibility(stitch, comfort) {
+            const options = settingsTable([t('设置','Setting'),t('游戏表现','In the game')],[
+                [t('提示字号','Prompt size'),t('100%、125%、150%。动作卡始终在时机卡上方。','100%, 125% or 150%. The action card stays above the timing card.')],
+                [t('从容模式','Relaxed timing'),t('针或钩尖对准后，等待玩家确认。','The aligned needle or hook waits for confirmation.')],
+                [t('减少动态','Reduced motion'),t('直接切到特写，同时展示两种走线。','Cut straight to the close-up and show both stitch paths together.')]
+            ]);
+            const controls = settingsTable([t('操作','Input'),t('反馈','Response')],[
+                [t('手柄按键','Controller button'),t('按键名跟随实际使用的手柄，忽略摇杆漂移。','Labels follow the controller in use. Stick drift leaves them unchanged.')],
+                ['F2',t('暂停修补，回看最近的操作提示，最多 40 条。','Pause the repair and review up to 40 recent cues.')],
+                [t('关闭记录','Close the log'),t('保留当前针数，从同一针继续。','Keep the stitch count and resume where you paused.')]
+            ]);
+            const prompts = figures(figure('prompt-upper','动作提示 · 150%','Action prompt at 150%'),figure('prompt-lower','时机提示 · 已对准','Timing cue · Aligned'));
+            const inputs = figures(figure('controller-a','Xbox · A','Xbox · A'),figure('controller-cross','PlayStation · 叉号键','PlayStation · Cross'));
+            return `<div class="cue-studies">
+                <article class="cue-panel" id="feedback-timing"><div><h3>${t('显示与操作时机','Display & timing')}</h3>${options}</div>
+                    <div class="settings-evidence">${prompts}${comfort}</div></article>
+                <article class="cue-panel" id="feedback-input"><div><h3>${t('输入与提示记录','Input & cue history')}</h3>${controls}</div>
+                    <div class="input-evidence">${inputs}${figure('feedback-log','提示记录里的穿针反馈','Threading cue in the feedback log')}</div></article>
+                <article class="cue-panel keyboard-panel" id="thread-state"><div><h3>${t('键盘修补','Keyboard repair')}</h3>
+                    <p>${t('Alice 和熊猫两份委托都用键盘验证了以下步骤。','Tested with keyboard input on both Alice and Panda.')}</p>${keyboardCheck()}</div>${stitch}</article>
             </div>`;
         }
-        return {figure,overview,props,arrival,route,preparation,tieOff,finishing,technical,feedback,transfer,keyboardCheck};
+        return {figure,overview,props,arrival,route,preparation,tieOff,finishing,technical,feedback,accessibility,transfer};
     }
 
     class CommissionRoute extends HTMLElement {

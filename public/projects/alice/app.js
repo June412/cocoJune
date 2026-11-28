@@ -14,7 +14,13 @@ const desc=w=>lang==='en'?w.descriptionEn:w.description;
 const category=w=>lang==='en'?w.categoryEn:w.category;
 const work=id=>W.find(w=>w.id===id);
 const sketch=(name,directory='../../illustrations/project-sketches')=>`<img class="project-sketch" src="${directory}/${name}.png" width="48" height="48" alt="" loading="lazy" decoding="async">`;
-const img=(a,alt,cls='',lazy=true)=>`<img src="${a.src}" ${lazy?'loading="lazy"':'fetchpriority="high"'} decoding="async" width="${a.width}" height="${a.height}" alt="${esc(alt)}" class="${cls}">`;
+function img(a,alt,cls='',lazy=true) {
+    const maxSide = Math.max(a.width,a.height);
+    const thumbWidth = Math.round(720 * a.width / maxSide);
+    const sources = lazy && a.thumb && a.thumb !== a.src && maxSide > 720
+        ? ` srcset="${a.thumb} ${thumbWidth}w, ${a.src} ${a.width}w" sizes="auto, (max-width: 720px) 90vw, 680px"` : '';
+    return `<img src="${a.src}"${sources} ${lazy?'loading="lazy"':'fetchpriority="high"'} decoding="async" width="${a.width}" height="${a.height}" alt="${esc(alt)}" class="${cls}">`;
+}
 const photo=(key,caption,cl='')=>`<figure class="${cl}"><button class="image-button" data-image="${key}" aria-label="${esc(t('放大：','Enlarge: ')+caption)}">${img(M[key],caption)}</button><figcaption class="caption">${caption}<span>↗</span></figcaption></figure>`;
 const href=(p,hash='')=>`${p}.html?lang=${lang}${hash?'#'+hash:''}`;
 function section(id,zh,en,subzh,suben,body) {
@@ -24,7 +30,7 @@ function section(id,zh,en,subzh,suben,body) {
 }
 const compare=(a,b,zh,en)=>`<figure class="study"><div class="compare" style="--split:50%">${img(M[b],t(zh,en)+' · '+t('调整后','After'))}<div class="compare-top">${img(M[a],t(zh,en)+' · '+t('调整前','Before'))}</div><span class="compare-line"></span><span class="compare-handle">↔</span><span class="compare-label before">${t('调整前','Before')}</span><span class="compare-label after">${t('调整后','After')}</span><input type="range" min="0" max="100" value="50" aria-label="${esc(t('拖动比较：','Compare: ')+t(zh,en))}"></div><figcaption class="caption">${t(zh,en)}<span>${t('拖动分界线','Drag to compare')}</span></figcaption></figure>`;
 const sectionOrder = page === 'game'
-    ? ['overview','arrival','play','doll','mechanics']
+    ? ['overview','arrival','play','doll','mechanics','accessibility']
     : ['overview','workflow','cushion','cases','works','bridge','trial','results','making-credits'];
 const legacyViews = {design:'overview', interaction:'play', technology:'doll', guide:'workflow', archive:'trial'};
 const projectName = page === 'game' ? 'Alice, Mending Workshop' : 'Textile Studio';
@@ -79,9 +85,9 @@ function captureWipe(before, after, leftLabel, rightLabel, ratio) {
 }
 function cheekComparison() {
     const left = t('填棉前','Before stuffing'), right = t('填入四团棉后','After four tufts');
-    const detail = (key, label, eyeY) => `<svg viewBox="213 86 171 109" role="img" aria-label="${esc(label)}"><image href="${M[key].src}" width="720" height="450"/><g class="cheek-pointer"><path d="M290 ${eyeY-2} 313 104h43"/><circle cx="285" cy="${eyeY}" r="5.5"/></g></svg>`;
+    const detail = (state,label,eyeY) => `<img src="assets/story-game/eye-${state}.webp" width="456" height="291" alt="${esc(label)}" loading="lazy" decoding="async"><svg viewBox="213 86 171 109" aria-hidden="true"><g class="cheek-pointer"><path d="M290 ${eyeY-2} 313 104h43"/><circle cx="285" cy="${eyeY}" r="5.5"/></g></svg>`;
     return `<div class="cheek-study"><h4>${t('眼旁的布面','Cloth beside the eye')}</h4>
-        ${captureWipe(detail('fill0',left,125),detail('fill100',right,121),left,right,'171/109')}
+        ${captureWipe(detail('before',left,125),detail('after',right,121),left,right,'171/109')}
         ${para('圆圈标出同一机位的裂口边缘。填入四团棉后，眼旁的布面微微隆起。','The circle marks the edge of the tear in the same camera view. Four tufts lift the cloth beside the eye.')}</div>`;
 }
 function gameSound(file, zh, en) {
@@ -96,7 +102,7 @@ const table=(heads,rows)=>`<div class="table-scroll"><table class="content-table
 function openingMedia(kind, name, artwork) {
     const clip = 'assets/admissions/' + kind + '-overview';
     const label = t(name + ' 项目短片', name + ' project film');
-    return `<div class="project-title-row"><h1 lang="en">${name}</h1><img src="../../illustrations/${artwork}.png" width="152" height="152" alt=""></div>
+    return `<div class="project-title-row"><h1 lang="en">${name}</h1><img src="../../illustrations/${artwork}.webp" width="152" height="152" alt=""></div>
         <figure class="opening-media"><video width="1280" height="720" controls playsinline preload="none" poster="${clip}.webp" aria-label="${label}"><source src="${clip}.mp4" type="video/mp4"><a href="${clip}.mp4">${label}</a></video></figure>`;
 }
 
@@ -151,7 +157,7 @@ ${craftRow('绣一根枝茎和五片叶','Stitch the stem and five leaves',
     para('用滚绳画枝茎，用缎面绣填五片叶。六层都附在毛毡上。','Draw the stem with cord piping and the five leaves with satin fill. Attach all six to the felt.'),
     capture('satin',640,383,'中叶：针距 0.6 mm · 线径 0.54 mm · 方向 58°。','Centre leaf · 0.6 mm spacing · 0.54 mm yarn · 58°.','uiLeafDetail'),
     photo('cushionEmbroidery',t('五片缎面绣叶分别成层，可以单独转动绣线方向。','Each satin leaf is a separate layer with its own thread direction.')))}
-<figure class="ts-gesture-film"><video controls playsinline preload="none" width="950" height="680" poster="assets/story-tool/botanical-leaf-gesture.webp" aria-describedby="leaf-gesture-caption"><source src="assets/story-tool/botanical-leaf-gesture.mp4" type="video/mp4"><a href="assets/story-tool/botanical-leaf-gesture.mp4">${t('播放绣叶过程','Play the embroidery clip')}</a></video>
+<figure class="ts-gesture-film"><video controls playsinline preload="none" width="950" height="680" data-poster="assets/story-tool/botanical-leaf-gesture.webp" aria-describedby="leaf-gesture-caption"><source src="assets/story-tool/botanical-leaf-gesture.mp4" type="video/mp4"><a href="assets/story-tool/botanical-leaf-gesture.mp4">${t('播放绣叶过程','Play the embroidery clip')}</a></video>
 <figcaption id="leaf-gesture-caption">${t('描出叶形，松手生成一层缎面绣。工作台实录，3 倍速。','Trace a leaf and release to create a satin-stitch layer. Workbench recording at 3× speed.')}</figcaption></figure>
 ${craftRow('缝好内外两道边','Finish the felt and cushion edges',
     para('在毛毡边缝锁边针，再沿抱枕外圈铺布条包边。','Blanket-stitch the felt, then bind the cushion edge with a fabric strip.'),
@@ -232,7 +238,8 @@ const story = window.AliceGameStory.forLanguage(lang,sketch,captureWipe,gameSoun
 const workshop = workshopAtmosphere();
 const points=(...items)=>`<ul class="mending-points">${items.map(([zh,en])=>`<li>${t(zh,en)}</li>`).join('')}</ul>`;
 return `
-<header id="overview" data-thread-chapter data-thread-start class="project-opening">${openingMedia('alice','Alice, Mending Workshop','alice-line-v7')}<div class="hero-intro opening-copy"><h2 class="project-overview-title">${t('项目概览','Overview')}</h2><p class="lead">${t('我把手缝玩偶 Alice 做成了一款修补游戏。第一份委托教玩家补棉、交替落针、收紧缝线。第二份换成脱线的熊猫耳朵，让玩家认出可以沿用的针法，再学会逐行挑回线圈。','I turned Alice, a doll I sewed by hand, into a repair game. The first commission teaches stuffing, alternating needle placement and thread tension. On Panda’s unravelled ear, players recognise the stitch they already know and learn to recover dropped loops row by row.')}</p>
+<header id="overview" data-thread-chapter data-thread-start class="project-opening">${openingMedia('alice','Alice, Mending Workshop','alice-line-v7')}<div class="hero-intro opening-copy"><h2 class="project-overview-title">${t('项目概览','Overview')}</h2><p class="lead">${t('这是一个从手缝玩偶 Alice 开始的修补游戏。玩家在同一张工作台上完成两份委托。','A repair game inspired by Alice, the doll I sewed by hand. Two commissions share one work mat.')}</p>
+${points(['Alice · 补棉、交替落针，控制拉线张力。','Alice · Pack the cheek, alternate needle placement and control thread tension.'],['熊猫 · 沿用学过的针法，逐行钩回耳朵上的线圈。','Panda · Reuse the stitch and hook the dropped ear loops back row by row.'])}
 <p class="project-connection">${t(
     `玩家翻开的布面针法手册，是我用自己开发的 Unity 布艺工具 <a href="${href('toolkit')}">Textile Studio</a> 制作的。`,
     `I made the cloth-bound guide that teaches players their first stitch with <a href="${href('toolkit')}">Textile Studio</a>, my textile tool for Unity.`
@@ -275,12 +282,12 @@ ${story.finishing(repairMethod(mechanics[4],4))}
 `)}
 
 ${section('doll','技术设计','Technical Design','','',story.technical(cheekComparison(),workshop.comparison))}
-${section('mechanics','修补反馈与无障碍','Repair feedback and accessibility','','',story.feedback(
-    story.keyboardCheck() + captureWipe(
-        img(M.clothEntry,t('等待确认入针','Entry pending')),img(M.clothExit,t('第三针已确认','Third stitch confirmed')),
-        t('等待确认入针','Entry pending'),t('第三针已确认','Third stitch confirmed'),M.clothEntry.width+'/'+M.clothEntry.height),
-    photo('accessibility',t('两份委托共用的辅助设置','Comfort settings for both commissions')),
-    workshop.recording
+${section('mechanics','反馈','Feedback','','',story.feedback(workshop.recording))}
+${section('accessibility','无障碍','Accessibility','','',story.accessibility(
+    captureWipe(
+        img(M.clothEntry,t('等待确认入针','Entry pending')),img(M.clothExit,t('出针后记入针数','Exit confirms the stitch')),
+        t('等待确认入针','Entry pending'),t('出针后记入针数','Exit confirms the stitch'),M.clothEntry.width+'/'+M.clothEntry.height),
+    photo('accessibility',t('两份委托共用的辅助设置','Comfort settings for both commissions'))
 ))}
 `}
 
@@ -427,7 +434,7 @@ function repairMethod(mechanic, index) {
     const {id,still,name,actions,sound,foley}=mechanic;
     const clip=D.clips[id], label=t(...name);
     const visual=clip
-        ? `<video controls playsinline preload="none" poster="${M[clip.poster].src}" aria-label="${esc(label)}" aria-describedby="sound-${id}"><source src="${clip.src}" type="video/mp4"><a href="${clip.src}">${label}</a></video><div class="print-only">${img(M[still],label)}</div>`
+        ? `<video controls playsinline preload="none" width="${M[clip.poster].width}" height="${M[clip.poster].height}" data-poster="${M[clip.poster].src}" aria-label="${esc(label)}" aria-describedby="sound-${id}"><source src="${clip.src}" type="video/mp4"><a href="${clip.src}">${label}</a></video><div class="print-only">${img(M[still],label)}</div>`
         : `<button class="image-button" data-image="${still}" aria-label="${esc(label)}">${img(M[still],label)}</button>`;
     return `<article class="repair-method" id="repair-${id}" aria-labelledby="mechanic-${index}">
         <h3 id="mechanic-${index}" class="sketched-label">${sketch(mechanic.sketch,'assets/repair-sketches')}${label}</h3><div class="video-layout"><div class="video-copy">
@@ -473,7 +480,7 @@ function workshopAtmosphere() {
         <div class="climate-print">${printViews}</div></section>`;
     const recording = `<section id="window-recording" class="window-study"><h3>${film.title[lang]}</h3>
             <p id="window-sound">${t('雨天 13:00，游戏原声。双窗敞开时雨声清亮，合上玻璃后变闷。','13:00, rain, game audio only. Open both windows for a brighter patter. Close the glass to muffle it.')}</p>
-            <figure class="window-film"><video id="window-video" controls playsinline preload="none" poster="${film.poster.src}" aria-label="${esc(film.title[lang])}" aria-describedby="window-sound">
+            <figure class="window-film"><video id="window-video" controls playsinline preload="none" width="1280" height="720" data-poster="${film.poster.src}" aria-label="${esc(film.title[lang])}" aria-describedby="window-sound">
                 <source src="${film.src}" type="video/mp4"><a href="${film.src}">${film.title[lang]}</a></video>
                 <img class="window-print" src="${film.poster.src}" loading="lazy" alt="${esc(film.title[lang])}">
                 <figcaption><div class="window-cues" role="group" aria-label="${t('按窗扇状态试听','Listen by window position')}">${cues}</div></figcaption></figure></section>`;

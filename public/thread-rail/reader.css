@@ -1,4 +1,4 @@
-@font-face { font-family: 'Rail handwriting'; src: url('../fonts/PatrickHand-Regular.ttf') format('truetype'); font-display: swap; }
+@font-face { font-family: 'Rail handwriting'; src: url('../fonts/PatrickHand-Regular.woff2') format('woff2'); font-display: swap; }
 @font-face { font-family: 'Rail brush'; src: url('../fonts/MaShanZheng-navigation.ttf?v=8da0e1be2a') format('truetype'); font-display: swap; }
 @media screen {
   html:has(.thread-layout) { scrollbar-gutter: auto; }

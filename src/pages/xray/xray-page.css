@@ -45,7 +45,7 @@
 }
 .xray-lightbox::backdrop { background: rgb(20 39 36 / 74%); }
 .xray-lightbox figure {
-  background: var(--paper) url('/textures/wrinkled-linen-v1.png') repeat center / 840px;
+  background: var(--paper) url('/textures/wrinkled-linen-v1.webp') repeat center / 840px;
   margin: 0;
   padding: 8px 16px 14px;
 }

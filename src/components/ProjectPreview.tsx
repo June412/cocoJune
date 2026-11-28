@@ -52,7 +52,7 @@ export default function ProjectPreview({ id, title }: { id: ProjectId; title: st
         const video = videoRef.current
         if (!video) return
         video.pause()
-        try { video.currentTime = 0 } catch { /* Metadata may not be ready yet. */ }
+        if (video.readyState >= HTMLMediaElement.HAVE_METADATA && video.currentTime > 0) video.currentTime = 0
       } : undefined}
     >
       <div className="project-preview-media">
@@ -68,7 +68,7 @@ export default function ProjectPreview({ id, title }: { id: ProjectId; title: st
             controls={!visual.hoverPlay}
             tabIndex={visual.hoverPlay ? -1 : 0}
             aria-hidden={visual.hoverPlay ? true : undefined}
-            preload="metadata"
+            preload={visual.hoverPlay && visual.cover ? 'none' : 'metadata'}
             width="960"
             height="600"
           />

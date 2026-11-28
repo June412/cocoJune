@@ -56,8 +56,8 @@ export function StitchedVideo({ src, poster, aspect, title, border, muted = fals
       {border && <img className="project-preview-border" data-color={border} src={previewBorderUrl(border)} alt="" />}
       {failed ? <a className="project-demo-fallback" href={src}>{t('Open video', '打开视频')} ↗</a> :
         !playing && <button type="button" className="project-demo-play" onClick={() => void play()} aria-label={`${t('Play video', '播放视频')} — ${title}`}>
-          <img className="yarn-disc" src={assetUrl(`borders/yarn-disc-${yarnColor}.png`)} alt="" draggable={false} />
-          <img className="yarn-triangle" src={assetUrl(`borders/yarn-play-${yarnColor}.png`)} alt="" draggable={false} />
+          <img className="yarn-disc" src={assetUrl(`borders/yarn-disc-${yarnColor}.webp`)} alt="" draggable={false} />
+          <img className="yarn-triangle" src={assetUrl(`borders/yarn-play-${yarnColor}.webp`)} alt="" draggable={false} />
         </button>}
     </div>
     {cues && <div className="alice-video-cues" role="group" aria-label={t('Jump to a moment in the recording', '跳至录屏片段')}>

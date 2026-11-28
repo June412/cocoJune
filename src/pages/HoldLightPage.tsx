@@ -18,11 +18,11 @@ export default function HoldLightPage() {
         <h3>{t('Project resources', '项目资料')}</h3>
         <nav className="holdlight-resources" aria-label={t('Project resources', '项目资料')}>
           <a className="holdlight-resource" href="https://github.com/Yuuu-05/HoldLight" target="_blank" rel="noreferrer">
-            <img src={assetUrl('illustrations/home-github-line-v1.png')} alt="" width="48" height="48" />
+            <img src={assetUrl('illustrations/home-github-line-v1.webp')} alt="" width="48" height="48" />
             <span>GitHub</span>
           </a>
           <a className="holdlight-resource" href="https://yuuu-05.github.io/CPT208-ClimbProject-C2-4/" target="_blank" rel="noreferrer">
-            <img src={assetUrl('illustrations/home-research-line-v1.png')} alt="" width="48" height="48" />
+            <img src={assetUrl('illustrations/home-research-line-v1.webp')} alt="" width="48" height="48" />
             <span>{t('Portfolio', '作品集')}</span>
           </a>
           <a className="holdlight-resource" href={assetUrl('projects/holdlight/poster.pdf')} download="HoldLight-Poster.pdf" aria-label={t('Download poster (PDF)', '下载海报（PDF）')}>
@@ -39,11 +39,11 @@ export default function HoldLightPage() {
         <section aria-labelledby="holdlight-overview" className="study-spread">
           <div>
             <h2 id="holdlight-overview" data-thread-chapter>{t('Route guidance', '路线引导')}</h2>
-            <p>{t(
-              'With guidance from our instructor, we focused on blind and low-vision (BLV) climbers. If you can’t see the whole wall, how do you get to know a route before you climb? Once you’re on the wall, how do you know which hold to reach for next?',
-              '在老师的指导下，我们把注意力放在盲人和低视力（BLV）攀岩者身上。如果看不清整面岩壁，怎样在上墙前了解路线？上墙后，又怎样知道下一步该找哪个岩点？',
-            )}</p>
-            <p>{t('Climbers preview the route on the ground, then hear cues through headphones on the wall. Human safety support and requests for help remain available throughout.', '攀岩者在地面先熟悉路线，上墙后用耳机听取提示。人工安全保护和求助渠道贯穿全程。')}</p>
+            <p>{t('With our instructor, we designed guidance for blind and low-vision climbers at two points in a climb.', '在老师的指导下，我们围绕盲人和低视力攀岩者的两个需求设计引导。')}</p>
+            <ul>
+              <li><strong>{t('On the ground', '上墙前')}</strong> · {t('Get to know the whole route through a layered preview.', '通过分层预览熟悉整条路线。')}</li>
+              <li><strong>{t('On the wall', '攀爬中')}</strong> · {t('Hear where to reach next through headphones. A person remains available for help and safety support.', '用耳机听取下一个岩点的位置，现场人员随时提供帮助和安全保护。')}</li>
+            </ul>
           </div>
           <div className="guidance-audio">
             <ProjectProcess label={t('Route guidance sequence', '路线引导流程')} steps={[
@@ -71,16 +71,11 @@ export default function HoldLightPage() {
         </section>
         <section aria-labelledby="holdlight-role" className="study-section">
           <h2 id="holdlight-role" data-thread-chapter>{t('My role', '我的职责')}</h2>
-          <div>
-            <p>{t(
-              'I designed the UI from the first prototype through the final interface and built the platform’s front end. As I connected scanning, preview and guidance, I considered what a low-vision climber could see on screen and what someone relying on voice cues needed to hear at each step.',
-              '我负责从原型到最终界面的 UI 设计和平台前端开发。把扫描、预览和引导串成一个流程时，我既要考虑低视力用户在屏幕上能看清什么，也要考虑主要依靠语音的用户在每一步需要听到什么。',
-            )}</p>
-            <p>{t(
-              'I also contributed to user surveys and to the algorithms for extracting and classifying hold colors. I led the production of our course portfolio and poster.',
-              '我也参与了用户调查，以及岩点颜色特征提取与分类算法的开发，并主导了课程作品集和海报的制作。',
-            )}</p>
-          </div>
+          <ul>
+            <li><strong>{t('Interface & front end', '界面与前端')}</strong> · {t('Designed the prototypes and built the final scanning, preview and guidance screens, pairing visual prompts with spoken cues.', '设计原型并开发扫描、预览、引导界面，为各步配上屏幕和语音提示。')}</li>
+            <li><strong>{t('Research & algorithms', '调研与算法')}</strong> · {t('Contributed to user surveys and to extracting and classifying hold colours.', '参与用户调查及岩点颜色特征的提取与分类。')}</li>
+            <li><strong>{t('Course portfolio', '课程展示')}</strong> · {t('Led production of the portfolio and poster.', '主导课程作品集和海报的制作。')}</li>
+          </ul>
         </section>
       </div>
     </article>

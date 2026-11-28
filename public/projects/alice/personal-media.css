@@ -1,16 +1,16 @@
 body {
-  --alice-media-border: url('../../borders/knit-border-blue-v4.png');
-  --alice-yarn-disc: url('../../borders/yarn-disc-blue.png');
-  --alice-yarn-play: url('../../borders/yarn-play-blue.png');
+  --alice-media-border: url('../../borders/knit-border-blue-v4.webp');
+  --alice-yarn-disc: url('../../borders/yarn-disc-blue.webp');
+  --alice-yarn-play: url('../../borders/yarn-play-blue.webp');
   --alice-border-left: -5.5150%;
   --alice-border-top: -8.8272%;
   --alice-border-width: 111.0299%;
   --alice-border-height: 118.6633%;
 }
 body.personal-textile-media {
-  --alice-media-border: url('../../borders/knit-border-red-v4.png');
-  --alice-yarn-disc: url('../../borders/yarn-disc-red.png');
-  --alice-yarn-play: url('../../borders/yarn-play-red.png');
+  --alice-media-border: url('../../borders/knit-border-red-v4.webp');
+  --alice-yarn-disc: url('../../borders/yarn-disc-red.webp');
+  --alice-yarn-play: url('../../borders/yarn-play-red.webp');
   --alice-border-left: -3.9329%;
   --alice-border-top: -6.3107%;
   --alice-border-width: 107.7369%;

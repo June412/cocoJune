@@ -1,4 +1,4 @@
-@import '../../styles/site-palette.css?v=5bea0c0cf3';
+@import '../../styles/site-palette.css?v=f302b94db3';
 
 @font-face {
   font-family: 'Cardenio Modern';
@@ -8,7 +8,7 @@
 }
 @font-face {
   font-family: Alegreya;
-  src: url('../../fonts/Alegreya.ttf') format('truetype');
+  src: url('../../fonts/Alegreya.woff2') format('woff2');
   font-weight: 400 900;
   font-display: swap;
 }
@@ -19,7 +19,7 @@
     --hand: var(--portfolio-heading);
     --prose: var(--portfolio-prose);
     --body: 'Helvetica Neue', Helvetica, Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif;
-    --linen: url('../../textures/wrinkled-linen-v1.png') center top / 840px repeat;
+    --linen: url('../../textures/wrinkled-linen-v1.webp') center top / 840px repeat;
     --sans: var(--prose);
     --mono: var(--body);
     --bg: var(--paper);
@@ -255,9 +255,9 @@
 
   /* TinyRoomies uses the same red stitching as its cover in Games & XR. */
   body.roomies-case {
-    --alice-media-border: url('../../borders/knit-border-red-v4.png');
-    --alice-yarn-disc: url('../../borders/yarn-disc-red.png');
-    --alice-yarn-play: url('../../borders/yarn-play-red.png');
+    --alice-media-border: url('../../borders/knit-border-red-v4.webp');
+    --alice-yarn-disc: url('../../borders/yarn-disc-red.webp');
+    --alice-yarn-play: url('../../borders/yarn-play-red.webp');
     --alice-border-left: -3.9329%; --alice-border-top: -6.3107%;
     --alice-border-width: 107.7369%; --alice-border-height: 114.1990%;
   }

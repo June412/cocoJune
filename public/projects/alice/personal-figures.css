@@ -23,7 +23,7 @@
 }
 
 .personal-alice.alice-technical-doc #image-dialog {
-  background: var(--paper) url('../../textures/wrinkled-linen-v1.png') repeat center top / 840px;
+  background: var(--paper) url('../../textures/wrinkled-linen-v1.webp') repeat center top / 840px;
 }
 
 @media screen {
