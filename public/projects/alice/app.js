@@ -24,10 +24,10 @@ function section(id,zh,en,subzh,suben,body) {
 }
 const compare=(a,b,zh,en)=>`<figure class="study"><div class="compare" style="--split:50%">${img(M[b],t(zh,en)+' · '+t('调整后','After'))}<div class="compare-top">${img(M[a],t(zh,en)+' · '+t('调整前','Before'))}</div><span class="compare-line"></span><span class="compare-handle">↔</span><span class="compare-label before">${t('调整前','Before')}</span><span class="compare-label after">${t('调整后','After')}</span><input type="range" min="0" max="100" value="50" aria-label="${esc(t('拖动比较：','Compare: ')+t(zh,en))}"></div><figcaption class="caption">${t(zh,en)}<span>${t('拖动分界线','Drag to compare')}</span></figcaption></figure>`;
 const sectionOrder = page === 'game'
-    ? ['overview','arrival','alice','panda','play','mechanics','doll','workshop','thread-state','history','making-credits']
+    ? ['overview','arrival','play','doll','mechanics']
     : ['overview','workflow','cushion','cases','works','bridge','trial','results','making-credits'];
 const legacyViews = {design:'overview', interaction:'play', technology:'doll', guide:'workflow', archive:'trial'};
-const projectName = page === 'game' ? 'Alice · Mending Workshop' : 'Textile Studio';
+const projectName = page === 'game' ? 'Alice, Mending Workshop' : 'Textile Studio';
 let unmountThread;
 
 function mountView() {
@@ -39,7 +39,7 @@ function mountView() {
         try { history.replaceState(history.state, '', url); } catch { /* File URLs can still open the project. */ }
     }
     const source = document.createElement('template');
-    source.innerHTML = (page === 'game' ? game() : toolkit()) + projectCredits();
+    source.innerHTML = page === 'game' ? game() : toolkit() + projectCredits();
     const sections = new Map([...source.content.children].map(node => [node.id, node]));
     unmountThread?.();
     document.title = projectName + ' — Junyan He';
@@ -48,20 +48,15 @@ function mountView() {
     main.append(...sectionOrder.map(id => sections.get(id)));
     const film = main.querySelector('.opening-media video');
     window.AliceAdmissions.addOpeningCaptions(film, lang, page);
-    main.insertAdjacentHTML('beforeend', `<footer class="reader-footer"><button type="button" class="case-print" data-print>${t('打印项目 / PDF','Print project / PDF')}</button></footer>`);
+    if (page === 'toolkit') main.insertAdjacentHTML('beforeend', `<footer class="reader-footer"><button type="button" class="case-print" data-print>${t('打印项目 / PDF','Print project / PDF')}</button></footer>`);
     unmountThread = window.ProjectThread.mount(document.querySelector('.thread-host'), main, lang);
 }
 
 function projectCredits(){
-    const game = page === 'game';
     return `<section id="making-credits" data-thread-chapter class="making-credits" aria-labelledby="making-title">
         <h2 id="making-title">${t('制作署名','Credits')}</h2>
-        <p>${game
-            ? t('我手缝了 Alice 原作，设计了两份修补委托和声音交互，并在 Unity 中试玩、调整材质和画面。Codex 协助整理 Blender 模型、实现 Unity 场景与交互，以及做自动化检查。窗外街景的天气和时段变化使用了 AI 图像编辑。','I sewed the original Alice, designed the two repair commissions and sound interactions, and tested the materials and visuals in Unity. Codex assisted with Blender asset preparation, Unity scenes and interactions, and automated checks. The street backdrops use AI-assisted edits for weather and time of day.')
-            : t('我设计了布艺工作流程，选择材质，并在 Unity 中检验成品的外观和手感。Codex 协助整理 Blender 资产、实现 Unity 交互和做自动化检查。','I designed the textile workflow, selected the materials, and tested the finished pieces in Unity. Codex assisted with Blender asset preparation, Unity interactions, and automated checks.')}</p>
-        <p>${game
-            ? t('配乐由 Scott Buckley 创作。修补声和环境声使用了经过剪辑与混音的署名录音。','The music is by Scott Buckley. The repair sounds and ambience use edited and mixed source recordings.') + ' <a href="credits.txt">' + t('音乐与录音署名','Music and recording credits') + '</a>'
-            : t('《夜航》抱枕上的帆船图案由一位同学设计，制作过程的配图在 Unity 中复现。','A classmate designed the sailboat on the Night Crossing cushion. I recreated the process images in Unity.')}</p>
+        ${para('我设计了布艺工作流程，选择材质，并在 Unity 中检验成品的外观和手感。Codex 协助整理 Blender 资产、实现 Unity 交互和做自动化检查。','I designed the textile workflow, selected the materials, and tested the finished pieces in Unity. Codex assisted with Blender asset preparation, Unity interactions, and automated checks.')}
+        ${para('《夜航》抱枕上的帆船图案由一位同学设计，制作过程的配图在 Unity 中复现。','A classmate designed the sailboat on the Night Crossing cushion. I recreated the process images in Unity.')}
     </section>`;
 }
 
@@ -73,21 +68,28 @@ function shell(){return `<div class="thread-layout">
 const para=(zh,en)=>`<p>${t(zh,en)}</p>`;
 const wfig=(id,zh,en,index=0)=>{const w=work(id);return `<figure><button class="image-button" data-work="${id}" aria-label="${esc(t(zh,en))}">${img(w.images[index]||w.images[0],t(zh,en))}</button><figcaption class="caption">${t(zh,en)}</figcaption></figure>`};
 const pair=(a,b)=>`<div class="figure-pair">${a}${b}</div>`;
+// Both plates keep their original registration while the divider reveals the left plate.
+function captureWipe(before, after, leftLabel, rightLabel, ratio) {
+    const label = t('拖动对比','Compare') + ' · ' + leftLabel + ' / ' + rightLabel;
+    return `<figure class="capture-comparison"><div class="capture-wipe" style="--capture-ratio:${ratio};--split:50%">
+        <div class="capture-after">${after}</div><div class="capture-before">${before}</div>
+        <span class="capture-divider" aria-hidden="true"><b>↔</b></span>
+        <input type="range" min="0" max="100" value="50" aria-label="${esc(label)}">
+        </div><figcaption><span>${esc(leftLabel)}</span><span>${esc(rightLabel)}</span></figcaption></figure>`;
+}
 function cheekComparison() {
-    function detail(key, label, pointer, eyeY) {
-        return `<figure><button type="button" class="image-button cheek-window" data-image="${key}" aria-label="${esc(t('查看完整截图','Open full capture') + ' · ' + label)}">
-            <svg viewBox="213 86 171 109" aria-hidden="true" focusable="false">
-                <image href="${M[key].src}" width="720" height="450"/>
-                <g class="cheek-pointer"><path d="${pointer}"/><circle cx="285" cy="${eyeY}" r="5.5"/></g>
-            </svg></button><figcaption class="caption">${label}<span aria-hidden="true">↗</span></figcaption></figure>`;
-    }
+    const left = t('填棉前','Before stuffing'), right = t('填入四团棉后','After four tufts');
+    const detail = (key, label, eyeY) => `<svg viewBox="213 86 171 109" role="img" aria-label="${esc(label)}"><image href="${M[key].src}" width="720" height="450"/><g class="cheek-pointer"><path d="M290 ${eyeY-2} 313 104h43"/><circle cx="285" cy="${eyeY}" r="5.5"/></g></svg>`;
     return `<div class="cheek-study"><h4>${t('眼旁的布面','Cloth beside the eye')}</h4>
-        <div class="cheek-comparison">${detail('fill0',t('填棉前','Before stuffing'),'M290 123 312 104H384',125)}
-        ${detail('fill100',t('填入四团棉后','After four tufts'),'M280 119 257 104H213',121)}</div>
-        <p>${t('对照圆圈里的裂口边缘：填棉后，眼旁的布面微微隆起。两图取自同一机位、同一位置。','Follow the circled edge of the tear. After four tufts, the cloth rises beside the eye. Both close-ups use the same camera and crop.')}</p></div>`;
+        ${captureWipe(detail('fill0',left,125),detail('fill100',right,121),left,right,'171/109')}
+        ${para('圆圈标出同一机位的裂口边缘。填入四团棉后，眼旁的布面微微隆起。','The circle marks the edge of the tear in the same camera view. Four tufts lift the cloth beside the eye.')}</div>`;
+}
+function gameSound(file, zh, en) {
+    const label = esc(t(zh,en));
+    return `<audio-waveform data-zh="${esc(zh)}" data-en="${esc(en)}"><audio controls preload="none" aria-label="${label}" src="assets/story-game/${file}.m4a"></audio></audio-waveform>`;
 }
 const passage=(id,zh,en,text,visual='')=>`<article class="case-study" id="${id}"><h3>${t(zh,en)}</h3><div class="prose">${text}</div>${visual}</article>`;
-const row=(zh,en,text,visual)=>`<article class="process-row"><div class="prose"><h3>${t(zh,en)}</h3>${text}</div>${visual}</article>`;
+const commissionStep=(zh,en,text,visual)=>`<article class="process-row"><div class="prose"><h4>${t(zh,en)}</h4>${text}</div>${visual}</article>`;
 const craftRow=(zh,en,text,controls,result)=>`<article class="process-row craft-step"><div class="prose"><h3>${t(zh,en)}</h3>${text}</div><div class="craft-evidence">${controls}${result}</div></article>`;
 const table=(heads,rows)=>`<div class="table-scroll"><table class="content-table"><thead><tr>${heads.map(h=>`<th scope="col">${h}</th>`).join('')}</tr></thead><tbody>${rows.map(r=>`<tr>${r.map((v,i)=>i?`<td>${v}</td>`:`<th scope="row">${v}</th>`).join('')}</tr>`).join('')}</tbody></table></div>`;
 
@@ -150,7 +152,7 @@ ${craftRow('绣一根枝茎和五片叶','Stitch the stem and five leaves',
     capture('satin',640,383,'中叶：针距 0.6 mm · 线径 0.54 mm · 方向 58°。','Centre leaf · 0.6 mm spacing · 0.54 mm yarn · 58°.','uiLeafDetail'),
     photo('cushionEmbroidery',t('五片缎面绣叶分别成层，可以单独转动绣线方向。','Each satin leaf is a separate layer with its own thread direction.')))}
 <figure class="ts-gesture-film"><video controls playsinline preload="none" width="950" height="680" poster="assets/story-tool/botanical-leaf-gesture.webp" aria-describedby="leaf-gesture-caption"><source src="assets/story-tool/botanical-leaf-gesture.mp4" type="video/mp4"><a href="assets/story-tool/botanical-leaf-gesture.mp4">${t('播放绣叶过程','Play the embroidery clip')}</a></video>
-<figcaption id="leaf-gesture-caption">${t('描出叶形，松手生成一层缎面绣。工作台实录，3 倍速。','Trace a leaf and release to create a satin-stitch layer. Workbench recording at 3× speed.')} <a href="#editing-sewn-piece">${t('看移动毛毡后的效果','See what moves with the felt')} ↗</a></figcaption></figure>
+<figcaption id="leaf-gesture-caption">${t('描出叶形，松手生成一层缎面绣。工作台实录，3 倍速。','Trace a leaf and release to create a satin-stitch layer. Workbench recording at 3× speed.')}</figcaption></figure>
 ${craftRow('缝好内外两道边','Finish the felt and cushion edges',
     para('在毛毡边缝锁边针，再沿抱枕外圈铺布条包边。','Blanket-stitch the felt, then bind the cushion edge with a fabric strip.'),
     capture('edging',656,275,'毛毡针距 4.5 mm · 外包边宽 4.5 mm、厚 1 mm。','4.5 mm stitch spacing · outer binding 4.5 × 1 mm.'),
@@ -158,7 +160,7 @@ ${craftRow('缝好内外两道边','Finish the felt and cushion edges',
 ${pair(photo('cushionEdgeDetail',t('针脚跨过毛毡边缘，落在下面的织物上。','The stitches cross from the felt edge onto the weave.')),photo('cushionBindingDetail',t('布条绕过抱枕转角，封住外侧边缘。','The binding follows the rounded outside corner.')))}
 ${craftRow('保存可编辑的作品','Save the editable work',
     para('保存场景与外观方案。','Save the scene and an editable Look.')+
-    `<p id="cushion-attachments">${t('九个图层重开后仍可编辑，七层随毛毡移动。','Nine editable layers reopen. Seven follow the felt.')}</p><p><a class="text-link" href="#editing-sewn-piece">${t('看移动毛毡后的针脚','Move the felt and inspect the stitches')} →</a></p>`,
+    `<p id="cushion-attachments">${t('九个图层重开后仍可编辑，七层随毛毡移动。','Nine editable layers reopen. Seven follow the felt.')}</p>`,
     capture('save',644,316,'保存当前场景与外观。','Scene and Look controls.'),
     capture('layers',594,734,'重开后保留九个图层。','Nine layers after reopening.'))}
 ${craftRow('导出并重新打开成品','Export and reopen the cushion',
@@ -226,98 +228,69 @@ ${window.AliceWorkshopProps.render('toolkit',lang)}
 `}
 
 function game(){
-const story = window.AliceGameStory.forLanguage(lang,sketch);
+const story = window.AliceGameStory.forLanguage(lang,sketch,captureWipe,gameSound);
+const workshop = workshopAtmosphere();
 const points=(...items)=>`<ul class="mending-points">${items.map(([zh,en])=>`<li>${t(zh,en)}</li>`).join('')}</ul>`;
 return `
-<header id="overview" data-thread-chapter data-thread-start class="project-opening">${openingMedia('alice','Alice · Mending Workshop','alice-line-v7')}<div class="hero-intro opening-copy"><h2 class="project-overview-title">${t('项目概览','Overview')}</h2><p class="lead">${t('我把手缝玩偶 Alice 做成了一款修补游戏。第一份委托教玩家补棉、交替落针、收紧缝线。第二份换成脱线的熊猫耳朵，让玩家认出可以沿用的针法，再学会逐行挑回线圈。','I turned Alice, a doll I sewed by hand, into a repair game. The first commission teaches stuffing, alternating needle placement and thread tension. On Panda’s unravelled ear, players recognise the stitch they already know and learn to recover dropped loops row by row.')}</p>
+<header id="overview" data-thread-chapter data-thread-start class="project-opening">${openingMedia('alice','Alice, Mending Workshop','alice-line-v7')}<div class="hero-intro opening-copy"><h2 class="project-overview-title">${t('项目概览','Overview')}</h2><p class="lead">${t('我把手缝玩偶 Alice 做成了一款修补游戏。第一份委托教玩家补棉、交替落针、收紧缝线。第二份换成脱线的熊猫耳朵，让玩家认出可以沿用的针法，再学会逐行挑回线圈。','I turned Alice, a doll I sewed by hand, into a repair game. The first commission teaches stuffing, alternating needle placement and thread tension. On Panda’s unravelled ear, players recognise the stitch they already know and learn to recover dropped loops row by row.')}</p>
 <p class="project-connection">${t(
     `玩家翻开的布面针法手册，是我用自己开发的 Unity 布艺工具 <a href="${href('toolkit')}">Textile Studio</a> 制作的。`,
     `I made the cloth-bound guide that teaches players their first stitch with <a href="${href('toolkit')}">Textile Studio</a>, my textile tool for Unity.`
 )}</p>
-<div class="opening-resources">${window.AliceAdmissions.download(lang)}${window.AliceAdmissions.film(lang,'game')}</div>
-</div></header>
-
-${section('arrival','修补委托','Commissions','','',`<div class="sequence-spread"><div>${story.commissions()}${story.transfer()}</div>${story.arrival()}</div>`)}
-
-${section('alice','修补 Alice','Alice repairs','先填平脸颊，再沿裂口缝六组藏针。缝牢纽扣眼后，轻拉检查。','Pack the cheek, close the tear with six ladder stitches, then tug the new button eye to check it holds.',`
-${story.route('alice')}
-${row("1. 补回脸颊","1. Pack the cheek",points(["填入四小团棉花。","Add four tufts of cotton."],["用填充棒轻压到两边脸颊对称。","Press gently until the cheeks match."]),photo("fill100",t("整理后的脸颊","Cheek after packing")))}
-${photo('aliceFill',t('棉花袋与填充棒','Cotton bag and packing stick'))}
-${row("2. 缝合裂口","2. Close the tear",points(["沿同一侧的布褶入针、出针。","Enter and exit through one fold."],["交替换边，完成六组藏针。","Alternate sides for six ladder stitches."]),photo("aliceSew",t("沿布褶落针","Needle placement along the fold")))}
-${row("3. 收紧、打结、修线","3. Tension, knot and trim",points(["剪出线尾，慢拉到蓝色张力区。","Cut a working tail and pull into the blue tension band."],["稳住后松手。打结，剪短余线。","Hold, release, knot and trim."]),photo("aliceTension",t("慢拉时的张力条","The tension band while pulling")))}
-${row("4. 挑一只新眼睛","4. Fit a new eye",points(["从盒里选纽扣，放到脸颊上。","Choose a button and place it on the cheek."],["按扣孔数量翻开手册。","Open the handbook to its hole pattern."]),story.figure("button-tin","桌上的纽扣盒","The button tin"))}
-${row("5. 缝牢纽扣","5. Fasten the button",points(["每对孔缝四次。四孔扣依次缝两对。","Sew each pair four times. A four-hole button takes two pairs."],["收线打结，轻拉试一试。","Knot the thread and gently tug."]),photo("aliceButton",t("固定后的四孔纽扣","Secured four-hole button")))}
-${row("6. 送 Alice 回家","6. Send Alice home",points(["修补通过检查后，Alice 坐起来挥手。","Alice sits up and waves once the repair passes its check."],["把玩偶装盒，封口寄回。","Pack the doll, seal the box and send her home."]),photo("aliceComplete",t("修好后的 Alice","Alice after repair")))}
-${photo('aliceSend',t('寄回前的确认','Ready for dispatch'))}
-<details class="project-aside"><summary>${t('设计手记 · Alice 的旧缎带','Design note · Alice’s old ribbon')}</summary>${story.ribbon()}</details>
-`)}
-
-${section('panda','修补熊猫','Panda repairs','先挑回耳朵上脱落的线圈，才能用上一份委托学过的藏针闭合耳朵。耳朵、皇冠和亮片要分别轻拉检查。','Recover the dropped loops before closing the ear with the ladder stitch learned on Alice. The ear, crown and sequin each get a separate tug test.',`
-${story.route('panda')}
-${row("1. 逐行挑回线圈","1. Recover the loops",points(["用两个针目扣稳住活线圈。","Secure the live loops with two markers."],["对准钩尖，逐行挑回六行。失误只重试当前行。","Align the hook and recover six rows. A miss repeats one row."]),photo("pandaLoops",t("耳朵边的钩针","Hook at the edge of the ear")))}
-${row("2. 补棉、闭耳","2. Close the ear",points(["补三团棉花，轻压两次。","Add three tufts and press twice."],["用六组藏针合拢耳朵，收紧、回结、藏尾。","Close with six ladder stitches. Tension, knot and hide the tail."]),photo("pandaEar",t("耳部的缝口","The ear seam")))}
-${row("3. 缝回旧皇冠","3. Anchor the crown",points(["摆正帽边。每针先穿皇冠，再进头顶布面。","Align the hem. Pass through the crown, then the head fabric."],["缝四次，两侧锁结。","Make four loops and secure both sides."]),photo("pandaCrown",t("皇冠底边","The crown hem")))}
-${row("4. 固定旧亮片","4. Secure the sequin",points(["放平亮片，从中心孔穿入，从外缘布面穿回。","Lay the sequin flat. Pierce the centre and return just outside the rim."],["缝三道固定针，藏结修线。","Secure with three stitches and bury the knot."]),story.figure("cheek-sequin","从中心孔到外缘","Centre-to-rim stitch"))}
-${row("5. 分开轻拉三处","5. Test each repair",points(["依次轻拉耳朵、皇冠和亮片。","Tug the ear, crown and cheek sequin in turn."],["三处都牢固后，小国王动动耳朵。","When all three hold, Panda wiggles its ears."]),story.figure("return-check","轻拉亮片","Testing the sequin"))}
-${row("6. 寄回面包店","6. Return to the bakery",points(["三处轻拉检查都通过后，玩偶就能装盒。","The parcel is ready once all three repairs pass their tug checks."],["合上盒盖，封好寄回。","Close and seal the parcel."]),story.figure("bakery-parcel","寄回的包裹","The return parcel"))}
-`)}
-
-${section('play','修补机制','Repair mechanics','','',`
-${story.preparation(repairMethod(mechanics[2],2))}
-<div class="repair-methods">${repairMethod(mechanics[0],0)}${repairMethod(mechanics[1],1)}${story.trimming()}${repairMethod(mechanics[3],3)}${repairMethod(mechanics[4],4)}</div>
-${story.finishing()}
-`)}
-
-${section('doll','模型与针线','Models & thread','','',`
+</div><div class="overview-exhibits">
+${story.overview(`<div class="craft-origins">${photo('alicePhysical',t('手缝原作','Hand-sewn Alice'))}${photo('aliceCurrent',t('游戏模型','Game model'))}</div>`)}
 ${window.AliceDollOrbit.gallery(lang)}
-<section class="project-notes"><h3>${t('玩偶建模','Doll modelling')}</h3>
-${pair(photo('alicePhysical',t('手缝原作','The hand-sewn doll')),photo('aliceCurrent',t('游戏模型','The game model')))}
-${table([t('部位','Part'),t('处理方法','Treatment')],[
- [t('身体、头发与衣服','Body, hair and dress'),t('按织物分区，修整袖口、裙边与坐姿。','Separate textile regions. Refine the cuffs, hem and seated pose.')],
- [t('脸颊','Cheek'),t('棉花增加体积，填充棒重新分布已有的棉花。','Cotton adds volume. The packing stick redistributes it.')],
- [t('缝口','Seam'),t('在未形变的布面记录针位，填棉后仍能准确落针。','Store needle contacts on the undeformed cloth so stitches stay aligned as the cheek fills.')]])}
-${cheekComparison()}</section>
-${story.technical()}
+${story.props()}</div></header>
+
+${section('arrival','游戏玩法 <small>两份委托</small>','Gameplay <small>The two commissions</small>','','',`
+${story.arrival()}
+<section class="section commission-case" id="alice" aria-labelledby="alice-title"><h3 id="alice-title">${t('1. Mina 的布偶 Alice','1. Mina’s doll, Alice')}</h3>
+<div class="section-body">
+${story.route('alice')}
+${commissionStep("1. 补回脸颊","1. Pack the cheek",points(["填入四小团棉花。","Add four tufts of cotton."],["用填充棒轻压到两边脸颊对称。","Press gently until the cheeks match."]),photo("fill100",t("整理后的脸颊","Cheek after packing")))}
+${photo('aliceFill',t('棉花袋与填充棒','Cotton bag and packing stick'))}
+${commissionStep("2. 缝合裂口","2. Close the tear",points(["沿同一侧的布褶入针、出针。","Enter and exit through one fold."],["交替换边，完成六组藏针。","Alternate sides for six ladder stitches."]),photo("aliceSew",t("沿布褶落针","Needle placement along the fold")))}
+${commissionStep("3. 收线打结","3. Tie off the seam",points(["剪出线尾，慢拉到蓝色张力区。","Cut a working tail and pull into the blue tension band."],["稳住后松手。打结，剪短余线。","Hold, release, knot and trim."]),photo("aliceTension",t("慢拉时的张力条","The tension band while pulling")))}
+${commissionStep("4. 挑一只新眼睛","4. Fit a new eye",points(["从盒里选纽扣，放到脸颊上。","Choose a button and place it on the cheek."],["按扣孔数量翻开手册。","Open the handbook to its hole pattern."]),story.figure("button-tin","桌上的纽扣盒","The button tin"))}
+${commissionStep("5. 缝上纽扣","5. Sew on the button",points(["每对孔缝四次。四孔扣依次缝两对。","Sew each pair four times. A four-hole button takes two pairs."],["收线打结，轻拉试一试。","Knot the thread and gently tug."]),photo("aliceButton",t("固定后的四孔纽扣","Secured four-hole button")))}
+${commissionStep("6. 送 Alice 回家","6. Send Alice home",points(["修补通过检查后，Alice 坐起来挥手。","Alice sits up and waves once the repair passes its check."],["把玩偶装盒，封口寄回。","Pack the doll, seal the box and send her home."]),photo("aliceComplete",t("修好后的 Alice","Alice after repair")))}
+${photo('aliceSend',t('寄回前的确认','Ready for dispatch'))}
+</div></section>
+<section class="section commission-case" id="panda" aria-labelledby="panda-title"><h3 id="panda-title">${t('2. 面包店的小国王熊猫','2. The bakery’s Little King Panda')}</h3>
+<div class="section-body">
+${story.route('panda')}
+${commissionStep("1. 逐行挑回线圈","1. Recover the loops",points(["用两个针目扣稳住活线圈。","Secure the live loops with two markers."],["对准钩尖，逐行挑回六行。失误只重试当前行。","Align the hook and recover six rows. A miss repeats one row."]),photo("pandaLoops",t("耳朵边的钩针","Hook at the edge of the ear")))}
+${commissionStep("2. 补棉、闭耳","2. Close the ear",points(["补三团棉花，轻压两次。","Add three tufts and press twice."],["用六组藏针合拢耳朵，收紧、回结、藏尾。","Close with six ladder stitches. Tension, knot and hide the tail."]),photo("pandaEar",t("耳部的缝口","The ear seam")))}
+${commissionStep("3. 缝回旧皇冠","3. Anchor the crown",points(["摆正帽边。每针先穿皇冠，再进头顶布面。","Align the hem. Pass through the crown, then the head fabric."],["缝四次，两侧锁结。","Make four loops and secure both sides."]),photo("pandaCrown",t("皇冠底边","The crown hem")))}
+${commissionStep("4. 固定旧亮片","4. Secure the sequin",points(["放平亮片，从中心孔穿入，从外缘布面穿回。","Lay the sequin flat. Pierce the centre and return just outside the rim."],["缝三道固定针，藏结修线。","Secure with three stitches and bury the knot."]),story.figure("cheek-sequin","从中心孔到外缘","Centre-to-rim stitch"))}
+${commissionStep("5. 轻拉三处","5. Test three repairs",points(["依次轻拉耳朵、皇冠和亮片。","Tug the ear, crown and cheek sequin in turn."],["三处都牢固后，小国王动动耳朵。","When all three hold, Panda wiggles its ears."]),story.figure("return-check","轻拉亮片","Testing the sequin"))}
+${commissionStep("6. 寄回面包店","6. Return to the bakery",points(["三处轻拉检查都通过后，玩偶就能装盒。","The parcel is ready once all three repairs pass their tug checks."],["合上盒盖，封好寄回。","Close and seal the parcel."]),story.figure("bakery-parcel","寄回的包裹","The return parcel"))}
+</div></section>
+${story.transfer()}`)}
+
+${section('play','游戏玩法 <small>工具与针法</small>','Gameplay <small>Tools and stitches</small>','','',`
+${story.preparation(repairMethod(mechanics[2],2))}
+<div class="repair-methods">${[0,1,3].map(i=>repairMethod(mechanics[i],i)).join('')}${story.tieOff()}</div>
+${story.finishing(repairMethod(mechanics[4],4))}
 `)}
 
-${section('workshop','工坊声光','Light & sound','','',`
-${workshopAtmosphere()}
-${story.reflection()}
-${story.needleLight()}
-${story.props()}
-`)}
-
-${section('mechanics','交互反馈','Player feedback','','',`
-${story.feedback()}
-${row('可调整的操作','Control options',points(['键位可重映射，也可点击代替拖动。','Remap keys or use clicks for drag actions.'],['纸张可放大，提示可延长或提高对比度。','Enlarge the paper, extend cues or increase contrast.']),photo('accessibility',t('两份委托共用的辅助设置','Comfort settings for both commissions')))}
-`)}
-
-${section('thread-state','存档与验证','Saves & testing','','',story.keyboardCheck()+pair(photo('clothEntry',t('入针待确认','Entry pending')),photo('clothExit',t('第三针已确认','Third stitch confirmed'))))}
-
-${section('history','开发历程','Development','','',`
-<div class="mending-influences"><p>${t('Alice 的原型由我手缝。我选择要保留的磨损痕迹，设计委托、修补反馈和工坊内的声音交互。','I sewed the original Alice, chose which signs of wear to keep, and designed the commissions, repair feedback and sound interactions.')} <a class="text-link" href="#making-credits">${t('制作分工','Production credits')}</a></p><dl><dt>ReStory</dt><dd>${t('损伤决定修理次序','Damage sets the repair order.')}</dd><dt>Assemble with Care</dt><dd>${t('主人讲出物件的来历','Owners give objects their history.')}</dd></dl></div>
-${table([t('阶段','Stage'),t('交付','Milestone')],[
- ['2026.04–06',t('布艺材质与 Alice 数字原型','Textile materials and the digital Alice')],
- ['2026.09–10',t('窗边工坊、两份委托和针线操作','Workshop, two commissions and hand-operated stitches')],
- ['2026.11',t('工坊加入五件布艺道具，验证中途读档与寄回','Five textile props integrated. Mid-repair saves and return journeys checked.')]])}
-${passage('future','尚未实现的委托构想','Unimplemented commission concepts','',table([t('委托构想','Concept'),t('新问题与技法','New problem and technique'),t('保留的物件线索','Object details to preserve')],[
-[t('围巾狐狸','Scarf fox'),t('前臂磨破 → 补布、毛毯针','Worn forearm → patch and blanket stitch'),t('送信人的旧邮袋、围巾','Courier’s old satchel and scarf')],
-[t('条纹针织熊','Striped knitted bear'),t('腹部缺纱 → 托底、交错织补','Missing belly yarn → supported darning'),t('旧毛衣的晒痕、园丁的纸花','Sun-faded wool and gardener’s paper flower')],
-[t('帆布小鲸','Canvas whale'),t('鳍部脱缝 → 对位、疏缝、闭口','Loose fin seam → align, baste, close'),t('学校戏剧社的演出痕迹','School play’s wear marks')],
-[t('红围裙猫','Red-apron cat'),t('嘴角松线 → 沿旧迹回针','Loose mouth thread → backstitch'),t('老照片里歪歪的笑容','Crooked smile in old photos')],
-[t('拼布小象','Patchwork elephant'),t('补丁翘边 → 组合旧针法','Loose patchwork → combine earlier stitches'),t('邻里捐来的布头','Neighbours’ fabric scraps')]
-]))}
-<div class="prose game-endnote">${para('下一轮真人试玩想观察：首次接触游戏的人能否认出熊猫耳朵也需要藏针，并把在 Alice 身上学到的手法用上。','Next playtest question: do first-time players recognise that Panda’s ear needs the ladder stitch they learned on Alice?')}<p>${t('配乐来自 Scott Buckley；雨声和工具声取自授权录音。','Music by Scott Buckley. Rain and tool sounds use licensed recordings.')} <a class="text-link" href="credits.txt" target="_blank" rel="noopener">${t('音乐与音源署名','Music and recording credits')} ↗</a></p></div>
-`)}
+${section('doll','技术设计','Technical Design','','',story.technical(cheekComparison(),workshop.comparison))}
+${section('mechanics','修补反馈与无障碍','Repair feedback and accessibility','','',story.feedback(
+    story.keyboardCheck() + captureWipe(
+        img(M.clothEntry,t('等待确认入针','Entry pending')),img(M.clothExit,t('第三针已确认','Third stitch confirmed')),
+        t('等待确认入针','Entry pending'),t('第三针已确认','Third stitch confirmed'),M.clothEntry.width+'/'+M.clothEntry.height),
+    photo('accessibility',t('两份委托共用的辅助设置','Comfort settings for both commissions')),
+    workshop.recording
+))}
 `}
 
 const materialNames=[['细棉','Fine cotton'],['粗麻','Coarse linen'],['平针','Jersey'],['罗纹','Rib knit'],['粗毛线','Bulky yarn'],['毛毡','Felt'],['短绒','Short pile'],['缎面','Satin'],['Alice 身体','Alice body'],['Alice 包边','Alice binding'],['游戏头发','Game hair'],['金色头发','Golden hair']];
 const mechanics=[
-    {id:'stitch',sketch:'ladder-entry',foley:'needle',still:'aliceSew',name:['梯形藏针','Ladder stitch'],actions:[['入针','Enter'],['出针','Exit'],['换边','Cross sides']],sound:['入针时轻响，随后是线穿布声。','A prick on entry, then the thread sliding through.']},
-    {id:'tension',sketch:'return-check',foley:'scissors',still:'aliceTension',name:['慢拉收线','Gentle tension'],actions:[['慢拉','Pull slowly'],['在蓝区稳住','Hold in blue'],['松手','Release']],sound:['听剪线声和松手时短促的抽线声。','A snip, then a short slide as the thread settles.']},
-    {id:'fill',sketch:'fill-cheek',foley:'packing',still:'aliceFill',name:['填棉整形','Stuffing and shaping'],actions:[['取棉','Take a tuft'],['塞入','Fill'],['轻压','Press']],sound:['工具碰桌轻响，压进棉花时变沉。','A tap on the desk, a muffled press into cotton.']},
-    {id:'loops',sketch:'loop-check',still:'pandaLoops',name:['挑回线圈','Recovering loops'],actions:[['固定活线圈','Clip the loops'],['W / S 对准','Align with W / S'],['空格转钩','Turn with Space']],sound:['竹钩拿起时轻响，每行收好后线轻轻滑动。','A click as the hook lifts, then yarn sliding at each row.']},
-    {id:'button',sketch:'button-set',still:'aliceButton',name:['缝纽扣','Sewing a button'],actions:[['穿过一对孔','Sew the pair'],['打结','Knot'],['轻拉检查','Tug to test']],sound:['听针入孔和拉线穿出的两个声音。','Listen for the needle entering and the thread pulling through.']}
+    {id:'stitch',sketch:'ladder-entry',foley:'needle',still:'aliceSew',name:['缝合裂口','Sew the tear'],actions:[['入针','Enter'],['出针','Exit'],['换边','Cross sides']],sound:['入针时轻响，随后是线穿布声。','A prick on entry, then the thread sliding through.']},
+    {id:'tension',sketch:'return-check',foley:'scissors',still:'aliceTension',name:['拉紧缝口','Draw the seam closed'],actions:[['慢拉','Pull slowly'],['在蓝区稳住','Hold in blue'],['松手','Release']],sound:['听剪线声和松手时短促的抽线声。','A snip, then a short slide as the thread settles.']},
+    {id:'fill',sketch:'fill-cheek',foley:'packing',still:'aliceFill',name:['补回脸颊','Pack the cheek'],actions:[['取棉','Take a tuft'],['塞入','Fill'],['轻压','Press']],sound:['工具碰桌轻响，压进棉花时变沉。','A tap on the desk, a muffled press into cotton.']},
+    {id:'loops',foley:'loop-recovery',sketch:'loop-check',still:'pandaLoops',name:['挑回脱落的线圈','Pick up a dropped loop'],actions:[['固定活线圈','Clip the loops'],['W / S 对准','Align with W / S'],['空格转钩','Turn with Space']],sound:['竹钩拿起时轻响，每行收好后线轻轻滑动。','A click as the hook lifts, then yarn sliding at each row.']},
+    {id:'button',foley:'button-sewing',sketch:'button-set',still:'aliceButton',name:['检查针脚','Check the stitches'],actions:[['穿过一对孔','Sew the pair'],['打结','Knot'],['轻拉检查','Tug to test']],sound:['听针入孔和拉线穿出的两个声音。','Listen for the needle entering and the thread pulling through.']}
 ];
 let galleryFilter='all', query='', activeModal=null, modalIndex=0, lastFocus=null, galleryPage=0;
 const worksPerPage=9;
@@ -328,7 +301,9 @@ mountView();
 if(document.getElementById('material-stage'))showMaterial(0);
 if(document.getElementById('work-gallery'))renderGallery();
 document.querySelectorAll('[data-print]').forEach(b=>b.onclick=printPage);
-document.querySelectorAll('.compare input').forEach(i=>i.oninput=()=>i.closest('.compare').style.setProperty('--split',i.value+'%'));
+document.querySelectorAll('.compare input, .capture-wipe input').forEach(input => {
+    input.oninput = () => input.parentElement.style.setProperty('--split', input.value + '%');
+});
 document.querySelectorAll('[data-hotspot]').forEach(b=>b.onclick=()=>{document.querySelectorAll('[data-hotspot]').forEach(x=>x.setAttribute('aria-pressed',x===b));document.querySelectorAll('[data-note]').forEach(x=>x.classList.toggle('selected',x.dataset.note===b.dataset.hotspot))});
 document.querySelectorAll('[data-material]').forEach(b=>b.onclick=()=>showMaterial(+b.dataset.material));
 const materialNav=document.querySelector('.material-nav');
@@ -457,9 +432,8 @@ function repairMethod(mechanic, index) {
     return `<article class="repair-method" id="repair-${id}" aria-labelledby="mechanic-${index}">
         <h3 id="mechanic-${index}" class="sketched-label">${sketch(mechanic.sketch,'assets/repair-sketches')}${label}</h3><div class="video-layout"><div class="video-copy">
             <ol class="repair-actions">${actions.map(words=>`<li>${t(...words)}</li>`).join('')}</ol>
-            ${clip?`<p class="repair-sound" id="sound-${id}">${t(...sound)}</p>`:''}
-            ${foley?`<audio class="repair-sample" controls preload="none" aria-label="${esc(label+' · '+t('游戏原声','Game sound'))}" aria-describedby="sound-${id}"><source src="assets/story-game/${foley}.m4a" type="audio/mp4"><a href="assets/story-game/${foley}.m4a">${t('播放原声','Play game sound')}</a></audio>`:''}
-            <button class="text-link" data-image="${still}" data-caption="${esc(label)}">${t('放大针脚','Inspect detail')}</button>
+            ${clip?`<div class="repair-listening"><p class="repair-sound" id="sound-${id}">${t(...sound)}</p>
+                ${foley?gameSound(foley,mechanic.name[0]+' · 实机原声',mechanic.name[1]+' · game audio'):''}</div>`:''}
         </div><div>${visual}</div></div></article>`;
 }
 function workshopAtmosphere() {
@@ -497,13 +471,13 @@ function workshopAtmosphere() {
             <p class="climate-note">${t('游戏中的挂钟每次可调 15 分钟。','The workshop clock advances in 15-minute steps.')}</p>
         </alice-weather-comparison>
         <div class="climate-print">${printViews}</div></section>`;
-    return `<section id="window-recording" class="window-study"><h3>${film.title[lang]}</h3>
+    const recording = `<section id="window-recording" class="window-study"><h3>${film.title[lang]}</h3>
             <p id="window-sound">${t('雨天 13:00，游戏原声。双窗敞开时雨声清亮，合上玻璃后变闷。','13:00, rain, game audio only. Open both windows for a brighter patter. Close the glass to muffle it.')}</p>
             <figure class="window-film"><video id="window-video" controls playsinline preload="none" poster="${film.poster.src}" aria-label="${esc(film.title[lang])}" aria-describedby="window-sound">
                 <source src="${film.src}" type="video/mp4"><a href="${film.src}">${film.title[lang]}</a></video>
                 <img class="window-print" src="${film.poster.src}" loading="lazy" alt="${esc(film.title[lang])}">
-                <figcaption><div class="window-cues" role="group" aria-label="${t('按窗扇状态试听','Listen by window position')}">${cues}</div></figcaption></figure></section>
-        ${comparison}`;
+                <figcaption><div class="window-cues" role="group" aria-label="${t('按窗扇状态试听','Listen by window position')}">${cues}</div></figcaption></figure></section>`;
+    return {recording, comparison};
 
 }
 function bindImages(){document.querySelectorAll('[data-work]').forEach(b=>b.onclick=()=>{const w=work(b.dataset.work);openModal({title:title(w),description:desc(w),provenance:lang==='en'?w.provenance:w.provenanceZh,images:w.images,kind:category(w)})});document.querySelectorAll('[data-image]').forEach(b=>b.onclick=()=>{const key=b.dataset.image;if(!M[key])return;const fig=b.closest('figure');let caption=fig?.querySelector('figcaption')?.textContent?.replace('↗','').trim()||b.dataset.caption||b.querySelector('img')?.alt||t('Unity 项目截图','Unity project capture');openModal({title:caption,description:'',provenance:'',images:[M[key]],kind:page==='toolkit'?'Textile Studio':'Alice · Game'})})}
@@ -597,7 +571,7 @@ function mountReader(){
 // Older links into the retired appendix now open the corresponding case-study chapter.
 const gameReportChapters = {
     overview:'overview', 'game-design':'arrival', commissions:'arrival', interaction:'play',
-    character:'doll', rendering:'doll', 'window-sound':'workshop', 'window-video':'workshop', validation:'thread-state'
+    character:'doll', rendering:'doll', 'window-sound':'feedback-room', 'window-video':'window-recording', validation:'thread-state'
 };
 const toolkitReportChapters = {
     overview:'overview', design:'cases', workflow:'workflow', 'technical-art':'materials',
@@ -611,6 +585,14 @@ function openFragment(initial=false){
         id = chapters[id.replace(/^report-(heading-)?/, '')] || (page === 'game' ? 'doll' : 'workflow');
         try { history.replaceState(history.state, '', '#' + id); } catch { /* Some file readers restrict history. */ }
         initial = true;
+    }
+    if (page === 'game') {
+        const oldTargets = {history:'mechanics', 'making-credits':'mechanics', 'trim-a-tail':'repair-tension', 'alice-ribbon':'alice', future:'mechanics'};
+        if (Object.hasOwn(oldTargets,id)) {
+            id = oldTargets[id];
+            try { history.replaceState(history.state, '', '#' + id); } catch {}
+            initial = true;
+        }
     }
     const dialog=document.querySelector('.lightbox');
     if(dialog.open)closeModal();

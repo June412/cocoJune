@@ -233,7 +233,7 @@
             ['reset',tr('复位','Reset'),'恢复正面视角','Reset front view']
         ];
         const viewers=['alice','panda'].map(id=>{
-            const label=id==='alice'?tr('Alice 布偶','Alice'):tr('皇冠熊猫','Crowned Panda');
+            const label=id==='alice'?tr('Alice 布偶','Alice'):tr('小国王熊猫','Little King Panda');
             const controls=actions.map(([action,symbol,zh,en])=>
                 `<button type="button" data-orbit-action="${action}" title="${tr(zh,en)}" aria-label="${tr(zh,en)}">${symbol}</button>`
             ).join('');

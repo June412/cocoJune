@@ -1,0 +1,37 @@
+audio-waveform {
+  display: block; width: 100%; min-width: 0; max-width: 38rem;
+  --wave-ink: #5b4035; --wave-accent: #007b8f;
+}
+audio-waveform audio { width: 100%; max-width: 100%; }
+audio-waveform.wave-ready > audio { display: none; }
+.wave-controls {
+  --played: 0%; display: grid; align-items: center; grid-template-columns: 2.4rem minmax(0,1fr) auto;
+  column-gap: .6rem; padding: .42rem 0 .55rem;
+  border-block-end: 1px solid rgb(91 64 53 / 22%); color: var(--wave-ink);
+}
+.wave-controls[hidden] { display: none; }
+.wave-title { grid-column: 1/-1; font-family: var(--portfolio-prose, Georgia, serif); font-weight: 600; line-height: 1.3; font-size: .95rem; }
+.wave-controls .wave-toggle {
+  display: grid; place-items: center; width: 2.4rem; height: 2.4rem; min-height: 0; padding: 0;
+  background: #fff6e2; color: var(--wave-accent); border: 1.5px solid currentColor; border-radius: 50%; cursor: pointer;
+}
+.wave-toggle::before {
+  content: ''; display: block; margin-left: .2rem; width: 0; height: 0;
+  border-block: .32rem solid transparent; border-inline-start: .56rem solid currentColor;
+}
+.wave-toggle[data-playing="true"]::before { margin: 0; width: .52rem; height: .68rem; border: 0; border-inline: .17rem solid currentColor; box-sizing: border-box; }
+.wave-track { position: relative; height: 44px; line-height: 0; }
+.wave-track svg, .wave-played, .wave-track input { position: absolute; inset: 0; display: block; width: 100%; height: 100%; }
+.wave-track svg { fill: none; stroke: #966f51; stroke-width: 1.9; stroke-linecap: round; }
+.wave-track .wave-played { clip-path: inset(0 calc(100% - var(--played)) 0 0); pointer-events: none; }
+.wave-played svg { stroke: var(--wave-accent); }
+.wave-track::after { content: ''; position: absolute; pointer-events: none; left: clamp(0px,var(--played),calc(100% - 2px)); top: 3px; bottom: 3px; width: 2px; background: var(--wave-accent); }
+.wave-track input { appearance: none; box-sizing: border-box; margin: 0; padding: 0; border: 0; opacity: 0; cursor: pointer; touch-action: pan-y; }
+.wave-track input::-webkit-slider-thumb { appearance: none; width: 1px; height: 44px; }
+.wave-track input::-moz-range-thumb { width: 1px; height: 44px; border: 0; }
+.wave-controls button:focus-visible, .wave-track:focus-within { outline: 2px solid var(--wave-accent); outline-offset: 2px; }
+.wave-time { font: .79rem/1.15 var(--portfolio-prose, Georgia, serif); font-variant-numeric: tabular-nums; white-space: nowrap; }
+@media print {
+  .wave-controls .wave-toggle, .wave-track input, .wave-track::after { display: none; }
+  .wave-controls { grid-template-columns: minmax(0,1fr) auto; }
+}

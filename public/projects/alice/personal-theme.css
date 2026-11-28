@@ -92,8 +92,6 @@ body.personal-alice {
   .personal-alice #main .reader-footer { margin-top: 42px; padding-top: 14px; border-top: 1px solid var(--line); }
   .personal-alice #main .reader-footer nav { display: flex; flex-wrap: wrap; gap: 6px 24px; justify-content: space-between; }
   .personal-alice #main .reader-footer .case-print { margin-top: 14px; font-size: 14px; }
-  .personal-alice #main .project-aside { margin-block: 20px; }
-  .personal-alice #main .project-aside summary { color: var(--link); cursor: pointer; text-decoration: underline; text-underline-offset: .16em; }
   .personal-alice #main > .section { border: 0; margin-top: 28px; padding: 0; }
   .personal-alice #main > .section.chapter-start {
     margin-top: 38px;
@@ -278,7 +276,6 @@ body.personal-alice {
 @media screen and (max-width:480px) {
   .personal-alice #main .story-buttons,
   .personal-alice #main .story-figures:has(audio), .personal-alice #main .story-foley-links { grid-template-columns: minmax(0,1fr); }
-  .personal-alice #main .cut-options { grid-template-columns: minmax(0,1fr); }
   .personal-alice #main .work-info { display: block; }
   .alice-technical-doc #main .flow { grid-template-columns: repeat(2,minmax(0,1fr)); }
   .alice-technical-doc .workshop-views { grid-template-columns: repeat(2,minmax(0,1fr)); }

@@ -8,6 +8,8 @@ https://www.scottbuckley.com.au
 https://creativecommons.org/licenses/by/4.0/
 Music is mixed in-game with tool sounds and environment audio.
 
+The playable speaker sample on the portfolio is an eight-second excerpt of “Simplicity” by Scott Buckley, with short fades at the start and end. It is used under CC BY 4.0.
+
 Full project attribution:
 
 Scott Buckley — Music Credits

@@ -383,3 +383,21 @@
 @media screen and (max-width: 650px) {
   .roomies-case #main .case-pair { grid-template-columns: minmax(0, 1fr); gap: 18px; }
 }
+
+/* Keep each original voice take alongside its resident and performance direction. */
+.roomies-case #main .residents { display: grid; grid-template-columns: minmax(0,1fr); gap: 0; }
+.roomies-case #main .residents .resident {
+  display: grid; grid-template: "portrait name sound" auto "portrait note sound" auto /
+    minmax(72px,.38fr) minmax(0,1.25fr) minmax(0,1fr);
+  align-items: center; column-gap: clamp(.8rem,2cqi,1.8rem); border-top: 1px solid var(--line,#c4ae8d); padding: .6rem 0;
+}
+.residents .resident > .model-stage { grid-area: portrait; width: 100%; max-height: 122px; }
+.residents .resident > h3 { grid-area: name; align-self: end; margin: 0; }
+.residents .resident > p { grid-area: note; align-self: start; margin: .25em 0 0; }
+.residents .resident > audio-waveform { grid-area: sound; }
+@container project-content (max-width: 580px) {
+  .roomies-case #main .residents .resident {
+    grid-template: "portrait name" auto "portrait note" auto "sound sound" auto / minmax(54px,.34fr) minmax(0,1fr);
+    row-gap: .3rem;
+  }
+}

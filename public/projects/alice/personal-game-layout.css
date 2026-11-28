@@ -87,7 +87,6 @@
     padding-block: 14px 0;
   }
   .personal-alice[data-page="game"] #main .repair-methods .video-layout { display: contents; }
-  .personal-alice[data-page="game"] #main .repair-methods .mending-trim { grid-column: 1 / -1; }
 
   .personal-alice[data-page="game"] #main :is(.story-block, .story-feedback) {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -194,14 +193,96 @@
 }
 .cheek-study { margin-block: 1.35em; }
 .cheek-study h4 { margin: 0 0 .6em; }
-.cheek-comparison { --comparison-gap: clamp(12px,2vw,32px); display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: var(--comparison-gap); }
-.cheek-comparison figure { min-width: 0; margin: 0; }
-.cheek-comparison .cheek-window { display: block; position: relative; width: 100%; background: transparent; padding: 0; border: 0; overflow: visible; cursor: zoom-in; }
-.cheek-window svg { display: block; width: 100%; height: auto; }
-.cheek-pointer { stroke: #007697; stroke-width: 1; fill: none; paint-order: stroke; filter: drop-shadow(0 0 .6px #fff6df); }
-.cheek-comparison figure:first-child .cheek-window::after { content: ''; position: absolute; left: 100%; top: 16.51%; width: var(--comparison-gap); border-top: 1px solid #007697; pointer-events: none; }
+.cheek-pointer { stroke: #007697; stroke-width: 1; fill: none; filter: drop-shadow(0 0 .6px #fff6df); }
 .cheek-study > p { margin: .5em 0 0; }
 @container project-content (max-width: 300px) {
   .personal-alice #commission-skills table { table-layout: fixed; width: 100%; }
   .personal-alice #commission-skills :is(th,td) { padding-inline: .25em; overflow-wrap: anywhere; }
 }
+
+/* The five spreads share their titles and reading order with the printed portfolio. */
+.personal-alice .chapter-name small {
+  display: inline-block; font: inherit; font-size: .68em; margin-inline-start: .2em; line-height: 1.12;
+}
+.personal-alice .overview-exhibits { grid-column: 1 / -1; min-width: 0; }
+.overview-context { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem 2rem; align-items: start; margin-top: 1rem; }
+.overview-context h3, .overview-context p, .game-references figure { margin: 0 0 .4rem; }
+.overview-context p + h3 { margin-top: .75rem; }
+.game-references > div { display: grid; gap: .65rem; }
+.game-references figure { display: grid; grid-template-columns: minmax(58px, 26%) 1fr; gap: .8rem; align-items: center; }
+.game-references figure img { width: 100%; height: auto; }
+.game-references strong, .game-references small { display: block; }
+.personal-alice #main .commission-case { margin: 1.6rem 0; padding: 1.1rem 0 0; border-top: 1px solid var(--line); }
+.personal-alice #main .commission-case > h3 { margin: 0 0 .5rem; }
+#main .manual-spreads { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: .55rem 1rem; margin-block: 1rem 1.35rem; }
+.manual-spreads h4 { grid-column: 1/-1; margin: 0; }
+.manual-spreads .story-image img { object-fit: contain; }
+.personal-alice #main .story-finishing #repair-button { max-width: 48rem; margin: 1rem auto; }
+.personal-alice #main .story-finishing #repair-button .video-layout { display: grid; grid-template-columns: minmax(0,.8fr) minmax(0,1.2fr); align-items: center; gap: 1.3rem; }
+.personal-alice #main .story-finishing #repair-button .video-layout > div { min-width: 0; }
+.personal-alice #main .technical-plates .story-row { min-width: 0; }
+.personal-alice #panda-knit .story-evidence { width: 100%; }
+.compare-pair, .lighting-studies { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 1rem; }
+.lighting-studies { padding-top: 1.15rem; border-top: 1px solid var(--line); }
+.lighting-studies > * { min-width: 0; margin: 0; }
+.lighting-studies h4 { margin: 0 0 .6em; }
+.capture-comparison { width: 100%; min-width: 0; margin: 0; }
+.capture-wipe { position: relative; width: 100%; aspect-ratio: var(--capture-ratio); overflow: hidden; isolation: isolate; background: #eee4cf; }
+.capture-wipe > :is(.capture-before,.capture-after), .capture-wipe :is(img,svg), .capture-wipe input {
+  position: absolute; inset: 0; display: block; width: 100%; height: 100%; max-height: none; object-fit: fill; margin: 0; border: 0; padding: 0;
+}
+.capture-before { clip-path: inset(0 calc(100% - var(--split)) 0 0); }
+.capture-divider {
+  pointer-events: none; position: absolute; inset-block: 0; left: var(--split); transform: translateX(-50%);
+  width: 3px; background: #fff6df; box-shadow: 0 0 0 1px #006d81; display: grid; align-content: center; justify-content: center;
+}
+.capture-divider b {
+  font: 600 17px/1 system-ui,sans-serif; color: #006d81; background: #fff6df; border: 1.5px solid currentColor;
+  border-radius: 50%; width: 29px; height: 29px; display: grid; place-items: center;
+}
+.capture-wipe input { appearance: none; cursor: ew-resize; opacity: 0; touch-action: pan-y; }
+.capture-wipe input::-webkit-slider-thumb { appearance: none; width: 1px; height: 48px; }
+.capture-wipe input::-moz-range-thumb { width: 1px; height: 48px; border: 0; }
+.capture-wipe:focus-within { outline: 3px solid var(--link,#007697); outline-offset: 3px; }
+.personal-alice #main .capture-comparison figcaption { display: flex; justify-content: space-between; gap: .8rem; margin: .35rem 0 .4rem; line-height: 1.25; }
+.capture-comparison figcaption span:last-child { text-align: end; }
+.personal-alice #main .input-checks { align-self: start; min-width: 0; }
+.personal-alice #main .input-checks .mending-flow { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: .6rem; }
+.input-checks .mending-flow li::after { display: none; }
+.personal-alice #main .input-checks figure { width: min(100%,21rem); margin: .5rem 0; }
+.personal-alice #main .sound-study {
+  grid-column: 1 / -1; display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr);
+  align-items: start; gap: .65rem clamp(1rem,3cqi,2.4rem); border-top: 1px solid var(--line); padding-top: 1rem;
+}
+.sound-study > *, .guidance-audio { min-width: 0; }
+.sound-study h3, .sound-study p { margin: 0 0 .65rem; }
+.sound-study .story-figures { margin-top: .8rem; }
+.sound-study .story-figures img { width: 100%; aspect-ratio: 1.65; object-fit: cover; }
+.sound-credit { display: block; margin-top: .5em; }
+.personal-alice #main .desk-recording { grid-column: 1/-1; }
+.personal-alice #main .desk-recording .window-film { --game-width: min(100%, 45rem); margin-inline: auto; }
+.personal-alice #main #feedback-knit { grid-column: 1/-1; display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 1.3rem; }
+.personal-alice #main #feedback-knit .story-description { display: block; }
+@container project-content (max-width: 660px) {
+  .overview-context { grid-template-columns: 1fr; }
+  .compare-pair, .lighting-studies { grid-template-columns: 1fr; }
+  .personal-alice #main :is(.sound-study, #feedback-knit), .personal-alice #main .story-finishing #repair-button .video-layout { grid-template-columns: 1fr; }
+  .personal-alice .chapter-name small { display: block; margin: .12em 0 0; }
+}
+@container project-content (max-width: 450px) {
+  #main .manual-spreads { grid-template-columns: minmax(0,1fr); }
+}
+.repair-method .video-copy { container: repair-copy / inline-size; min-width: 0; }
+.repair-listening { margin-block: .45rem; }
+.repair-listening .repair-sound { margin: 0; }
+@container repair-copy (min-width: 324px) {
+  .repair-listening { display: grid; grid-template-columns: minmax(0,.85fr) minmax(0,1.15fr); gap: .7rem; align-items: center; }
+}
+@media screen and (max-width: 720px) {
+  .thread-host[data-project="alice"] .thread-nav li:last-child a { font-size: clamp(12px,3.5vw,16px); hyphens: auto; }
+}
+.craft-origins { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: .75rem; max-width: 22rem; margin-top: .8rem; }
+.craft-origins figure, .craft-origins .image-button { margin: 0; width: 100%; }
+.craft-origins img { width: 100%; height: 88px; object-fit: contain; }
+.personal-alice #main .commission-case .process-row .prose h4 { margin: 0 0 .45em; font-size: 1.2rem; }
+.personal-alice #main .input-checks .capture-comparison { margin-block: .7rem; }

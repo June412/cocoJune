@@ -5,10 +5,10 @@ const inChinese = () => document.documentElement.lang.startsWith("zh");
 const localText = text => inChinese() ? (window.TinyRoomiesChinese[text] ?? text) : text;
 
 const gallery = [
-  { path: "edition/arrival", sizes: [630, 1157], name: "Arrival at the new home", target: "#game-design", action: "Explore how the five residents arrive", alt: "The five residents sit inside an open wooden suitcase lined with green felt." },
-  { path: "images/gallery/workshop", name: "The unfolded workshop", target: "#workshop", action: "Explore the suitcase workshop", alt: "Unity simulator view of the open suitcase, with its turntable between two fold-out work areas." },
-  { path: "images/gallery/tools", name: "The workshop inventory", target: "#tool-models", action: "Inspect the workshop tools in 3D", alt: "A layout of the 22 project tools, fixtures and materials, from the joinery mallet to the wax pad." },
-  { path: "images/gallery/residents", name: "The five residents", target: "#residents", action: "Meet the residents and hear their voices", alt: "Studio renders of Sprout, Keeper, Page, Archivist and Courier." }
+  { path: "edition/arrival", sizes: [630, 1157], name: "Arrival at the new home", alt: "The five residents sit inside an open wooden suitcase lined with green felt." },
+  { path: "images/gallery/workshop", name: "The unfolded workshop", alt: "Unity simulator view of the open suitcase, with its turntable between two fold-out work areas." },
+  { path: "images/gallery/tools", name: "The workshop inventory", alt: "A layout of the 22 project tools, fixtures and materials, from the joinery mallet to the wax pad." },
+  { path: "images/gallery/residents", name: "The five residents", alt: "Studio renders of Sprout, Keeper, Page, Archivist and Courier." }
 ];
 
 let currentPlate = 0;
@@ -31,8 +31,8 @@ function setPlate(step, animate = true) {
     }).catch(() => {});
   }
   const link = document.getElementById("plate-target");
-  link.href = item.target;
-  link.setAttribute("aria-label", localText(item.action));
+  link.href = item.path + ".webp";
+  link.setAttribute("aria-label", localText("Enlarge project image"));
   document.getElementById("plate-name").textContent = localText(item.name);
   document.querySelector(".plate-count").textContent = String(currentPlate + 1).padStart(2, "0") + " / 04";
 }

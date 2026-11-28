@@ -19,10 +19,14 @@
   <link rel="stylesheet" href="edition/edition.css">
   <noscript><style>.plate-controls,.index-trigger{display:none}.mast-type{margin-right:auto}</style></noscript>
   <script defer src="../../styles/project-translation.js?v=904d5234a3"></script>
-  <script defer src="chinese.js?v=7eaca73e01"></script>
-  <script src="site.js?v=bcdbf0d328" defer></script>
+  <script defer src="chinese.js?v=7b4bc4d1b2"></script>
+  <script src="site.js?v=eabcfe118a" defer></script>
   <script src="model/viewer.js?v=01d7a6c3b5" defer></script>
-<link rel="stylesheet" href="./../alice/personal-shell.css?v=972c52c988"><link rel="stylesheet" href="./../alice/personal-media.css"><link rel="stylesheet" href="./personal.css?v=aef7117abe"><link rel="stylesheet" href="studio-outlines.css"><link rel="stylesheet" href="../../thread-rail/reader.css?v=9a69ec4d7c"><link rel="stylesheet" href="casebook.css?v=770315d98b"><script defer src="../../thread-rail/reader.js?v=4933f2732b"></script><link rel="stylesheet" href="../../styles/project-annotations.css?v=457d81a238"></head>
+<link rel="stylesheet" href="./../alice/personal-shell.css?v=972c52c988"><link rel="stylesheet" href="./../alice/personal-media.css"><link rel="stylesheet" href="./personal.css?v=2650bb3e1e"><link rel="stylesheet" href="studio-outlines.css"><link rel="stylesheet" href="../../thread-rail/reader.css?v=126127967f"><link rel="stylesheet" href="casebook.css?v=770315d98b"><script defer src="../../thread-rail/reader.js?v=674b0f7dbc"></script><link rel="stylesheet" href="../../styles/project-annotations.css?v=457d81a238">
+  <link rel="stylesheet" href="../../styles/audio-waveform.css?v=a92fae567c">
+  <script defer src="../../styles/sound-peaks.js?v=4a4da90a0f"></script>
+  <script defer src="../../styles/audio-waveform.js?v=4703c75a71"></script>
+</head>
 <body class="personal-roomies roomies-case">
 <a class="skip-link" href="#main">Skip to case study</a>
 
@@ -50,18 +54,15 @@
         <h2 id="project-role-heading">My role</h2>
         <p>Game and interaction design, character direction, and technical art.</p>
       </section>
-      <div class="hero-actions">
-        <a class="action-text" href="#game-design">Explore the game</a>
-      </div>
     </div>
   </div>
   <dl class="project-facts">
     <div><dt>Built with</dt><dd>Unity · Blender<br>OpenXR on Quest 3</dd></div>
     <div><dt>At the workbench</dt><dd><a href="#tool-models">22 workshop objects</a><br><a href="#furniture-collection">10 furniture models</a></dd></div>
-    <div><dt>In the room</dt><dd><a href="#residents">Meet the five residents</a><br><a href="#shared-life">Explore their daily lives</a></dd></div>
+    <div><dt>In the room</dt><dd>Five residents<br>Shared routines</dd></div>
   </dl>
   <figure class="hero-gallery" aria-label="Project gallery">
-    <div class="hero-picture"><a id="plate-target" aria-keyshortcuts="ArrowLeft ArrowRight" href="#game-design" aria-label="Explore how the five residents arrive"><img id="plate" width="1157" height="948" src="edition/arrival.webp" srcset="edition/arrival-sm.webp 630w, edition/arrival.webp 1157w" sizes="(max-width: 720px) 94vw, 740px" loading="lazy" alt="The five residents sit inside an open wooden suitcase lined with green felt."></a></div>
+    <div class="hero-picture"><a id="plate-target" data-art-link aria-keyshortcuts="ArrowLeft ArrowRight" href="edition/arrival.webp" aria-label="Enlarge project image"><img id="plate" width="1157" height="948" src="edition/arrival.webp" srcset="edition/arrival-sm.webp 630w, edition/arrival.webp 1157w" sizes="(max-width: 720px) 94vw, 740px" loading="lazy" alt="The five residents sit inside an open wooden suitcase lined with green felt."></a></div>
     <figcaption class="plate-caption">
       <span class="plate-text" aria-live="polite" aria-atomic="true"><span class="plate-count">01 / 04</span><span id="plate-name">Arrival at the new home</span></span>
       <span class="plate-controls" role="group" aria-label="Change project image">
@@ -357,15 +358,15 @@
   <p>Listen to the five residents.</p>
   <div class="folio-grid grid-5 residents" aria-label="Resident performance notes">
     <article class="resident"><div class="model-stage" data-kind="resident" data-model="sprout"><img src="people/sprout-smile.webp" width="404" height="410" alt="Sprout" loading="lazy">
-            </div><h3>Sprout</h3><p>Gentle gestures and patient pauses. Sprout tends leaves and turns the cup handle away from them to make a little room.</p><audio controls preload="metadata" aria-label="Listen to Sprout"><source src="media/voice-sprout.wav" type="audio/wav"></audio></article>
+            </div><h3>Sprout</h3><p>Gentle gestures and patient pauses. Sprout tends leaves and turns the cup handle away from them to make a little room.</p><audio-waveform data-en="Sprout · voice" data-zh="Sprout · 语音"><audio controls preload="none" aria-label="Listen to Sprout"><source src="media/voice-sprout.wav" type="audio/wav"></audio></audio-waveform></article>
     <article class="resident"><div class="model-stage" data-kind="resident" data-model="keeper"><img src="people/keeper-thoughtful.webp" width="404" height="410" alt="Keeper" loading="lazy">
-            </div><h3>Keeper</h3><p>Keeper checks the alignment of the wood before a reassuring nod. At tea, a small sip brings the drink back down to a familiar fill mark.</p><audio controls preload="metadata" aria-label="Listen to Keeper"><source src="media/voice-keeper.wav" type="audio/wav"></audio></article>
+            </div><h3>Keeper</h3><p>Keeper checks the alignment of the wood before a reassuring nod. At tea, a small sip brings the drink back down to a familiar fill mark.</p><audio-waveform data-en="Keeper · voice" data-zh="Keeper · 语音"><audio controls preload="none" aria-label="Listen to Keeper"><source src="media/voice-keeper.wav" type="audio/wav"></audio></audio-waveform></article>
     <article class="resident"><div class="model-stage" data-kind="resident" data-model="archivist"><img src="people/archivist-thoughtful.webp" width="404" height="410" alt="Archivist" loading="lazy">
-            </div><h3>Archivist</h3><p>One hand supports the book while the other turns the page. Archivist marks the place before sipping and finds it again after a cup mix-up.</p><audio controls preload="metadata" aria-label="Listen to Archivist"><source src="media/voice-archivist.wav" type="audio/wav"></audio></article>
+            </div><h3>Archivist</h3><p>One hand supports the book while the other turns the page. Archivist marks the place before sipping and finds it again after a cup mix-up.</p><audio-waveform data-en="Archivist · voice" data-zh="Archivist · 语音"><audio controls preload="none" aria-label="Listen to Archivist"><source src="media/voice-archivist.wav" type="audio/wav"></audio></audio-waveform></article>
     <article class="resident"><div class="model-stage" data-kind="resident" data-model="courier"><img src="people/courier-smug.webp" width="404" height="410" alt="Courier" loading="lazy">
-            </div><h3>Courier</h3><p>Open gestures give way to a sudden pause. Courier retrieves offcuts, shares music and shows the player how to grip his own cup.</p><audio controls preload="metadata" aria-label="Listen to Courier"><source src="media/voice-courier.wav" type="audio/wav"></audio></article>
+            </div><h3>Courier</h3><p>Open gestures give way to a sudden pause. Courier retrieves offcuts, shares music and shows the player how to grip his own cup.</p><audio-waveform data-en="Courier · voice" data-zh="Courier · 语音"><audio controls preload="none" aria-label="Listen to Courier"><source src="media/voice-courier.wav" type="audio/wav"></audio></audio-waveform></article>
     <article class="resident"><div class="model-stage" data-kind="resident" data-model="page"><img src="people/page-shy.webp" width="404" height="410" alt="Page" loading="lazy">
-            </div><h3>Page</h3><p>Small gestures stay close to the body. Page keeps familiar wood and belongings, and will lend the old cup sleeve when the player asks.</p><audio controls preload="metadata" aria-label="Listen to Page"><source src="media/voice-page.wav" type="audio/wav"></audio></article>
+            </div><h3>Page</h3><p>Small gestures stay close to the body. Page keeps familiar wood and belongings, and will lend the old cup sleeve when the player asks.</p><audio-waveform data-en="Page · voice" data-zh="Page · 语音"><audio controls preload="none" aria-label="Listen to Page"><source src="media/voice-page.wav" type="audio/wav"></audio></audio-waveform></article>
   </div>
   <div class="performance-studies">
     <div class="pp-expression">

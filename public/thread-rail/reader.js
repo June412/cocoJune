@@ -20,7 +20,7 @@
   function mount(host, article, language, route = '') {
     const entries = [...article.querySelectorAll('[data-thread-chapter][id]')].map(node => {
       const heading = node.matches('h1,h2') ? node : node.querySelector('h2');
-      return { id: node.id, node, label: heading?.textContent.trim() };
+      return { id: node.id, node, label: heading?.textContent.trim(), subtitle: heading?.querySelector(':scope > small')?.textContent };
     }).filter(entry => entry.label);
     if (!entries.length) return () => {};
     entries.forEach(entry => entry.node.classList.add('thread-chapter'));
@@ -53,6 +53,12 @@
       link.setAttribute('aria-label', entry.label);
       link.title = entry.label;
       link.textContent = entry.label;
+      if (entry.subtitle && entry.label.endsWith(entry.subtitle)) {
+        const subtitle = document.createElement('small');
+        subtitle.textContent = entry.subtitle;
+        link.replaceChildren(entry.label.slice(0, -entry.subtitle.length), subtitle);
+        link.classList.add('thread-with-subtitle');
+      }
       item.append(link);
       list.append(item);
       return link;

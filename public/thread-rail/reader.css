@@ -65,3 +65,5 @@
 }
 @media (prefers-reduced-motion:reduce) { .thread-nav a { transition: none; } }
 @media print { .thread-host { display: none; } .thread-layout, .thread-copy { display: block; width: 100%; } }
+.thread-nav a.thread-with-subtitle { display: block; }
+.thread-nav a.thread-with-subtitle small { display: block; font: inherit; font-size: .82em; line-height: 1.1; margin-top: .12em; }

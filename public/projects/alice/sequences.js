@@ -4,7 +4,7 @@
 
     const showPanel = new WeakMap();
     const lastStep = new Map();
-    const sectionSelector = '#cushion, #arrival, #alice, #panda';
+    const sectionSelector = '#cushion, #alice, #panda';
 
     function node(tag, name, text) {
         const el = document.createElement(tag);
@@ -123,11 +123,11 @@
         toolbar.append(progress, meter);
         sequence.setAttribute('role','group');
         sequence.setAttribute('aria-roledescription', isEn ? 'carousel' : '轮播');
-        const title = section.querySelector('h2');
+        const title = section.querySelector('h2, h3');
         if (!title.id) title.id = section.id + '-step-heading';
         sequence.setAttribute('aria-labelledby',title.id);
         const titles = panels.map((panel, n) => {
-            const heading = panel.querySelector('h3');
+            const heading = panel.querySelector('.process-row .prose > :is(h3,h4)');
             const text = heading.textContent.replace(/^\s*\d+\.\s*/, '');
             heading.textContent = text;
             if (!heading.id) heading.id = section.id + '-step-' + (n + 1);

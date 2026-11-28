@@ -1,3 +1,4 @@
+import { createElement } from 'react'
 import { holdLightPaper } from '../data/content'
 import { assetUrl } from '../data/projectVisuals'
 import ProjectOpening from '../components/ProjectOpening'
@@ -44,11 +45,17 @@ export default function HoldLightPage() {
             )}</p>
             <p>{t('Climbers preview the route on the ground, then hear cues through headphones on the wall. Human safety support and requests for help remain available throughout.', '攀岩者在地面先熟悉路线，上墙后用耳机听取提示。人工安全保护和求助渠道贯穿全程。')}</p>
           </div>
-          <ProjectProcess label={t('Route guidance sequence', '路线引导流程')} steps={[
-            { sketch: 'scan-holds', title: t('Scan the wall', '扫描岩壁') },
-            { sketch: 'hold-route', title: t('Preview the route in layers', '分层预览路线') },
-            { sketch: 'audio-cue', title: t('Hear the next hold', '听取下一岩点提示') },
-          ]} />
+          <div className="guidance-audio">
+            <ProjectProcess label={t('Route guidance sequence', '路线引导流程')} steps={[
+              { sketch: 'scan-holds', title: t('Scan the wall', '扫描岩壁') },
+              { sketch: 'hold-route', title: t('Preview the route in layers', '分层预览路线') },
+              { sketch: 'audio-cue', title: t('Hear the next hold', '听取下一岩点提示') },
+            ]} />
+            {createElement('audio-waveform', {
+              'data-en': 'Route guidance · original demo narration',
+              'data-zh': '路线引导 · 原演示英文解说',
+            }, <audio controls preload="none" src={assetUrl('projects/holdlight/route-guidance-narration.m4a')} aria-label={t('Route guidance narration', '路线引导演示解说')} />)}
+          </div>
         </section>
         <section id="holdlight-abstract" data-thread-chapter aria-labelledby="paper-heading" className="study-section">
           <h2 id="paper-heading">{t('Paper abstract', '论文摘要')}</h2>

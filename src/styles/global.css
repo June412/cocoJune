@@ -361,3 +361,7 @@ a.research-row h3 { color: var(--link); text-decoration: underline; text-underli
     }
   }
 }
+
+.holdlight-page .guidance-audio { min-width: 0; align-self: center; }
+.holdlight-page .guidance-audio .project-process { margin-block-start: 0; }
+.holdlight-page .guidance-audio audio-waveform { margin-top: .75rem; }

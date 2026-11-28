@@ -1,4 +1,7 @@
 window.TinyRoomiesChinese = {
+  "Five residents": "五位居民",
+  "Shared routines": "共同生活",
+  "Enlarge project image": "放大项目图片",
   "Five tiny residents pack the furniture from their old woodshop into a second-hand suitcase. As their Room Host, you restore each piece and find a place for it in your home.": "五位微型居民把旧木工坊的家具装进了一只二手行李箱。作为新家的主人，你会修好每一件家具，再为它找到合适的位置。",
   "TinyRoomies project film": "TinyRoomies 项目短片",
   "Open the project film": "打开项目短片",

@@ -298,9 +298,9 @@
       ['Adobe Substance 3D Painter',t('三维模型上的绘制路径','A paint path on a 3D mesh'),t('移动路径点，重塑笔画。','Move path points to reshape strokes.'),'https://experienceleague.adobe.com/en/docs/substance-3d-painter/using/painting/path-tools/path'],
       ['CLO',t('二维纸样上的明线','A topstitch on a 2D pattern'),t('改针距、线径，导出纹理或 OBJ。','Adjust spacing and thickness, export texture or OBJ.'),'https://support.clo3d.com/hc/en-us/articles/115002752908-Edit-Topstitch'],
       ['Stitch Meshes',t('服装面片上的针法','Stitch types on garment faces'),t('生成相连的纱线曲线并松弛成形。','Relax connected yarn curves into shape.'),'https://www.cs.cornell.edu/projects/stitchmeshes/'],
-      ['Textile Studio',t('Unity 道具上的色格','Colour cells on a Unity prop'),t('一格生成一线圈或一颗珠，珠动时线穿孔随动。','One loop or bead per cell. Move a bead and the thread follows.'),'#development']
+      ['Textile Studio',t('Unity 道具上的色格','Colour cells on a Unity prop'),t('一格生成一线圈或一颗珠，珠动时线穿孔随动。','One loop or bead per cell. Move a bead and the thread follows.')]
     ];
-    return `<article class="ts-research"><h3>${t('可编辑参数','Editable parameters')}</h3><table><thead><tr>${[t('工具','Tool'),t('起点','Starting point'),t('可编辑的部分','Editable result')].map(l=>`<th scope="col">${l}</th>`).join('')}</tr></thead><tbody>${rows.map(([tool,start,edit,url])=>`<tr><th scope="row"><a href="${url}">${tool}</a></th><td>${start}</td><td>${edit}</td></tr>`).join('')}</tbody></table></article>`;
+    return `<article class="ts-research"><h3>${t('可编辑参数','Editable parameters')}</h3><table><thead><tr>${[t('工具','Tool'),t('起点','Starting point'),t('可编辑的部分','Editable result')].map(l=>`<th scope="col">${l}</th>`).join('')}</tr></thead><tbody>${rows.map(([tool,start,edit,url])=>`<tr><th scope="row">${url?`<a href="${url}">${tool}</a>`:tool}</th><td>${start}</td><td>${edit}</td></tr>`).join('')}</tbody></table></article>`;
   }
 
   function results(lang) {
@@ -318,8 +318,7 @@
        <section class="ts-evidence"><div><h3>${t('串珠轮廓对照','Bead outlines')}</h3><p>${t('24 颗珠，10 个视图。9 张逐像素一致。远景有 0.0275% 的像素至少一个 RGB 通道相差超过 3 级。','24 beads, 10 views. Nine matched pixel for pixel. In the distant view, 0.0275% of pixels differed by over three RGB levels in any channel.')}</p>
        <div class="ts-records">${['before','after','visual'].map((f,i)=>`<a href="${directory}beads-${f}.json" download>${[t('逐项绘制记录','Individual run'),t('合批记录','Batched run'),t('图像检查','Image checks')][i]} ↓</a>`).join('')}</div></div><div>${zoom('bead-edges',t('靠近与交叠的 24 颗彩珠，保留各自轮廓','Twenty-four beads retain their outlines where they approach and overlap'))}</div></section>
        <section class="ts-review"><h3>${t('道具验证','Prop validation')}</h3><p class="ts-copy">${t('保留布封面、松紧带和 15 道回针绣成的标题。把收纳内页换成五个针法教程，玩家就能在桌边学针。','The cloth cover kept its elastic and 15 backstitched title paths. Five stitch guides replaced the storage pages for players at the repair desk.')}</p>
-       <div class="ts-book">${[['book-early',t('收纳针线的旧内页','The original needle case')],['book-revised',t('改成针法手册的内页','The revised stitch handbook')],['book-on-desk',t('在桌边翻开手册学习针法','Open the stitch guide at the desk')]].map(([k,c])=>`<figure>${zoom(k,c)}<figcaption>${c}</figcaption></figure>`).join('')}</div>
-       <a class="text-link" href="#bridge">${t('看这些道具在工坊里的位置','See the props in the workshop')} →</a></section></div>`;
+       <div class="ts-book">${[['book-early',t('收纳针线的旧内页','The original needle case')],['book-revised',t('改成针法手册的内页','The revised stitch handbook')],['book-on-desk',t('在桌边翻开手册学习针法','Open the stitch guide at the desk')]].map(([k,c])=>`<figure>${zoom(k,c)}<figcaption>${c}</figcaption></figure>`).join('')}</div></section></div>`;
   }
 
   // One index per cell, transcribed from the two original Unity colour charts.

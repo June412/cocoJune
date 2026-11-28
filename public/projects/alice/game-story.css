@@ -137,7 +137,7 @@ figure.story-figure { margin:0; min-width:0; }
 .overview-game .overview-actions a:first-child { padding:0; color:var(--folio-ink); background:none; text-decoration:underline; text-underline-offset:4px; }
 #arrival .story-brief { margin-top:2rem; }
 .mending-transfer,.mending-ribbon,.mending-needle,#workshop .story-props { margin-top:clamp(1.8rem,3.6vw,3rem); }
-.mending-transfer h3,.mending-ribbon h3,.mending-trim h3,.mending-needle h3 { margin:0 0 .85rem; font-family:var(--folio-type); font-size:clamp(1.35rem,2.4vw,1.8rem); color:var(--sewing-ink); }
+.mending-transfer h3,.mending-ribbon h3,.mending-needle h3 { margin:0 0 .85rem; font-family:var(--folio-type); font-size:clamp(1.35rem,2.4vw,1.8rem); color:var(--sewing-ink); }
 .mending-transfer table { border-collapse:collapse; width:100%; table-layout:fixed; line-height:1.45; }
 .mending-transfer th,.mending-transfer td { padding:.6rem .65rem; border-bottom:1px solid var(--line); text-align:start; vertical-align:top; }
 .mending-transfer th:first-child { width:22%; padding-inline-start:0; }
@@ -145,24 +145,6 @@ figure.story-figure { margin:0; min-width:0; }
 .mending-triptych { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:clamp(12px,2vw,22px); }
 .mending-triptych img { display:block; width:100%; height:auto; aspect-ratio:1.53; object-fit:cover; }
 .mending-triptych figcaption,.needle-proof figcaption { margin-top:.5rem; line-height:1.48; }
-.mending-trim { border-block-start:1px solid var(--line); padding-block:clamp(18px,3vw,32px); }
-.mending-trim > p,.mending-needle p { margin:0; max-width:62ch; line-height:1.6; }
-alice-tail-rule { display:block; max-width:530px; padding:.4rem 0 .5rem; }
-.cut-track { position:relative; height:55px; margin-inline:2%; }
-.cut-thread,.cut-knot,.cut-mark { position:absolute; display:block; top:60%; }
-.cut-thread { left:1%; right:0; height:2px; border-radius:2px; background:#7c4b39; }
-.cut-knot { left:0; width:13px; height:7px; margin-top:-3px; background:#784c3d; transform:rotate(-12deg); border-radius:55%; }
-.cut-mark { left:var(--mark); height:13px; width:2px; margin-top:-5px; background:#5b6158; }
-.cut-one { --mark:7%; }.cut-eight { --mark:37%; }.cut-nineteen { --mark:84%; }
-[data-selected="0"] .cut-one,[data-selected="1"] .cut-eight,[data-selected="2"] .cut-nineteen { height:21px; width:3px; margin-top:-9px; background:#744832; }
-[data-selected="1"] .cut-thread { right:63%; }[data-selected="2"] .cut-thread { right:16%; }
-@media (prefers-reduced-motion:no-preference) { .cut-thread { transition:right 180ms ease; } }
-.cut-options { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:7px; }
-.cut-options button { border:1px solid var(--line); padding:.48rem .35rem; min-height:44px; font-size:.88rem; line-height:1.35; background:transparent; text-align:start; }
-.cut-options span { display:block; font-weight:600; }
-.cut-options button[aria-pressed="true"] { color:white; background:var(--sewing-ink); border-color:var(--sewing-ink); }
-.cut-result { min-height:2.8em; line-height:1.48; margin:.64rem 0 0; color:var(--sewing-ink); }
-.cut-key { display:none; }
 .mending-needle { display:grid; grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr); gap:clamp(18px,3vw,32px); align-items:start; }
 .needle-proof { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.7rem; }
 .needle-proof img { width:100%; height:auto; }
@@ -185,10 +167,6 @@ alice-tail-rule { display:block; max-width:530px; padding:.4rem 0 .5rem; }
 @media (max-width:640px) {
   .mending-flow li { display:grid; grid-template-columns:auto minmax(0,1fr); gap:.6em; align-items:center; }
 }
-.story-foley-links { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:clamp(6px,1.1vw,12px); }
-.story-foley-links img { display:block; width:100%; height:auto; aspect-ratio:1.6; object-fit:cover; }
-.story-foley-links a { color:var(--sewing-ink); text-underline-offset:3px; line-height:1.3; }
-.story-foley-links span { display:block; margin-top:.4rem; font-size:.9rem; }
 #history .content-table,#doll .content-table { min-width:0; margin:1rem 0; font-size:.94rem; line-height:1.5; }
 #history .content-table thead th,#doll .content-table thead th { font-size:.85rem; }
 #history .content-table tbody th,#doll .content-table tbody th { min-width:0; }
@@ -207,10 +185,7 @@ alice-tail-rule { display:block; max-width:530px; padding:.4rem 0 .5rem; }
     .mending-flow li:not(:last-child)::after { top:100%; right:auto; left:0; transform:rotate(90deg); width:20px; }
 }
 @media print {
-    .cut-track,.cut-options,.cut-result,.mending-trim .story-link,.mending-first-look .admission-film-launch { display:none; }
-    .cut-key { display:block; padding-inline-start:1.2em; }
-    .cut-key strong { display:block; }
-    .mending-needle,.mending-ribbon,.mending-transfer,.mending-trim { break-inside:avoid; }
+    .mending-needle,.mending-ribbon,.mending-transfer { break-inside:avoid; }
     .story-workmat,.story-at-mat,.story-feedback,.story-block { display:block; }
     .story-gestures,.repair-sample,.story-link { display:none; }
     .story-arrival ol { grid-template-columns:repeat(4,minmax(0,1fr)); }
